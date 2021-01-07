@@ -46,7 +46,9 @@ export default class index extends Component {
   }
 
   Show_Custom_Alert(visible) {
+
     this.setState({Alert_Visibility: visible});
+    console.log("inside the funtion call----")
   }
   Hide_Custom_Alert() {
     this.setState({Alert_Visibility: false});
@@ -188,40 +190,29 @@ export default class index extends Component {
             <Text style={Styles.subheadingTxt}>Historique</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}} />
             </TouchableOpacity>
-          </View>
-
-
-         
+          </View>         
         </View>
-
         <View style={Styles.mainContainer}>
-
           {
             this.state.isBodyLoaded == true ?
-
-
-
-                      <ScrollView>
-                                          
-
-
-                      {
-                        
+                      <ScrollView>                       
+                      {                        
                         this.state.CurrrentData.length  > 0 ?
                         <View style={Styles.contentView}>
                         <Fragment>
-
-
                       {
-
-
                       this.state.CurrrentData.map((singleCurrrentMap)=>{
+                        console.log("checking date on current-------------",singleCurrrentMap)
                         return(
                           <Fragment>
-
+                            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
+                                teacher_id:singleCurrrentMap.teacher_id,
+                                course_date:singleCurrrentMap.course_date,
+                                course_time:singleCurrrentMap.course_time,
+                                ratingflag:true
+                            })}}>
                       <View style={{flexDirection: 'row'}}>
-                        <Image 
-                        
+                        <Image                         
                         source={{
                           uri: `https://www.spyk.fr/${singleCurrrentMap.teacher_profile_url}`,
                         }} 
@@ -254,7 +245,7 @@ export default class index extends Component {
                             }}>
                             <View style={{alignItems:'center'}}>
                                     <Stars
-                                      default={singleHistoryMap.teacher_rating}
+                                      default={singleCurrrentMap.teacher_rating}
                                       count={5}
                                       half={true}
                                       starSize={20}
@@ -271,16 +262,19 @@ export default class index extends Component {
                           </View>
                         </View>
                       </View>
+                      </TouchableOpacity>
                         </Fragment>
+                        
                         )
                       })
 
                       }
+                      
                         </Fragment>
                         </View>
                         :
                         <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-                          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>No Record Avialable</Text>
+                          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}> Record non trouvé!</Text>
                         </View>
                       }
 
@@ -292,7 +286,7 @@ export default class index extends Component {
             
             :
             <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-              <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>Loading...</Text>
+              <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>chargement...</Text>
             </View>
 
           }
@@ -304,9 +298,6 @@ export default class index extends Component {
           </View>
           
 
-
-
-{/* 
           <Modal
             visible={this.state.Alert_Visibility}
             animationType={'fade'}
@@ -430,7 +421,6 @@ export default class index extends Component {
 
 
 
- */}
 
 
 
@@ -452,6 +442,7 @@ export default class index extends Component {
 
 
 
+{/* 
 
 
 
@@ -566,7 +557,7 @@ export default class index extends Component {
                 </View>
               </View>
             </View>
-          </Modal>
+          </Modal> */}
 
 
 

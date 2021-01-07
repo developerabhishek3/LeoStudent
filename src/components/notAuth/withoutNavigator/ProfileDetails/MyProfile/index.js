@@ -22,10 +22,14 @@ constructor(props){
       
     isBodyLoaded: false,
     isSpinner: true,
+    profile_url:""
   }
 }
 
 componentDidMount = async () => {
+  let profile_url = this.props.navigation.getParam("profile_url")
+ this.setState({profile_url})
+
   this.fetchStudentProfileData()
 
   BackHandler.addEventListener('hardwareBackPress', () =>
@@ -65,13 +69,14 @@ handleBackButton = (nav) => {
     const GetProfileDetails = await StudentProfile();
     if (GetProfileDetails.result == true) {
       var profileData = GetProfileDetails.response.my_profile;
+      var profile_url  = GetProfileDetails.response.my_profile.profile_url;
       console.log("getting GetProfileDetails data----------",profileData)
-      this.setState({ isBodyLoaded: true,isSpinner: false,profileData});
+      this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url});
     }
    
     else{
       this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-        Alert.alert("Message","Something Went Wrong Try Again!",[ { text: "Okay",onPress:()=>{
+        Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
             this.props.navigation.goBack();
         }}]);
     })
@@ -89,6 +94,8 @@ handleBackButton = (nav) => {
   render() {
     const { profileData,isBodyLoaded,isSpinner } = this.state;
     console.log("getting inside the render method ??????????????",profileData)
+
+    
 
     // const userMap = Object.assign(profileData)
     return (
@@ -113,23 +120,27 @@ handleBackButton = (nav) => {
           <View style={{flexDirection:'row'}}>
           <Image source={logo} style={Styles.headertxtInputImg1} />
           <TouchableOpacity 
-              onPress={()=>{this.props.navigation.navigate("editprofile")}}
+              onPress={()=>{this.props.navigation.navigate("editprofile",{profile_url:this.state.profile_url})}}
           >
            <Image source={Edit} style={Styles.headertxtInputImg2} />
           </TouchableOpacity>
           </View>
         </View>
 
-
-
         {
           isBodyLoaded == true ? 
+        <Fragment>
 
+          <View style={{marginTop:10}}> 
+          {
+            this.state.profile_url == "" ?
 
-<Fragment>
-
-          <View style={{marginTop:60}}> 
-            <Image source={People} style={Styles.peopleStyle} />            
+                        <Image source={People}  style={Styles.peopleStyle} />
+            :
+            <Image source={{
+              uri: `https://www.spyk.fr/${profileData.profile_url}`,
+            }}  style={Styles.peopleStyle} />
+          }        
           </View>          
           <ScrollView>
             

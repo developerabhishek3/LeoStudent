@@ -10,7 +10,7 @@ import { ECharts } from "react-native-echarts-wrapper";
 import logo from '../../../assets/icon/96.png'
 import Styles from './indexCss'
 import {RadioButton} from 'react-native-paper';
-import { getnewesletterInfo,newsletterSubscriptionFunction,count_data} from '../../../Api/afterAuth'
+import { getnewesletterInfo,newsletterSubscriptionFunction,count_data,home_teacher_slide} from '../../../Api/afterAuth'
 import watch from '../../../assets/icon/22.png'
 import AsyncStorage from '@react-native-community/async-storage';
 export default class index extends Component {
@@ -23,6 +23,7 @@ export default class index extends Component {
       Alert_Visibility: false,
       newsletter:[],
       countData:[],
+      teacherSlideData:[],
 
 
 
@@ -57,6 +58,8 @@ export default class index extends Component {
 
     this.count_dataFunction()
 
+    this.home_teacher_slideFunction()
+
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
@@ -80,6 +83,17 @@ export default class index extends Component {
       var  countData = count_dataResponse.response.count_data
       }
       this.setState({countData,isBodyLoaded:true,isSpinner:false});
+      // console.log("getting country response----------------",countryData.country_list)
+    };
+
+
+    home_teacher_slideFunction = async () => {
+      const home_teacher_slideResponse = await home_teacher_slide();
+      if (home_teacher_slideResponse.result == true) {       
+        console.log("getting teacher slide data==============",home_teacher_slideResponse.response)
+      var  teacherSlideData = home_teacher_slideResponse.response.home_teacher_slide
+      }
+      this.setState({teacherSlideData,isBodyLoaded:true,isSpinner:false});
       // console.log("getting country response----------------",countryData.country_list)
     };
 
@@ -139,9 +153,9 @@ export default class index extends Component {
 
   render() {
  
-
-
 const { newsletter } = this.state;
+
+console.log("getint inside state ",this.state.countData)
 
     return (
       <Fragment>
@@ -160,63 +174,41 @@ const { newsletter } = this.state;
               this.state.isBodyLoaded == true ?              
               <ScrollView>
               <ScrollView horizontal={true}>
-                <TouchableOpacity onPress={()=>{this.props.navigation.navigate('studentstest');}} >
-                <View style={{backgroundColor:"#FFFFFF",margin:10,borderRadius:10}}>
-                    <Text style={{fontSize:15,fontWeight:'700',margin:3,alignSelf:'center'}}>Coaching d'anglais</Text>
-                    <View style={{flexDirection:'row',margin:3,alignSelf:'center'}}>
-                      <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:4}}>24 janv</Text>
-                      <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>1 heure</Text>
-                    </View>
-                    <View style={{borderColor:"gray",borderWidth:1,width:'90%',alignSelf:'center'}} />
-                    <View style={{flexDirection:'row',margin:7}}>
-                        <Image source={require("../../../assets/icon/25.png")} style={{height:40,width:40,margin:7}} />
-                        <View style={{flexDirection:'column',margin:3,alignSelf:'center'}}>
-                          <Text style={{fontSize:15,fontWeight:'700',marginStart:10}}>John Smith</Text>
-                          <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>Nombre d'évaluations  : 10</Text>
-                        </View>
-                        <Image source={require("../../../assets/icon/5.png")} style={{height:20,width:20,margin:25}} />
-                    </View>                    
-                </View>
-                </TouchableOpacity>
-
-                <View style={{backgroundColor:"#FFFFFF",margin:10,borderRadius:10}}>
-                    <Text style={{fontSize:15,fontWeight:'700',margin:3,alignSelf:'center'}}>Coaching d'anglais</Text>
-                    <View style={{flexDirection:'row',margin:3,alignSelf:'center'}}>
-                      <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:4}}>24 janv</Text>
-                      <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>1 heure</Text>
-                    </View>
-                    <View style={{borderColor:"gray",borderWidth:1,width:'90%',alignSelf:'center'}} />
-                    <View style={{flexDirection:'row',margin:7}}>
-                        <Image source={require("../../../assets/icon/25.png")} style={{height:40,width:40,margin:7}} />
-                        <View style={{flexDirection:'column',margin:3,alignSelf:'center'}}>
-                          <Text style={{fontSize:15,fontWeight:'700',marginStart:10}}>John Smith</Text>
-                          <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>Nombre d'évaluations  : 10</Text>
-                        </View>
-                        <Image source={require("../../../assets/icon/5.png")} style={{height:20,width:20,margin:25}} />
-                    </View>
-                </View>
-                <View style={{backgroundColor:"#FFFFFF",margin:10,borderRadius:10}}>
-                    <Text style={{fontSize:15,fontWeight:'700',margin:3,alignSelf:'center'}}>Coaching d'anglais</Text>
-                    <View style={{flexDirection:'row',margin:3,alignSelf:'center'}}>
-                      <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:4}}>24 janv</Text>
-                      <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>1 heure</Text>
-                    </View>
-                    <View style={{borderColor:"gray",borderWidth:1,width:'90%',alignSelf:'center'}} />
-                    <View style={{flexDirection:'row',margin:7}}>
-                        <Image source={require("../../../assets/icon/25.png")} style={{height:40,width:40,margin:7}} />
-                        <View style={{flexDirection:'column',margin:3,alignSelf:'center'}}>
-                          <Text style={{fontSize:15,fontWeight:'700',marginStart:10}}>John Smith</Text>
-                          <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>Nombre d'évaluations  : 10</Text>
-                        </View>
-                        <Image source={require("../../../assets/icon/5.png")} style={{height:20,width:20,margin:25}} />
-                    </View>
-                </View>
+               
+                {
+                  this.state.teacherSlideData.map((singleTeacherSlideMAp)=>{
+                    return(
+                      <Fragment>
+                         <TouchableOpacity onPress={()=>{this.props.navigation.navigate('teacherviewhome',{
+                           teacher_id:singleTeacherSlideMAp.teacher_id
+                         });}} >
+                         <View style={{backgroundColor:"#FFFFFF",margin:10,borderRadius:10}}>
+                          <Text style={{fontSize:15,fontWeight:'700',margin:3,alignSelf:'center'}}>{singleTeacherSlideMAp.coach_type}</Text>
+                          <View style={{flexDirection:'row',margin:3,alignSelf:'center'}}>
+                            <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:4}}>{singleTeacherSlideMAp.course_date}</Text>
+                            <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>{singleTeacherSlideMAp.course_time}</Text>
+                          </View>
+                          <View style={{borderColor:"gray",borderWidth:1,width:'90%',alignSelf:'center'}} />
+                          <View style={{flexDirection:'row',margin:7}}>
+                              <Image  source={{
+                              uri: `https://www.spyk.fr/${singleTeacherSlideMAp.teacher_profile_url}`,
+                            }}  style={{height:40,width:40,margin:7}} />
+                              <View style={{flexDirection:'column',margin:3,alignSelf:'center'}}>
+                                <Text style={{fontSize:15,fontWeight:'700',marginStart:10}}>{singleTeacherSlideMAp.teacher_name}</Text>
+                                <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>Numbre d'Evaluation : {singleTeacherSlideMAp.evaluations_no}</Text>
+                              </View>
+                              <Image source={require("../../../assets/icon/5.png")} style={{height:20,width:20,margin:25}} />
+                          </View>                    
+                      </View>
+                      </TouchableOpacity>
+                      </Fragment>
+                    )
+                  })
+                }         
               </ScrollView>
-
-
-
               {
                 this.state.countData.map((singleCountData)=>{
+                  
                   return(
                     <Fragment>
 
@@ -229,7 +221,7 @@ const { newsletter } = this.state;
                       
                     >
                       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Total des houres</Text>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Total des heures</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
                           <Image source={require("../../../assets/icon/105.png")} style={{height:35,width:35,margin:4}} />
                   <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.total_hours}</Text>
@@ -298,7 +290,7 @@ const { newsletter } = this.state;
                      
                       
                      <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau attenin</Text>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau atteint</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
                           <Image source={require("../../../assets/icon/105.png")} style={{height:35,width:35,margin:4}} />
                   <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.point_total}</Text>
@@ -308,54 +300,10 @@ const { newsletter } = this.state;
                     </ImageBackground>
                     </View>
 
-                    {/* <ImageBackground source={require("../../../assets/icon/104.png")} 
-                    style={{backgroundColor:"green",margin:6,width:"45%",flexDirection:'row',justifyContent:'center',alignItems:'center'}}
-                    >
-                        <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"50%"}}>Total des houres</Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/14.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.total_hours}</Text>
-                        </View>
-                    </ImageBackground> */}
+                  
 
 
 
-{/* 
-
-                    <View style={{backgroundColor:"green",margin:6,width:"45%",flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"50%"}}>Numbre de coachings suivis </Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/14.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.monitored_coaching}</Text>
-                        </View>
-                    </View>
-
-
-
-
-
-                    <View style={{backgroundColor:"green",margin:6,width:"45%",flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"50%"}}>Numbre de coachings offects </Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/14.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.offered_coaching}</Text>
-                        </View>
-                    </View>
-
-
-
-                    <View style={{backgroundColor:"green",margin:6,width:"45%",flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"50%"}}>Niveau attenint</Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/14.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.point_total}</Text>
-                        </View>
-                    </View> */}
-
-
-
-
-                {/* </View> */}
 
 
                     </Fragment>

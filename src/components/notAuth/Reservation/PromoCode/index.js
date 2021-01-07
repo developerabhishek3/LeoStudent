@@ -222,7 +222,7 @@ callAlertFunction(){
 
             :
             <View style={{justifyContent:"center",alignItems:'center',}}>
-              <Text style={{fontSize:16,fontWeight:'700',textAlign:'center'}}>Loading...</Text>
+              <Text style={{fontSize:16,fontWeight:'700',textAlign:'center'}}>chargement...</Text>
             </View>
 
         }

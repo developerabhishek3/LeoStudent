@@ -19,7 +19,7 @@ export default StyleSheet.create({
     marginTop: -20,
   },
   headerLogo: {
-    height: 60,
+    height: 80,
     width: 60,
     margin: 3,
     marginEnd: 50,

@@ -11,22 +11,20 @@ export default StyleSheet.create({
    
     bgImgStyle: {
         height:'100%',
-        width:'100%', 
-        
+        width:'100%',         
         },
         continueBtn:{
             backgroundColor:'#FF1493',
             margin:20,
             borderRadius:5,
             width:'40%',
-            alignSelf:'center'
-        
+            alignSelf:'center'        
         },
     headerView:{                
         marginTop:10,
     },
     headerLogo:{
-        height:110,width:110,
+        height:130,width:110,
         margin:10,
         alignSelf:'center'
     },

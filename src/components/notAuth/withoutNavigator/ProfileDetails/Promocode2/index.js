@@ -30,6 +30,7 @@ import  { getAllPromoCodes } from '../../../../../Api/afterAuth';
 
 import Collapsible from 'react-native-collapsible';
 import HTML from 'react-native-render-html';
+import { Fragment } from 'react';
 
 let today = '';
 export default class index extends Component {
@@ -148,6 +149,7 @@ callAlertFunction(){
             {
               allPromocide .length > 0 ? 
 
+        
 
               allPromocide.map((singleMap,index)=>{
 
@@ -197,9 +199,12 @@ callAlertFunction(){
           </View>
                 )
               })
-              :null
+              
+              :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
+              <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>Record non trouvé!</Text>
+            </View>
             }
-
+     
 {/* 
             <View style={{width:'94%',borderWidth:0,borderRadius:10,elevation:3,shadowColor:"#FFFFFFF",shadowOffset:3,shadowOpacity:1,alignSelf:'center'}}>                    
                     <Text style={{color:'#000000',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{allPromocide.title}</Text>                   
@@ -222,7 +227,7 @@ callAlertFunction(){
 
             :
             <View style={{justifyContent:"center",alignItems:'center',}}>
-              <Text style={{fontSize:16,fontWeight:'700',textAlign:'center'}}>Loading...</Text>
+              <Text style={{fontSize:16,fontWeight:'700',textAlign:'center'}}>chargement...</Text>
             </View>
 
         }

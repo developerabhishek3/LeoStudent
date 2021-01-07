@@ -1360,6 +1360,7 @@ export async function search_teacher_booking_later(body = {}) {
   console.log(
     'getting token and user id on search_teacher_booking_later -----------',
     UserId,
+    TokenValue
   );
 
   try {
@@ -1490,6 +1491,55 @@ export async function get_waiting_time() {
 
 
 
+export async function reservation_request(body = {}) {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  console.log(
+    'getting token and user id on reservation_request -----------',
+    UserId,
+  );
+
+  try {
+    const reservation_requestResponse = await Axios.post(
+      'https://www.spyk.fr/api_student/reservation_request',
+      body,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (reservation_requestResponse.status) {
+      return {result: true, response: reservation_requestResponse.data};
+    } else {
+      return {
+        result: false,
+        response: reservation_requestResponse.data,
+      };
+    }
+  } catch (err) {
+    let error = new Error();
+    const {data, status} = err.response;
+    error.response = err.response;
+    if (status == 400 && data.error === 'invalid_grant') {
+      error.message = 'Invalid Credentials';
+    } else {
+      error.message = 'Request Failed';
+    }
+    throw error;
+  }
+}
+
+
+
+
+
 
 // export async function getInstgramUserName() {
 
@@ -1518,3 +1568,42 @@ export async function get_waiting_time() {
 //     return {result: false, error};
 //   }
 // }
+
+
+
+
+
+export async function home_teacher_slide() {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  console.log(
+    'ghetting incomplete transactoin tokena dn ujserId =========',
+    TokenValue,
+    UserId,
+  );
+
+  try {
+    const home_teacher_slideResponse = await Axios.get(
+      `https://www.spyk.fr/api_student/home_teacher_slide`,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (home_teacher_slideResponse.status) {
+      // console.log("getting response on the function--------",home_teacher_slideResponse.data)
+      return {result: true, response: home_teacher_slideResponse.data};
+    } else {
+      return {result: false, error: home_teacher_slideResponse.data};
+    }
+  } catch (error) {
+    return {result: false, error};
+  }
+}

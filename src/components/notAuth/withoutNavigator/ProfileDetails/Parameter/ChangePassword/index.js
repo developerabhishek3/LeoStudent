@@ -124,12 +124,12 @@ export default class index extends Component {
     const { old_password,new_password, confirm_new_password } = this.state;
 
     if (old_password.length === 0) {
-      this.myAlert('Message', 'Please enter your old_password');
+      this.myAlert('Message', 'Veuillez entrer votre ancien_mot de passe!');
     } else if (new_password.length === 0) {
-      this.myAlert('Message', 'Please enter your new_password');
+      this.myAlert('Message', 'Veuillez entrer votre nouveau_mot de passe!');
     }
     else if (confirm_new_password.length === 0) {
-      this.myAlert('Message', 'Please enter your confirm_new_password');
+      this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe!');
     } 
     else {     
       this.ChangePasswordFunction();

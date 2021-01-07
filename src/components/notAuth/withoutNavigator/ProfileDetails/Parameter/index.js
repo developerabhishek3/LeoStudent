@@ -157,7 +157,7 @@ GetSettings =  () => {
   
   } else {
     this.setState({isBodyLoaded: false, isSpinner: false}, () => {
-      Alert.alert('Message', 'Something Went Wrong Try Again!', [
+      Alert.alert('Message', 'Quelque chose a mal tourné, essayez encore!', [
         {
           text: 'OK',
           onPress: () => {
@@ -259,7 +259,7 @@ checkSwitch  = (value) => {
         // Alert.alert("Message","Account delete Sucessfully !")
     }
     else{
-      Alert.alert("Message","Error try again!")
+      Alert.alert("Message","Erreur : réessayer!")
     }        
     // console.log("getting country response----------------",countryData.country_list)
   };

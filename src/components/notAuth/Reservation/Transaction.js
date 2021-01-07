@@ -177,8 +177,7 @@ export default class index extends Component {
 
         <View style={Styles.mainContainer}>
           <ScrollView> 
-            <View style={Styles.contentView}>
-         
+            <View style={Styles.contentView}>         
             {
               this.state.isBodyLoaded == true ?
               <Fragment>
@@ -189,10 +188,9 @@ export default class index extends Component {
                   {
                         this.state.IncompleteReservation.map((singleIncompleteDate)=>{
 
-                          
 
-                           
 
+                          console.log("getting transaction id =============",singleIncompleteDate.id)
                          
                           return(
                             <Fragment>
@@ -247,7 +245,9 @@ export default class index extends Component {
 
 
                                     <View style={Styles.continueBtn}>
-                                      <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{time_slot:singleIncompleteDate.course_time,reserve_date:singleIncompleteDate.course_date})}}>
+                                      <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{time_slot:singleIncompleteDate.course_time,reserve_date:singleIncompleteDate.course_date,transactinId:singleIncompleteDate.id,
+                                              booktype:singleIncompleteDate.booking_type
+                                      })}}>
                                       <Text style={Styles.continueBtnTxt}>Continuer</Text>
                                       </TouchableOpacity>
                                     </View>
@@ -263,12 +263,12 @@ export default class index extends Component {
                   }               
                         </Fragment>
                       :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-                        <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>item not found!</Text>
+                        <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>Record non trouvé!</Text>
                       </View>
                       }
               </Fragment>
               :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-              <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>Loading...</Text>
+              <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>chargement...</Text>
             </View>
             }
             

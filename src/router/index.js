@@ -76,7 +76,8 @@ import PromoCode2 from '../components/notAuth/withoutNavigator/ProfileDetails/Pr
 
 //Testing Routert
 
-import CalenderScreen from '../components/notAuth/Reservation/ChooseTime/index2'
+import CalenderScreen from '../components/notAuth/Reservation/ChooseTime/index2';
+import TeacherViewHome from '../components/notAuth/Home/teacherprofile';
 
 
 const AppNavigator = createStackNavigator(
@@ -125,6 +126,12 @@ const AppNavigator = createStackNavigator(
       },   
     question:{
       screen:Question,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    teacherviewhome:{
+      screen:TeacherViewHome,
       navigationOptions: {
         headerShown: false,
       },

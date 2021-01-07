@@ -52,7 +52,7 @@ export default class index extends Component {
         // console.log("getting GetquestionDataResponse data----------", JSON.stringify(questionData))
       }
       else{
-        Alert.alert("Message","Error Try again !")
+        Alert.alert("Message","Erreur Réessayer !")
       }    
       // console.log("getting country response----------------",countryData.country_list)
     };

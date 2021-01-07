@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "185453471903",
+    "project_id": "leostudent-3c2ea",
+    "storage_bucket": "leostudent-3c2ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185453471903:android:3765cc6ef8b3e698831aaa",
+        "android_client_info": {
+          "package_name": "com.leostudent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185453471903-ab777g1uetuoq5vtes0522b1jqo58h78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leostudent",
+            "certificate_hash": "1e2382a4c035cc06aadd2f006f2c9a0defca8b8b"
+          }
+        },
+        {
+          "client_id": "185453471903-h1qao37g9ioaf750e8ukiaf93ktq0urm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCukX-QW-JLpGcyyeGHbp0DOSaVznXnN50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185453471903-h1qao37g9ioaf750e8ukiaf93ktq0urm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

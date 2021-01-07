@@ -17,7 +17,6 @@ export default class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       isSpinner: true,  
       isBodyLoaded: true,  
       to_id:0,
@@ -31,6 +30,7 @@ export default class index extends Component {
   Getsingle_chat_data =  () => {
     this.setState({ spinner: true }, async () => {
       let teacher_id = this.props.navigation.getParam("teacher_id")
+      console.log("gettng teacher id++++++++++++",teacher_id)
     const {from_id,to_id} = this.state;
     const single_chat_dataResponse = await single_chat_dataFunction({
       from_id,
@@ -38,18 +38,19 @@ export default class index extends Component {
     });
     if (single_chat_dataResponse.result == true) {
       if(single_chat_dataResponse.response.status == true){
+        console.log("getting response hre----------------",single_chat_dataResponse.response)
         var ChatData = single_chat_dataResponse.response.chat_history;
         // Alert.alert("Message","Message send sucessfully !")
         this.setState({ChatData,isBodyLoaded:true,isSpinner:false,chat_msg:""}) 
         
       }
-      else{
-        this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-          Alert.alert("Message","Something Went Wrong Try Again!",[ { text: "Okay",onPress:()=>{
-              this.props.navigation.goBack();
-          }}]);
-      })
-      }
+      // else{
+      //   this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+      //     Alert.alert("Message","Something Went Wrong Try Again!",[ { text: "Okay",onPress:()=>{
+      //         this.props.navigation.goBack();
+      //     }}]);
+      // })
+      // }
 
       // this.props.navigation.navigate("chat2")
     
@@ -90,7 +91,7 @@ export default class index extends Component {
       // this.props.navigation.navigate("chat2")
       // var ChatData = add_single_chatFunctionResponse.response;
       // Alert.alert("Message","Message send sucessfully !")
-
+      
       this.setState({chat_msg:""})
 
       this.Getsingle_chat_data() 
@@ -98,7 +99,7 @@ export default class index extends Component {
       // console.log("getting ChatData data- inside ---------",add_single_chatFunctionResponse.response)
     }
     else{
-      Alert.alert("Message","Error Try Again!")
+      Alert.alert("Message","Erreur, essayez encore!")
     }
     // this.setState({ChatData,isBodyLoaded:true,isSpinner:false});
     
@@ -107,7 +108,7 @@ export default class index extends Component {
 
   validateFunction(){
     if(this.state.chat_msg.length == 0){
-      Alert.alert("Message","Please add some message")
+      Alert.alert("Message","Veuillez ajouter un message!")
     }
     else{
       this.add_single_chatFunctionData()
@@ -120,8 +121,10 @@ export default class index extends Component {
 
     // this.myTextInput.current.value='';
     // this.myTextInput.clear()
-
-    this.Getsingle_chat_data()
+    setTimeout(() => {
+      this.Getsingle_chat_data()
+    }, 700);
+   
 
     const user_id = await AsyncStorage.getItem('user_id');
     setTimeout(() => {
@@ -162,9 +165,7 @@ export default class index extends Component {
     this.setState({chat_msg:""})
     this.validateFunction()
   }
-
-
-
+  
   render() {
     return (
       <View style={Styles.container}>
@@ -191,22 +192,16 @@ export default class index extends Component {
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
 
-        <Spinner visible={this.state.isSpinner} 
-        />
-
-      
+        <Spinner visible={this.state.isSpinner} />      
         <View style={{flex:2,alignItems:'center',justifyContent:'center',margin:20,borderWidth:0,}}>
 
           {
               this.state.isBodyLoaded == true ?
-
-
-
               <ScrollView style={{width:'100%'}}>
+                  <KeyboardAwareScrollView enableOnAndroid={true} extraHeight={130} extraScrollHeight={130} showsVerticalScrollIndicator={false}>
               {
                 this.state.ChatData.length > 0 ?
                 <View >
-
                       {
                           this.state.ChatData.map((singleChatData)=>{
                             return(
@@ -224,23 +219,19 @@ export default class index extends Component {
                                       <Text style={{fontSize:12,fontWeight:'700',color:"#000000",margin:7,marginStart:18,marginEnd:18}}>{singleChatData.msg}</Text>
                                   </View>
                               </View>
-
-                               }
-                                 
+                               }                               
                               </Fragment>                         
                             )
                           })
-
                         }
-
                 </View>
 
                 :<View>
-                <Text>Item not found!</Text>
+                <Text></Text>
             </View>
 
               }
-
+              </KeyboardAwareScrollView>
         </ScrollView>
 
               :<View>
@@ -263,7 +254,7 @@ export default class index extends Component {
                       // ref={this.myTextInput}
                       value={this.state.chat_msg}
                       onChangeText={(chat_msg) => this.setState({chat_msg})}
-                    style={{width:'80%',borderWidth:0,borderRadius:20,marginStart:10}} placeholder="Enter message here" />
+                    style={{width:'80%',borderWidth:0,borderRadius:20,marginStart:10}} placeholder="Entrez votre message ici" />
                     <TouchableOpacity
                     //  onPress={()=>{this.props.navigation.navigate("chat2")}}
                     onPress={()=>{this.validateFunction()}}

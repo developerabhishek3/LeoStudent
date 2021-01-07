@@ -35,6 +35,9 @@ import {
 import Stars from 'react-native-stars';
 import AsyncStorage from '@react-native-community/async-storage';
 
+let reserve_date;
+let time_slot;
+
 
 export default class index extends Component {
   constructor(props) {
@@ -72,10 +75,8 @@ export default class index extends Component {
       'getting inside the function level_id --------',
       this.state.level_id,
     );
-    const search_teacher_booking_nowResponse = await search_teacher_booking_now(
-      {},
-    );
-    if (search_teacher_booking_nowResponse.result === true) {
+    const search_teacher_booking_nowResponse = await search_teacher_booking_now();
+    if (search_teacher_booking_nowResponse.result == true) {
       // console.log("getting result here --------", search_teacher_booking_nowResponse.response)
       var teacherDetailsBookNow =
         search_teacher_booking_nowResponse.response.teacher_list;
@@ -94,42 +95,68 @@ export default class index extends Component {
   };
 
   fetchsearch_teacher_booking_later = async () => {
-    console.log(
-      'getting inside the function level_id --------',
-      this.state.level_id,
-    );
 
-    const {course_date, course_time} = this.state;
+
+     time_slot = this.props.navigation.getParam('time_slot');
+     reserve_date = this.props.navigation.getParam('reserve_date');
+
+     var newTime =    time_slot.replace(" ", "");
+
+  
+    // console.log("checkig state value hrere============== shatrughna sir",this.state.course_date,      this.state.course_time)
+
+    console.log("gertign first value ============",this.state.course_date)
+    console.log("gertign first value m2 ============",this.state.course_time)
+
+    const {course_date,course_time} = this.state;
     const search_teacher_booking_laterResponse = await search_teacher_booking_later(
       {
         course_date,
-        course_time,
-      },
-    );
-    if (search_teacher_booking_laterResponse.result === true) {
-      // console.log("getting result here --------", search_teacher_booking_laterResponse.response)
-      var teacherDetailsLator =
-        search_teacher_booking_laterResponse.response.teacher_list;
+        course_time:newTime,
+      }
+    )   
+    if (search_teacher_booking_laterResponse.result == true) {
+      console.log("getting result here on book lator --------", search_teacher_booking_laterResponse.response)
+      var teacherDetailsLator =  search_teacher_booking_laterResponse.response.teacher_list;
       this.setState({
         teacherDetailsLator,
         isSpinner: false,
         isBodyLoaded: true,
       });
-      // console.log("grettinh token value here===============",teacherDetailsLator)
-      // await AsyncStorage.setItem("token", JSON.stringify(search_teacher_booking_laterResponse.response.token));
     } else {
-      this.myAlert('Error', search_teacher_booking_laterResponse.error);
+     
       console.log('getting error here-------------');
     }
     return;
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   componentDidMount = async () => {
+
+    console.log("treansion id on the search teacher++++++++++++++",this.props.navigation.getParam("transactinId"))
+
+
     setInterval(() => {
       let coach_type = this.props.navigation.getParam('coach_type');
-
       // console.log("getting coach tyupe=============",coach_type)
-
       this.setState({coach_type});
     }, 900);
 
@@ -137,20 +164,20 @@ export default class index extends Component {
     let reserve_date = this.props.navigation.getParam('reserve_date');
     let booktype = this.props.navigation.getParam('booktype');
 
+    console.log("checking time slot and date herer----------------",time_slot,          reserve_date)
+
     setTimeout(() => {
       this.setState({
         course_date: reserve_date,
         course_time: time_slot,
       });
-    }, 100);
+    }, 300);
 
+   
     setTimeout(() => {
       this.fetchsearch_teacher_booking_later();
-    }, 2000);
-
-    setTimeout(() => {
       this.fetchsearch_teacher_booking_now();
-    }, 2000);
+    }, 1000);
 
     BackHandler.addEventListener('hardwareBackPress', () =>
       this.handleBackButton(this.props.navigation),
@@ -178,8 +205,15 @@ export default class index extends Component {
   render() {
     let time_slot = this.props.navigation.getParam('time_slot');
     let reserve_date = this.props.navigation.getParam('reserve_date');
- 
+
     let booktype = this.props.navigation.getParam('booktype');
+
+    // console.log("checking book type hrere==================",booktype)
+
+
+     let transactinId = this.props.navigation.getParam("transactinId")
+
+    //  console.log("getting book type checking---------------",reserve_date)
       //  console.log("inside render methid +++",booktype)
 
 
@@ -203,7 +237,7 @@ export default class index extends Component {
             <Image source={require("../../../../assets/icon/filter.png")} style={{height:24,width:24,margin:6}} />
           </TouchableOpacity>
 
-          <Image source={logo}  style={{height:36,width:36,marginEnd:20}} />
+          <Image source={logo}  style={{height:50,width:36,marginEnd:20}} />
         </View>
         <Spinner visible={this.state.isSpinner} />
 
@@ -217,10 +251,8 @@ export default class index extends Component {
 
             {/* code here for book lator */}
 
-            {booktype == 'lator' ? (
-              
-              <Fragment>
-                
+            {booktype != 'now' ? (              
+              <Fragment>                
                 {this.state.teacherDetailsLator.length > 0 ? (
                   
                   <Fragment>
@@ -232,17 +264,14 @@ export default class index extends Component {
                               <View style={Styles.contentView}>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    let teacher_id = singleMap.teacher_id;
-                                    AsyncStorage.setItem(
-                                      'teacher_id',
-                                      JSON.stringify(teacher_id),
-                                    );
+                                   
                                     this.props.navigation.navigate(
                                       'bookreservation',
                                       {
                                         teacher_id: singleMap.teacher_id,
                                         time_slot,
                                         reserve_date,
+                                        transactinId:transactinId
                                       },
                                     );
                                   }}>
@@ -360,17 +389,14 @@ export default class index extends Component {
                               <View style={Styles.contentView}>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    let teacher_id = singleMap.teacher_id;
-                                    AsyncStorage.setItem(
-                                      'teacher_id',
-                                      JSON.stringify(teacher_id),
-                                    );
+                                    
                                     this.props.navigation.navigate(
                                       'bookreservation',
                                       {
                                         teacher_id: singleMap.teacher_id,
                                         time_slot,
                                         reserve_date,
+                                        transactinId:transactinId
                                       },
                                     );
                                   }}>
@@ -487,17 +513,14 @@ export default class index extends Component {
                               <View style={Styles.contentView}>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    let teacher_id = singleMap.teacher_id;
-                                    AsyncStorage.setItem(
-                                      'teacher_id',
-                                      JSON.stringify(teacher_id),
-                                    );
+                                    
                                     this.props.navigation.navigate(
                                       'bookreservation',
                                       {
                                         teacher_id: singleMap.teacher_id,
                                         time_slot,
                                         reserve_date,
+                                        transactinId:transactinId
                                       },
                                     );
                                   }}>
@@ -616,11 +639,7 @@ export default class index extends Component {
                             <View style={Styles.contentView}>
                               <TouchableOpacity
                                 onPress={() => {
-                                  let teacher_id = singleMap.teacher_id;
-                                  AsyncStorage.setItem(
-                                    'teacher_id',
-                                    JSON.stringify(teacher_id),
-                                  );
+                                  
                                   this.props.navigation.navigate(
                                     'bookreservation',
                                     {
@@ -768,11 +787,7 @@ export default class index extends Component {
                                 <View style={Styles.contentView}>
                                   <TouchableOpacity
                                     onPress={() => {
-                                      let teacher_id = singleMap.teacher_id;
-                                      AsyncStorage.setItem(
-                                        'teacher_id',
-                                        JSON.stringify(teacher_id),
-                                      );
+                                     
                                       this.props.navigation.navigate(
                                         'bookreservation',
                                         {
@@ -898,11 +913,7 @@ export default class index extends Component {
                                 <View style={Styles.contentView}>
                                   <TouchableOpacity
                                     onPress={() => {
-                                      let teacher_id = singleMap.teacher_id;
-                                      AsyncStorage.setItem(
-                                        'teacher_id',
-                                        JSON.stringify(teacher_id),
-                                      );
+                                     
                                       this.props.navigation.navigate(
                                         'bookreservation',
                                         {
@@ -1019,19 +1030,14 @@ export default class index extends Component {
                         <Fragment>
                           {this.state.teacherDetailsBookNow.map((singleMap) => {
                               // console.log("getting type 3============",singleMap.coach_type)
-                              {
-                                
+                              {                                
                                 return (
                                   singleMap.coach_type == `lex deux me vant` ?
 
                                   <View style={Styles.contentView}>
                                     <TouchableOpacity
                                       onPress={() => {
-                                        let teacher_id = singleMap.teacher_id;
-                                        AsyncStorage.setItem(
-                                          'teacher_id',
-                                          JSON.stringify(teacher_id),
-                                        );
+                                        
                                         this.props.navigation.navigate(
                                           'bookreservation',
                                           {
@@ -1144,12 +1150,7 @@ export default class index extends Component {
                                    :
                                   null
                                 );
-
-
-                              }
-                          
-                            
-                           
+                              }                          
                           })}
                         </Fragment>
                       ) :                     
@@ -1160,17 +1161,14 @@ export default class index extends Component {
                               <View style={Styles.contentView}>
                                 <TouchableOpacity
                                   onPress={() => {
-                                    let teacher_id = singleMap.teacher_id;
-                                    AsyncStorage.setItem(
-                                      'teacher_id',
-                                      JSON.stringify(teacher_id),
-                                    );
+                                   
                                     this.props.navigation.navigate(
                                       'bookreservation',
                                       {
                                         teacher_id: singleMap.teacher_id,
                                         time_slot,
                                         reserve_date,
+                                        transactinId:transactinId
                                       },
                                     );
                                   }}>
@@ -1498,7 +1496,6 @@ export default class index extends Component {
                       backgroundColor: '#FF1493',
                       justifyContent: 'center',
                       margin: 10,
-
                       height: 35,
                       borderRadius: 6,
                     }}>

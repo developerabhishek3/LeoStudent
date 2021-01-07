@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -151,17 +152,17 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
-            storeFile file('your_key_name.keystore')
-            storePassword 'your_key_store_password'
-            keyAlias 'your_key_alias'
-            keyPassword 'your_key_file_alias_password'
-        }
+        // release {
+        //     storeFile file('your_key_name.keystore')
+        //     storePassword 'your_key_store_password'
+        //     keyAlias 'your_key_alias'
+        //     keyPassword 'your_key_file_alias_password'
+        // }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release
 
 
         }
@@ -194,8 +195,29 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    
+
+    implementation(project(':react-native-firebase')) {transitive = false}
+
+    // implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
+
+
+
+implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+
+    
+    implementation 'com.google.android.gms:play-services-base:16.1.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
+
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
@@ -227,3 +249,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+

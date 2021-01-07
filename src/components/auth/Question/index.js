@@ -183,22 +183,22 @@ export default class index extends Component {
        } = this.state;
 
     if (q_1_ans.length === 0) {
-      this.myAlert('Message', 'Please select answer!');
+      this.myAlert('Message', 'Veuillez choisir une réponse!');
     } 
     else if (q_2_ans.length === 0) {
-        this.myAlert('Message', 'Please enter answer!');
+        this.myAlert('Message', 'Veuillez saisir la réponse!');
     }
     else if (q_3_ans.length === 0) {
-        this.myAlert('Message', 'Please enter answer!');
+        this.myAlert('Message', 'Veuillez saisir la réponse!');
     } 
     else if (q_4_ans.length === 0) {
-      this.myAlert('Message', 'Please enter answer!');
+      this.myAlert('Message', 'Veuillez saisir la réponse!');
   } 
   else if (q_5_ans.length === 0) {
-    this.myAlert('Message', 'Please select answer!');
+    this.myAlert('Message', 'Veuillez choisir une réponse!');
   } 
   // else if (q_6_ans.length === 0) {
-  //   this.myAlert('Message', 'Please select answer 6!');
+  //   this.myAlert('Message', 'Veuillez choisir une réponse! 6!');
   // } 
     else {
     //   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

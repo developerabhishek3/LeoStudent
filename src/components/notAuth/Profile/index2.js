@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component,Fragment} from 'react'
 import { View,Text,ScrollView, ImageBackground,Image,TextInput,TouchableOpacity,Modal,Dimensions,Alert,BackHandler, StatusBar} from 'react-native'
 import BottomNavigator from '../../../router/BottomNavigator'
 import Styles from './indexCss'
@@ -17,13 +17,13 @@ import supporIcon from '../../../assets/ProfileIcon/29.png'
 import logoutIcon from '../../../assets/ProfileIcon/36.png'
 
 import packageContent from '../../../../package.json'
-
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {LogoutFunction} from '../../../Api/afterAuth';
+import {LogoutFunction,StudentProfile} from '../../../Api/afterAuth';
 
 export default class index extends Component {
     constructor(props){
@@ -32,12 +32,16 @@ export default class index extends Component {
           value: 'first',
           Model_Visibility: false,
           Alert_Visibility: false,
+          profileData:[],
+          profile_url:"",
+          isBodyLoaded:false,
+          isSpinner:true,
         }    
       }
           
 
       componentDidMount = async () => {
-        // this.fetchLevelData()
+        this.fetchStudentProfileData()
         BackHandler.addEventListener('hardwareBackPress', () =>
         this.handleBackButton(this.props.navigation),
       );
@@ -70,7 +74,7 @@ export default class index extends Component {
             let keys = ['token'];
             AsyncStorage.multiRemove(keys)
             this.props.navigation.navigate("login")            
-            Alert.alert("Message","Logout Sucessfully !")
+            Alert.alert("Message","Déconnexion réussie!")
         }
         else{
             // console.log("getting error on logout -------------",LogoutResponse.error)
@@ -81,6 +85,27 @@ export default class index extends Component {
 
 
 
+
+
+      fetchStudentProfileData = async () => {
+        const GetProfileDetails = await StudentProfile();
+        if (GetProfileDetails.result == true) {
+          var profileData = GetProfileDetails.response.my_profile;
+          var profile_url = GetProfileDetails.response.my_profile.profile_url
+          console.log("getting GetProfileDetails data----------",profileData)
+          this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url});
+        }
+       
+        else{
+          this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+            Alert.alert("Message","Quelque chose a mal tourné, essayez encore !",[ { text: "Ok",onPress:()=>{
+                this.props.navigation.goBack();
+            }}]);
+        })
+        }   
+        // console.log("getting country response----------------",countryData.country_list)
+      };
+    
 
       Show_Custom_Alert(visible) {
         this.setState({Alert_Visibility: visible});
@@ -99,9 +124,12 @@ export default class index extends Component {
   }
    
   render() {
+    const {profileData} = this.state;
+    console.log("gggggggggggggggg",profileData)
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+        <Spinner visible={this.state.isSpinner}/>
         <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
         <View style={Styles.header}>
           <TouchableOpacity onPress={()=>{this.props.navigation.navigate("home")}}>
@@ -111,18 +139,34 @@ export default class index extends Component {
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
 
-          <View style={{marginTop:25}}> 
-            <Image source={People} style={Styles.peopleStyle} />
+
+<View>
+{
+            this.state.isBodyLoaded == true ?
+
+<Fragment>
+
+          <View style={{marginTop:-15}}> 
+          {
+            this.state.profile_url == "" ?
+
+                        <Image source={People}  style={Styles.peopleStyle} />
+            :
+            <Image source={{
+              uri: `https://www.spyk.fr/${profileData.profile_url}`,
+            }}  style={Styles.peopleStyle} />
+          }
+           
             
           </View>
           {/* <Text style={{fontSize:13,color:'gray',fontWeight:'700',alignSelf:'center'}}>Votre client</Text> */}
-          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#FF1493"}}>John Smith</Text>          
+          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#FF1493"}}>{profileData.first_name} {profileData.last_name}</Text>          
           <ScrollView>
 
             <View style={{flex:2,margin:10}}> 
         
                 <TouchableOpacity 
-                  onPress={()=>{this.props.navigation.navigate("myprofile")}}
+                  onPress={()=>{this.props.navigation.navigate("myprofile",{profile_url:this.state.profile_url})}}
                 >
                   <View style={{flexDirection:'row',margin:0}}>
                       <Image source={profileIcon} style={{height:24,width:24,margin:10}}  />
@@ -141,24 +185,24 @@ export default class index extends Component {
                 </TouchableOpacity>
                 
 
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                   // onPress={()=>{this.props.navigation.navigate('notification')}}
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={require("../../../assets/ProfileIcon/23.png")} style={{height:24,width:24,margin:10}}  />
                     <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Paiement</Text>
                 </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
 
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                   onPress={()=>{this.props.navigation.navigate('notification')}}
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={require("../../../assets/ProfileIcon/notification.png")} style={{height:24,width:24,margin:10}}  />
                     <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Notifications</Text>
                 </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity
                     onPress={()=>{this.props.navigation.navigate('parameter')}}
@@ -190,10 +234,18 @@ export default class index extends Component {
 
             </View>
 
-    <Text style={{alignSelf:'center',fontSize:14,fontWeight:'700',margin:10,color:"#FF1493"}}>App version : {packageContent.version}</Text>
+    <Text style={{alignSelf:'center',fontSize:14,fontWeight:'700',margin:10,color:"#FF1493"}}>Version de l'application : {packageContent.version}</Text>
 
 
           </ScrollView>  
+
+          </Fragment> 
+            : null            
+          }
+
+          </View>
+         
+
 
 
 

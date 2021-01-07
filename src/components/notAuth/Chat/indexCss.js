@@ -4,8 +4,9 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
  
-    flex:1,
+    
     height:SCREEN_HEIGHT,
+    width:SCREEN_WIDTH,
     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: '#F6F2EF',
@@ -42,11 +43,12 @@ export default StyleSheet.create({
     borderWidth:1,
     height:40,
     marginBottom:20,
+   backgroundColor:"#FFFFFF"
     
 
   },
   headertxtInputImg1: {
-    height: 30,
+    height: 45,
     width: 30,
     margin: 10,
     marginEnd: 15,

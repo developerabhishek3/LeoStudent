@@ -56,7 +56,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   headertxtInputImg: {
-    height: 30,
+    height: 45,
     width: 30,
     margin: 10,
     marginEnd: 15,

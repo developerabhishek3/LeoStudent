@@ -9,29 +9,27 @@ import {
   Dimensions,
   BackHandler,
   Alert,
-  StatusBar,
-  Linking
+  StatusBar
 } from 'react-native';
-import BottomNavigator from '../../../../router/BottomNavigator';
+
 import {Rating, AirbnbRating} from 'react-native-elements';
-import Styles from './indexCss';
-import logo from '../../../../assets/icon/96.png';
-import back from '../../../../assets/icon/20.png';
+import Styles from './teacherProfileCss';
+import logo from '../../../assets/icon/96.png';
+import back from '../../../assets/icon/20.png';
 
-import cross from '../../../../assets/icon/17.png'
 
-import books from '../../../../assets/icon/12.png';
-import watch from '../../../../assets/icon/14.png';
-import People from '../../../../assets/icon/25.png';
+
+import books from '../../../assets/icon/12.png';
+import watch from '../../../assets/icon/14.png';
+
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
-import {teacher_info_for_reservation,get_waiting_time,reservation_request} from '../../../../Api/afterAuth'
+import {teacher_info_for_reservation,} from '../../../Api/afterAuth'
 
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import chatImg from '../../../../assets/icon/11.png'
 
 import CountDown from 'react-native-countdown-component';
 
@@ -64,25 +62,6 @@ export default class index extends Component {
 
 
 
-  fetchget_waiting_time = async () => {
-    // console.log(
-    //   'getting inside the function level_id --------',
-    //   this.state.level_id,
-    // );
-    const get_waiting_timeResponse = await get_waiting_time(
-      {},
-    );
-    if (get_waiting_timeResponse.result === true) {
-      // console.log("getting result here --------", get_waiting_timeResponse.response)
-      var waiting_time = get_waiting_timeResponse.response.waiting_time
-      this.setState({waiting_time})
-  
-    } else {
-      this.myAlert('Error', get_waiting_timeResponse.error);
-      // console.log('getting error here-------------');
-    }
-    return;
-  };
 
 
 
@@ -96,12 +75,12 @@ export default class index extends Component {
 
 
   teacher_info_for_reservationFunction = async () => {
-    // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
+  
     const {teacher_id,date_slot,time_slot} = this.state;
     const teacher_info_for_reservationResponse = await teacher_info_for_reservation({
       teacher_id,
-      date_slot,
-      time_slot
+      date_slot:"",
+      time_slot:""
     });
     if (teacher_info_for_reservationResponse.result == true) {
       if(teacher_info_for_reservationResponse.response.status == true){
@@ -113,7 +92,7 @@ export default class index extends Component {
       }
       else{
         this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-          Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
+          Alert.alert("Message","Something Went Wrong Try Again!",[ { text: "Okay",onPress:()=>{
               this.props.navigation.goBack();
           }}]);
       })
@@ -122,118 +101,33 @@ export default class index extends Component {
     }
     else{
       this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-        Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
+        Alert.alert("Message","Something Went Wrong Try Again!",[ { text: "Okay",onPress:()=>{
             this.props.navigation.goBack();
         }}]);
     })
     }
  
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  reservation_requestFunction = async () => {
-
-    // console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
-
-    let transactinId = this.props.navigation.getParam("transactinId")
-
-
-    // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
-    const {teacher_id,} = this.state;
-    const reservation_requestResponse = await reservation_request({
-      teacher_id,
-      transaction_id:transactinId
-    });
-    if (reservation_requestResponse.result == true) {
-      if(reservation_requestResponse.response.status == true){
-        console.log("getting response here after posting ================",reservation_requestResponse.response)
-        Alert.alert("Message",reservation_requestResponse.response.message)
-        var waiting_time = reservation_requestResponse.response.waiting_time
-
-        this.setState({waiting_time,waiting_time_key:true,isButtonEnable:false})
-
-        this.teacher_info_for_reservationFunction()
-        
-        
-      }
-      else{
-        this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-          Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
-              this.props.navigation.goBack();
-          }}]);
-      })
-      }
-     
-    }
-    else{
-      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-        Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
-            this.props.navigation.goBack();
-        }}]);
-    })
-    }
- 
-  };
-
-
-
-
-
-
-
-
-
-
 
 
 
   componentDidMount = async () => {
 
+    console.log("getting teacher id here========",this.props.navigation.getParam("teacher_id"))
 
-
-    // console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
-      // let teacher_id = this.props.navigation.getParam("teacher_id")
-      // this.fetchget_waiting_time()
-      
-      console.log("i am on the book reservation ===============>>>>>>>>>>>>>>>>>>")
-
-    let time_slot = this.props.navigation.getParam("time_slot")
-    let reserve_date = this.props.navigation.getParam("reserve_date")
-
-    // console.log("getting inside the function date_slot time_slot " ,time_slot,                reserve_date)
-
-      // let teacherId =  await AsyncStorage.getItem("teacher_id")
-       let  teacher_id = this.props.navigation.getParam("teacher_id")
-    
+    let teacher_id = this.props.navigation.getParam("teacher_id")
       setTimeout(() => {
-        this.setState({teacher_id,date_slot:reserve_date,time_slot:time_slot})
+        this.setState({teacher_id,})
         // console.log("geting teacher id ----------",teacher_id)
       }, 100);
 
 
-          // setTimeout(() => {
-          
-          // }, 700);      
-          setInterval(() => {
+          setTimeout(() => {
             this.teacher_info_for_reservationFunction()
-          }, 1000);
+          }, 700);      
+   
+            
+       
           // setInterval(() => {
            
 
@@ -262,33 +156,6 @@ export default class index extends Component {
 
 
 
-
-getTimeDurationFunction(){
-  let date = 
-      moment()
-        .utcOffset('+05:30')
-        .format('YYYY-MM-DD hh:mm:ss');
-    
-    // Getting the current date-time
-    // You can set your own date-time
-    let expirydate = '2020-12-30 04:00:45';
-    
-    let diffr = 
-      moment
-        .duration(moment(expirydate)
-        .diff(moment(date)));
-    // Difference of the expiry date-time
-    var hours = parseInt(diffr.asHours());
-    var minutes = parseInt(diffr.minutes());
-    var seconds = parseInt(diffr.seconds());
-
-    // Converting in seconds
-    var d = hours * 60 * 60 + minutes * 60 + seconds;
-
-    // Settign up the duration of countdown
-    // setTotalDuration(d);
-    this.setState({d})
-}
 
 
 
@@ -344,39 +211,6 @@ const {TeacherDetails} = this.state;
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
           <Text style={Styles.headerTxt}>Voir le profil du coach d'anglais</Text>
-
-                  {
-                    TeacherDetails.length > 0 ?
-                    <Fragment>
-
-                  {
-                            TeacherDetails.map((sinledetailsMap)=>{                              
-                              return(
-                                <Fragment>
-                                  {
-                                    sinledetailsMap.reservation_status == `Accepted` ?
-                                    <TouchableOpacity 
-                                    onPress={()=>{this.props.navigation.navigate("chat",{teacher_id:sinledetailsMap.teacher_id})}}
-                                  >
-                                        <Image source={chatImg} style={Styles.headertxtInputImg} />
-                                  </TouchableOpacity>
-                                    :null
-                                  }                                  
-                                </Fragment>
-                              )
-                            })
-                          }
-                          
-
-                    </Fragment>
-
-                    :null
-                  }
-                        
-                        
-
-
-
 
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
@@ -447,9 +281,9 @@ const {TeacherDetails} = this.state;
                         count={5}
                         half={true}
                         starSize={16}
-                        fullStar={<Image source={require("../../../../assets/icon/111.png")} style={{height:15,width:15,margin:3}} />}
-                        emptyStar={<Image source={require("../../../../assets/icon/112.png")} style={{height:15,width:15,margin:3}} />}
-                        halfStar={<Image source={require("../../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
+                        fullStar={<Image source={require("../../../assets/icon/111.png")} style={{height:15,width:15,margin:3}} />}
+                        emptyStar={<Image source={require("../../../assets/icon/112.png")} style={{height:15,width:15,margin:3}} />}
+                        halfStar={<Image source={require("../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
                       />
                     </View>
                 </View>                
@@ -501,42 +335,7 @@ const {TeacherDetails} = this.state;
 
 
 
-                    {
-                      this.state.waiting_time_key == true ?
-
-                      <View style={{marginTop:30}}>
-                         {
-                           this.state.waiting_time != `0` ?
-
-                           <View>
-                             {
-                               singleTeacherDetails.reservation_status != `Accepted` ?
-                                <CountDown
-                                size={18}
-                                until={this.state.waiting_time}
-                                onFinish={() => this.setState({waiting_time:0,isButtonEnable:true})}
-                                digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#FF1493',}}
-                                digitTxtStyle={{color: '#FF1493'}}
-                                timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
-                                separatorStyle={{color: '#FF1493'}}
-                                timeToShow={['H', 'M', 'S']}
-                                timeLabels={{m: null, s: null}}
-                                showSeparator
-                              />
-                              :null
-                             }
-                            </View>
-
-                         
-                           :null
-                         }
-
-                      </View>
-
-
-
-                      : null
-                    }
+             
 
            
             
@@ -554,20 +353,14 @@ const {TeacherDetails} = this.state;
           //on Press call
           size={20}
         /> */}
-                  {
+                  {/* {
                     singleTeacherDetails.reservation_status == `Accepted` ?
 
                     <View style={Styles.continueBtn}>
                         <TouchableOpacity 
                         // onPress={()=>{this.Show_Custom_Alert()}}
-                        onPress={()=>{
-                          Linking.openURL(`tel:${9999999999}`)
-                        }}
                         >
-                        <View style={{flexDirection:'row'}}>
-                          <Image source={require('../../../../assets/icon/call.png')}  style={{height:20,width:20,margin:10}} />
                         <Text style={Styles.continueBtnTxt}>Appeler le client pour démarrer le coaching</Text>
-                        </View>
                         </TouchableOpacity>
                     </View>
                     :
@@ -587,19 +380,19 @@ const {TeacherDetails} = this.state;
                         :null
                       }                    
                       </View>                
-                  }
+                  } */}
                     </Fragment>
                 )
               })
 
                   :<View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-                    <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>chargement...</Text>
+                    <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>Loading...</Text>
                   </View>
                 }
               </Fragment>
               
               :<View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-              <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>Record non trouvé</Text>
+              <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>No record Found!</Text>
             </View>
             }
 
@@ -643,7 +436,7 @@ const {TeacherDetails} = this.state;
                       marginTop: -50,
                     }}>
                     <Image
-                      source={require("../../../../assets/icon/9.png")}
+                      source={require("../../../assets/icon/9.png")}
                       style={{height: 80, width: 80, margin: 10}}
                     />
                   </View>

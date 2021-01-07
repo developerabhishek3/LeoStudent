@@ -41,7 +41,7 @@ export default StyleSheet.create({
     marginStart: 15,
   },
   headertxtInputImg1: {
-    height: 30,
+    height: 45,
     width: 30,
     margin: 10,
     marginEnd: 25,
@@ -69,7 +69,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     margin: 7,
   },
-  peopleStyle: {height: 90, width: 90, alignSelf: 'center',borderRadius:50},
+  peopleStyle: {height: 90, width: 90, alignSelf: 'center',borderRadius:50,marginTop:0},
   maincontentContaine: {
     flexDirection: 'row',
     justifyContent: 'space-between',
