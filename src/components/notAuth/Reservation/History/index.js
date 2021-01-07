@@ -226,11 +226,7 @@ console.log("insiderender =",this.state.historyData)
 
   <View style={Styles.contentView}>
             <Fragment>
-
-
-
-
-                      {
+           {
 
 
             this.state.historyData.map((singleHistoryMap)=>{
@@ -315,7 +311,7 @@ console.log("insiderender =",this.state.historyData)
           :
         
           <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>No Record Avialable</Text>
+          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>Record non trouvé!</Text>
         </View>
 
 
@@ -334,7 +330,7 @@ console.log("insiderender =",this.state.historyData)
         :
 
         <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-        <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>Loading...</Text>
+        <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>chargement...</Text>
       </View>
       }
 

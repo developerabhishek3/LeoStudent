@@ -33,7 +33,7 @@ export default StyleSheet.create({
     marginStart: 10,
   },
   headertxtInputImg1: {
-    height: 30,
+    height: 45,
     width: 30,
     margin: 7,
     marginEnd: 15,
@@ -102,11 +102,11 @@ export default StyleSheet.create({
   },
   continueBtnTxt: {
     margin: 7,
-    marginStart: 20,
-    marginEnd: 20,
+    marginStart: 10,
+    marginEnd: 10,
     color: '#FFFFFF',
     fontWeight: '700',
-    fontSize: 14,
+    fontSize: 12,
     alignSelf: 'center',
   },
 });

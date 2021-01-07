@@ -167,38 +167,38 @@ handleBackButton = (nav) => {
       country,        
     } = this.state;
      if (first_name.length === 0) {
-      this.myAlert('Message', 'Please enter your first name');
+      this.myAlert('Message', 'Veuillez saisir votre prénom!');
     } else if (last_name.length === 0) {
-      this.myAlert('Message', 'Please enter your last name');
+      this.myAlert('Message', 'Veuillez entrer votre nom de famille!');
     }
     else if (birth_date.length === 0) {
-      this.myAlert('Message', 'Please enter your birth_date');
+      this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
     }
     else if (address.length === 0) {
-      this.myAlert('Message', 'Please enter your address');
+      this.myAlert('Message', 'Veuillez entrer votre adresse!');
     }
     else if (postcode.length === 0) {
-      this.myAlert('Message', 'Please enter your postcode');
+      this.myAlert('Message', 'Veuillez entrer votre code postal!');
     }
     else if (city.length === 0) {
-      this.myAlert('Message', 'Please enter your city');
+      this.myAlert('Message', 'Veuillez entrer votre ville!');
     } else if (country.length === 0) {
-      this.myAlert('Message', 'Please enter your country');
+      this.myAlert('Message', 'Veuillez entrer votre pays!');
     } 
      else if (telephone_no.length === 0) {
-      this.myAlert('Message', 'Please enter your telephone no');
+      this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
     } 
     else if (email.length === 0) {
-      this.myAlert('Message', 'Please enter your email');
+      this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     }   
     else if (password.length === 0) {
-      this.myAlert('Message', 'Please enter your password');
+      this.myAlert('Message', 'Veuillez entrer votre mot de passe!');
     }
     else if (confirm_password.length === 0 ) {
-      this.myAlert('Message', 'Please enter your confirm password');
+      this.myAlert('Message', 'Veuillez entrer votre mot de passe de confirmation!');
     }
     else if( password != confirm_password){
-      this.myAlert("Message","Password and Confirm Password are not matched")
+      this.myAlert("Message","Le mot de passe et le mot de passe de confirmation ne correspondent pas!")
     }
   
     else {
@@ -207,7 +207,7 @@ handleBackButton = (nav) => {
       // }
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Invalid email');
+        this.myAlert('Message', 'Courriel non valide!');
         return false;
       }  
 
@@ -232,7 +232,7 @@ handleBackButton = (nav) => {
     if (this.state.country != 'Country') {
       this.setState({Alert_Visibility: visible});
     } else {
-      Alert.alert('Warning', 'Please select your your country');
+      Alert.alert('Warning', 'Veuillez sélectionner votre pays!');
     }
   }
 

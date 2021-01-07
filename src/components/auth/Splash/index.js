@@ -43,7 +43,7 @@ export default class Splash extends Component {
           resizeMode="stretch"
           style={{
             width: 120,
-            height: 120,            
+            height: 140,            
             alignSelf:'center',
           }}
           source={require('../../../assets/icon/96.png')}

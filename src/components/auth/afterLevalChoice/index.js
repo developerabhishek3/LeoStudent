@@ -47,11 +47,11 @@ export default class index extends Component {
    level_id
     });
     if (updateStudentLevelResponse.result === true) {
-      // console.log("getting result here --------", updateStudentLevelResponse.response)
-      // this.props.navigation.navigate('home');
-        await AsyncStorage.setItem("level_id", JSON.stringify(level_id));            
+      console.log("getting result here --------", updateStudentLevelResponse.response)     
+        await AsyncStorage.setItem("level_id", JSON.stringify(level_id)); 
+        this.props.navigation.navigate('home')           
     } else {
-      this.myAlert('Error', updateStudentLevelResponse.error);
+      this.myAlert('Error', updateStudentLevelResponse.error);    
       console.log('getting error here-------------');
     }
     return;
@@ -63,10 +63,11 @@ export default class index extends Component {
 
 
 
+
 validateFunction(){
   const {checked} =  this.state;
   if(!checked){
-    Alert.alert("Message","Please select your level !")
+    Alert.alert("Message", "Veuillez sélectionner votre niveau!")
   }
   else{
     this.userupdateLevel()
@@ -132,13 +133,12 @@ const {level_id} = this.state;
           resizeMode="stretch"
           style={Styles.bgImgStyle}>
 
-<Spinner visible={this.state.isSpinner} 
-        />
+          <Spinner visible={this.state.isSpinner} />
           <ScrollView>
             <View style={{borderWidth: 0, marginBottom: 20, marginTop: 20}}>
               <View style={Styles.headerView}>
                 
-                <Image source={logo} style={Styles.headerLogo} />
+              <Image source={logo} style={Styles.headerLogo} />
                 <View style={{marginEnd: 50, marginTop: -10}}>
                   <Text style={Styles.headerTxt}>    Choisir son</Text>
                   <Text style={Styles.headerTxt1}>niveau</Text>
@@ -191,7 +191,7 @@ const {level_id} = this.state;
                     // }}
                     onPress={()=>{this.validateFunction()}}
                     >
-                    <Text style={Styles.continueBtnTxt}>continue</Text>
+                    <Text style={Styles.continueBtnTxt}>continuer</Text>
                   </TouchableOpacity>
                 </View>
 

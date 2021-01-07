@@ -249,10 +249,10 @@ export default class index extends Component {
 validateFunction() {
   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
   if(!timeDuration){
-    Alert.alert("Message","please choose time duration !! ")
+    Alert.alert("Message","veuillez choisir la durée! ")
   }
   else if(!reserve_time){
-    Alert.alert("Message","please select time !!")
+    Alert.alert("Message","veuillez choisir l'heure!")
   }
   else {   
     this.check_reservation_by_datetime_slotFunction()
@@ -444,8 +444,7 @@ currentDateFormat(){
                               source={require('../../../../assets/icon/4.png')}
                               style={{height: 20, width: 20, margin: 3}}
                             />
-                            <Text style={{color: 'gray'}}>
-                              {' '}
+                            <Text style={{color: 'gray'}}>                             
                               {singleMAp.time_duration}
                             </Text>
                           </TouchableOpacity>
@@ -466,7 +465,7 @@ currentDateFormat(){
               </View>
                 :
                 <View style={{alignItems:"center",justifyContent:'center'}}>
-                  <Text style={{fontSize:16,fontWeight:'700'}}>Time duration not found</Text>
+                  <Text style={{fontSize:16,fontWeight:'700'}}>Durée non trouvée</Text>
                 </View>
               }
             <View style={Styles.subheaderView}>

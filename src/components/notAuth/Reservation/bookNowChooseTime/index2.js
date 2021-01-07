@@ -294,13 +294,13 @@ export default class index extends Component {
 validateFunction() {
   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
   if(!timeDuration){
-    Alert.alert("Message","please choose time duration !! ")
+    Alert.alert("Message","veuillez choisir la durée ! ")
   }
   else if(!reserve_date){
-    Alert.alert("Message","please select date !! ")
+    Alert.alert("Message","veuillez choisir la date !")
   }
   else if(!reserve_time){
-    Alert.alert("Message","please select time !!")
+    Alert.alert("Message","veuillez choisir l'heure!")
   }
   else {   
     this.check_reservation_by_datetime_slotFunction()

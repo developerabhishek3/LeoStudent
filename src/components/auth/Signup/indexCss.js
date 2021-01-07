@@ -25,7 +25,7 @@ export default StyleSheet.create({
     marginTop: -10,
   },
   headerLogo: {
-    height: 60,
+    height: 80,
     width: 60,
     margin: 3,
     marginEnd: 50,
@@ -54,7 +54,7 @@ export default StyleSheet.create({
     margin: 10,
   },
   subHeader: {
-    marginTop: 50,
+    marginTop: 80,
     margin: 10,
   },
   txtStyle1: {

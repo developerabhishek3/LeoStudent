@@ -36,22 +36,19 @@ export default class index extends Component {
 
 
   componentDidMount = async () => {
-
     const user_id = await AsyncStorage.getItem('user_id');
     this.setState({user_id})
-
     this.chat_usersFunction()
-
-
-
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
 
   }
+
+
+
   
   chat_usersFunction = async () => {
- 
 
     const chat_usersFunctionResponse = await chat_usersFunction();
     if (chat_usersFunctionResponse.result == true) {
@@ -163,11 +160,12 @@ export default class index extends Component {
             this.state.chatUserData.length > 0 ?
             <Fragment>
 
-{
+        {
             this.state.chatUserData.map((singleChatData)=>{
+              console.log("geting teacher id here---------",singleChatData)
               return(
                 <View>
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("chat",{teacher_id:singleChatData.teacher_id})}}>
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("chat",{teacher_id:singleChatData.id})}}>
           <View style={Styles.mainContentContainer}>              
             <View style={{flexDirection: 'row', margin: 3}}>
               <Image
@@ -196,7 +194,7 @@ export default class index extends Component {
             </Fragment>
             :
             <View style={{justifyContent:'center',alignItems:'center',}}>
-              <Text style={{textAlign:'center',marginTop:200,fontSize:18,fontWeight:'700'}}>Teacher not found!</Text>
+              <Text style={{textAlign:'center',marginTop:200,fontSize:18,fontWeight:'700'}}>Record non trouvé!</Text>
             </View>
           }
          
@@ -208,7 +206,7 @@ export default class index extends Component {
 
           :
           <View style={{justifyContent:'center',alignItems:'center',}}>
-          <Text style={{textAlign:'center',marginTop:200,fontSize:18,fontWeight:'700'}}>Loading...</Text>
+          <Text style={{textAlign:'center',marginTop:200,fontSize:18,fontWeight:'700'}}>chargement...</Text>
         </View>
         }
          

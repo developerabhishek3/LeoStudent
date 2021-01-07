@@ -27,7 +27,7 @@ import People from '../../../../../../assets/icon/25.png';
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
 
-import {update_profile} from '../../../../../../Api/afterAuth'
+import {StudentProfile,get_academic_info} from '../../../../../../Api/afterAuth'
 import axios from 'axios';
 import RNFetchBlob from 'rn-fetch-blob'
 import { add } from 'react-native-reanimated';
@@ -60,8 +60,11 @@ export default class index extends Component {
       q_4_ans:"",
       q_5_ans:"", 
       path:"",
-      birth_date:  new Date(),
+
       date: new Date(),
+      profileData:[],
+      birth_date:"",
+      AcademicDetails:[],
       // filePath: {},
        
 
@@ -103,71 +106,6 @@ export default class index extends Component {
       ],
     };
   }
-
-
-
-
-
-
-  
-  // update_profileFunction = async () => {
-  //   this.setState({spinner: true});
-  //   const {  
-  //     filePath,    
-  //      first_name,
-  //     last_name,
-  //     birth_date,
-  //     email,     
-  //     telephone_no,
-  //     address,
-  //     postcode,    
-  //     city,
-  //     country,  
-  //     q_1_ans,
-  //     q_2_ans,
-  //     q_3_ans,
-  //     q_4_ans,
-  //     q_5_ans,  
-  //   } = this.state;
-  //   const update_profileResponse = await update_profile({     
-  //     filePath:"", 
-  //      first_name:"abhi",
-  //     last_name:"ahirwar",
-  //     birth_date:"22-02-2020",
-  //     email:"ab104@gmail.com",     
-  //     telephone_no:"9999999999",
-  //     address:"vallabh nagar",
-  //     postcode:"452003",    
-  //     city:"indore",
-  //     country:"india",  
-  //     q_1_ans:"avdsv",
-  //     q_2_ans:"vdfv",
-  //     q_3_ans:"vfadvad",
-  //     q_4_ans:"Vadfv",
-  //     q_5_ans:"vfadvadfv",  
-  //   });
-  //   if (update_profileResponse.result == true) {
-  //     // console.log('getting resu333333333lt here --------', update_profileResponse.response);
-  //     // console.log(
-  //     //   'getting result222222 here --------',
-  //     //   update_profileResponse.response,
-  //     // );    
-  //     if(update_profileResponse.response.status == true){
-  //       // console.log("getting inide5555555 response ---",update_profileResponse.response)
-
-  //       // await AsyncStorage.setItem("user_id", JSON.stringify(update_profileResponse.response.user_id));
-  //       // Alert.alert("Message",update_profileResponse.response.message)
-  //       // this.props.navigation.navigate('question')
-  //     }
-  //     else{
-  //       // console.log("Message",update_profileResponse.response)
-  //     }
-  //   } else {
-  //     this.myAlert('Error', update_profileResponse.error);
-  //     // console.log('getting error here-------------');
-  //   }
-  //   return;
-  // };
 
   myAlert = (title = '', message = '') => {
     Alert.alert(title, message);
@@ -217,7 +155,7 @@ async uploadWholeData(){
       ]).then((resp) => {        
        
     console.log("response:::::::" + JSON.stringify(resp.text()));
-    Alert.alert("Message","Profile update sucessfully!")
+    Alert.alert("Message","Mise à jour du profil réussie")
     this.props.navigation.navigate("home")
     
     
@@ -253,63 +191,72 @@ async uploadWholeData(){
 
 
 
+  fetchStudentProfileData = async () => {
+    const GetProfileDetails = await StudentProfile();
+    if (GetProfileDetails.result == true) {
+      var profileData = GetProfileDetails.response.my_profile;
+      var first_name = GetProfileDetails.response.my_profile.first_name;
+      var last_name = GetProfileDetails.response.my_profile.last_name;
+      var birth_date = GetProfileDetails.response.my_profile.dob;
+      var address = GetProfileDetails.response.my_profile.address;
+      var postcode = GetProfileDetails.response.my_profile.postcode;
+      var city = GetProfileDetails.response.my_profile.city;
+      var country =  GetProfileDetails.response.my_profile.country;
+      var telephone_no =  GetProfileDetails.response.my_profile.phone;
+      var email =  GetProfileDetails.response.my_profile.email;
+
+      // console.log("getting GetProfileDetails data----------",profileData)
+      this.setState({ isBodyLoaded: true,isSpinner: false,profileData,
+        first_name,last_name,birth_date,address,postcode,city,country,telephone_no,email
+      
+      });
+    }
+   
+    else{
+      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+        Alert.alert("Message","Quelque chose a mal tourné, essayez encore",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}]);
+    })
+    }   
+    // console.log("getting country response----------------",countryData.country_list)
+  };
 
 
 
 
 
 
-  // let headers = {
-  //   'Content-Type': 'multipart/form-data',
-  //   'x-api-key':'leo@2020',
-  //   'user-id': `${UserId}`,
-  //   token: `${TokenValue}`,
-  //   };
-  //   RNFetchBlob.fetch('POST', "https://www.spyk.fr/api_student/update_profile", headers,[
-  //   { name: 'profile_pic', filename: 'photo.jpg', type: 'image/png', data: this.state.filePath},
-  //   { name: 'first_name', data: this.state.first_name },
-  //   { name: 'last_name', data: this.state.last_name },
-  //   { name: 'birth_date', data: this.state.birth_date },
-  //   { name: 'email', data: this.state.email },
-  //   { name: 'telephone_no', data: this.state.telephone_no },
-  //   { name: 'address', data: this.state.address },
-  //   { name: 'postcode', data: this.state.postcode },
-  //   { name: 'city', data: this.state.city },
-  //   { name: 'country', data: this.state.country },   
-  //   { name: 'q_1_ans', data: this.state.q_1_ans },
-  //   { name: 'q_2_ans', data: this.state.q_2_ans },
-  //   { name: 'q_3_ans', data: this.state.q_3_ans },
-  //   { name: 'q_4_ans', data: this.state.q_4_ans },
-  //   { name: 'q_5_ans', data: this.state.q_5_ans },
-  //   ],
-  //   ).then((resp) => {    
-  //   console.log("response:::::::" + JSON.stringify(resp.text()));
-  //   console.log("response ++++++++++++++++++++++++++",resp)
-    
-  //   if(resp.json().error ==="false"){
-  //   this.setState({
-  //   animating: false,
-  //   lodingDialog: false,
-  //   });
 
-  //   }else if(resp.json().error=== "true"){
-  //   alert(resp.json().errorMessage)
-  //   console.log
-  //   this.showalerts(resp.json().errorMessage)
 
-  //   this.setState({
-  //   animating: false,
-  //   lodingDialog: false,
-  //   });
-    
-  //   }
-  //   }).catch((err) => {
-  //   this.setState({
-  //   animating: false,
-  //   lodingDialog: false,
-  //   });
-  //   console.log("response::::err:::" + err);
-  //   });
+
+  fetchget_academic_info = async () => {
+    const get_academic_infoResponse = await get_academic_info();
+    if (get_academic_infoResponse.result == true) {
+     var AcademicDetails = get_academic_infoResponse.response.academic_info;
+     var q_1_ans = get_academic_infoResponse.response.academic_info.q_1
+     var q_2_ans = get_academic_infoResponse.response.academic_info.q_2
+     var q_3_ans = get_academic_infoResponse.response.academic_info.q_3
+     var q_4_ans = get_academic_infoResponse.response.academic_info.q_4
+     var q_5_ans = get_academic_infoResponse.response.academic_info.q_5
+
+      console.log("getting get academic detail data----------",get_academic_infoResponse)
+      this.setState({ isBodyLoaded: true,isSpinner: false,AcademicDetails,
+        q_1_ans,q_2_ans,q_3_ans,q_4_ans,q_5_ans      
+      });
+    }
+   
+    else{
+      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+        Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}]);
+    })
+    }   
+    // console.log("getting country response----------------",countryData.country_list)
+  };
+
+
 
 
 
@@ -330,61 +277,134 @@ async uploadWholeData(){
       q_3_ans,
       q_4_ans,
       q_5_ans,
+      q_6_ans
     } = this.state;
      if (first_name.length === 0) {
-      this.myAlert('Message', 'Please enter your first name');
+      this.myAlert('Message', 'Veuillez saisir votre prénom!');
     } else if (last_name.length === 0) {
-      this.myAlert('Message', 'Please enter your last name');
+      this.myAlert('Message', 'Veuillez entrer votre nom de famille!');
     }
     else if (birth_date.length === 0) {
-      this.myAlert('Message', 'Please enter your birth_date');
+      this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
     }
     else if (address.length === 0) {
-      this.myAlert('Message', 'Please enter your address');
+      this.myAlert('Message', 'Veuillez entrer votre adresse!');
     }
     else if (postcode.length === 0) {
-      this.myAlert('Message', 'Please enter your postcode');
+      this.myAlert('Message', 'Veuillez entrer votre code postal!');
     }
     else if (city.length === 0) {
-      this.myAlert('Message', 'Please enter your city');
+      this.myAlert('Message', 'Veuillez entrer votre ville!');
     } else if (country.length === 0) {
-      this.myAlert('Message', 'Please enter your country');
+      this.myAlert('Message', 'Veuillez entrer votre pays!');
     } 
      else if (telephone_no.length === 0) {
-      this.myAlert('Message', 'Please enter your telephone no');
+      this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
     } 
     else if (email.length === 0) {
-      this.myAlert('Message', 'Please enter your email');
+      this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     }   
     else if (q_1_ans.length === 0) {
-      this.myAlert('Message', 'Please select answer!');
+      this.myAlert('Message', 'Veuillez choisir votre réponse !');
     }
     else if (q_2_ans.length === 0 ) {
-      this.myAlert('Message', 'Please enter  answer!');
+      this.myAlert('Message', 'Veuillez entrer votre réponse');
     }
     else if (q_3_ans.length === 0 ) {
-      this.myAlert('Message', 'Please enter  answer!');
+      this.myAlert('Message', 'Veuillez entrer votre réponse".');
     }
     else if (q_4_ans.length === 0 ) {
-      this.myAlert('Message', 'Please enter answer!');
+      this.myAlert('Message', 'Veuillez entrer votre réponse".');
     }
     else if (q_5_ans.length === 0 ) {
-      this.myAlert('Message', 'Please select   answer!');
+      this.myAlert('Message', 'Veuillez choisir votre réponse !');
     }
-  
     else {
    
-      // if(password != confirm_password){
-      //   this.myAlert("Message","Password and Confirm Password are not matched")
-      // }
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Invalid email');
+        this.myAlert('Message', 'Email-id invalide');
         return false;
       }  
       this.uploadWholeData();
     }
   };
+  // validateUser = async () => {
+  //   const {      
+  //     first_name,
+  //     last_name,
+  //     birth_date,
+  //     email,     
+  //     telephone_no,
+  //     address,
+  //     postcode,    
+  //     city,
+  //     country,  
+  //     q_1_ans,
+  //     q_2_ans,
+  //     q_3_ans,
+  //     q_4_ans,
+  //     q_5_ans,
+  //     q_6_ans
+  //   } = this.state;
+  //   //  if (first_name.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your first name');
+  //   // } else if (last_name.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your last name');
+  //   // }
+  //   // else if (birth_date.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your birth_date');
+  //   // }
+  //   // else if (address.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your address');
+  //   // }
+  //   // else if (postcode.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your postcode');
+  //   // }
+  //   // else if (city.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your city');
+  //   // } else if (country.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your country');
+  //   // } 
+  //   //  else if (telephone_no.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your telephone no');
+  //   // } 
+  //   // else if (email.length === 0) {
+  //   //   this.myAlert('Message', 'Please enter your email');
+  //   // }   
+  //   // else if (q_1_ans.length === 0) {
+  //   //   this.myAlert('Message', 'Please select answer!');
+  //   // }
+  //   // else if (q_2_ans.length === 0 ) {
+  //   //   this.myAlert('Message', 'Please enter  answer!');
+  //   // }
+  //   // else if (q_3_ans.length === 0 ) {
+  //   //   this.myAlert('Message', 'Please enter  answer!');
+  //   // }
+  //   // else if (q_4_ans.length === 0 ) {
+  //   //   this.myAlert('Message', 'Please enter answer!');
+  //   // }
+  //   // else if (q_5_ans.length === 0 ) {
+  //   //   this.myAlert('Message', 'Please select   answer!');
+  //   // }
+  
+  //   if(!this.state.birth_date){
+  //     Alert.alert("Message","Enter date of birth!")
+  //   }
+  
+  //   else {
+   
+  //     // if(password != confirm_password){
+  //     //   this.myAlert("Message","Password and Confirm Password are not matched")
+  //     // }
+  //     // const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  //     // if (!email.match(mailformat)) {
+  //     //   this.myAlert('Message', 'Invalid email');
+  //     //   return false;
+  //     // }  
+  //     this.uploadWholeData();
+  //   }
+  // };
 
 
  
@@ -431,7 +451,8 @@ async uploadWholeData(){
 
 
   componentDidMount = async () => {
-  
+  this.fetchStudentProfileData()
+  this.fetchget_academic_info()
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
@@ -463,6 +484,10 @@ async uploadWholeData(){
 
   render() {
     // console.log("inside render===================",this.state.filePath)
+    const {profileData} = this.state;
+
+    let profile_url = this.props.navigation.getParam("profile_url")
+    console.log("INSIDE REDNER METHOD+++++++++++++",profile_url)
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
@@ -488,7 +513,9 @@ async uploadWholeData(){
           {
             this.state.path == "" ?
               <View style={{marginTop: 60}}>
-                <Image source={People} style={Styles.peopleStyle} />
+                <Image source={{
+                              uri: `https://www.spyk.fr/${profile_url}`,
+                            }} style={Styles.peopleStyle} />
               </View> 
             :
             <View style={{marginTop: 60}}>
@@ -530,11 +557,10 @@ async uploadWholeData(){
               }}>
               <TextInput placeholder="  Nom" 
                 onChangeText={(first_name) => this.setState({first_name})}
-              style={Styles.txtInput} />
-
-              <TextInput placeholder="  Prénom" 
+              style={Styles.txtInput} >{this.state.first_name}</TextInput>
+   <TextInput placeholder="  Prénom" 
                 onChangeText={(last_name) => this.setState({last_name})}
-              style={Styles.txtInput} />
+              style={Styles.txtInput} >{this.state.last_name}</TextInput>
              <View   style={Styles.textInputField}>
                   {/* <TextInput
                     style={Styles.textInputField}
@@ -542,59 +568,59 @@ async uploadWholeData(){
                     onChangeText={(birth_date) => this.setState({birth_date})}
                   /> */}
                   
-                      <DatePicker
-                        style={{width: SCREEN_WIDTH*0.70,}}
-                        date={this.state.birth_date}
-                        placeholder="Date of Birth"                    
-                        format="DD-MM-YYYY"                   
-                        maxDate={this.state.date}
-                          confirmBtnText="Confirm"
-                          cancelBtnText="Cancel"
-                          // iconSource={calenderIcon}
-                          
-                          customStyles={{
-                            dateIcon: {
-                              left: -5,
-                              height:24,width:24
-                            },
-                            dateInput: {
-                              marginLeft: -80,
-                              borderColor: 'red',
-                              borderWidth: 0,
-                              marginRight: 90,
-                            },          
-                          }}
-                          onDateChange={(birth_date) => {
-                            this.setState({birth_date});
-                          }}
-                        />
+                 <DatePicker
+                  style={{width: SCREEN_WIDTH*0.70,}}
+                  date={this.state.birth_date}
+                  placeholder="Date of Birth"                    
+                  format="YYYY-MM-DD"                              
+                  maxDate={this.state.date}                                
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    // iconSource={calenderIcon}
+                    
+                    customStyles={{
+                      dateIcon: {
+                        left: -15,
+                        height:24,width:24
+                      },
+                      dateInput: {
+                        marginLeft: -60,
+                        borderColor: 'red',
+                        borderWidth: 0,
+                        marginRight: 90,
+                      },          
+                    }}
+                    onDateChange={(birth_date) => {
+                      this.setState({birth_date});
+                    }}
+                  />
                 </View>
-              <TextInput
+                <TextInput
                 placeholder="  Adresse postale"
                 style={Styles.txtInput}
-
                 onChangeText={(address) => this.setState({address})}
-
-              />
+              >
+                {this.state.address}
+              </TextInput>
               <TextInput placeholder="  Code postal"
                  keyboardType="number-pad"
                  onChangeText={(postcode) => this.setState({postcode})}
-              style={Styles.txtInput} />
-              <TextInput placeholder="  Ville" 
+              style={Styles.txtInput} >{this.state.postcode}</TextInput>
+                 <TextInput placeholder="  Ville" 
                 onChangeText={(city) => this.setState({city})}  
-              style={Styles.txtInput} />
-              <TextInput placeholder="  Pays" 
+              style={Styles.txtInput} >{this.state.city}</TextInput>
+           <TextInput placeholder="  Pays" 
                onChangeText={(country) => this.setState({country})} 
-              style={Styles.txtInput} />
+              style={Styles.txtInput} >{this.state.country}</TextInput>
               <TextInput
                 placeholder="  Numéro de téléphone"
                 style={Styles.txtInput}
                 keyboardType="phone-pad"
                 onChangeText={(telephone_no) => this.setState({telephone_no})}
-              />
-              <TextInput placeholder="  Email" 
+              >{this.state.telephone_no}</TextInput>
+                 <TextInput placeholder="  Email" 
                onChangeText={(email) => this.setState({email})}              
-              style={Styles.txtInput} />
+              style={Styles.txtInput} >{this.state.email}</TextInput>
 
               <View style={{alignSelf: 'flex-start'}}>
                 <Text style={Styles.txtStyle1}>Diplôme</Text>
@@ -656,7 +682,7 @@ async uploadWholeData(){
                 }}>
                   <TextInput
                     onChangeText={(q_2_ans) => this.setState({q_2_ans})}
-                  placeholder="Profession" /> 
+                  placeholder="Profession" > {this.state.q_2_ans}</TextInput> 
               </View>
 
               <View
@@ -675,9 +701,9 @@ async uploadWholeData(){
 en anglais?
                 </Text>
                 <TextInput
-  onChangeText={(q_3_ans) => this.setState({q_3_ans})}
+                  onChangeText={(q_3_ans) => this.setState({q_3_ans})}
                 // style={Styles.txtInput1}
-                />
+                >{this.state.q_3_ans}</TextInput>
 
 
 
@@ -702,7 +728,7 @@ en anglais?
                 <TextInput
                     onChangeText={(q_4_ans) => this.setState({q_4_ans})}
                 // style={Styles.txtInput1}
-                />
+                >{this.state.q_4_ans}</TextInput>
               </View>
 
 

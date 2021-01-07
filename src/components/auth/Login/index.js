@@ -10,6 +10,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import AsyncStorage from '@react-native-community/async-storage';
 
 
+
 export default class index extends Component {
 
     constructor(props) {
@@ -19,7 +20,7 @@ export default class index extends Component {
           password: '',
           fcm_token: '',        
           token: '',    
-         userLoggedInData: {},    
+          userLoggedInData: {},    
           username: '',    
           userDetais: []
         };
@@ -31,13 +32,13 @@ export default class index extends Component {
 
 
       userLoginFunction = async () => {
-        // console.log("getting inside the function uuid --------",this.state.fcm_token)
+        console.log("getting inside the function uuid --------",this.state.fcm_token)
         const {
           email,
           password,
           fcm_token
         } = this.state;
-        const loginUserResponse = await loginUser({
+        const loginUserResponse = await loginUser({ 
           email,
           password,
           fcm_token
@@ -109,13 +110,13 @@ export default class index extends Component {
         const { email, password } = this.state;
     
         if (email.length === 0) {
-          this.myAlert('Message', 'Please enter your email');
+          this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
         } else if (password.length === 0) {
-          this.myAlert('Message', 'Please enter your password');
+          this.myAlert('Message', 'veuillez entrer votre mot de passe!');
         } else {
           const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           if (!email.match(mailformat)) {
-            this.myAlert('Message', 'Invalid Email-Id');
+            this.myAlert('Message', 'Email-Id invalide!');
             return false;
           }
           this.userLoginFunction();
@@ -124,6 +125,10 @@ export default class index extends Component {
     
 
       componentDidMount = async () => {
+
+        const FCMtoken = await AsyncStorage.getItem('fcmToken');
+        console.log("getting token --------", FCMtoken)
+        this.setState({ fcm_token: FCMtoken })
         // this.fetchLevelData()
         BackHandler.addEventListener('hardwareBackPress', () =>
         this.handleBackButton(this.props.navigation),

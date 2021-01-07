@@ -8,7 +8,8 @@ import {
   Modal,
   Dimensions,
   BackHandler,
-  StatusBar
+  StatusBar,
+  Linking
 } from 'react-native';
 import BottomNavigator from '../../../../router/BottomNavigator';
 import {Rating, AirbnbRating} from 'react-native-elements';
@@ -145,6 +146,12 @@ let teacher_name = this.props.navigation.getParam("teacher_name")
 let teacher_profile_url = this.props.navigation.getParam("teacher_profile_url")
 let course_time = this.props.navigation.getParam("course_time")
 
+let course_date = this.props.navigation.getParam("course_date")
+
+
+
+let ratingflag = this.props.navigation.getParam("ratingflag")
+
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
@@ -260,7 +267,7 @@ let course_time = this.props.navigation.getParam("course_time")
 
                     <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Age : </Text>
-                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.date_of_birth}</Text>
+                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.age}</Text>
                   </View>               
                 </View>   
                 
@@ -309,8 +316,26 @@ let course_time = this.props.navigation.getParam("course_time")
                         </TouchableOpacity>
                     </View> */}
 
+                    { 
+                        ratingflag == true ?
 
-                  <View style={Styles.continueBtn}>
+
+                        <View style={Styles.continueBtn}>
+                        <TouchableOpacity 
+                        style={{flexDirection:'row',margin:3}}
+                        onPress={()=>{Linking.openURL(`tel:${9999999999}`)}}
+                        >
+                        <Image source={require("../../../../assets/icon/call.png")} style={{height:20,width:20,margin:7}} />
+                        <Text style={Styles.continueBtnTxt}>
+                        Appeler le client pour démarrer le coaching
+                        </Text>
+                        </TouchableOpacity>
+                    </View>
+
+
+                        :
+
+                        <View style={Styles.continueBtn}>
                       <TouchableOpacity 
                       onPress={()=>{this.props.navigation.navigate("profile",{
                         teacher_id:singleTeacherDetails.teacher_id,
@@ -328,6 +353,11 @@ let course_time = this.props.navigation.getParam("course_time")
                       </Text>
                       </TouchableOpacity>
                   </View>
+
+
+                    }
+
+                  
                 
                
 
@@ -342,7 +372,7 @@ let course_time = this.props.navigation.getParam("course_time")
               </Fragment>
               
               :<View style={{justifyContent:'center',alignItems:'center'}}>
-              <Text style={{fontSize:16,textAlign:'center',fontWeight:'700'}}>Loading...</Text>
+              <Text style={{fontSize:16,textAlign:'center',fontWeight:'700'}}>chargement...</Text>
             </View>
             }
 

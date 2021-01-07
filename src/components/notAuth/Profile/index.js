@@ -50,10 +50,12 @@ export default class index extends Component {
 
  teacher_rating_infoFunction = async () => {
     // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
-    const {teacher_id,} = this.state;
+
+   let teacher_id =  this.props.navigation.getParam("teacher_id")
+    
     console.log("getting teacher_id before send--------",teacher_id)
     const teacher_rating_infoResponse = await teacher_rating_info({
-        teacher_id:3,       
+        teacher_id,       
       });
     if (teacher_rating_infoResponse.result == true) {     
       // console.log("getting TeacherDetails data----------",teacher_rating_infoResponse.response)
@@ -140,7 +142,7 @@ validateFunction(){
   let course_time = this.props.navigation.getParam("course_time")
   let teacher_name = this.props.navigation.getParam("teacher_name")
 
-  console.log("inside the render methid=========",TeacherRating.rating)
+  console.log("inside the render methid=========",TeacherRating)
 
 
 
