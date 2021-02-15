@@ -65,7 +65,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     margin: 10,
-    color: '#FF1493',
+    color: '#b41565',
   },
   mainContainer:{
     flex:2,width:'99%',borderWidth:0

@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   continueBtn: {
     
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 10,
     marginTop:60,
     borderRadius: 5,
@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   headerLogo: {
     height: 60,
-    width: 60,
+    width: 45,
     margin: 3,
     marginEnd: 50,
     alignSelf: 'center',

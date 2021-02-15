@@ -123,7 +123,7 @@ class Webview_Paypal extends React.Component {
 
                 // }
 
-            this.props.navigation.navigate("searchteacher",{time_slot:time_slot,reserve_date:reserve_date,booktype:booktype})
+            this.props.navigation.navigate("home",{time_slot:time_slot,reserve_date:reserve_date,booktype:booktype})
             // Actions.push("OrderStatus",{order_id: currentOrderId})
 
         }
@@ -156,7 +156,7 @@ class Webview_Paypal extends React.Component {
         let booktype = this.props.navigation.getParam("booktype")
 
         console.log("getting promocode id here--",timeDuration)
-    
+        
         console.log("inside render user id == = =  =  =  =",this.state.user_id)
 
         return (

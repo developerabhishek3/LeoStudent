@@ -113,11 +113,11 @@ export default class index extends Component {
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
           <Text style={Styles.headerTxt}>Votre enseignant</Text>
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
             onPress={()=>{this.props.navigation.navigate("chat")}}
           >
                 <Image source={chatImg} style={Styles.headertxtInputImg} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Image source={logo} style={Styles.headertxtInputImg1} />
           
         </View>
@@ -125,7 +125,7 @@ export default class index extends Component {
         {/* <View style={Styles.subhaderView}>
           <View style={{flexDirection: 'column'}}>
             <Text style={Styles.subheadingTxt1}>Historique</Text>
-            <View style={{borderColor: '#FF1493', borderWidth: 1, width: 100}} />
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
           </View>
           <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("currentreservation")}}>
@@ -169,7 +169,7 @@ export default class index extends Component {
                     }}>
                     <Rating
                       type="custom"
-                      ratingColor="#FF1493"
+                      ratingColor="#b41565"
                       ratingBackgroundColor="#c8c7c8"
                       ratingCount={5}
                       imageSize={15}
@@ -328,7 +328,7 @@ Envoyez la demande au coach</Text>
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -351,7 +351,7 @@ Envoyez la demande au coach</Text>
                   {/* <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    

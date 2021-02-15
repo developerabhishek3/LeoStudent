@@ -15,7 +15,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 3,
     borderRadius: 5,
     width: '50%',
@@ -64,7 +64,7 @@ export default StyleSheet.create({
     color: 'gray',
   },
   txtStyle2: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
     marginStart: 20,
     alignSelf: 'flex-start',
@@ -90,7 +90,7 @@ export default StyleSheet.create({
     borderColor: '#DDDDDD',
     borderRadius: 10,
     margin: 10,
-    paddingStart: 20,
+    paddingStart: 10,
   },
 
   socialLogo: {

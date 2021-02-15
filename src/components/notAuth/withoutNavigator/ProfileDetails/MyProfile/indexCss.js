@@ -75,7 +75,7 @@ export default StyleSheet.create({
     width:'48%',borderWidth:0
   },
   nameHeading:{
-    fontSize:10,color:'#FF1493',
+    fontSize:10,color:'#b41565',
     fontWeight:'700',
     padding:3
   },

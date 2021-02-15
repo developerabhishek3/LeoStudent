@@ -15,7 +15,7 @@ import {
 import Styles from './indexCss';
 import bgImg from '../../../assets/bgImages/3.png';
 import logo from '../../../assets/icon/96.png';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-date-picker';
 import facebook from '../../../assets/icon/fb.png';
 import {TextInput} from 'react-native-gesture-handler';
 import downArrow from '../../../assets/icon/downArrow.png';
@@ -26,6 +26,8 @@ import {createUser,getCountryList} from '../../../Api/auth';
 const SCREEN_HEIGHT = Dimensions.get('window').height; 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-community/async-storage';
+
+
 
 
 export default class index extends Component {
@@ -51,8 +53,12 @@ export default class index extends Component {
       countryData: [],
       Model_Visibility: false,
       Alert_Visibility: false,  
-      checked1:false,      
+      checked1:false, 
+      showPassword: true,
+      showPassword2:true     
     };
+    this.toggleSwitch = this.toggleSwitch.bind(this);
+    this.toggleSwitch2 = this.toggleSwitch2.bind(this);
   }
 
 
@@ -95,14 +101,19 @@ handleBackButton = (nav) => {
 
   
   UserRegistrationFunction = async () => {
+    var ActualDate = new Date( this.state.birth_date)
+    var birth_date =JSON.stringify(ActualDate)
+    let birth_date_new =  birth_date.substr(1,10)
+    console.log("getting now velue rere===================",birth_date_new)  
+
     this.setState({spinner: true});
     const {      
       first_name,
       last_name,
       email,
       password,
-      telephone_no,
-      birth_date,
+      telephone_no, 
+      // birth_date,  
       address,
       postcode,
       city,
@@ -114,7 +125,7 @@ handleBackButton = (nav) => {
       email,
       password,
       telephone_no,
-      birth_date,
+      birth_date:birth_date_new,
       address,
       postcode,
       city,
@@ -130,7 +141,7 @@ handleBackButton = (nav) => {
         console.log("getting inide5555555 response ---",createUserResponse.response.message)
 
         await AsyncStorage.setItem("user_id", JSON.stringify(createUserResponse.response.user_id));
-        Alert.alert("Message",createUserResponse.response.message)
+        // Alert.alert("Message",createUserResponse.response.message)
         this.props.navigation.navigate('question')
       }
       else{
@@ -174,12 +185,12 @@ handleBackButton = (nav) => {
     else if (birth_date.length === 0) {
       this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
     }
-    else if (address.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse!');
-    }
-    else if (postcode.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre code postal!');
-    }
+    // else if (address.length === 0) {
+    //   this.myAlert('Message', 'Veuillez entrer votre adresse!');
+    // }
+    // else if (postcode.length === 0) {
+    //   this.myAlert('Message', 'Veuillez entrer votre code postal!');
+    // }
     else if (city.length === 0) {
       this.myAlert('Message', 'Veuillez entrer votre ville!');
     } else if (country.length === 0) {
@@ -243,6 +254,14 @@ handleBackButton = (nav) => {
 
 
 
+  toggleSwitch() {
+    this.setState({ showPassword: !this.state.showPassword });
+  }
+
+  
+  toggleSwitch2() {
+    this.setState({ showPassword2: !this.state.showPassword2 });
+  }
 
 
 
@@ -272,7 +291,7 @@ handleBackButton = (nav) => {
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder="  Nom"
+                    placeholder="Nom"
                     onChangeText={(first_name) => this.setState({first_name})}
               />
                 </View>
@@ -280,7 +299,7 @@ handleBackButton = (nav) => {
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder="  Prénom"
+                    placeholder="Prénom"
                     onChangeText={(last_name) => this.setState({last_name})}
                   />
                 </View>
@@ -291,7 +310,18 @@ handleBackButton = (nav) => {
                     placeholder="  Date de naissance"
                     onChangeText={(birth_date) => this.setState({birth_date})}
                   /> */}
-                  
+                <Text style={{fontWeight:"600",color:"gray",margin:3}}>Date de naissance</Text>
+            <DatePicker                    
+                    mode="date"    
+                    maximumDate={this.state.date}                                                        
+                    date={this.state.date}
+                    locale={'fr'}                    
+                    onDateChange={(birth_date) => {
+                      this.setState({birth_date});
+                    }}
+                />
+
+                {/*                   
                       <DatePicker
                         style={{width: SCREEN_WIDTH*0.70,}}
                         date={this.state.birth_date}
@@ -317,27 +347,27 @@ handleBackButton = (nav) => {
                           onDateChange={(birth_date) => {
                             this.setState({birth_date});
                           }}
-                        />
+                        /> */}
                 </View>
-                <View>
+                {/* <View>
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="  Adresse postale"
                     onChangeText={(address) => this.setState({address})}
                   />
-                </View>
-                <View>
+                </View> */}
+                {/* <View>
                   <TextInput
                     keyboardType="number-pad"
                     style={Styles.textInputField}
                     placeholder="  Code postal"
                     onChangeText={(postcode) => this.setState({postcode})}
                   />
-                </View>
+                </View> */}
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder="  Ville"
+                    placeholder="Ville"
                     onChangeText={(city) => this.setState({city})}  
                   />
                 </View>
@@ -382,7 +412,7 @@ handleBackButton = (nav) => {
                                 paddingStart: 20,
                                 padding:5,
                                 fontWeight:'600',
-                                fontSize: 15,
+                                fontSize: 14,
                                 marginTop:6
                                                               
 
@@ -391,10 +421,10 @@ handleBackButton = (nav) => {
                             </Text>
                               :  <Text
                               style={{
-                                color: 'gray',
-                                paddingStart: 10,
+                                color: '#000000',
+                                paddingStart: 20,
                                 fontWeight:'600',
-                                fontSize: 16,
+                                fontSize: 14,
                                 padding:5,
                                 marginTop:6
                                
@@ -423,31 +453,64 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     keyboardType="phone-pad"
-                    placeholder="  Numéro de téléphone"
+                    placeholder="Numéro de téléphone"
                     onChangeText={(telephone_no) => this.setState({telephone_no})}
                   />
                 </View>
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder="  Email"
+                    placeholder="Email"
                     onChangeText={(email) => this.setState({email})}
                   />
                 </View>
-                <View>
+                <View style={{flexDirection:'row', borderWidth: 1,
+    borderColor: '#DDDDDD',
+    borderRadius: 10,
+    justifyContent:'space-between',
+    margin: 10,
+    paddingStart: 20,}}>
                   <TextInput
-                    style={Styles.textInputField}
-                    placeholder="  Mot de passe fort"
+                    // style={Styles.textInputField}
+                    secureTextEntry={this.state.showPassword}
+                    placeholder="Mot de passe"
                     onChangeText={(password) => this.setState({password})}
                   />
+                   <TouchableOpacity  
+              onPress={this.toggleSwitch}            
+              value={!this.state.showPassword}>
+                {
+                  this.state.showPassword == true ?
+                  <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                  :
+                  <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                }
+                 
+              </TouchableOpacity>
                 </View>
 
-                <View>
+                <View style={{flexDirection:'row', borderWidth: 1,
+    borderColor: '#DDDDDD',
+    borderRadius: 10,
+    justifyContent:'space-between',
+    margin: 10,
+    paddingStart: 20,}}>
                   <TextInput
-                    style={Styles.textInputField}
-                    placeholder=" confirme Mot de passe fort"
+                    // style={Styles.textInputField}
+                    secureTextEntry={ this.state.showPassword2}
+                    placeholder="confirme Mot de passe"
                     onChangeText={(confirm_password) => this.setState({confirm_password})}
                   />
+                   <TouchableOpacity  
+              onPress={this.toggleSwitch2}            
+              value={!this.state.showPassword2}>
+                {
+                  this.state.showPassword2 == true ?
+                  <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                  :
+                  <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                }
+                  </TouchableOpacity>
                 </View>
 
                 {/* <View>
@@ -476,7 +539,7 @@ handleBackButton = (nav) => {
                     this.props.navigation.navigate('login');
                   }}
                   >
-                  <Text style={Styles.txtStyle3}>Se connecter </Text>
+                  <Text style={Styles.txtStyle3}> Se connecter </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -501,7 +564,7 @@ handleBackButton = (nav) => {
                   backfaceVisibility: 'hidden',
                   flex: 1,
                   right: 20,
-                  left: 10,
+                  left: 0,
 
                   // left: Dimensions.get('window').width*1.60,
                   top: 350,
@@ -509,12 +572,12 @@ handleBackButton = (nav) => {
                 }}>
                 <View
                   style={{
-                    width: '80%',
+                    width: '70%',
                     height: SCREEN_HEIGHT /2.6,
                     backgroundColor: '#FFFFFF',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    alignSelf:'center',
+                    alignSelf:'flex-start',
                     margin: 10,
 
                   }}>

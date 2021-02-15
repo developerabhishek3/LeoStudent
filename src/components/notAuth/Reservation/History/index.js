@@ -8,7 +8,8 @@ import {
   Modal,
   Dimensions,
   BackHandler,
-  StatusBar
+  StatusBar,
+  RefreshControl
 } from 'react-native';
 import BottomNavigator from '../../../../router/BottomNavigator';
 import {Rating, AirbnbRating} from 'react-native-elements';
@@ -42,7 +43,8 @@ export default class index extends Component {
       Model_Visibility1:false,
       historyData:[],
       isBodyLoaded:false,
-      isSpinner:true
+      isSpinner:true,
+      isCurrenetComponentRefreshing:false
     };
   }
 
@@ -103,7 +105,7 @@ export default class index extends Component {
       console.log("getting history Data = = =  = = =  =  =",historyData) 
       
     }
-    this.setState({historyData,isBodyLoaded:true,isSpinner:false});
+    this.setState({historyData,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
   };
 
 
@@ -187,7 +189,7 @@ console.log("insiderender =",this.state.historyData)
 
           <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
-            <Text style={Styles.subheadingTxt}>Incomplete</Text>
+            <Text style={Styles.subheadingTxt}>incomplet</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
@@ -195,7 +197,7 @@ console.log("insiderender =",this.state.historyData)
 
           <View style={{flexDirection: 'column'}}>
           <TouchableOpacity onPress={()=>{this.props.navigation.navigate("currentreservation")}}>
-            <Text style={Styles.subheadingTxt}>Actual</Text>
+            <Text style={Styles.subheadingTxt}>Actuel</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
@@ -203,7 +205,7 @@ console.log("insiderender =",this.state.historyData)
           <View style={{flexDirection: 'column'}}>
             <TouchableOpacity >
             <Text style={Styles.subheadingTxt1}>Historique</Text>
-            <View style={{borderColor: '#FF1493', borderWidth: 1, width: 100}} />
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
             </TouchableOpacity>
           </View>
         </View>
@@ -215,7 +217,13 @@ console.log("insiderender =",this.state.historyData)
         this.state.isBodyLoaded == true ?
 
 
-        <ScrollView>
+        <ScrollView 
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                          <RefreshControl refreshing={this.state.isCurrenetComponentRefreshing} onRefresh={()=>{  this.setState({ isCurrenetComponentRefreshing: true }); setTimeout(()=>{
+                        this.history_reservationFunction();
+                      },100)  }} />
+                    }>
         
 
 
@@ -236,7 +244,9 @@ console.log("insiderender =",this.state.historyData)
    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
   teacher_id:singleHistoryMap.teacher_id,
   course_date:singleHistoryMap.course_date,
-  course_time:singleHistoryMap.course_time
+  course_time:singleHistoryMap.course_time,
+  teacher_name:singleHistoryMap.teacher_name,
+  teacher_profile_url:singleHistoryMap.teacher_profile_url
    })}}>
             <View style={{flexDirection: 'row',borderWidth:0,}}>
            
@@ -311,7 +321,7 @@ console.log("insiderender =",this.state.historyData)
           :
         
           <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>Record non trouvé!</Text>
+          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}></Text>
         </View>
 
 
@@ -336,9 +346,10 @@ console.log("insiderender =",this.state.historyData)
 
          
 
-          <View style={{position:"absolute",left:SCREEN_WIDTH*0.7,right:20,bottom:20}}>
-            <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}}>
-            <Image source={require("../../../../assets/icon/add.png")} style={{height:60,width:60,margin:10}} />
+          <View style={{position:"absolute",alignSelf:"flex-end",right:20,bottom:20}}>
+            <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}} style={{backgroundColor:"#b41565",borderRadius:10,justifyContent:"center",flexDirection:"row"}}>
+            <Image source={require("../../../../assets/icon/calendar3.jpg")} style={{height:27,width:27,margin:10}} />
+            <Text style={{fontSize:14,fontWeight:'700',color:"#FFFFFF",margin:10,marginStart:0,marginEnd:20,alignSelf:'center'}}>Réserver mon coaching</Text>
             </TouchableOpacity>
           </View>
           
@@ -403,7 +414,7 @@ console.log("insiderender =",this.state.historyData)
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#FF1493",alignSelf:'center'}}>Termes et conditions</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text>
 
 
 
@@ -419,7 +430,7 @@ console.log("insiderender =",this.state.historyData)
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -442,7 +453,7 @@ console.log("insiderender =",this.state.historyData)
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -514,7 +525,7 @@ console.log("insiderender =",this.state.historyData)
               <View
                 style={{
                   width: '80%',
-                  height: SCREEN_HEIGHT / 2.7,
+                  height: 221,
                   backgroundColor: '#ffffff',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -559,7 +570,7 @@ console.log("insiderender =",this.state.historyData)
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert3()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -582,7 +593,7 @@ console.log("insiderender =",this.state.historyData)
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert2()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    

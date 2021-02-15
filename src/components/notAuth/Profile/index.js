@@ -10,6 +10,7 @@ import { Rating, AirbnbRating } from 'react-native-ratings';
 import People from '../../../assets/icon/25.png';
 import Stars from 'react-native-stars';
 import {rating_to_teacher,teacher_rating_info} from '../../../Api/afterAuth';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class index extends Component {
 
@@ -19,7 +20,9 @@ export default class index extends Component {
       teacher_id:0,
       rating:0,
       comment:"",
-      TeacherRating:[]
+      TeacherRating:[],
+      isBodyLoaded:false,
+      isSpinner:true,
     }
   }
 
@@ -144,6 +147,8 @@ validateFunction(){
 
   console.log("inside the render methid=========",TeacherRating)
 
+  console.log("getting all param==============",teacher_profile_url,teacher_name,course_date,course_time)
+
 
 
     return (
@@ -151,10 +156,14 @@ validateFunction(){
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
         <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
         <View style={Styles.header}>
+          <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}>
           <Image source={back} style={Styles.headertxtInputImg} />
+          </TouchableOpacity>
           <Text style={Styles.headerTxt}>Réservations</Text>
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
+        <Spinner visible={this.state.isSpinner} 
+        />
 
           <View style={{marginTop:-15}}> 
             <Image   source={{
@@ -166,15 +175,17 @@ validateFunction(){
           <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,}}>{teacher_name}</Text>
 
 
+{
+  this.state.isBodyLoaded == true ?
 
 
-          <ScrollView>
+  <ScrollView>
 
         <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:30}}>
 
             <View style={{flexDirection:'column'}}>
-              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Durée du coaching</Text>
-              <Text style={{fontSize:16,fontWeight:'700'}}>30 min</Text>
+              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>date de cours</Text>
+              <Text style={{fontSize:16,fontWeight:'700'}}>{course_date}</Text>
             </View>
 
 
@@ -215,7 +226,7 @@ validateFunction(){
 
 
         <View>
-          <Text style={{fontSize:14,fontWeight:'700',color:'gray',alignSelf:'center',margin:1}}>Hardley</Text>
+          {/* <Text style={{fontSize:14,fontWeight:'700',color:'gray',alignSelf:'center',margin:1}}>Hardley</Text> */}
           <Text style={{fontSize:16,fontWeight:'700',color:'#000000',alignSelf:'center',margin:1}}>Comment s'est déroulée votre session ?</Text>
         </View>
 
@@ -238,7 +249,7 @@ validateFunction(){
                 onPress={()=>{this.validateFunction()}}
               >
                 <Text style={Styles.continueBtnTxt}>                  
-                  Soumettre
+                Valider
                 </Text>
               </TouchableOpacity>
             </View>
@@ -249,6 +260,15 @@ validateFunction(){
 
 
 
+
+          
+          :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
+          <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>chargement...</Text>
+        </View>
+
+}
+
+        
 
           
         </ImageBackground>

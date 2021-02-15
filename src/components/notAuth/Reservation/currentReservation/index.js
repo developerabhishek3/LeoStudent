@@ -8,7 +8,8 @@ import {
   Modal,
   Dimensions,
   BackHandler,
-  StatusBar
+  StatusBar,
+  RefreshControl
 } from 'react-native';
 import BottomNavigator from '../../../../router/BottomNavigator';
 import {Rating, AirbnbRating} from 'react-native-elements';
@@ -22,7 +23,7 @@ import books from '../../../../assets/icon/12.png';
 import watch from '../../../../assets/icon/14.png';
 import People from '../../../../assets/icon/25.png';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { current_reservation } from '../../../../Api/afterAuth'
+import { current_reservation, cancel_reservation } from '../../../../Api/afterAuth'
 
 
 import Stars from 'react-native-stars';
@@ -42,23 +43,48 @@ export default class index extends Component {
 
       isBodyLoaded:false,
       isSpinner:true,
+      reservation_id: 0,
+      isCurrenetComponentRefreshing:false
     };
   }
 
-  Show_Custom_Alert(visible) {
-
-    this.setState({Alert_Visibility: visible});
-    console.log("inside the funtion call----")
+  Show_Custom_Alert(reservation_id, visible) {
+    this.setState({Alert_Visibility: visible, reservation_id});
+    // console.log("getting reservation id here----------",reservation_id)
   }
   Hide_Custom_Alert() {
     this.setState({Alert_Visibility: false});
-    
+    this.Fetchcancel_reservation();
   }
+
+
+  Fetchcancel_reservation = async () => {
+    const {reservation_id} = this.state;
+    console.log(
+      'inside the cancel api calling getting reservation -------------------',
+      reservation_id,
+    );
+    const cancel_reservationResponse = await cancel_reservation({
+      reservation_id,
+    });
+    if (cancel_reservationResponse.result === true) {
+      this.current_reservationFunction();
+      console.log(
+        'getting result here ----------------->>>>>>>>>>>>>>>>>>>-',
+        cancel_reservationResponse.response,
+      );
+    } else {
+      this.myAlert('Error', cancel_reservationResponse.error);
+      console.log('getting error here-------------');
+    }
+    return;
+  };
 
 
 
 
   Show_Custom_Alert2(visible) {
+    console.log("geeting here- or not--------")
     this.setState({Alert_Visibility1: visible});
   }
   Hide_Custom_Alert3() {
@@ -77,7 +103,7 @@ export default class index extends Component {
 
   Hide_Custom_Alert1() {
     this.setState({Alert_Visibility: false});
-    this.props.navigation.navigate('choosetime')
+    // this.props.navigation.navigate('choosetime')
   }
 
 
@@ -116,7 +142,7 @@ export default class index extends Component {
       console.log("getting CurrrentData Data = = =  = = =  =  =",CurrrentData) 
       
     }
-    this.setState({CurrrentData,isBodyLoaded:true,isSpinner:false});
+    this.setState({CurrrentData,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
   };
 
 
@@ -134,13 +160,17 @@ export default class index extends Component {
 
     this.current_reservationFunction()
 
+    console.log("i am on the current reservation page ==============")
+
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
   }
 
 
-
+  checkreservation_id() {
+    this.Show_Custom_Alert();
+  }
   
   render() {
     return (
@@ -173,7 +203,7 @@ export default class index extends Component {
 
         <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
-            <Text style={Styles.subheadingTxt}>Incomplete</Text>
+            <Text style={Styles.subheadingTxt}>incomplet</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
@@ -181,8 +211,8 @@ export default class index extends Component {
 
           <View style={{flexDirection: 'column'}}>
           <TouchableOpacity >
-            <Text style={Styles.subheadingTxt1}>Actual</Text>
-            <View style={{borderColor: '#FF1493', borderWidth: 1, width: 100}}/>
+            <Text style={Styles.subheadingTxt1}>Actuel</Text>
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
           <View style={{flexDirection: 'column'}}>
@@ -195,7 +225,13 @@ export default class index extends Component {
         <View style={Styles.mainContainer}>
           {
             this.state.isBodyLoaded == true ?
-                      <ScrollView>                       
+            <ScrollView 
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                          <RefreshControl refreshing={this.state.isCurrenetComponentRefreshing} onRefresh={()=>{  this.setState({ isCurrenetComponentRefreshing: true }); setTimeout(()=>{
+                        this.current_reservationFunction();
+                      },100)  }} />
+                    }>                      
                       {                        
                         this.state.CurrrentData.length  > 0 ?
                         <View style={Styles.contentView}>
@@ -209,9 +245,10 @@ export default class index extends Component {
                                 teacher_id:singleCurrrentMap.teacher_id,
                                 course_date:singleCurrrentMap.course_date,
                                 course_time:singleCurrrentMap.course_time,
+                                reservation_id:singleCurrrentMap.reservation_id,
                                 ratingflag:true
                             })}}>
-                      <View style={{flexDirection: 'row'}}>
+                      <View style={{flexDirection: 'row',borderWidth:1,borderColor:"#DDDDDD",margin:4,width:"100%",borderRadius:7}}>
                         <Image                         
                         source={{
                           uri: `https://www.spyk.fr/${singleCurrrentMap.teacher_profile_url}`,
@@ -255,16 +292,25 @@ export default class index extends Component {
                                     />
                                   </View>
                             <View style={Styles.continueBtn}>
-                              <TouchableOpacity onPress={()=>{this.Show_Custom_Alert()}}>
-                              <Text style={Styles.continueBtnTxt}>Annuler main coaching</Text>
+                              {/* <TouchableOpacity onPress={()=>{this.Show_Custom_Alert()}}> */}
+                              <TouchableOpacity
+                                onPress={() => {
+                                  let reservation_id =
+                                    singleCurrrentMap.reservation_id;
+                                  console.log(
+                                    'getting inside on Press============',
+                                    reservation_id,
+                                  );
+                                  this.Show_Custom_Alert(reservation_id);
+                                }}>
+                              <Text style={Styles.continueBtnTxt}>Annuler man coaching</Text>
                               </TouchableOpacity>
                             </View>
                           </View>
                         </View>
                       </View>
                       </TouchableOpacity>
-                        </Fragment>
-                        
+                        </Fragment>                        
                         )
                       })
 
@@ -274,7 +320,7 @@ export default class index extends Component {
                         </View>
                         :
                         <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-                          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}> Record non trouvé!</Text>
+                          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}></Text>
                         </View>
                       }
 
@@ -291,14 +337,139 @@ export default class index extends Component {
 
           }
          
-          <View style={{position:"absolute",left:SCREEN_WIDTH*0.7,right:20,bottom:20}}>
+          {/* <View style={{position:"absolute",left:SCREEN_WIDTH*0.7,right:20,bottom:20}}>
             <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}}>
             <Image source={require("../../../../assets/icon/add.png")} style={{height:60,width:60,margin:10}} />
             </TouchableOpacity>
-          </View>
+          </View> */}
           
+          <View style={{position:"absolute",alignSelf:"flex-end",right:20,bottom:20}}>
+            <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}} style={{backgroundColor:"#b41565",borderRadius:10,justifyContent:"center",flexDirection:"row"}}>
+            <Image source={require("../../../../assets/icon/calendar3.jpg")} style={{height:27,width:27,margin:10}} />
+            <Text style={{fontSize:14,fontWeight:'700',color:"#FFFFFF",margin:10,marginStart:0,marginEnd:20,alignSelf:'center'}}>Réserver mon coaching</Text>
+            </TouchableOpacity>
+          </View>
+
+         
+
+
+
+
 
           <Modal
+            visible={this.state.Alert_Visibility1}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility1);
+            }}>
+            <View
+              style={{
+                // backgroundColor:'#FFF',
+                backgroundColor: 'rgba(0,0,230,0.700)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../assets/icon/mobile.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: -10,
+                      color: '#000000',
+                      textAlign: 'center',                      
+                    }}>
+                    Reservation de man coaching d'anglais
+                  </Text>
+                </View>                  
+
+                <View
+                  style={{                                        
+                    borderRadius: 6,
+                    justifyContent:'space-around',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => this.Hide_Custom_Alert3()}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 10,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 12,
+                        marginStart: 7,
+                        marginEnd: 7,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                     fair man coaching maintenant
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => this.Hide_Custom_Alert2()}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 10,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 12,
+                        marginStart: 10,
+                        marginEnd: 10,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                      Programmer man coaching pour plus tord
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+
+
+
+          {/* <Modal
             visible={this.state.Alert_Visibility}
             animationType={'fade'}
             transparent={true}
@@ -355,7 +526,7 @@ export default class index extends Component {
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#FF1493",alignSelf:'center'}}>Termes et conditions</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text>
 
 
 
@@ -369,9 +540,19 @@ export default class index extends Component {
                     margin: 5,
                   }}>
                   <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert()}
+                    // onPress={() => this.Hide_Custom_Alert()}
+
+                    onPress={() => {
+                      let reservation_id = this.state.reservation_id;
+                      console.log(
+                        'getting inside on Press============',
+                        reservation_id,
+                      );
+
+                      this.Hide_Custom_Alert();
+                    }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -394,7 +575,7 @@ export default class index extends Component {
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -418,150 +599,7 @@ export default class index extends Component {
               </View>
             </View>
           </Modal>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* 
-
-
-
-
-
-          <Modal
-            visible={this.state.Alert_Visibility1}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert(!this.state.Alert_Visibility1);
-            }}>
-            <View
-              style={{
-                // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: SCREEN_HEIGHT / 2.7,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image
-                      source={require("../../../../assets/icon/mobile.png")}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 10,
-                      marginTop: -10,
-                      color: '#000000',
-                      textAlign: 'center',                      
-                    }}>
-                    Reservation de man coaching d'anglais
-                  </Text>
-                </View>                  
-
-                <View
-                  style={{                                        
-                    borderRadius: 6,
-                    justifyContent:'space-around',
-                    margin: 5,
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert3()}
-                    style={{
-                      backgroundColor: '#FF1493',
-                      justifyContent: 'center',
-                      margin: 10,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 12,
-                        marginStart: 7,
-                        marginEnd: 7,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                     fair man coaching maintenant
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert2()}
-                    style={{
-                      backgroundColor: '#FF1493',
-                      justifyContent: 'center',
-                      margin: 10,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 12,
-                        marginStart: 10,
-                        marginEnd: 10,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                      Programmer man coaching pour plus tord
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal> */}
-
-
-
-
+ */}
 
 
 

@@ -45,7 +45,7 @@ export default class index extends Component {
           "value":"Bac + 2"
           },
           {"id": "3",
-          "value":"Bachler"
+          "value":"Bachelor"
           },
           {"id": "4",
           "value":"Master"
@@ -54,23 +54,23 @@ export default class index extends Component {
           "value":"Doctorat"
           }, 
           {"id": "6",
-          "value":"sans diploma"
+          "value":"Sans diploma"
           }, 
           {"id": "5",
-          "value":"autre"
+          "value":"Autre"
           },      
       ],
 
 
       data2:[
         {"id": "1",
-        "value":"voyage"
+        "value":"Voyage"
           },
           {"id": "2",
-          "value":"besoin professionnel"
+          "value":"Besoin professionnel"
           },
           {"id": "3",
-          "value":"les deux"
+          "value":"Les deux"
           },              
       ],
 
@@ -158,7 +158,7 @@ export default class index extends Component {
       if (add_update_academic_infoResponse.response.status === true) {           
           console.log("getting response >>>>>>>>>>>>>>>>",add_update_academic_infoResponse.response)      
           this.props.navigation.navigate('levelchoice')
-          Alert.alert("Message", add_update_academic_infoResponse.response.message)
+          // Alert.alert("Message", add_update_academic_infoResponse.response.message)
       }
       else {
         Alert.alert("Message", add_update_academic_infoResponse.response.message)
@@ -188,9 +188,9 @@ export default class index extends Component {
     else if (q_2_ans.length === 0) {
         this.myAlert('Message', 'Veuillez saisir la réponse!');
     }
-    else if (q_3_ans.length === 0) {
-        this.myAlert('Message', 'Veuillez saisir la réponse!');
-    } 
+    // else if (q_3_ans.length === 0) {
+    //     this.myAlert('Message', 'Veuillez saisir la réponse!');
+    // } 
     else if (q_4_ans.length === 0) {
       this.myAlert('Message', 'Veuillez saisir la réponse!');
   } 
@@ -250,7 +250,7 @@ export default class index extends Component {
                                       this.state.q_1_ans == singleMAp.value ? 
                                       <TouchableOpacity  onPress={()=>{this.setState({q_1_ans:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center'}}>
                                           <Image source={require("../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                          <Text style={{color:"lightgreen"}}>{singleMAp.value}</Text>
+                                          <Text style={{color:"lightgreen",fontWeight:'700'}}>{singleMAp.value}</Text>
                                       </TouchableOpacity>
   
                                       :
@@ -269,12 +269,12 @@ export default class index extends Component {
 
                 <View style={{borderWidth:1,borderColor:"#DDDDDD",width:"90%",height:40,alignSelf:'center',margin:7,borderRadius:10}}>
                   <TextInput 
-                      placeholder="Profession"
+                      placeholder=" Profession"
                       onChangeText={(q_2_ans)=>this.setState({q_2_ans })}
                   />
                 </View>
 
-
+{/* 
                 <View style={{borderWidth:1,borderColor:'#DDDDDD',flexWrap:'wrap',width:'90%',borderRadius:10,alignSelf:'center',margin:10,flexDirection:'column'}}>                
                 <View style={{flexDirection:'column',}}>
                   <Text style={{flexDirection:'column',flexWrap:'wrap',alignSelf:'flex-start',margin:10,color:"gray"}}>Quelles sont vos attentes? Quel est votre objectif 
@@ -285,14 +285,14 @@ export default class index extends Component {
                 style={Styles.textInputField}
                 />
                 </View>
-            </View>
+            </View> */}
 
 
 
 
             <View style={{borderWidth:1,borderColor:'#DDDDDD',flexWrap:'wrap',width:'90%',borderRadius:10,alignSelf:'center',margin:10,flexDirection:'column'}}>                
                 <View style={{flexDirection:'column',}}>
-                  <Text style={{flexDirection:'column',flexWrap:'wrap',alignSelf:'flex-start',margin:10,color:"gray"}}>A propos de vous. Vos centres d'intérêt</Text>
+                  <Text style={{flexDirection:'column',flexWrap:'wrap',alignSelf:'flex-start',margin:10,color:"gray"}}>Vos centres d'intérêts (voyages, cinéma, lecture, cuisine, etc.)</Text>
                 <TextInput 
                 numberOfLines={3}
                 onChangeText={(q_4_ans)=>this.setState({q_4_ans })}
@@ -303,7 +303,7 @@ export default class index extends Component {
 
                 <View style={Styles.subHeader}>
                   <Text style={Styles.txtStyle1}>
-                  Quel est votre besoin en anglais :
+                  Votre besoin en anglais :
                   </Text>
                 </View>
 
@@ -317,7 +317,7 @@ export default class index extends Component {
                                       this.state.q_5_ans == singleMAp.value ? 
                                       <TouchableOpacity  onPress={()=>{this.setState({q_5_ans:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center'}}>
                                           <Image source={require("../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                          <Text style={{color:"lightgreen"}}>{singleMAp.value}</Text>
+                                          <Text style={{color:"lightgreen",fontWeight:'700'}}>{singleMAp.value}</Text>
                                       </TouchableOpacity>
                                       :
                                       <TouchableOpacity onPress={()=>{this.setState({q_5_ans:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center'}}>
@@ -445,7 +445,7 @@ export default class index extends Component {
                     // }}
                     onPress={()=>{this.validateUser()}}
                     >
-                    <Text style={Styles.continueBtnTxt}>Sauver</Text>
+                    <Text style={Styles.continueBtnTxt}>Valider</Text>
                   </TouchableOpacity>
                 </View>
               </View>

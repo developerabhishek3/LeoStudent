@@ -55,7 +55,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     margin: 10,
-    color: '#FF1493',
+    color: '#b41565',
   },
   mainContainer:{
     borderWidth: 0,
@@ -118,7 +118,7 @@ export default StyleSheet.create({
     justifyContent:'space-around'
   },
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 6,
     borderRadius: 5,
     
@@ -126,7 +126,7 @@ export default StyleSheet.create({
 
   },
   continueBtn1: {
-    borderColor: '#FF1493',
+    borderColor: '#b41565',
     margin: 6,
     borderWidth:1,
     borderRadius: 5,
@@ -147,7 +147,7 @@ export default StyleSheet.create({
     margin: 7,
     marginStart: 20,
     marginEnd: 20,
-    color: '#FF1493',
+    color: '#b41565',
     fontWeight: '700',
     fontSize: 14,
     alignSelf: 'center',

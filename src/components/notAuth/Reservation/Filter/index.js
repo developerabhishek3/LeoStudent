@@ -26,13 +26,15 @@ export default class index extends Component {
         value:'',
       data1:[
         {"id": "1",
-        "value":"coach natif"
+        "value":"coach natif",
+        "description":"Conseillé pour les niveaux intermédiaires voulant acquérir une aisance orale et les niveaux avancés pour devenir bilingue"
           },
           {"id": "2",
-          "value":"coach bilingue"
+          "value":"coach bilingue",
+          "description":"Conseillé pour les niveaux débutants et les niveaux intermédiaires qui veulent être plus en confiance et progresser tant sur l'oral que la grammaire"
           },
           {"id": "3",
-          "value":"lex deux me vant"
+          "value":" les deux me vont"
           },              
       ],
 
@@ -89,7 +91,7 @@ export default class index extends Component {
             }}>
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>       Filtre</Text>
+          <Text style={Styles.headerTxt}>       Filtrer les coachs</Text>
           {/* <TouchableOpacity onPress={()=>{this.props.navigation.navigate("filter")}}>
               <Image source={logo} style={Styles.headertxtInputImg1} />
           </TouchableOpacity> */}
@@ -114,15 +116,17 @@ export default class index extends Component {
                         <View >                           
                                   {
                                       this.state.value == singleMAp.value ? 
-                                      <TouchableOpacity  onPress={()=>{this.setState({value:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center',margin:6}}>
+                                      <TouchableOpacity  onPress={()=>{this.setState({value:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center',margin:6,flexWrap:"wrap"}}>
                                           <Image source={require("../../../../assets/icon/9.png")} style={{height:20,width:20,margin:3}} />
                                           <Text style={{color:"red"}}>{singleMAp.value}</Text>
+                                          <Text style={{color:"red",fontSize:12,marginStart:20}}>{singleMAp.description}</Text>
                                       </TouchableOpacity>
   
                                       :
-                                      <TouchableOpacity onPress={()=>{this.setState({value:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center',margin:6}}>
+                                      <TouchableOpacity onPress={()=>{this.setState({value:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center',margin:6,flexWrap:"wrap"}}>
                                           <Image source={require("../../../../assets/icon/4.png")} style={{height:20,width:20,margin:3}} />
                                           <Text style={{color:"gray"}}>{singleMAp.value}</Text>
+                                          <Text style={{color:"gray",fontSize:12,marginStart:20,}}>{singleMAp.description}</Text>
                                       </TouchableOpacity>
 
 
@@ -147,7 +151,7 @@ export default class index extends Component {
                                   
                     onPress={()=>{this.props.navigation.navigate("searchteacher",{coach_type:this.state.value})}}
                     >
-                    <Text style={Styles.continueBtnTxt}>Sauver</Text>
+                    <Text style={Styles.continueBtnTxt}>Enregistrer</Text>
                   </TouchableOpacity>
                 </View>
                 </View>

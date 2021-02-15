@@ -156,7 +156,7 @@ export default class index extends Component {
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder=" Courriel"
+                    placeholder=" Email"
 
                     onChangeText={(email) => this.setState({ email })}
               />

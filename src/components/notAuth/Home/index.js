@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { View,Text,ScrollView, StatusBar,Image,TouchableOpacity,Modal,Dimensions,TextInput, ImageBackground, Alert,BackHandler} from 'react-native'
+import { View,Text,ScrollView, StatusBar,Image,TouchableOpacity,Modal,Dimensions,TextInput, ImageBackground, Alert,BackHandler,Linking} from 'react-native'
 import BottomNavigator from '../../../router/BottomNavigator'
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -155,7 +155,7 @@ export default class index extends Component {
  
 const { newsletter } = this.state;
 
-console.log("getint inside state ",this.state.countData)
+console.log("getint inside state ",this.state.teacherSlideData)
 
     return (
       <Fragment>
@@ -169,13 +169,18 @@ console.log("getint inside state ",this.state.countData)
           <Text style={Styles.headerTxt}>Accueil   </Text>
           <Image source={logo} style={Styles.headertxtInputImg} />
           </View>                   
-            <View style={{flex:2,marginTop:-70,borderWidth:0,borderColor:"red",width:'100%'}}>           
+            <View style={{flex:2,marginTop:-10,borderWidth:0,borderColor:"red",width:'100%'}}>           
             {
               this.state.isBodyLoaded == true ?              
               <ScrollView>
+              
+{/*                
               <ScrollView horizontal={true}>
                
-                {
+               {
+                 this.state.teacherSlideData.length > 0 ?
+                 <Fragment>
+              {
                   this.state.teacherSlideData.map((singleTeacherSlideMAp)=>{
                     return(
                       <Fragment>
@@ -205,7 +210,46 @@ console.log("getint inside state ",this.state.countData)
                     )
                   })
                 }         
-              </ScrollView>
+
+                  </Fragment>
+
+
+
+                 :<View>
+                  </View>
+               }
+               
+              </ScrollView> */}
+
+          <Text style={{fontWeight:'700',margin:7,fontSize:20,alignSelf:'center',marginTop:0}}>Démarrer mon coaching d'anglais</Text>
+
+{/* dynamicity from here.................. */}
+     <ImageBackground  source={{
+                   uri: `https://www.spyk.fr/${newsletter.image_path}`,
+                 }} 
+                  style={{width:'98%',alignSelf:'center',height:180,justifyContent:'flex-end',alignItems:'center'}} >
+         {/* <View style={{opacity:0.6,width:'98%',height:50,backgroundColor:"#000000",alignSelf:'center',flexDirection:"row",justifyContent:'center',borderWidth:0,borderColor:"red",marginEnd:7}}>
+               <Text style={{color:"#FFFFFF",fontSize:12,fontWeight:'700',margin:1,width:"70%"}}>{newsletter.description}</Text>
+               <TouchableOpacity style={Styles.continueBtn} onPress={()=>{
+                 this.newsletterSubscriptionFunction()
+               }} >
+               <Text style={Styles.continueBtnTxt}>S'criber</Text>
+               </TouchableOpacity>                     
+         </View> */}
+     </ImageBackground>
+
+
+         <View>
+          <TouchableOpacity style={{backgroundColor:"#b41565",margin:10,justifyContent:'center',alignSelf:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
+            onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
+          >
+              <Image source={require("../../../assets/icon/whatsapp.png")} style={{height:30,width:30,margin:10}} />
+              <Text style={{fontSize:14,fontWeight:"700",margin:15,marginStart:20,marginEnd:40,color:"#FFFFFF"}}>START</Text>
+          </TouchableOpacity>
+         </View>
+
+
+
               {
                 this.state.countData.map((singleCountData)=>{
                   
@@ -267,89 +311,36 @@ console.log("getint inside state ",this.state.countData)
                       
 
 <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Numbre de coaching afferts</Text>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Bons cadeaux</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/books.png")} style={{height:35,width:35,margin:4}} />
+                          <Image source={require("../../../assets/icon/gift.png")} style={{height:35,width:35,margin:4}} />
                   <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.offered_coaching}</Text>
                         </View>
                         </View>
 
-                     
-
-                    </ImageBackground>
-
-
-                    <ImageBackground 
                   
-
+                    </ImageBackground>
+                    <ImageBackground                 
                       resizeMode='cover' 
                       source={require("../../../assets/icon/red.png")}
-                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}
-                      
-                    >
-                     
-                      
+                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
+                    >                                           
                      <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau atteint</Text>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau initial</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/105.png")} style={{height:35,width:35,margin:4}} />
+                          <Image source={require("../../../assets/icon/Niveau.png")} style={{height:35,width:35,margin:4}} />
                   <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.point_total}</Text>
                         </View>
                         </View>
-
                     </ImageBackground>
                     </View>
-
-                  
-
-
-
-
-
                     </Fragment>
                   )
                 })
-
-
-
               }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               
-
-                <Text style={{fontWeight:'700',margin:7,fontSize:16}}>S'abonner à la news letter</Text>
-
-           {/* dynamicity from here.................. */}
-                <ImageBackground  source={{
-                              uri: `https://www.spyk.fr/${newsletter.image_path}`,
-                            }} 
-                             style={{width:'98%',alignSelf:'center',height:180,justifyContent:'flex-end',alignItems:'center'}} >
-                    <View style={{opacity:0.6,width:'98%',height:50,backgroundColor:"#000000",alignSelf:'center',flexDirection:"row",justifyContent:'center',borderWidth:0,borderColor:"red",marginEnd:7}}>
-                          <Text style={{color:"#FFFFFF",fontSize:12,fontWeight:'700',margin:1,width:"70%"}}>{newsletter.description}</Text>
-                          <TouchableOpacity style={Styles.continueBtn} onPress={()=>{
-                            this.newsletterSubscriptionFunction()
-                          }} >
-                          <Text style={Styles.continueBtnTxt}>S'criber</Text>
-                          </TouchableOpacity>                     
-                    </View>
-                </ImageBackground>
+                
 
               </ScrollView>
               : null
@@ -471,7 +462,7 @@ console.log("getint inside state ",this.state.countData)
                   onPress={() => this.Hide_Custom_Alert()}                 
                   style={{
                    
-                    backgroundColor: '#FF1493',
+                    backgroundColor: '#b41565',
                     justifyContent: 'center',
                     margin: 10,
                     marginStart: 25,

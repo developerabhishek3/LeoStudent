@@ -48,7 +48,7 @@ export default StyleSheet.create({
   },
 
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 3,
     borderRadius: 5,
     width: '40%',

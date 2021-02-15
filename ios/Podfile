@@ -10,6 +10,8 @@ target 'LEOStudent' do
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'react-native-date-picker', :path => '../node_modules/react-native-date-picker'
+
   target 'LEOStudentTests' do
     inherit! :complete
     # Pods for testing

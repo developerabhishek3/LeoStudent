@@ -127,7 +127,7 @@ export default class index extends Component {
                     onPress={() => {
                       this.props.navigation.navigate('afterlevelchoice');
                     }}>
-                    <Text style={Styles.continueBtnTxt}>Choisissez un niveau</Text>
+                    <Text style={Styles.continueBtnTxt}>Choisir un niveau</Text>
                   </TouchableOpacity>
                 </View>
 

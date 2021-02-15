@@ -102,46 +102,43 @@ render() {
     // console.log("getting state value inside here--------------",this.state.is_academic_info,this.state.is_academic_info)
     return (
       <Fragment>
+              <Spinner visible={this.state.isSpinner} />
         {  !isLoading && 
-             <View style={Styles.container}>
-             <Spinner visible={this.state.isSpinner} />
-             
+             <View style={Styles.container}>                   
              <StatusBar hidden />
              <ImageBackground
                source={bgImg}
                resizeMode="stretch"
                style={Styles.bgImgStyle}>
                <ScrollView>
-                 <View style={{borderWidth: 0, marginBottom: 20, marginTop: 0}}>
+                 <View style={{borderWidth: 0, marginBottom: 20, marginTop: 0,width:"99%",alignSelf:'center',borderWidth:0}}>
                    <View style={Styles.headerView}>
                    <Image source={logo} style={Styles.headerLogo} />
                      <View style={{alignSelf:'center',marginBottom:10}}>
                        <Text style={Styles.headerTxt}>Connectez-vous avec un coach </Text>
                        <Text style={Styles.headerTxt}>d'anglais pour un call in English</Text>
-                     </View>
-                     
-                   </View>
-                             
-     
+                     </View>                     
+                   </View>                                  
                    <Text style={Styles.txtStyle2}>
-                   GO faites un call de 30 min ou 1h avec un
+                   GO ! Faites un call de 30 min ou 1h avec un coach d’anglais SPYK 
                    </Text>
-                   <Text style={Styles.txtStyle2}>
-                   coach d'anglais LEO !
-                   </Text>             
+                   {/* <Text style={Styles.txtStyle2}>
+                   coach d'anglais SPYK !
+                   </Text>              */}
      
                    <View style={{marginTop: 10, marginBottom: 0}}>
                      <Text style={Styles.txtStyle2}>
                        
-                       Vous pouvez faire un call in English
+                     Vous pouvez faire un call in English maintenant ou programmer un coaching d’anglais pour plus tard.
+ 
                      </Text>
-                     <Text style={Styles.txtStyle2}>
+                     {/* <Text style={Styles.txtStyle2}>
                      maintenant ou programmer un coaching
                      </Text>
      
                      <Text style={Styles.txtStyle2}>
                      d'anglais pour plus tard.
-                     </Text>
+                     </Text> */}
                    </View>
                    <View>
                      <Image source={logoIcon} style={{width:190,height:190,margin:10,alignSelf:'center'}} />

@@ -42,8 +42,8 @@ export default class Splash extends Component {
         <Image
           resizeMode="stretch"
           style={{
-            width: 120,
-            height: 140,            
+            width: 140,
+            height: 170,            
             alignSelf:'center',
           }}
           source={require('../../../assets/icon/96.png')}
@@ -59,7 +59,7 @@ export default class Splash extends Component {
                 fontFamily:'Montserrat-Regular'
             }}
           >
-            Application mobile LEO,
+            Application mobile SPYK
           </Text>
                   <Text
                       style= {{

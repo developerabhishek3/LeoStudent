@@ -160,7 +160,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 15,
     borderRadius: 5,
     marginTop:40,

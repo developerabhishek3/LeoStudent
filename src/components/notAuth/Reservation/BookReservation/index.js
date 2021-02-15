@@ -153,6 +153,7 @@ export default class index extends Component {
     // console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
 
     let transactinId = this.props.navigation.getParam("transactinId")
+    console.log("getting transaction id ---------",transactinId)
 
 
     // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
@@ -164,7 +165,7 @@ export default class index extends Component {
     if (reservation_requestResponse.result == true) {
       if(reservation_requestResponse.response.status == true){
         console.log("getting response here after posting ================",reservation_requestResponse.response)
-        Alert.alert("Message",reservation_requestResponse.response.message)
+        // Alert.alert("Message",reservation_requestResponse.response.message)
         var waiting_time = reservation_requestResponse.response.waiting_time
 
         this.setState({waiting_time,waiting_time_key:true,isButtonEnable:false})
@@ -345,7 +346,7 @@ const {TeacherDetails} = this.state;
           </TouchableOpacity>
           <Text style={Styles.headerTxt}>Voir le profil du coach d'anglais</Text>
 
-                  {
+                  {/* {
                     TeacherDetails.length > 0 ?
                     <Fragment>
 
@@ -372,7 +373,7 @@ const {TeacherDetails} = this.state;
 
                     :null
                   }
-                        
+                         */}
                         
 
 
@@ -385,7 +386,7 @@ const {TeacherDetails} = this.state;
         {/* <View style={Styles.subhaderView}>
           <View style={{flexDirection: 'column'}}>
             <Text style={Styles.subheadingTxt1}>Historique</Text>
-            <View style={{borderColor: '#FF1493', borderWidth: 1, width: 100}} />
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
           </View>
           <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("currentreservation")}}>
@@ -473,10 +474,10 @@ const {TeacherDetails} = this.state;
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_language_skill}</Text>
                   </View>
 
-                  <View style={{flexDirection: 'row',margin:4}}>
+                  {/* <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Diplôme : </Text>
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_diploma}</Text>
-                  </View>               
+                  </View>                */}
                 </View>                
               </View>
             </View>
@@ -515,10 +516,10 @@ const {TeacherDetails} = this.state;
                                 size={18}
                                 until={this.state.waiting_time}
                                 onFinish={() => this.setState({waiting_time:0,isButtonEnable:true})}
-                                digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#FF1493',}}
-                                digitTxtStyle={{color: '#FF1493'}}
+                                digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#b41565',}}
+                                digitTxtStyle={{color: '#b41565'}}
                                 timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
-                                separatorStyle={{color: '#FF1493'}}
+                                separatorStyle={{color: '#b41565'}}
                                 timeToShow={['H', 'M', 'S']}
                                 timeLabels={{m: null, s: null}}
                                 showSeparator
@@ -559,10 +560,11 @@ const {TeacherDetails} = this.state;
 
                     <View style={Styles.continueBtn}>
                         <TouchableOpacity 
-                        // onPress={()=>{this.Show_Custom_Alert()}}
-                        onPress={()=>{
-                          Linking.openURL(`tel:${9999999999}`)
-                        }}
+                        onPress={()=>{this.Show_Custom_Alert()}}
+                        // onPress={()=>{
+                        //   Linking.openURL(`tel:${9999999999}`)
+                        // }}
+
                         >
                         <View style={{flexDirection:'row'}}>
                           <Image source={require('../../../../assets/icon/call.png')}  style={{height:20,width:20,margin:10}} />
@@ -581,7 +583,7 @@ const {TeacherDetails} = this.state;
                         // onPress={()=>{this.props.navigation.navigate("chat2")}}
                             onPress={()=>{this.reservation_requestFunction()}}
                         >
-                        <Text style={Styles.continueBtnTxt}>Envoyez la demande au coach</Text>
+                        <Text style={Styles.continueBtnTxt}>Envoyer l demande au coach</Text>
                         </TouchableOpacity>
                         </View>
                         :null
@@ -660,10 +662,11 @@ const {TeacherDetails} = this.state;
                    Demande acceptée
                   </Text>
                 </View>  
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre demande a été acceptée par le coach</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> d'anglais, vous pouvez maintenant profiter de</Text>
+                  <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre coach va vous</Text>
+                  <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacter</Text>
+                  {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> d'anglais, vous pouvez maintenant profiter de</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>coaching d'anglais! Vous allez être</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacté(e) par votre coach.</Text>                  
+                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacté(e) par votre coach.</Text>                   */}
                 <View
                   style={{
                     flex: 1,
@@ -671,11 +674,12 @@ const {TeacherDetails} = this.state;
                     borderRadius: 6,
                     justifyContent:'space-around',
                     margin: 5,
+                    marginTop:20,
                   }}>
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -686,19 +690,20 @@ const {TeacherDetails} = this.state;
                       style={{
                         color: '#FFF',
                         fontSize: 13,
-                        marginStart: 7,
-                        marginEnd: 7,
+                        marginStart: 60,
+                        marginEnd: 60,
+                        margin:15,
                         fontWeight: '700',
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
-                    Démarrer le coaching
+                   OK
                     </Text>
                   </TouchableOpacity>
                   {/* <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    

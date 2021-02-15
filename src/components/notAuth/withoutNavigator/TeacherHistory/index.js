@@ -33,6 +33,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import chatImg from '../../../../assets/icon/11.png'
 
 import Stars from 'react-native-stars';
+
+
 export default class index extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +50,9 @@ export default class index extends Component {
       date_slot:'',
       time_slot:'',
       course_date:"",
-      course_time:","
+      course_time:"",
+      teacher_profile_url:"",
+      teacher_name:"",
     };
   }
 
@@ -129,12 +133,33 @@ export default class index extends Component {
   }
   Hide_Custom_Alert() {
     this.setState({Alert_Visibility: false});
-    this.props.navigation.navigate('teacherinfo')
+    let teacher_id = this.props.navigation.getParam("teacher_id")
+    let teacher_name = this.props.navigation.getParam("teacher_name")
+    let teacher_profile_url = this.props.navigation.getParam("teacher_profile_url")
+    let course_time = this.props.navigation.getParam("course_time")
+    let course_date = this.props.navigation.getParam("course_date")  
+    
+    console.log("getting all param --------------",teacher_id,teacher_name,teacher_profile_url)
+
+    this.props.navigation.navigate('profile',{
+      teacher_id:teacher_id,
+      teacher_name:teacher_name,
+      teacher_profile_url:teacher_profile_url,
+      course_time:course_time,
+      course_date:course_date
+    })
     
   }
   Hide_Custom_Alert1() {
     this.setState({Alert_Visibility: false});
-    this.props.navigation.navigate('clientinfo')
+    this.props.navigation.navigate("profile",{
+        teacher_id:this.state.teacher_id,
+        teacher_profile_url:this.state.teacher_profile_url,
+        course_date:this.state.course_date,
+        course_time:this.state.course_time,
+        teacher_name:this.state.teach
+    }
+    )
   }
   render() {
 
@@ -182,7 +207,14 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                   
               TeacherDetails.map((singleTeacherDetails)=>{
 
-                console.log("hghgghghgghgh================",singleTeacherDetails)
+               
+                // teacher_profile_url = singleTeacherDetails.teacher_profile_url,
+                //   course_date=singleTeacherDetails.course_date,
+                //   course_time=singleTeacherDetails.course_time,
+                //   teacher_name=singleTeacherDetails.teacher_name,
+                
+                //   this.setState({teacher_profile_url,course_date,course_time,teacher_name,})
+           
                 return(
                     <Fragment>
 <View style={Styles.contentView}>
@@ -318,8 +350,6 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
 
                     { 
                         ratingflag == true ?
-
-
                         <View style={Styles.continueBtn}>
                         <TouchableOpacity 
                         style={{flexDirection:'row',margin:3}}
@@ -330,23 +360,19 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                         Appeler le client pour démarrer le coaching
                         </Text>
                         </TouchableOpacity>
-                    </View>
-
-
+                      </View>
                         :
-
                         <View style={Styles.continueBtn}>
                       <TouchableOpacity 
-                      onPress={()=>{this.props.navigation.navigate("profile",{
-                        teacher_id:singleTeacherDetails.teacher_id,
-                        teacher_profile_url:singleTeacherDetails.teacher_profile_url,
-                        course_date:singleTeacherDetails.course_date,
-                        course_time:singleTeacherDetails.course_time,
-                        teacher_name:singleTeacherDetails.teacher_name
-
-
-
-                      })}}
+                      // onPress={()=>{this.props.navigation.navigate("profile",{
+                      //   teacher_id:singleTeacherDetails.teacher_id,
+                      //   teacher_profile_url:singleTeacherDetails.teacher_profile_url,
+                      //   course_date:singleTeacherDetails.course_date,
+                      //   course_time:singleTeacherDetails.course_time,
+                      //   teacher_name:singleTeacherDetails.teacher_name
+                      // })}}
+                      onPress={                                                  
+                        ()=>{this.Show_Custom_Alert()}}
                       >
                       <Text style={Styles.continueBtnTxt}>
                         Evalour le coach
@@ -398,7 +424,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
               <View
                 style={{
                   width: '80%',
-                  height: SCREEN_HEIGHT / 2.7,
+                  height: 221,
                   backgroundColor: '#ffffff',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -416,7 +442,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                       marginTop: -50,
                     }}>
                     <Image
-                      source={require("../../../../assets/icon/9.png")}
+                      source={require("../../../../assets/icon/1616567.png")}
                       style={{height: 80, width: 80, margin: 10}}
                     />
                   </View>
@@ -433,10 +459,10 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                    Demande acceptée
                   </Text>
                 </View>  
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre demande a été acceptée par le coach</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> d'anglais, vous pouvez maintenant profiter de</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>coaching d'anglais! Vous allez être</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacté(e) par votre coach.</Text>                  
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre session est terminate</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"gray",alignSelf:'center'}}>Hope you had fun See you seen !</Text>
+                  {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>coaching d'anglais! Vous allez être</Text>
+                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacté(e) par votre coach.</Text>                   */}
                 <View
                   style={{
                     flex: 1,
@@ -448,30 +474,32 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
-                   
+                     flexDirection:"row",
                       height: 35,
                       borderRadius: 6,
                     }}>
+                      <Image source={require("../../../../assets/icon/like.png")} style={{height:20,width:20,margin:4}} />
                     <Text
                       style={{
                         color: '#FFF',
                         fontSize: 13,
                         marginStart: 7,
                         marginEnd: 7,
+                        margin:7,
                         fontWeight: '700',
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
-                    Démarrer le coaching
+                  Evaluer mon coach
                     </Text>
                   </TouchableOpacity>
                   {/* <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    

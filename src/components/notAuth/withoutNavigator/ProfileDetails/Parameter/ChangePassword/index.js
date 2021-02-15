@@ -192,9 +192,6 @@ export default class index extends Component {
             <TextInput placeholder="  Confirmer le mot de passe" style={Styles.txtInput}
             onChangeText={(confirm_new_password) => this.setState({ confirm_new_password })}
             />
-
-
-
             
             <View style={Styles.continueBtn}>
                   <TouchableOpacity
@@ -203,23 +200,12 @@ export default class index extends Component {
                     }}
                     onPress={()=>{this.validateUser()}}
                     >
-                    <Text style={Styles.continueBtnTxt}>Changer</Text>
+                    <Text style={Styles.continueBtnTxt}>Valider</Text>
                   </TouchableOpacity>
                 </View>
-
-
-
-           
-
-
-
-
-
+      
             </View>
           </ScrollView>   
-
-
-
 
         </ImageBackground>
           
