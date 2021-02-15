@@ -9,7 +9,7 @@ import back from '../../../../../assets/icon/20.png';
 import Edit from '../../../../../assets/icon/34.png';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Spinner from 'react-native-loading-spinner-overlay';
-import People from '../../../../../assets/icon/25.png';
+import People from '../../../../../assets/icon/avatar.png';
 
 import {StudentProfile} from '../../../../../Api/afterAuth'
 
@@ -22,7 +22,8 @@ constructor(props){
       
     isBodyLoaded: false,
     isSpinner: true,
-    profile_url:""
+    profile_url:"",
+    birth_date:"",
   }
 }
 
@@ -70,8 +71,9 @@ handleBackButton = (nav) => {
     if (GetProfileDetails.result == true) {
       var profileData = GetProfileDetails.response.my_profile;
       var profile_url  = GetProfileDetails.response.my_profile.profile_url;
+      var birth_date = GetProfileDetails.response.my_profile.dob
       console.log("getting GetProfileDetails data----------",profileData)
-      this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url});
+      this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url,birth_date});
     }
    
     else{
@@ -93,9 +95,14 @@ handleBackButton = (nav) => {
    
   render() {
     const { profileData,isBodyLoaded,isSpinner } = this.state;
-    console.log("getting inside the render method ??????????????",profileData)
+    console.log("getting inside the render method ??????????????",this.state.birth_date)
 
     
+      var birth_date =  JSON.stringify(this.state.birth_date)
+
+
+        let birth_date_new =  birth_date.substring(1,birth_date.indexOf('T'));
+    console.log("getting birthdate==========",birth_date_new)
 
     // const userMap = Object.assign(profileData)
     return (
@@ -120,7 +127,7 @@ handleBackButton = (nav) => {
           <View style={{flexDirection:'row'}}>
           <Image source={logo} style={Styles.headertxtInputImg1} />
           <TouchableOpacity 
-              onPress={()=>{this.props.navigation.navigate("editprofile",{profile_url:this.state.profile_url})}}
+              onPress={()=>{this.props.navigation.navigate("editprofile",{profile_url:this.state.profile_url,birthDate:this.state.birth_date})}}
           >
            <Image source={Edit} style={Styles.headertxtInputImg2} />
           </TouchableOpacity>
@@ -131,7 +138,7 @@ handleBackButton = (nav) => {
           isBodyLoaded == true ? 
         <Fragment>
 
-          <View style={{marginTop:10}}> 
+          <View style={{marginTop:30}}> 
           {
             this.state.profile_url == "" ?
 
@@ -146,9 +153,6 @@ handleBackButton = (nav) => {
             
 
           <View style={{flex:2,borderWidth:0,width:'99%',alignSelf:'center',marginTop:6,marginBottom:15}}>
-
-
-
 
 
             <View style={Styles.maincontentContaine}>
@@ -181,7 +185,11 @@ handleBackButton = (nav) => {
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Date de naissance</Text>
 
-    <Text style={Styles.nameHeadingTxt}>{profileData.dob}</Text>
+
+        
+            <Text style={Styles.nameHeadingTxt}>{this.state.birth_date}</Text>
+          
+             
 
             </View>
             </View>
@@ -189,9 +197,9 @@ handleBackButton = (nav) => {
 
 
 
-            <View style={Styles.maincontentContaine}>
+            {/* <View style={Styles.maincontentContaine}>
             <View style={Styles.nameStyleView}>
-              <Text style={Styles.nameHeading}>Diplôme</Text>
+              <Text style={Styles.nameHeading}></Text>
 
               <Text style={Styles.nameHeadingTxt}>{} </Text>
 
@@ -203,15 +211,15 @@ handleBackButton = (nav) => {
               <Text style={Styles.nameHeadingTxt}>anglais professionnel</Text>
 
             </View>
-            </View>
+            </View> */}
 
 
 
-            <View style={Styles.addressView}>
+            {/* <View style={Styles.addressView}>
                 <Text style={Styles.nameHeading}>Address</Text>
     <Text style={Styles.nameHeadingTxt}>{profileData.address}</Text>
 
-            </View>
+            </View> */}
 
 
 

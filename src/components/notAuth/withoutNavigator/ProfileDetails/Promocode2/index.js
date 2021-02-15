@@ -158,23 +158,23 @@ callAlertFunction(){
                   <View style={{width:'94%',borderWidth:1,borderColor:"#DDDDDD",borderRadius:10,elevation:0,shadowColor:"#FFFFFFF",shadowOffset:4,shadowOpacity:1,alignSelf:'center',margin:4}}> 
                   {/* <View style={{flexDirection:'row',margin:3,marginStart:10}}>                       
                       <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Charge</Text>
-                      <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>70.00</Text>
+                      <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>70.00</Text>
                   </View> */}
                   <Text style={{color:'#000000',fontSize:16,fontWeight:'700',margin:2,marginStart:20,marginEnd:4,margin:4}}>{singleMap.title}</Text>
                   <Text style={{color:'gray',fontSize:12,fontWeight:'700',margin:0,marginStart:20,marginEnd:4}}>{singleMap.description}</Text>
                   <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:7,marginTop:4,marginStart:16,marginEnd:16}}>
-                    <TouchableOpacity style={{borderColor:'#FF1493',borderWidth:1,justifyContent:'center',alignItems:'center',borderRadius:6}}>
-                      <Text style={{color:"#FF1493",margin:4,fontSize:10,fontWeight:'700'}}>{singleMap.code}</Text>
+                    <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,justifyContent:'center',alignItems:'center',borderRadius:6}}>
+                      <Text style={{color:"#b41565",margin:4,fontSize:10,fontWeight:'700'}}>{singleMap.code}</Text>
                     </TouchableOpacity>
 
                     {/* {
                       singleMap.use_counter != 0 ?
-                      <TouchableOpacity style={{borderColor:'#FF1493',opacity:0.6,borderWidth:1,backgroundColor:"#FF1493",borderRadius:3,marginTop:10,}}                     
+                      <TouchableOpacity style={{borderColor:'#b41565',opacity:0.6,borderWidth:1,backgroundColor:"#b41565",borderRadius:3,marginTop:10,}}                     
                     >
                     <Text style={{color:'#ffffff',margin:4,fontWeight:'700',fontSize:13,marginStart:7,marginEnd:7,borderRadius:10}}>Applique</Text>
                     </TouchableOpacity>
                       :
-                      <TouchableOpacity style={{borderColor:'#FF1493',borderWidth:1,backgroundColor:"#FF1493",borderRadius:3,marginTop:10,}}
+                      <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,backgroundColor:"#b41565",borderRadius:3,marginTop:10,}}
                       onPress={()=>{
                         this.props.navigation.navigate("summary",{
                           singleMap:singleMap
@@ -188,7 +188,7 @@ callAlertFunction(){
                   </View>
                   <TouchableOpacity onPress={() => this.isCollapsedSelected(key,this.state.collapsed[key])} style={{marginBottom:10}}>
 
-                    <Text style={{fontSize:14,fontWeight:'700',color:"#FF1493",marginStart:10,margin:3,marginStart:18}}>Terms and condition</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',color:"#b41565",marginStart:10,margin:3,marginStart:18}}>Terms and condition</Text>
                   <Collapsible  collapsed={this.state.collapsed[key]} align="center" style={{borderWidth:0}}>
                     <View style={{borderColor:'orange',borderWidth:0,marginStart:20,}}>
                       {/* <Text style={{margin:3,textAlign: 'left',paddingStart:15}}>{singleMap.terms_condition}</Text> */}

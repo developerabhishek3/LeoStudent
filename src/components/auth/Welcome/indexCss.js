@@ -14,17 +14,19 @@ export default StyleSheet.create({
         width:'100%',         
         },
         continueBtn:{
-            backgroundColor:'#FF1493',
+            backgroundColor:'#b41565',
             margin:20,
             borderRadius:5,
             width:'40%',
-            alignSelf:'center'        
+            alignSelf:'center',
+            justifyContent:'center',
+                  
         },
     headerView:{                
         marginTop:10,
     },
     headerLogo:{
-        height:130,width:110,
+        height:130,width:115,
         margin:10,
         alignSelf:'center'
     },
@@ -71,6 +73,7 @@ export default StyleSheet.create({
         fontWeight:"700",
         fontSize:16,
         marginStart:30,marginEnd:30,
+        alignSelf:'center'
     },
 
 })

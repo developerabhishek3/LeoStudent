@@ -43,7 +43,7 @@ export default class index extends Component {
           password,
           fcm_token
         });
-        if (loginUserResponse.result === true) {
+        if (loginUserResponse.result == true) {
           console.log("getting result here --------", loginUserResponse.response)
 
           // console.log("getting result here --------", loginUserResponse.response.user_info.level_id)
@@ -185,10 +185,11 @@ export default class index extends Component {
 
 
                     <View>
-                        <TextInput                           
+                        <TextInput    
+                                               
                           style={Styles.textInputField}
                           onChangeText={(email) => this.setState({ email })}
-                          placeholder="  Nouvel Utilisateur"
+                          placeholder="Adresse email"
                         />
                     </View>
 
@@ -197,13 +198,19 @@ export default class index extends Component {
                     <View>
                         <TextInput 
                            style={Styles.textInputField}
+                           secureTextEntry={true}
                            onChangeText={(password) => this.setState({ password })}
-                          placeholder="  Mot de passe"
+                          placeholder="Mot de passe"
                         />
                     </View>
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate("forgotpassword")}}>
                     <Text style={Styles.forgotPwd}>Mot de passe oublié?</Text>
                     </TouchableOpacity>
+
+
+                    {/* <TouchableOpacity onPress={()=>{this.props.navigation.navigate("questionresult")}}>
+                    <Text style={Styles.forgotPwd}>question result</Text>
+                    </TouchableOpacity> */}
 
 
                     </View> 
@@ -217,7 +224,7 @@ export default class index extends Component {
                         </TouchableOpacity>
                     </View>  
 
-                  <View style={{flexDirection:'row',margin:0,alignSelf:'center'}}>
+                  {/* <View style={{flexDirection:'row',margin:0,alignSelf:'center'}}>
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate("bankdetails")}}>
                     <Image source={facebook} style={Styles.socialLogo} />
                     </TouchableOpacity>
@@ -225,10 +232,10 @@ export default class index extends Component {
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate("googlelogin")}}>
                     <Image source={require("../../../assets/icon/google.png")} style={Styles.socialLogo} />
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
 
-                    <View  style={{flexDirection:'row',margin:3,alignSelf:'center'}}>
-                    <Text style={Styles.txtStyle2}>Nouvel Utilisateur ?</Text>
+                    <View  style={{flexDirection:'row',margin:3,alignSelf:'center',marginTop:30}}>
+                    <Text style={Styles.txtStyle2}>Nouvel utilisateur ?</Text>
                       <TouchableOpacity onPress={()=>{this.props.navigation.navigate("singup")}}>
                       <Text style={Styles.txtStyle3}> S'inscrire</Text>
                       </TouchableOpacity>

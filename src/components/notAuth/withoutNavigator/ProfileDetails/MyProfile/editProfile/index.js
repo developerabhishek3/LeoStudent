@@ -24,7 +24,7 @@ import Right from '../../../../../../assets/icon/33.png';
 import {Rating, AirbnbRating} from 'react-native-ratings';
 
 import People from '../../../../../../assets/icon/25.png';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-date-picker'
 import ImagePicker from 'react-native-image-picker';
 
 import {StudentProfile,get_academic_info} from '../../../../../../Api/afterAuth'
@@ -62,8 +62,7 @@ export default class index extends Component {
       path:"",
 
       date: new Date(),
-      profileData:[],
-      birth_date:"",
+      profileData:[],      
       AcademicDetails:[],
       // filePath: {},
        
@@ -83,10 +82,10 @@ export default class index extends Component {
           "value":"Doctorat"
           },
           {"id": "5",
-          "value":"sans Diploma"
+          "value":"Sans Diploma"
           },
           {"id": "6",
-          "value":"autre"
+          "value":"Autre"
           },      
       ],
 
@@ -95,13 +94,13 @@ export default class index extends Component {
 
       data2:[
         {"id": "1",
-        "value":"voyage"
+        "value":"Voyage"
           },
           {"id": "2",
-          "value":"besoin professionnel"
+          "value":"Besoin professionnel"
           },
           {"id": "3",
-          "value":"les deux"
+          "value":"Les deux"
           },          
       ],
     };
@@ -114,15 +113,21 @@ export default class index extends Component {
 
 
 
-
 async uploadWholeData(){
-
+  console.log("inside the function calling for upload form data------------------------------")
   const token = await AsyncStorage.getItem('token');
   const user_id = await AsyncStorage.getItem('user_id');
 
+
+  var ActualDate = new Date( this.state.birth_date)
+  var birth_date =JSON.stringify(ActualDate)
+  let birth_date_new =  birth_date.substr(1,10)
+  console.log("getting now velue rere===================",birth_date_new)  
+  
+
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
-  console.log("inside the function calling for upload form data------------------------------")
+
 
   const URL = `https://www.spyk.fr/api_student/update_profile`
 
@@ -138,7 +143,7 @@ async uploadWholeData(){
       { name: 'profile_pic', filename: 'photo.jpg', type: 'image/png', data: this.state.filePath},
       { name: 'first_name', data: this.state.first_name },
       { name: 'last_name', data: this.state.last_name },
-      { name: 'birth_date', data: this.state.birth_date },
+      { name: 'birth_date', data:birth_date_new},
       { name: 'email', data: this.state.email },
       { name: 'telephone_no', data: this.state.telephone_no },
       { name: 'address', data: this.state.address },
@@ -204,6 +209,8 @@ async uploadWholeData(){
       var country =  GetProfileDetails.response.my_profile.country;
       var telephone_no =  GetProfileDetails.response.my_profile.phone;
       var email =  GetProfileDetails.response.my_profile.email;
+
+    
 
       // console.log("getting GetProfileDetails data----------",profileData)
       this.setState({ isBodyLoaded: true,isSpinner: false,profileData,
@@ -287,12 +294,12 @@ async uploadWholeData(){
     else if (birth_date.length === 0) {
       this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
     }
-    else if (address.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse!');
-    }
-    else if (postcode.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre code postal!');
-    }
+    // else if (address.length === 0) {
+    //   this.myAlert('Message', 'Veuillez entrer votre adresse!');
+    // }
+    // else if (postcode.length === 0) {
+    //   this.myAlert('Message', 'Veuillez entrer votre code postal!');
+    // }
     else if (city.length === 0) {
       this.myAlert('Message', 'Veuillez entrer votre ville!');
     } else if (country.length === 0) {
@@ -305,19 +312,19 @@ async uploadWholeData(){
       this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     }   
     else if (q_1_ans.length === 0) {
-      this.myAlert('Message', 'Veuillez choisir votre réponse !');
+      this.myAlert('Message', 'Veuillez choisir votre répondre à !');
     }
     else if (q_2_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez entrer votre réponse');
+      this.myAlert('Message', 'Veuillez entrer votre répondre à');
     }
-    else if (q_3_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez entrer votre réponse".');
-    }
+    // else if (q_3_ans.length === 0 ) {
+    //   this.myAlert('Message', 'Veuillez entrer votre répondre à".');
+    // }
     else if (q_4_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez entrer votre réponse".');
+      this.myAlert('Message', 'Veuillez entrer votre répondre à".');
     }
     else if (q_5_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez choisir votre réponse !');
+      this.myAlert('Message', 'Veuillez choisir votre répondre à !');
     }
     else {
    
@@ -329,83 +336,6 @@ async uploadWholeData(){
       this.uploadWholeData();
     }
   };
-  // validateUser = async () => {
-  //   const {      
-  //     first_name,
-  //     last_name,
-  //     birth_date,
-  //     email,     
-  //     telephone_no,
-  //     address,
-  //     postcode,    
-  //     city,
-  //     country,  
-  //     q_1_ans,
-  //     q_2_ans,
-  //     q_3_ans,
-  //     q_4_ans,
-  //     q_5_ans,
-  //     q_6_ans
-  //   } = this.state;
-  //   //  if (first_name.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your first name');
-  //   // } else if (last_name.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your last name');
-  //   // }
-  //   // else if (birth_date.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your birth_date');
-  //   // }
-  //   // else if (address.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your address');
-  //   // }
-  //   // else if (postcode.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your postcode');
-  //   // }
-  //   // else if (city.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your city');
-  //   // } else if (country.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your country');
-  //   // } 
-  //   //  else if (telephone_no.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your telephone no');
-  //   // } 
-  //   // else if (email.length === 0) {
-  //   //   this.myAlert('Message', 'Please enter your email');
-  //   // }   
-  //   // else if (q_1_ans.length === 0) {
-  //   //   this.myAlert('Message', 'Please select answer!');
-  //   // }
-  //   // else if (q_2_ans.length === 0 ) {
-  //   //   this.myAlert('Message', 'Please enter  answer!');
-  //   // }
-  //   // else if (q_3_ans.length === 0 ) {
-  //   //   this.myAlert('Message', 'Please enter  answer!');
-  //   // }
-  //   // else if (q_4_ans.length === 0 ) {
-  //   //   this.myAlert('Message', 'Please enter answer!');
-  //   // }
-  //   // else if (q_5_ans.length === 0 ) {
-  //   //   this.myAlert('Message', 'Please select   answer!');
-  //   // }
-  
-  //   if(!this.state.birth_date){
-  //     Alert.alert("Message","Enter date of birth!")
-  //   }
-  
-  //   else {
-   
-  //     // if(password != confirm_password){
-  //     //   this.myAlert("Message","Password and Confirm Password are not matched")
-  //     // }
-  //     // const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //     // if (!email.match(mailformat)) {
-  //     //   this.myAlert('Message', 'Invalid email');
-  //     //   return false;
-  //     // }  
-  //     this.uploadWholeData();
-  //   }
-  // };
-
 
  
 
@@ -451,8 +381,18 @@ async uploadWholeData(){
 
 
   componentDidMount = async () => {
-  this.fetchStudentProfileData()
-  this.fetchget_academic_info()
+    // let DOB = this.props.navigation.getParam("birthDate")
+    // var birth_date = new Date(DOB);
+    // setTimeout(() => {
+    //   this.setState({birth_date})
+    // }, 300);
+    
+
+    setTimeout(() => {
+      this.fetchStudentProfileData()
+      this.fetchget_academic_info()
+    }, 2000);
+
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
@@ -487,6 +427,22 @@ async uploadWholeData(){
     const {profileData} = this.state;
 
     let profile_url = this.props.navigation.getParam("profile_url")
+
+    let DOB = this.props.navigation.getParam("birthDate")   
+    var birth_date = new Date(DOB)
+
+    console.log("getting birht daye========",birth_date)
+
+    
+
+//   var birth_date = JSON.stringify(new Date(birth_date))
+
+
+//   let birth_date_new =  birth_date.substr(0, birth_date.indexOf('T'));
+
+//  console.log("getting now velue rere===================",birth_date_new)  
+ 
+
     console.log("INSIDE REDNER METHOD+++++++++++++",profile_url)
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -510,7 +466,7 @@ async uploadWholeData(){
               <Image source={logo} style={Styles.headertxtInputImg1} />
             </View>
           </View>
-          {
+          {/* {
             this.state.path == "" ?
               <View style={{marginTop: 60}}>
                 <Image source={{
@@ -518,6 +474,22 @@ async uploadWholeData(){
                             }} style={Styles.peopleStyle} />
               </View> 
             :
+            <View style={{marginTop: 60}}>
+            <Image  source={{ uri: this.state.path }} style={Styles.peopleStyle} />
+          </View>
+          } */}
+           {
+            this.state.path == "" ?
+            <View style={{marginTop: 60}}>
+            <Image  source={require("../../../../../../assets/icon/avatar.png")} style={Styles.peopleStyle} />
+          </View>
+          :
+          this.state.path == "" ?
+          <View style={{marginTop: 60}}>
+            <Image  source={{
+          uri: `https://www.spyk.fr/${profileImg}`,
+        }}  style={Styles.peopleStyle} />
+          </View> :
             <View style={{marginTop: 60}}>
             <Image  source={{ uri: this.state.path }} style={Styles.peopleStyle} />
           </View>
@@ -561,14 +533,8 @@ async uploadWholeData(){
    <TextInput placeholder="  Prénom" 
                 onChangeText={(last_name) => this.setState({last_name})}
               style={Styles.txtInput} >{this.state.last_name}</TextInput>
-             <View   style={Styles.textInputField}>
-                  {/* <TextInput
-                    style={Styles.textInputField}
-                    placeholder="  Date de naissance"
-                    onChangeText={(birth_date) => this.setState({birth_date})}
-                  /> */}
-                  
-                 <DatePicker
+             <View   style={Styles.textInputField}>                              
+                 {/* <DatePicker
                   style={{width: SCREEN_WIDTH*0.70,}}
                   date={this.state.birth_date}
                   placeholder="Date of Birth"                    
@@ -593,19 +559,34 @@ async uploadWholeData(){
                     onDateChange={(birth_date) => {
                       this.setState({birth_date});
                     }}
-                  />
+                  /> */}
+                    <DatePicker                    
+                        mode="date"    
+                        maximumDate={this.state.date}               
+                        date={birth_date}
+                        locale={'fr'}                    
+                        onDateChange={(birth_date) => {
+                          this.setState({birth_date});
+                        }}
+                    />
+{/* 
+                  <DatePicker
+                       date={birth_date}
+                        onDateChange={setDate}
+                      /> */}
+
                 </View>
-                <TextInput
+                {/* <TextInput
                 placeholder="  Adresse postale"
                 style={Styles.txtInput}
                 onChangeText={(address) => this.setState({address})}
               >
                 {this.state.address}
-              </TextInput>
-              <TextInput placeholder="  Code postal"
+              </TextInput> */}
+              {/* <TextInput placeholder="  Code postal"
                  keyboardType="number-pad"
                  onChangeText={(postcode) => this.setState({postcode})}
-              style={Styles.txtInput} >{this.state.postcode}</TextInput>
+              style={Styles.txtInput} >{this.state.postcode}</TextInput> */}
                  <TextInput placeholder="  Ville" 
                 onChangeText={(city) => this.setState({city})}  
               style={Styles.txtInput} >{this.state.city}</TextInput>
@@ -627,7 +608,6 @@ async uploadWholeData(){
                 <View style={Styles.radiobtnMainView}>
                 <View style={{flexDirection:'row',flexWrap:'wrap'}}>
                         {
-
                             this.state.data1.map((singleMap,key)=>{
                               // console.log("geeeeeeee",singleMap)
                                 return(
@@ -636,7 +616,7 @@ async uploadWholeData(){
                                             this.state.q_1_ans == singleMap.value ? 
                                             <TouchableOpacity onPress={()=>{this.setState({q_1_ans:singleMap.value})}} style={{flexDirection:'row',alignItems:'center',margin:10}}>
                                                 <Image source={require("../../../../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                                <Text style={{color:"lightgreen"}}>{singleMap.value}</Text>
+                                                <Text style={{color:"lightgreen",fontWeight:"700"}}>{singleMap.value}</Text>
                                             </TouchableOpacity>
 
                                             :
@@ -655,11 +635,9 @@ async uploadWholeData(){
 
               <View style={{alignSelf: 'flex-start'}}>
                 <Text style={Styles.txtStyle1}>
-                  Vos compétences linguistiques{' '}
+                Vos centres d'intérêts (voyages, cinéma, lecture, cuisine, etc.)
                 </Text>
-                <View style={Styles.radiobtnMainView}>
-               
-                
+                <View style={Styles.radiobtnMainView}>                             
                 </View>
               </View>
 
@@ -685,7 +663,7 @@ async uploadWholeData(){
                   placeholder="Profession" > {this.state.q_2_ans}</TextInput> 
               </View>
 
-              <View
+              {/* <View
                 style={{
                   margin: 6,
                   borderColor: 'gray',
@@ -709,7 +687,7 @@ en anglais?
 
 
 
-              </View>
+              </View> */}
 
               <View
                 style={{
@@ -750,7 +728,7 @@ en anglais?
                                             this.state.q_5_ans == singleMap.value ? 
                                             <TouchableOpacity onPress={()=>{this.setState({q_5_ans:singleMap.value})}} style={{flexDirection:'row',alignItems:'center',margin:10}}>
                                                 <Image source={require("../../../../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                                <Text style={{color:"lightgreen"}}>{singleMap.value}</Text>
+                                                <Text style={{color:"lightgreen",fontWeight:"700"}}>{singleMap.value}</Text>
                                             </TouchableOpacity>
 
                                             :

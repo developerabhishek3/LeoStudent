@@ -59,7 +59,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     margin: 10,
-    color: '#FF1493',
+    color: '#b41565',
   },
   mainContainer:{
     borderWidth: 0,
@@ -86,7 +86,7 @@ export default StyleSheet.create({
     fontWeight: '700',
   },
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 6,
     borderRadius: 5,
     justifyContent: 'flex-end',

@@ -97,7 +97,7 @@ export default StyleSheet.create({
   },
 
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 3,
     marginTop: 20,
     marginBottom: 20,
@@ -111,6 +111,7 @@ export default StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '700',
     fontSize: 16,
+    marginStart:30,marginEnd:30,
     alignSelf: 'center',
   },
 });

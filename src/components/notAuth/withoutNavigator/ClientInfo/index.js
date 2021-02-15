@@ -125,7 +125,7 @@ export default class index extends Component {
                     }}>
                     <Rating
                       type="custom"
-                      ratingColor="#FF1493"
+                      ratingColor="#b41565"
                       ratingBackgroundColor="#c8c7c8"
                       ratingCount={5}
                       imageSize={15}

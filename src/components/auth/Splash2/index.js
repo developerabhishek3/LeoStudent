@@ -4,16 +4,37 @@ import {View, Text, Animated, Easing, Image, StatusBar,Dimensions,Alert, ImageBa
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
+
+
+
+import { EventRegister } from 'react-native-event-listeners'
+
 export default class Splash extends Component {
   constructor() {
     super();
     //  this.RotateValueHolder = new Animated.Value(0);
   }
 
-  componentDidMount() {    
+  componentDidMount() {  
+    
+       
+    this.listener = EventRegister.addEventListener('myCustomEvent', (data) => { 
+      console.log("getting data- on splash screen------------",data)
+      if(data != undefined && data != null){
+        if(data == `Rejeté !`){
+          this.props.navigation.navigate("rejectrequest")
+        }
+        else{
+          this.props.navigation.navigate("acceptrequest")
+        }
+      }
+      
+      })
+
+
     setTimeout(() => {
       this.props.navigation.replace('welcome');
-    }, 1000);
+    }, 3000);
   }
 
   render() {
@@ -39,8 +60,8 @@ export default class Splash extends Component {
             <Image
           resizeMode="stretch"
           style={{
-            width: 120,
-            height: 140,            
+            width: 140,
+            height: 170,            
             alignSelf:'center',
           }}
           source={require('../../../assets/icon/96.png')}
@@ -56,7 +77,7 @@ export default class Splash extends Component {
                 fontFamily:'Montserrat-Regular'
             }}
           >
-            Application mobile LEO,
+            Application mobile SPYK
           </Text>
                   <Text
                       style= {{

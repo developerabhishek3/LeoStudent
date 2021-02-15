@@ -314,7 +314,7 @@ Régler avec cette carte</Text>
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    

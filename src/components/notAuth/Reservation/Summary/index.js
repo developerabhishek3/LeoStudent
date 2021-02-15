@@ -15,6 +15,8 @@ import {
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
+import NumberFormat from 'react-number-format';
+
 import logo from '../../../../assets/icon/96.png';
 import back from '../../../../assets/icon/20.png';
 import rightIcon from '../../../../assets/icon/33.png';
@@ -208,7 +210,7 @@ export default class index extends Component {
           <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}>
           <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Sommaire</Text>
+          <Text style={Styles.headerTxt}>Confirmation</Text>
           <View style={{flexDirection: 'row'}}>            
             <Image source={logo} style={Styles.headertxtInputImg} />
           </View>
@@ -220,25 +222,26 @@ export default class index extends Component {
             <View style={{width:'94%',borderWidth:1,borderColor:"#DDDDDD",borderRadius:10,elevation:0,shadowColor:"#FFFFFFF",shadowOffset:3,shadowOpacity:1,alignSelf:'center'}}> 
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                         <Image style={{height:16,width:16,margin:3}} source={require("../../../../assets/icon/currency.png")} />
-                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Charge</Text>
-    <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{amount_en} </Text>
-    <Image style={{height:12,width:12,marginTop:6}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
+                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
+                        <Image style={{height:12,width:12,marginTop:6,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
+    <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{amount_en} </Text>
+    
                     </View>
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                     <Image style={{height:16,width:16,margin:3}} source={require("../../../../assets/icon/date.png")} />
                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Date</Text>
-              <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_date}</Text>
+              <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_date}</Text>
                     </View>
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                     <Image style={{height:16,width:16,margin:3}} source={require("../../../../assets/icon/watch.png")} />
                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Heure</Text>
                         <View style={{flexDirection:'row',}}> 
-    <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_time}-{this.state.exacttime}</Text>
+    <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_time}-{this.state.exacttime}</Text>
                             {/* {                              
                                   timeDuration == `30 minutes` ?
-                                <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}> {}</Text>
+                                <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}> {}</Text>
                                   :
-                                  <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_time + 60} </Text>
+                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_time + 60} </Text>
                                 } */}
                       </View>
                     </View>
@@ -248,10 +251,10 @@ export default class index extends Component {
               this.state.promocode != "" ?
 
                <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
-               <Text style={{margin:10,fontSize:15}}>Avez-vous un promocode</Text>
+               <Text style={{margin:10,fontSize:15}}>J'ai un bon cadeau !</Text>
 
-               <TouchableOpacity style={{margin:10,borderColor:"#FF1493",borderWidth:1,}}>
-            <Text style={{margin:10,color:"#FF1493",borderWidth:0,}}>{this.state.promocode}</Text>
+               <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,}}>
+            <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{this.state.promocode}</Text>
                </TouchableOpacity>
             </View>  
             :null
@@ -259,8 +262,8 @@ export default class index extends Component {
             
 
 
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("promocode")}}>
-            <Text style={{alignSelf:'flex-end',margin:3,color:"#FF1493"}}>vois les codes promo</Text>
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("promocode")}} style={{backgroundColor:"#b41565",alignSelf:"flex-end",margin:10,borderRadius:10}}>
+            <Text style={{alignSelf:'flex-end',margin:3,color:"#ffffff",marginStart:20,marginEnd:20,margin:10}}>Utillser</Text>
             </TouchableOpacity>
 
 
@@ -270,13 +273,15 @@ export default class index extends Component {
             <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
             <Text style={{margin:10,fontSize:15}}>votre derniere accusation</Text>
 
-            <TouchableOpacity style={{margin:10,borderColor:"#FF1493",borderWidth:1,}}>
-              <Text style={{margin:10,color:"#FF1493",borderWidth:0,}}>{realamout}</Text>
+            <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
+            <Image style={{height:12,width:12,marginTop:13,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
+              <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text>
+              {/* <NumberFormat value={2456981} displayType={'text'} thousandSeparator={true} prefix={'$'} /> */}
             </TouchableOpacity>
             </View> 
             :null
               }
-
+ 
               
 
                
@@ -291,7 +296,7 @@ export default class index extends Component {
                      exacttime:this.state.exacttime,
                      booktype:booktype
               })}}>
-                <Text style={Styles.continueBtnTxt}>Continuer</Text>
+                <Text style={Styles.continueBtnTxt}>réserver et payer</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>         
@@ -301,11 +306,3 @@ export default class index extends Component {
   }
 }
 
-// 13.Demande de coaching (request)
-// Informations sur le coaching d'anglais
-// 30 minutes, 27.05.2020, 17h00 à 21h00
-//
-//
-// 00:37
-//
-// Décliner

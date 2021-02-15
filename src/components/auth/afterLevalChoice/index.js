@@ -49,7 +49,7 @@ export default class index extends Component {
     if (updateStudentLevelResponse.result === true) {
       console.log("getting result here --------", updateStudentLevelResponse.response)     
         await AsyncStorage.setItem("level_id", JSON.stringify(level_id)); 
-        this.props.navigation.navigate('home')           
+        this.props.navigation.navigate('login')           
     } else {
       this.myAlert('Error', updateStudentLevelResponse.error);    
       console.log('getting error here-------------');
@@ -95,7 +95,7 @@ validateFunction(){
       const GetSupportResponse = await get_all_levelsFunction();
       if (GetSupportResponse.result == true) {
         var levelData = GetSupportResponse.response.levels;
-        // console.log("getting levelData data----------",levelData)
+        console.log("getting levelData data----------",levelData)
       }
       this.setState({levelData,isBodyLoaded:true,isSpinner:false});
       // console.log("getting country response----------------",countryData.country_list)
@@ -147,7 +147,7 @@ const {level_id} = this.state;
 
               <View style={{marginTop: 30}}>
                 <View style={Styles.subHeader}>
-                  <Text style={Styles.txtStyle1}>precisez votre niveau d'angles</Text>
+                  <Text style={Styles.txtStyle1}>Précisez votre niveau d'anglais" </Text>
                 </View>
                 
                               
@@ -162,15 +162,17 @@ const {level_id} = this.state;
                                     <View>
                                         {
                                             this.state.checked == key ? 
-                                            <TouchableOpacity style={{flexDirection:'row',alignItems:'center',margin:10}}>
+                                            <TouchableOpacity style={{flexDirection:'row',alignItems:'center',margin:10,flexWrap:'wrap'}}>
                                                 <Image source={require("../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                                <Text style={{color:"lightgreen"}}>{singleMap.level_fr}</Text>
+                                                <Text style={{color:"lightgreen",fontWeight:"700"}}>{singleMap.level_fr}</Text>
+                                                <Text style={{color:"gray",alignSelf:"flex-start",borderWidth:0,borderColor:"red",fontSize:12,marginStart:24}}>{singleMap.description}</Text>
                                             </TouchableOpacity>
 
                                             :
-                                            <TouchableOpacity onPress={()=>{this.setState({checked:key,level_id:singleMap.id})}} style={{flexDirection:'row',alignItems:'center',margin:10}}>
+                                            <TouchableOpacity onPress={()=>{this.setState({checked:key,level_id:singleMap.id})}} style={{flexDirection:'row',alignItems:'center',margin:10,borderWidth:0,flexWrap:"wrap"}}>
                                                 <Image source={require("../../../assets/icon/4.png")} style={{height:20,width:20,margin:3}} />
                                                 <Text style={{color:"gray"}}>{singleMap.level_fr}</Text>
+                                                <Text style={{color:"gray",alignSelf:"flex-start",borderWidth:0,borderColor:"red",fontSize:12,marginStart:24}}>{singleMap.description}</Text>
                                             </TouchableOpacity>
                                         }
                                     </View>

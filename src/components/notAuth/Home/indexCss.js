@@ -25,7 +25,8 @@ export default StyleSheet.create({
         textAlign:"left",
         color:'#FFFFFF',
         margin:10,
-        marginStart:30,        
+        marginStart:30, 
+        marginTop:30,       
         fontFamily:'Montserrat-Regular'       
         
     },
@@ -35,9 +36,10 @@ export default StyleSheet.create({
         width:45,
         margin:10,
         marginEnd:15,
+        marginTop:20
     },
     continueBtn: {
-        backgroundColor: '#FF1493',
+        backgroundColor: '#b41565',
         margin: 3,
         borderRadius: 5,
         

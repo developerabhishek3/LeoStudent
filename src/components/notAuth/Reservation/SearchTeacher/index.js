@@ -77,7 +77,7 @@ export default class index extends Component {
     );
     const search_teacher_booking_nowResponse = await search_teacher_booking_now();
     if (search_teacher_booking_nowResponse.result == true) {
-      // console.log("getting result here --------", search_teacher_booking_nowResponse.response)
+      console.log("getting result here for search book now --------", search_teacher_booking_nowResponse.response)
       var teacherDetailsBookNow =
         search_teacher_booking_nowResponse.response.teacher_list;
       this.setState({
@@ -212,6 +212,7 @@ export default class index extends Component {
 
 
      let transactinId = this.props.navigation.getParam("transactinId")
+    //  console.log("transactioj id ------------",transactinId)
 
     //  console.log("getting book type checking---------------",reserve_date)
       //  console.log("inside render methid +++",booktype)
@@ -229,28 +230,34 @@ export default class index extends Component {
             }}>
           <Image source={back} style={{height:24,width:24,marginStart:20}} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>      Voir le tuteur</Text>
-          <TouchableOpacity
+          <Text style={Styles.headerTxt}>  Choisir mon coach</Text>
+          {/* <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate('filter');
             }}>
             <Image source={require("../../../../assets/icon/filter.png")} style={{height:24,width:24,margin:6}} />
-          </TouchableOpacity>
-
+          </TouchableOpacity> */}
           <Image source={logo}  style={{height:50,width:36,marginEnd:20}} />
         </View>
+ 
+        <TouchableOpacity
+             style={{height:50,borderWidth:0,borderColor:"red",width:"100%",flexDirection:'row'}}
+            onPress={() => {
+              this.props.navigation.navigate('filter');
+            }}>
+          <Image source={require("../../../../assets/icon/filter2.png")} style={{width:33,height:33,margin:10}} />
+         
+            <Text style={{fontWeight:'700',fontSize:20,margin:12}}>Filtrer les coach</Text>
+            </TouchableOpacity>
+      
         <Spinner visible={this.state.isSpinner} />
-
         <View style={Styles.mainContainer}>
           {
-            this.state.isBodyLoaded == true ?
-        
+            this.state.isBodyLoaded == true ?        
           <ScrollView>
             {/* {
               this.state.isBodyLoaded == true ? */}
-
             {/* code here for book lator */}
-
             {booktype != 'now' ? (              
               <Fragment>                
                 {this.state.teacherDetailsLator.length > 0 ? (
@@ -504,12 +511,12 @@ export default class index extends Component {
                           
                         })}
                       </Fragment>
-                    ) : this.state.coach_type == `lex deux me vant` ? (
+                    ) : this.state.coach_type == `lex deux me vont` ? (
                       <Fragment>
                         {this.state.teacherDetailsLator.map((singleMap) => {
-                          if(singleMap.coach_type == `lex deux me vant`){
+                          if(singleMap.coach_type == `lex deux me vont`){
                             return (
-                              singleMap.coach_type == `lex deux me vant` ?
+                              singleMap.coach_type == `lex deux me vont` ?
                               <View style={Styles.contentView}>
                                 <TouchableOpacity
                                   onPress={() => {
@@ -1026,13 +1033,13 @@ export default class index extends Component {
                               );                            
                           })}
                         </Fragment>
-                      ) : this.state.coach_type == `lex deux me vant` ? (
+                      ) : this.state.coach_type == `lex deux me vont` ? (
                         <Fragment>
                           {this.state.teacherDetailsBookNow.map((singleMap) => {
                               // console.log("getting type 3============",singleMap.coach_type)
                               {                                
                                 return (
-                                  singleMap.coach_type == `lex deux me vant` ?
+                                  singleMap.coach_type == `lex deux me vont` ?
 
                                   <View style={Styles.contentView}>
                                     <TouchableOpacity
@@ -1453,7 +1460,7 @@ export default class index extends Component {
                     margin: 2,
                     fontSize: 14,
                     fontWeight: '700',
-                    color: '#FF1493',
+                    color: '#b41565',
                     alignSelf: 'center',
                   }}>
                   Termes et conditions
@@ -1470,7 +1477,7 @@ export default class index extends Component {
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
 
@@ -1493,7 +1500,7 @@ export default class index extends Component {
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       height: 35,

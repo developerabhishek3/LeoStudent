@@ -58,13 +58,16 @@ export default class index extends Component {
     this.setState({Alert_Visibility: false}); 
     this.userLogoutFunction()      
   }
+
+
+  Hide_Custom_Alert1() {
+    this.setState({Alert_Visibility: false});      
+  }
+
   ratingCompleted(rating) {
     console.log("Rating is: " + rating)
   }
    
-
-
-
 
 
 
@@ -294,26 +297,26 @@ checkSwitch  = (value) => {
           
             <View style={{margin:20}}>
 
-
+{/* 
 
               <View style={Styles.containerView}>
 
                   <Text style={Styles.txtView}>Notifications</Text>
 
-                  {/* <Text style={{fontWeight:'600',fontSize:16,paddingStart:20}}>Email Notification</Text> */}
+               
                         <Switch
 
-                        trackColor={{ true: '#FF1493', false: 'grey' }}
+                        trackColor={{ true: '#b41565', false: 'grey' }}
                         // thumbColor='#6FB8EF'
 
-                        onTintColor="#FF1493"
+                        onTintColor="#b41565"
                         thumbColor="#fff"
                         onValueChange={(value) => this.checkSwitch(value)}                      
                         value={this.state.SwitchOnValueHolder}
                         ></Switch>
 
                     
-              </View>
+              </View> */}
 
 
 
@@ -465,7 +468,7 @@ checkSwitch  = (value) => {
 
                   style={{
                    
-                    backgroundColor: '#FF1493',
+                    backgroundColor: '#b41565',
                     justifyContent: 'center',
                     margin: 10,
                     marginStart: 25,
@@ -489,10 +492,10 @@ checkSwitch  = (value) => {
 
 
                 <TouchableOpacity
-                  onPress={() => this.Hide_Custom_Alert()}                 
+                  onPress={() => this.Hide_Custom_Alert1()}                 
                   style={{
                    
-                    backgroundColor: '#FF1493',
+                    backgroundColor: '#b41565',
                     justifyContent: 'center',
                     margin: 10,
                     marginStart: 25,

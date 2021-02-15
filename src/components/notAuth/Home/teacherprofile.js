@@ -386,13 +386,13 @@ const {TeacherDetails} = this.state;
               })
 
                   :<View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-                    <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>Loading...</Text>
+                    <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>chargement...</Text>
                   </View>
                 }
               </Fragment>
               
               :<View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-              <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>No record Found!</Text>
+              <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>Record non trouvé!!</Text>
             </View>
             }
 

@@ -79,11 +79,24 @@ import PromoCode2 from '../components/notAuth/withoutNavigator/ProfileDetails/Pr
 import CalenderScreen from '../components/notAuth/Reservation/ChooseTime/index2';
 import TeacherViewHome from '../components/notAuth/Home/teacherprofile';
 
+import notificationData from '../components/notAuth/withoutNavigator/ProfileDetails/Notifications';
+import Stripe from '../components/notAuth/Reservation/PaymentOption/stripe';
+
+
+import SavedCard from '../components/notAuth/Reservation/SavedCard';
+
+
+import AcceptRequest from '../components/notification/Accept';
+import RejectRequest from '../components/notification/Reject';
+
+
+import questionResult from '../components/auth/questionResult';
+
 
 const AppNavigator = createStackNavigator(
   {
     splash: {
-      screen: Splash,
+      screen: Splash, 
       navigationOptions: {
         headerShown: false,
       },
@@ -130,6 +143,12 @@ const AppNavigator = createStackNavigator(
         headerShown: false,
       },
     },
+    questionresult:{
+      screen:questionResult,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
     teacherviewhome:{
       screen:TeacherViewHome,
       navigationOptions: {
@@ -144,6 +163,18 @@ const AppNavigator = createStackNavigator(
     },
     paypal: {
       screen: Paypal,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    stripe: {
+      screen: Stripe,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    savedcard: {
+      screen: SavedCard,
       navigationOptions: {
         headerShown: false,
       },
@@ -177,6 +208,12 @@ const AppNavigator = createStackNavigator(
 
     promocode2: {
       screen: PromoCode2,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    notificationdata: {
+      screen: notificationData,
       navigationOptions: {
         headerShown: false,
       },
@@ -351,6 +388,18 @@ const AppNavigator = createStackNavigator(
         headerShown:false,
       }
     },
+    acceptrequest:{
+      screen:AcceptRequest,
+      navigationOptions:{
+        headerShown:false,
+      }
+    },
+    rejectrequest:{
+      screen:RejectRequest,
+      navigationOptions:{
+        headerShown:false,
+      }
+    },
 
 
 
@@ -364,7 +413,7 @@ const AppNavigator = createStackNavigator(
   },
   {
     unmountInactiveRoutes: true,
-    initialRouteName: 'splash',
+    initialRouteName: 'splash2',
   },
 );
 

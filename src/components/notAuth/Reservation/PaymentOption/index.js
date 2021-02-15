@@ -44,7 +44,9 @@ export default class index extends Component {
 
       date_slot:"",
       time_slot:"",
-      paypalCheck:false
+      paypalCheck:false,
+      cardCheck:false,
+      isButtonEnable:false,
     };
   }
 
@@ -142,12 +144,13 @@ export default class index extends Component {
 
     let amount = this.props.navigation.getParam('amount');
     let exacttime = this.props.navigation.getParam('exacttime');
+    this.setState({checked1:false})
 
-    this.setState({paypalCheck:true})
+    this.setState({paypalCheck:true,cardCheck:false})
 
-    console.log("i am abhishek ------",timeDuration)
+    
 
-    this.setState({checked2: !this.state.checked2});
+    this.setState({checked2: !this.state.checked2,});
 
     // this.props.navigation.navigate('paypal', {
     //   amount_en: amount_en,
@@ -160,6 +163,11 @@ export default class index extends Component {
     //   time_slot:this.state.time_slot
 
     // });
+  }
+
+  cardFunction(){
+    this.setState({checked2:false,paypalCheck:false,cardCheck:true})
+    this.setState({checked1: !this.state.checked1});
   }
 
   render() {
@@ -186,7 +194,7 @@ export default class index extends Component {
             }}>
             <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Gestion des codes promo</Text>
+          <Text style={Styles.headerTxt}>Mode de paiement</Text>
           <View style={{flexDirection: 'row'}}>
             <Image source={logo} style={Styles.headertxtInputImg} />
           </View>
@@ -213,11 +221,11 @@ export default class index extends Component {
                 <View
                   style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: 20,
+                    alignItems:'center',
+                    justifyContent: 'center',
                   }}>
                   <Image
-                    style={{height: 26, width: 26, margin: 3}}
+                    style={{height: 27, width: 27, margin: 3}}
                     source={require('../../../../assets/icon/card.png')}
                   />
                   <Text
@@ -235,9 +243,11 @@ export default class index extends Component {
                 <View style={{margin: 10}}>
                   <CheckBox
                     checked={this.state.checked1}
-                    onPress={() =>
-                      this.setState({checked1: !this.state.checked1})
-                    }
+                    
+                    // onPress={() =>
+                    //   this.setState({checked1: !this.state.checked1,checked2:false})
+                    // }
+                    onPress={()=>{this.cardFunction()}}
                     checkedIcon={
                       <Image
                         source={require('../../../../assets/icon/9.png')}
@@ -286,7 +296,7 @@ export default class index extends Component {
                     justifyContent: 'center',
                   }}>
                   <Image
-                    style={{height: 16, width: 16, margin: 3}}
+                    style={{height: 30, width: 30, margin: 3}}
                     source={require('../../../../assets/icon/card-2.png')}
                   />
                   <Text
@@ -332,9 +342,15 @@ export default class index extends Component {
                 </View>
               </View>
             </View>
+            <TouchableOpacity style={{alignSelf:'flex-end',margin:10}} onPress={()=>{this.props.navigation.navigate("savedcard")}}>
+              <Text style={{color:"red",fontSize:14,fontWeight:"700"}}>Saved Card</Text>
+            </TouchableOpacity>
 
             <View style={Styles.continueBtn}>
-              <TouchableOpacity
+              {
+              this.state.checked1 == true || this.state.checked2 == true ?
+
+                <TouchableOpacity
                 onPress={() => {
                   {
                     this.state.paypalCheck == true ?
@@ -350,7 +366,17 @@ export default class index extends Component {
                       booktype:booktype              
                     })
                     :
-                    this.props.navigation.navigate("searchteacher")
+                    this.props.navigation.navigate("stripe",{
+                      amount_en: amount_en,
+                      reserve_time: reserve_time,
+                      timeDuration: timeDuration,
+                      reserve_date: reserve_date,
+                      promocodeId: promocodeId,
+                      amount:amount,
+                      exacttime:exacttime,
+                      time_slot:this.state.time_slot,
+                      booktype:booktype
+                    })
 
                   }
                   
@@ -364,6 +390,10 @@ export default class index extends Component {
               >
                 <Text style={Styles.continueBtnTxt}>Continuer</Text>
               </TouchableOpacity>
+
+                : null
+              }
+              
             </View>
           </ScrollView>
         </View>

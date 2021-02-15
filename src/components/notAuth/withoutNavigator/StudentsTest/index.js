@@ -76,8 +76,11 @@ export default class index extends Component {
 
         if (post_questionaireResponse.response.status == true) {           
             console.log("getting response >>>>>>>>>>>>>>>>",post_questionaireResponse.response)  
-            await AsyncStorage.setItem("level_id", JSON.stringify(post_questionaireResponse.response.level_id));        
-          this.props.navigation.navigate("home")
+            let questionAttempt = post_questionaireResponse.response.ques_ans_attempt;
+            let correctAnswer = post_questionaireResponse.response.ques_ans_right
+            await AsyncStorage.setItem("level_id", JSON.stringify(post_questionaireResponse.response.level_id)); 
+
+           this.props.navigation.navigate("questionresult",{correctAnswer:correctAnswer,questionAttempt:questionAttempt})
         }
         else {
           // Alert.alert("Message", post_questionaireResponse.response.message)
@@ -186,7 +189,7 @@ export default class index extends Component {
                                           singleData?.selectedAns?.option_id == OptionKey ? 
                                           <TouchableOpacity onPress={() => this.handleAnswerOnPress(singleData, singleMAp, qIndex, aIndex)} style={{flexDirection:'row',alignItems:'flex-start',borderColor:"red",borderWidth:0}}>
                                               <Image source={require("../../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                              <Text key={aIndex} style={{fontSize:12,color:"green",fontWeight:'700',margin:3}}>{singleMAp.option}</Text>
+                                              <Text key={aIndex} style={{fontSize:12,color:"lightgreen",fontWeight:'700',margin:3}}>{singleMAp.option}</Text>
                                           </TouchableOpacity>
                                           :
                                           <TouchableOpacity onPress={() => this.handleAnswerOnPress(singleData, singleMAp, qIndex, aIndex)} style={{flexDirection:'row',alignItems:'flex-start'}}>
@@ -222,7 +225,7 @@ export default class index extends Component {
                       // }}
                       onPress={()=>{this.userPostQuestionFunction()}}
                       >
-                      <Text style={Styles.continueBtnTxt}>Continuer</Text>
+                      <Text style={Styles.continueBtnTxt}>Valider</Text>
                     </TouchableOpacity>
                   </View>
                   </View>

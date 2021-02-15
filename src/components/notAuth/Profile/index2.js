@@ -7,7 +7,9 @@ import logo from '../../../assets/icon/96.png';
 import back from '../../../assets/icon/20.png';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
-import People from '../../../assets/icon/25.png';
+import People from '../../../assets/icon/avatar.png';
+
+import { Avatar, Badge, Icon, withBadge } from 'react-native-elements'
 
 
 import profileIcon from '../../../assets/ProfileIcon/24.png'
@@ -23,7 +25,7 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {LogoutFunction,StudentProfile} from '../../../Api/afterAuth';
+import {LogoutFunction,notification_count,StudentProfile,} from '../../../Api/afterAuth';
 
 export default class index extends Component {
     constructor(props){
@@ -36,12 +38,16 @@ export default class index extends Component {
           profile_url:"",
           isBodyLoaded:false,
           isSpinner:true,
+          notificationCountValue:0,
         }    
       }
           
 
       componentDidMount = async () => {
         this.fetchStudentProfileData()
+        setInterval(() => {
+          this.fetchNotificationCount()
+        }, 4000);     
         BackHandler.addEventListener('hardwareBackPress', () =>
         this.handleBackButton(this.props.navigation),
       );
@@ -92,7 +98,7 @@ export default class index extends Component {
         if (GetProfileDetails.result == true) {
           var profileData = GetProfileDetails.response.my_profile;
           var profile_url = GetProfileDetails.response.my_profile.profile_url
-          console.log("getting GetProfileDetails data----------",profileData)
+          // console.log("getting GetProfileDetails data----------",profileData)
           this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url});
         }
        
@@ -105,6 +111,35 @@ export default class index extends Component {
         }   
         // console.log("getting country response----------------",countryData.country_list)
       };
+
+
+
+
+
+      fetchNotificationCount = async () => {
+        const notification_countResponse = await notification_count();
+        if (notification_countResponse.result == true) {
+          var notificationCountValue = notification_countResponse.response.notification_count;          
+          // console.log("getting notification_countResponse data----------",notificationCountValue)
+          this.setState({ isBodyLoaded: true,isSpinner: false,notificationCountValue,});
+        }
+       
+        else{
+          this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+            Alert.alert("Message","Quelque chose a mal tourné, essayez encore !",[ { text: "Ok",onPress:()=>{
+                this.props.navigation.goBack();
+            }}]);
+        })
+        }   
+        // console.log("getting country response----------------",countryData.country_list)
+      };
+
+
+
+
+
+
+
     
 
       Show_Custom_Alert(visible) {
@@ -125,7 +160,7 @@ export default class index extends Component {
    
   render() {
     const {profileData} = this.state;
-    console.log("gggggggggggggggg",profileData)
+    // console.log("gggggggggggggggg",profileData)
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
@@ -135,7 +170,7 @@ export default class index extends Component {
           <TouchableOpacity onPress={()=>{this.props.navigation.navigate("home")}}>
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Mon compte</Text>
+          <Text style={Styles.headerTxt}>Profil</Text>
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
 
@@ -160,7 +195,7 @@ export default class index extends Component {
             
           </View>
           {/* <Text style={{fontSize:13,color:'gray',fontWeight:'700',alignSelf:'center'}}>Votre client</Text> */}
-          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#FF1493"}}>{profileData.first_name} {profileData.last_name}</Text>          
+          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#b41565"}}>{profileData.first_name} {profileData.last_name}</Text>          
           <ScrollView>
 
             <View style={{flex:2,margin:10}}> 
@@ -179,8 +214,8 @@ export default class index extends Component {
                      onPress={()=>{this.props.navigation.navigate("promocode2",{promocodeType:"profile"})}}
                 >
                 <View style={{flexDirection:'row',margin:0}}>
-                <Image source={require("../../../assets/ProfileIcon/promo.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Code promo</Text>
+                <Image source={require("../../../assets/icon/gift1.png")} style={{height:24,width:24,margin:10}}  />
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Bon cadeau</Text>
                 </View>
                 </TouchableOpacity>
                 
@@ -195,14 +230,19 @@ export default class index extends Component {
                 </TouchableOpacity> */}
 
 
-                {/* <TouchableOpacity 
-                  onPress={()=>{this.props.navigation.navigate('notification')}}
+                <TouchableOpacity 
+                  onPress={()=>{this.props.navigation.navigate('notificationdata')}}
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={require("../../../assets/ProfileIcon/notification.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Notifications</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Notifications</Text>{
+                      this.state.notificationCountValue != 0 ?
+                      <Badge status="error" value={this.state.notificationCountValue} badgeStyle={{margin:-20,marginTop:4,marginStart:-15,righ:-30,width:27,height:27,borderRadius:30}}></Badge>
+                      :null
+                    }
+                    
                 </View>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={()=>{this.props.navigation.navigate('parameter')}}
@@ -234,7 +274,7 @@ export default class index extends Component {
 
             </View>
 
-    <Text style={{alignSelf:'center',fontSize:14,fontWeight:'700',margin:10,color:"#FF1493"}}>Version de l'application : {packageContent.version}</Text>
+    <Text style={{alignSelf:'center',fontSize:14,fontWeight:'700',margin:10,color:"#b41565"}}>Version de l'application : {packageContent.version}</Text>
 
 
           </ScrollView>  
@@ -349,7 +389,7 @@ export default class index extends Component {
                   onPress={() => this.Hide_Custom_Alert()}                 
                   style={{
                    
-                    backgroundColor: '#FF1493',
+                    backgroundColor: '#b41565',
                     justifyContent: 'center',
                     margin: 10,
                     marginStart: 25,
@@ -376,7 +416,7 @@ export default class index extends Component {
                   onPress={() => this.Hide_Custom_Alert1()}                 
                   style={{
                    
-                    backgroundColor: '#FF1493',
+                    backgroundColor: '#b41565',
                     justifyContent: 'center',
                     margin: 10,
                     marginStart: 25,

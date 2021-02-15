@@ -331,7 +331,7 @@ set_date = (day) => {
 this.setState({reserve_date: d});
   // let color = 'rgba(255,100,120,10)'
 
-  let color = "#FF1493"
+  let color = "#b41565"
 
 
   if (this.state.markedDates[d]) {
@@ -428,7 +428,7 @@ this.setState({reserve_date: d});
             }}>
             <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Reservation</Text>
+          <Text style={Styles.headerTxt}>Réservations</Text>
           <View style={{flexDirection: 'row'}}>
             {/* <TouchableOpacity
               onPress={() => {
@@ -475,13 +475,13 @@ this.setState({reserve_date: d});
                             source={require('../../../../assets/icon/9.png')}
                             style={{height: 20, width: 20, margin: 3}}
                           />
-                          <Text style={{color: '#FF1493'}}>
+                          <Text style={{color: '#b41565'}}>
                             {' '}
                             {singleMAp.time_duration}
                           </Text>
                         </TouchableOpacity>
                         <View  style={{flexDirection:'row',borderWidth:0}}>
-                        <Text style={{color: '#FF1493'}}>
+                        <Text style={{color: '#b41565'}}>
                           {singleMAp.amount_en}
                         </Text>
                         <Image
@@ -626,7 +626,7 @@ this.setState({reserve_date: d});
                             <View
                               style={{
                                 borderWidth: 0,
-                                backgroundColor: '#FF1493',
+                                backgroundColor: '#b41565',
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
@@ -645,7 +645,7 @@ this.setState({reserve_date: d});
                             <View
                               style={{
                                 borderWidth: 1,
-                                borderColor: '#FF1493',
+                                borderColor: '#b41565',
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
@@ -795,7 +795,7 @@ this.setState({reserve_date: d});
                       this.Hide_Custom_Alert1();
                     }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       marginStart: 25,
@@ -822,7 +822,7 @@ this.setState({reserve_date: d});
                       this.Hide_Custom_Alert();
                     }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       marginStart: 25,

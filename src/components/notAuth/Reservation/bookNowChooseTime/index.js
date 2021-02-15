@@ -20,7 +20,7 @@ import logo from '../../../../assets/icon/96.png';
 import back from '../../../../assets/icon/20.png';
 import rightIcon from '../../../../assets/icon/33.png';
 import calenderIcon from '../../../../assets/icon/10.png';
-import moment from 'moment';
+import moment, { min } from 'moment';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {duration_amount_by_level} from '../../../../Api/afterAuth';
 
@@ -252,7 +252,7 @@ validateFunction() {
     Alert.alert("Message","veuillez choisir la durée! ")
   }
   else if(!reserve_time){
-    Alert.alert("Message","veuillez choisir l'heure!")
+    Alert.alert("Message","Veuillez choisir la durée")
   }
   else {   
     this.check_reservation_by_datetime_slotFunction()
@@ -329,10 +329,6 @@ currentDateFormat(){
   // console.log(today);
   // today = dd+'/'+mm+'/'+yyyy;
   // console.log(today);
-  
-
-
-
 }
 
 
@@ -359,7 +355,7 @@ currentDateFormat(){
             }}>
             <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Reservation</Text>
+          <Text style={Styles.headerTxt}>Ma réservation</Text>
           <View style={{flexDirection: 'row'}}>
             {/* <TouchableOpacity
               onPress={() => {
@@ -370,21 +366,15 @@ currentDateFormat(){
             <Image source={logo} style={Styles.headertxtInputImg} />
           </View>
         </View>
-
-
         <View style={Styles.mainContentView}>          
           {
-            this.state.isBodyLoaded  == true ?
-
-            
+            this.state.isBodyLoaded  == true ?      
             <ScrollView>
               {
                 durationAmount.length > 0?
-
                 <View>
                 {durationAmount.map((singleMAp, key) => {
                   // console.log("getting id here--",singleMAp.id)
-  
                   return (
                     <View>
                       {this.state.time_duration == singleMAp.time_duration ? (
@@ -409,13 +399,13 @@ currentDateFormat(){
                               source={require('../../../../assets/icon/9.png')}
                               style={{height: 20, width: 20, margin: 3}}
                             />
-                            <Text style={{color: '#FF1493'}}>
+                            <Text style={{color: '#b41565'}}>
                               {' '}
                               {singleMAp.time_duration}
                             </Text>
                           </TouchableOpacity>
                           <View  style={{flexDirection:'row',borderWidth:0}}>
-                          <Text style={{color: '#FF1493'}}>
+                          <Text style={{color: '#b41565'}}>
                             {singleMAp.amount_en}
                           </Text>
                           <Image
@@ -475,7 +465,7 @@ currentDateFormat(){
 
               <View style={{flexDirection:'row',justifyContent:'space-between',marginStart:15,marginEnd:15,margin:15}}>
               <Text>
-                Your Date : 
+                 une date : 
               </Text>
               <Text>
                 {this.state.reserve_date}
@@ -493,6 +483,10 @@ currentDateFormat(){
                 <ScrollView horizontal={true}>
                   {dateArray.map((singleTime, Index) => {
                     // console.log("getting time here--------------",singleTime)
+                    let minutes = singleTime.getMinutes();
+                    if(minutes == 0){
+                      minutes = `00`;
+                    }
                     return (
                       <View
                         style={{flexDirection: 'row', margin: 3, height: 30}}>
@@ -507,13 +501,14 @@ currentDateFormat(){
                           //   });
                           // }}
                           onPress={() => {
-                            this.setState({reserve_time: `${singleTime.getHours()}:${singleTime.getMinutes()}`});
+                           
+                            this.setState({reserve_time: `${singleTime.getHours()}:${minutes}`});
                           }}>
-                          {this.state.reserve_time == `${singleTime.getHours()}:${singleTime.getMinutes()}` ? (
+                          {this.state.reserve_time == `${singleTime.getHours()}:${minutes}` ? (
                             <View
                               style={{
                                 borderWidth: 0,
-                                backgroundColor: '#FF1493',
+                                backgroundColor: '#b41565',
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
@@ -526,13 +521,13 @@ currentDateFormat(){
                                   fontSize: 12,
                                   fontFamily: 'OpenSans-Bold',
                                   textAlign: 'center',
-                                }}>{`${singleTime.getHours()} : ${singleTime.getMinutes()}`}</Text>
+                                }}>{`${singleTime.getHours()}h${minutes}`}</Text>
                             </View>
                           ) : (
                             <View
                               style={{
                                 borderWidth: 1,
-                                borderColor: '#FF1493',
+                                borderColor: '#b41565',
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
@@ -545,7 +540,7 @@ currentDateFormat(){
                                   fontSize: 12,
                                   fontFamily: 'OpenSans-Bold',
                                   textAlign: 'center',
-                                }}>{`${singleTime.getHours()} : ${singleTime.getMinutes()}`}</Text>
+                                }}>{`${singleTime.getHours()}h${minutes}`}</Text>
                             </View>
                           )}
                         </TouchableOpacity>
@@ -573,7 +568,7 @@ currentDateFormat(){
                   // });
                   this.validateFunction()
                 }}>
-                <Text style={Styles.continueBtnTxt}>+ Ajouter un créneau</Text>
+                <Text style={Styles.continueBtnTxt}>Continuer</Text>
               </TouchableOpacity>
             </View>
           </ScrollView> 
@@ -682,7 +677,7 @@ currentDateFormat(){
                       this.Hide_Custom_Alert1();
                     }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       marginStart: 25,
@@ -709,7 +704,7 @@ currentDateFormat(){
                       this.Hide_Custom_Alert();
                     }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       marginStart: 25,

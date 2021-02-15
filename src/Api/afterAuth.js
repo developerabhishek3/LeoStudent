@@ -118,10 +118,10 @@ export async function chat_usersFunction() {
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
 
-  console.log(
-    'getting token and user id here inside the function-----------',
-    UserId,
-  );
+  // console.log(
+  //   'getting token and user id here inside the function-----------',
+  //   UserId,
+  // );
 
   try {
     const chat_usersRresponse = await Axios.get(
@@ -413,10 +413,10 @@ export async function StudentProfile() {
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
 
-  console.log(
-    'getting token and user id here inside the function-----------',
-    UserId,
-  );
+  // console.log(
+  //   'getting token and user id here inside the function-----------',
+  //   UserId,
+  // );
 
   try {
     const StudentProfileResponse = await Axios.get(
@@ -600,7 +600,7 @@ export async function newsletterSubscriptionFunction(body = {}) {
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
 
-  console.log('getig token and id here--------------', TokenValue, UserId);
+  console.log('getig token and id here on newsletter funtion--------------------', TokenValue, UserId);
 
   try {
     const newsletterSubscriptionResponse = await Axios.post(
@@ -885,6 +885,8 @@ export async function count_data() {
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
 
+  // console.log("getting all data-------------",TokenValue,UserId)
+
   try {
     const count_dataResponse = await Axios.get(
       `https://www.spyk.fr/api_student/count_data`,
@@ -951,7 +953,7 @@ export async function single_chat_dataFunction(body = {}) {
 
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
-  console.log('getting tpken and user Id ========', TokenValue, UserId);
+  // console.log('getting tpken and user Id ========', TokenValue, UserId);
 
   try {
     const single_chat_dataResponse = await Axios.post(
@@ -1501,6 +1503,7 @@ export async function reservation_request(body = {}) {
   console.log(
     'getting token and user id on reservation_request -----------',
     UserId,
+    TokenValue
   );
 
   try {
@@ -1581,7 +1584,7 @@ export async function home_teacher_slide() {
   const UserId = JSON.parse(user_id);
 
   console.log(
-    'ghetting incomplete transactoin tokena dn ujserId =========',
+    'ghetting home_teacher_slide tokena dn ujserId =========',
     TokenValue,
     UserId,
   );
@@ -1607,3 +1610,167 @@ export async function home_teacher_slide() {
     return {result: false, error};
   }
 }
+
+
+
+
+
+export async function cancel_reservation(body = {}) {
+  
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  console.log(
+    'getting token and user id on cancel_reservation -----------',
+    UserId,
+  );
+
+  try {
+    const cancel_reservationResponse = await Axios.post(
+      'https://www.spyk.fr/api_student/cancel_reservation',
+      body,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (cancel_reservationResponse.status) {
+      return {result: true, response: cancel_reservationResponse.data};
+    } else {
+      return {
+        result: false,
+        response: cancel_reservationResponse.data,
+      };
+    }
+  } catch (err) {
+    let error = new Error();
+    const {data, status} = err.response;
+    error.response = err.response;
+    if (status == 400 && data.error === 'invalid_grant') {
+      error.message = 'Invalid Credentials';
+    } else {
+      error.message = 'Request Failed';
+    }
+    throw error;
+  }
+}
+
+
+
+export async function notification_count() {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  // console.log(
+  //   'ghetting incomplete transactoin tokena dn ujserId =========',
+  //   TokenValue,
+  //   UserId,
+  // );
+
+  try {
+    const notification_countResponse = await Axios.get(
+      `https://www.spyk.fr/api_student/notification_count`,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (notification_countResponse.status) {
+      // console.log("getting response on the function--------",notification_countResponse.data)
+      return {result: true, response: notification_countResponse.data};
+    } else {
+      return {result: false, error: notification_countResponse.data};
+    }
+  } catch (error) {
+    return {result: false, error};
+  }
+}
+
+
+export async function my_notification() {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  // console.log(
+  //   'ghetting incomplete transactoin tokena dn ujserId =========',
+  //   TokenValue,
+  //   UserId,
+  // );
+
+  try {
+    const my_notificationResponse = await Axios.get(
+      `https://www.spyk.fr/api_student/my_notification`,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (my_notificationResponse.status) {
+      // console.log("getting response on the function--------",my_notificationResponse.data)
+      return {result: true, response: my_notificationResponse.data};
+    } else {
+      return {result: false, error: my_notificationResponse.data};
+    }
+  } catch (error) {
+    return {result: false, error};
+  }
+}
+
+
+
+
+
+
+export async function saved_cards() {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  // console.log(
+  //   'ghetting incomplete transactoin tokena dn ujserId =========',
+  //   TokenValue,
+  //   UserId,
+  // );
+
+  try {
+    const saved_cardsResponse = await Axios.get(
+      `https://www.spyk.fr/api_student/saved_cards`,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (saved_cardsResponse.status) {
+      // console.log("getting response on the function--------",saved_cardsResponse.data)
+      return {result: true, response: saved_cardsResponse.data};
+    } else {
+      return {result: false, error: saved_cardsResponse.data};
+    }
+  } catch (error) {
+    return {result: false, error};
+  }
+}
+

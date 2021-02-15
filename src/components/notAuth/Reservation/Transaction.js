@@ -9,7 +9,8 @@ import {
   Dimensions,
   BackHandler,
   StatusBar,
-  Alert
+  Alert,
+  RefreshControl
 } from 'react-native';
 import BottomNavigator from '../../../router/BottomNavigator';
 import {Rating, AirbnbRating} from 'react-native-elements';
@@ -43,6 +44,7 @@ export default class index extends Component {
       isBodyLoaded: false,
       isSpinner: true,  
       toal_amount:"",
+      isCurrenetComponentRefreshing:false
     };
   }
 
@@ -56,10 +58,12 @@ export default class index extends Component {
   incomplete_reservationData = async () => {
     const incomplete_reservationResponse = await incomplete_reservation();
     if (incomplete_reservationResponse.result == true) {
+      console.log("getting herer---------------",incomplete_reservationResponse.response)
       if(incomplete_reservationResponse.response.status == true){
+        console.log("gettig beffore stare==========",incomplete_reservationResponse.response)
         var IncompleteReservation = incomplete_reservationResponse.response.incomplete_transaction;
         console.log("getting IncompleteReservation data----------",IncompleteReservation)
-        this.setState({IncompleteReservation,isBodyLoaded:true,isSpinner:false});
+        this.setState({IncompleteReservation,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
       }
       else{
         this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
@@ -75,8 +79,7 @@ export default class index extends Component {
     //         this.props.navigation.goBack();
     //     }}]);
     // })
-    // }
-  
+    // }  
     // console.log("getting country response----------------",countryData.country_list)
   };
 
@@ -152,15 +155,15 @@ export default class index extends Component {
         <View style={Styles.subhaderView}>
           <View style={{flexDirection: 'column'}}>
             
-            <Text style={Styles.subheadingTxt1}>Incomplete </Text>
-            <View style={{borderColor: '#FF1493', borderWidth: 1, width: 100}} />
+            <Text style={Styles.subheadingTxt1}>incomplet </Text>
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
           </View>
 
 
           
           <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("currentreservation")}}>
-            <Text style={Styles.subheadingTxt}>Actual</Text>
+            <Text style={Styles.subheadingTxt}>Actuel</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
@@ -176,7 +179,13 @@ export default class index extends Component {
         </View>
 
         <View style={Styles.mainContainer}>
-          <ScrollView> 
+        <ScrollView 
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                          <RefreshControl refreshing={this.state.isCurrenetComponentRefreshing} onRefresh={()=>{  this.setState({ isCurrenetComponentRefreshing: true }); setTimeout(()=>{
+                        this.incomplete_reservationData();
+                      },100)  }} />
+                    }>
             <View style={Styles.contentView}>         
             {
               this.state.isBodyLoaded == true ?
@@ -200,21 +209,23 @@ export default class index extends Component {
                         <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                         <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>promocode Charge</Text>
-                        <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_amount} </Text>
+                                        <Image style={{height:12,width:12,marginTop:6,marginRight:-7}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                        <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_amount} </Text>
 
-                        <Image style={{height:12,width:12,marginTop:6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                       
                                     </View>
 
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                         <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Charge</Text>
-                        <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
-                        <Image style={{height:12,width:12,marginTop:6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                                        <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                        <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
+                        
                                     </View>
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/date.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Date</Text>
-                                  <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_date}</Text>
+                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_date}</Text>
                                     </View>
 
              
@@ -224,7 +235,7 @@ export default class index extends Component {
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/watch.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Heure</Text>
                                         <View style={{flexDirection:'row',}}> 
-                                  <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_time}</Text>
+                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_time}</Text>
                                          
                                       </View>
 
@@ -236,7 +247,7 @@ export default class index extends Component {
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/watch.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Duratoin</Text>
                                         <View style={{flexDirection:'row',}}> 
-                                  <Text style={{color:'#FF1493',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_duration}</Text>
+                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_duration}</Text>
                                          
                                       </View>
 
@@ -332,7 +343,7 @@ export default class index extends Component {
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#FF1493",alignSelf:'center'}}>Termes et conditions</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text>
 
                 <View
                   style={{
@@ -345,7 +356,7 @@ export default class index extends Component {
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    
@@ -368,7 +379,7 @@ export default class index extends Component {
                   <TouchableOpacity
                     onPress={() => this.Hide_Custom_Alert1()}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                    

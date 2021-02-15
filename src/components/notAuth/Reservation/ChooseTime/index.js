@@ -38,6 +38,16 @@ let today = '';
 let newDaysObject4 = [];
 import {check_reservation_by_datetime_slot} from '../../../../Api/afterAuth'
 
+
+LocaleConfig.locales['fr'] = {
+  monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+  monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+  dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+  dayNamesShort: ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'],
+  today: 'Aujourd\'hui'
+};
+LocaleConfig.defaultLocale = 'fr';
+
 export default class index extends Component {
   constructor(props) {
     super(props);
@@ -332,7 +342,7 @@ set_date = (day) => {
 this.setState({reserve_date: d});
   // let color = 'rgba(255,100,120,10)'
 
-  let color = "#FF1493"
+  let color = "#b41565"
 
 
   if (this.state.markedDates[d]) {
@@ -425,7 +435,7 @@ this.setState({reserve_date: d});
             }}>
             <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Reservation</Text>
+          <Text style={Styles.headerTxt}>Réservations</Text>
           <View style={{flexDirection: 'row'}}>
             {/* <TouchableOpacity
               onPress={() => {
@@ -440,9 +450,7 @@ this.setState({reserve_date: d});
 
         <View style={Styles.mainContentView}>          
           {
-            this.state.isBodyLoaded  == true ?
-
-            
+            this.state.isBodyLoaded  == true ?            
             <ScrollView>
               {
                 durationAmount.length > 0?
@@ -475,19 +483,20 @@ this.setState({reserve_date: d});
                               source={require('../../../../assets/icon/9.png')}
                               style={{height: 20, width: 20, margin: 3}}
                             />
-                            <Text style={{color: '#FF1493'}}>
+                            <Text style={{color: '#b41565'}}>
                               {' '}
                               {singleMAp.time_duration}
                             </Text>
                           </TouchableOpacity>
                           <View  style={{flexDirection:'row',borderWidth:0}}>
-                          <Text style={{color: '#FF1493'}}>
-                            {singleMAp.amount_en}
-                          </Text>
                           <Image
                               source={require('../../../../assets/icon/euro-currency-symbol-1.png')}
                               style={{height: 16, width: 16, margin: 1}}
                             />
+                          <Text style={{color: '#b41565'}}>
+                            {singleMAp.amount_en}
+                          </Text>
+                         
                             </View>
                         </View>
                       ) : (
@@ -516,13 +525,14 @@ this.setState({reserve_date: d});
                             </Text>
                           </TouchableOpacity>
                           <View  style={{flexDirection:'row',borderWidth:0}}>
-                          <Text style={{color: 'gray'}}>
-                            {singleMAp.amount_en}
-                          </Text>
                           <Image
                               source={require('../../../../assets/icon/currency.png')}
                               style={{height: 16, width: 16, margin: 1}}
                             />
+                          <Text style={{color: 'gray'}}>
+                            {singleMAp.amount_en}
+                          </Text>
+                        
                           </View>
                         </View>
                       )}
@@ -634,7 +644,7 @@ this.setState({reserve_date: d});
                             <View
                               style={{
                                 borderWidth: 0,
-                                backgroundColor: '#FF1493',
+                                backgroundColor: '#b41565',
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
@@ -653,7 +663,7 @@ this.setState({reserve_date: d});
                             <View
                               style={{
                                 borderWidth: 1,
-                                borderColor: '#FF1493',
+                                borderColor: '#b41565',
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
@@ -694,7 +704,7 @@ this.setState({reserve_date: d});
                   // });
                   this.validateFunction()
                 }}>
-                <Text style={Styles.continueBtnTxt}>+ Ajouter un créneau</Text>
+                <Text style={Styles.continueBtnTxt}>Valider</Text>
               </TouchableOpacity>
             </View>
           </ScrollView> 
@@ -803,7 +813,7 @@ this.setState({reserve_date: d});
                       this.Hide_Custom_Alert1();
                     }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       marginStart: 25,
@@ -830,7 +840,7 @@ this.setState({reserve_date: d});
                       this.Hide_Custom_Alert();
                     }}
                     style={{
-                      backgroundColor: '#FF1493',
+                      backgroundColor: '#b41565',
                       justifyContent: 'center',
                       margin: 10,
                       marginStart: 25,
