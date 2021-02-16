@@ -212,9 +212,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
                 }         
 
                   </Fragment>
-
-
-
                  :<View>
                   </View>
                }
@@ -372,17 +369,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
                 </View> */}
 
 
-
-
-
-
-
-        
-
-
-
-
-
           <Modal
           visible={this.state.Alert_Visibility}
           animationType={'fade'}
@@ -489,14 +475,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
             </View>
           </View>
         </Modal>
-
-
-
-
-
-
-
-
 
 
           <BottomNavigator

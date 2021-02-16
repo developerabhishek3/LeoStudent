@@ -127,8 +127,7 @@ class Reject extends Component{
                     style={{
                       backgroundColor: '#b41565',
                       justifyContent: 'center',
-                      margin: 10,
-                   
+                      margin: 10,                   
                       height: 35,
                       borderRadius: 6,
                     }}>
@@ -143,8 +142,8 @@ class Reject extends Component{
                         fontFamily: 'Montserrat-Regular',
                       }}>
                     Retour
-                    </Text>
-                  </TouchableOpacity> */}
+                    </Text> 
+                  </TouchableOpacity> */},
                 </View>
               </View>
             </View>
