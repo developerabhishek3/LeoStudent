@@ -15,9 +15,29 @@ class Webview_Paypal extends React.Component {
             user_id: 0,
             orderid: '',
             card_id:0,
+            Model_Visibility: false,
+            Alert_Visibility: false,
 
         }
     }
+
+
+
+    Show_Custom_Alert(visible) {
+        this.setState({Alert_Visibility: visible, });
+        // console.log("getting reservation id here----------",reservation_id)
+      }
+      Hide_Custom_Alert() {
+        this.setState({Alert_Visibility: false});
+        this.props.navigation.navigate("currentreservation")
+        // this.Fetchcancel_reservation();
+      }
+      Hide_Custom_Alert1() {
+        this.setState({Alert_Visibility: false});
+        this.props.navigation.navigate("home")
+        // this.Fetchcancel_reservation();
+      }
+
     async  componentDidMount() {
 
         let UserId = await AsyncStorage.getItem('user_id');
@@ -123,9 +143,9 @@ class Webview_Paypal extends React.Component {
                 // }else{
 
                 // }
-
-            this.props.navigation.navigate("home",{time_slot:time_slot,reserve_date:reserve_date,booktype:booktype})
-            Alert.alert("Message","La transaction a été menée à bien.")
+                this.Show_Custom_Alert()
+            // this.props.navigation.navigate("home",{time_slot:time_slot,reserve_date:reserve_date,booktype:booktype})
+            // Alert.alert("Message","La transaction a été menée à bien.")
             // Actions.push("OrderStatus",{order_id: currentOrderId})
 
         }
@@ -174,6 +194,138 @@ class Webview_Paypal extends React.Component {
                     onNavigationStateChange={(event) => this.handleNavigation(event)}
                     javaScriptEnabled={true}
                 />
+
+                
+<Modal
+            visible={this.state.Alert_Visibility}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+            }}>
+            <View
+              style={{
+                // backgroundColor:'#FFF',
+                backgroundColor: 'rgba(0,0,230,0.700)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../assets/icon/101.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 24,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 6,
+                      marginTop: -10,
+                      color: '#000000',
+                      textAlign: 'center',                      
+                    }}>
+                    Thank you!
+                  </Text>
+                </View>  
+                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity
+                    // onPress={() => this.Hide_Custom_Alert()}
+
+                    onPress={() => {
+                      let reservation_id = this.state.reservation_id;
+                      console.log(
+                        'getting inside on Press============',
+                        reservation_id,
+                      );
+
+                      this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 10,
+                        width:'40%',
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,                       
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                        Reprogrammer un coaching
+                    </Text>
+                  </TouchableOpacity>  
+                  <TouchableOpacity
+                    // onPress={() => this.Hide_Custom_Alert()}
+
+                    onPress={() => {
+                      let reservation_id = this.state.reservation_id;
+                      console.log(
+                        'getting inside on Press============',
+                        reservation_id,
+                      );
+
+                      this.Hide_Custom_Alert1();
+                    }}
+                    style={{
+                      backgroundColor: 'lightblue',
+                      justifyContent: 'center',
+                      margin: 10,
+                      width:'40%',
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,                       
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                         Page d'accueil
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal>
+
             </View>
         )
     }
