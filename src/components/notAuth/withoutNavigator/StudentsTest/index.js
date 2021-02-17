@@ -48,6 +48,7 @@ export default class index extends Component {
       const GetquestionDataResponse = await get_questionaireFunction();
       if (GetquestionDataResponse.result == true) {
         var questionData = GetquestionDataResponse.response.questionaire;
+        console.log("getting response inside getting all question.............",questionData)
         this.setState({questionData,isBodyLoaded:true,isSpinner:false});
         // console.log("getting GetquestionDataResponse data----------", JSON.stringify(questionData))
       }
@@ -126,6 +127,7 @@ export default class index extends Component {
   
 
   render() {
+    // console.log("getting inside render-----------",this.state.questionData)
     return (
       <View style={Styles.container}>
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
@@ -148,25 +150,35 @@ export default class index extends Component {
                   </TouchableOpacity>
                   <View style={{marginEnd: 50, marginTop: -10}}>                   
                     <Text style={Styles.headerTxt1}>     Test de niveau </Text>
-                     <Text style={Styles.headerTxt}>10 (minutes)</Text>
+                     <Text style={Styles.headerTxt}>(10 min)</Text>
                   </View>
                 </View>
 
                 <View style={{marginTop: 30}}>
-                  <View style={Styles.subHeader}>
+                  {/* <View style={Styles.subHeader}>
                     <Text style={Styles.txtStyle1}>Choisissez votre niveau ou faites le test (10min)</Text>
-                  </View>
+                  </View> */}
 
                   <View style={Styles.radiobtnMainView}>
                   <View style={{width:'96%',}}>
-                    {this.state.questionData.map((singleData, qIndex) => {                      
-                      let QuestionKey = Object.values(singleData)[1];                      
+                    {this.state.questionData.map((singleData, qIndex) => {     
+                      
+                      
+                      // console.log("getting respone -----------",singleData)
+                      let QuestionKey = Object.values(singleData)[1];       
+                      let InstructionKey = Object.values(singleData)[2];           
                       return (
                         <View>
-                          {                            
-                            <Text style={{fontSize:12,fontWeight:'700',color:"#000000",marginStart:20,width:"90%",borderWidth:0,margin:7}}>
-                            {QuestionKey}
-                          </Text>
+                          {   
+                           <View>
+                              <Text style={{fontSize:12,fontWeight:'700',color:"#000000",marginStart:20,width:"90%",borderWidth:0,margin:1,}}>
+                                {QuestionKey}
+                              </Text>
+
+                              <Text style={{fontSize:12,fontWeight:'700',color:"#000000",marginStart:20,width:"90%",borderWidth:0,margin:1,fontStyle:'italic'}}>
+                                  {InstructionKey}
+                              </Text>
+                          </View>                                                    
                           }                        
                         
                             {/* <View
@@ -189,12 +201,12 @@ export default class index extends Component {
                                           singleData?.selectedAns?.option_id == OptionKey ? 
                                           <TouchableOpacity onPress={() => this.handleAnswerOnPress(singleData, singleMAp, qIndex, aIndex)} style={{flexDirection:'row',alignItems:'flex-start',borderColor:"red",borderWidth:0}}>
                                               <Image source={require("../../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                              <Text key={aIndex} style={{fontSize:12,color:"lightgreen",fontWeight:'700',margin:3}}>{singleMAp.option}</Text>
+                                              <Text key={aIndex} style={{fontSize:12,color:"lightgreen",fontWeight:'700',margin:3,}}>{singleMAp.option}</Text>
                                           </TouchableOpacity>
                                           :
                                           <TouchableOpacity onPress={() => this.handleAnswerOnPress(singleData, singleMAp, qIndex, aIndex)} style={{flexDirection:'row',alignItems:'flex-start'}}>
                                               <Image source={require("../../../../assets/icon/4.png")} style={{height:20,width:20,margin:3}} />
-                                              <Text key={aIndex} style={{fontSize:12,color:"gray",fontWeight:'700',margin:3}}>{singleMAp.option}</Text>
+                                              <Text key={aIndex} style={{fontSize:12,color:"gray",fontWeight:'700',margin:3,}}>{singleMAp.option}</Text>
                                          </TouchableOpacity>
                                       }                                      
                                     </View>                                    

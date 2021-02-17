@@ -239,6 +239,7 @@ console.log("getint inside state ",this.state.teacherSlideData)
          <View>
           <TouchableOpacity style={{backgroundColor:"#b41565",margin:10,justifyContent:'center',alignSelf:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
             onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
+            
           >
               <Image source={require("../../../assets/icon/whatsapp.png")} style={{height:30,width:30,margin:10}} />
               <Text style={{fontSize:14,fontWeight:"700",margin:15,marginStart:20,marginEnd:40,color:"#FFFFFF"}}>START</Text>
