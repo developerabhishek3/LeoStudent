@@ -32,7 +32,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   headerTxt: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: '700',
     margin: 1,
     color: '#FFFFFF',
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     marginEnd: 50,
   },
   headerTxt1: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: '700',
     margin: 1,
     color: '#FFFFFF',
