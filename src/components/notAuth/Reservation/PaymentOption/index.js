@@ -342,9 +342,9 @@ export default class index extends Component {
                 </View>
               </View>
             </View>
-            <TouchableOpacity style={{alignSelf:'flex-end',margin:10}} onPress={()=>{this.props.navigation.navigate("savedcard")}}>
+            {/* <TouchableOpacity style={{alignSelf:'flex-end',margin:10}} onPress={()=>{this.props.navigation.navigate("savedcard")}}>
               <Text style={{color:"red",fontSize:14,fontWeight:"700"}}>Saved Card</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <View style={Styles.continueBtn}>
               {

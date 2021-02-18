@@ -69,22 +69,11 @@ class Reject extends Component{
                       style={{height: 80, width: 80, margin: 10}}
                     />
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 22,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 6,
-                      marginTop: -10,
-                      color: '#000000',
-                      textAlign: 'center',                      
-                    }}>
-                    Demande Rejectee
-                  </Text>
+                
                 </View>  
-                  <Text style={{margin:1,fontSize:18,fontWeight:'700',color:"gray",alignSelf:'center'}}>Oups, votre coach</Text>
-                  <Text style={{margin:1,fontSize:18,fontWeight:'700',color:"gray",alignSelf:'center'}}>n'est plus</Text>
-                  <Text style={{margin:1,fontSize:18,fontWeight:'700',color:"gray",alignSelf:'center'}}>disponible</Text>            
+                  <Text style={{margin:1,fontSize:18,fontWeight:'700',color:"#000000",alignSelf:'center'}}>Oups, votre coach</Text>
+                  <Text style={{margin:1,fontSize:18,fontWeight:'700',color:"#000000",alignSelf:'center'}}>n'est plus</Text>
+                  <Text style={{margin:1,fontSize:18,fontWeight:'700',color:"#000000",alignSelf:'center'}}>disponible</Text>            
                 <View
                  >
                   <TouchableOpacity
@@ -105,7 +94,7 @@ class Reject extends Component{
                       );
 
                       this.Hide_Custom_Alert();
-                    }}                   >
+                    }}>
                 
                     <Image source={require("../../assets/icon/search.png")} style={{height:30,width:30,margin:7}} />
                     <Text
@@ -143,7 +132,7 @@ class Reject extends Component{
                       }}>
                     Retour
                     </Text> 
-                  </TouchableOpacity> */},
+                  </TouchableOpacity> */}
                 </View>
               </View>
             </View>

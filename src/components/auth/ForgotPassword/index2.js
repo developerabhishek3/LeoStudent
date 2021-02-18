@@ -68,15 +68,16 @@ export default class index extends Component {
 
   userForgotPasswordRe2Function = async () => {
     // console.log("getting inside the function uuid --------",this.state.fcm_token)
-    const {
-      email, 
+    let email =  this.props.navigation.getParam("email");
+    console.log("getting email-------------",email)
+    const {       
       vcode,    
     } = this.state;
     const forgotpasswordResponse = await forgotPasswordReq2Function({
-      email,   
+      email:email,   
       vcode,  
     });
-    if (forgotpasswordResponse.result === true) {
+    if (forgotpasswordResponse.result == true) {
       console.log("getting result here --------", forgotpasswordResponse.response)
 
 
@@ -86,9 +87,9 @@ export default class index extends Component {
       // else{
       //   Alert.alert("Message",forgotpasswordResponse.response.message)
       // }
-      if (forgotpasswordResponse.response.status === true) {           
+      if (forgotpasswordResponse.response.status == true) {           
           console.log("getting response >>>>>>>>>>>>>>>>",forgotpasswordResponse.response)      
-          this.props.navigation.navigate("forgotpasswordReq3")
+          this.props.navigation.navigate("forgotpasswordReq3",{email:email})
       }
       else {
         Alert.alert("Message", forgotpasswordResponse.response.message)
@@ -107,17 +108,17 @@ export default class index extends Component {
   validateUser = () => {
     const { email,vcode  } = this.state;
 
-    if (email.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse électronique');
-    }
-    else if(vcode.length === 0){
+    // if (email.length === 0) {
+    //   this.myAlert('Message', 'Veuillez entrer votre adresse électronique');
+    // }
+    if(vcode.length === 0){
             this.myAlert("Message","veuillez entrer votre code")
     } else {
-      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Email-Id invalide');
-        return false;
-      }
+      // const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      // if (!email.match(mailformat)) {
+      //   this.myAlert('Message', 'Email-Id invalide');
+      //   return false;
+      // }
       this.userForgotPasswordRe2Function();
     }
   };
@@ -131,6 +132,9 @@ export default class index extends Component {
 
 
   render() {
+
+    let email =  this.props.navigation.getParam("email");
+    // console.log("geting email inside render=============",email)
     return (
       <View style={Styles.container}>
         <StatusBar hidden />
@@ -157,13 +161,15 @@ export default class index extends Component {
               </View>
 
               <View style={Styles.textInputView}>
-                <View>
+                {/* <View>
                   <TextInput
                     style={Styles.textInputField}
+                    value={email}
                     placeholder=" Email "
-                    onChangeText={(email) => this.setState({ email })}
+                    editable={false}
+                    // onChangeText={(email) => this.setState({ email })}
                 />
-                </View>
+                </View> */}
 
                 <View>
                   <TextInput

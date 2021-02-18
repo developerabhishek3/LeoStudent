@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   StatusBar,
+  BackHandler
 } from 'react-native';
 import Styles from './indexCss';
 import bgImg from '../../../assets/bgImages/3.png';
@@ -46,12 +47,12 @@ export default class index extends Component {
 
   userForgotPasswordRe2Function = async () => {
     // console.log("getting inside the function uuid --------",this.state.fcm_token)
-    const {
-      email, 
+    let email =  this.props.navigation.getParam("email");
+    const {     
       password,    
     } = this.state;
     const forgotpasswordResponse = await forgotPasswordReq3Function({
-      email,   
+      email:email,   
       password,  
     });
     if (forgotpasswordResponse.result === true) {
@@ -66,8 +67,8 @@ export default class index extends Component {
       // }
       if (forgotpasswordResponse.response.status === true) {           
           console.log("getting response >>>>>>>>>>>>>>>>",forgotpasswordResponse.response)      
-          Alert.alert("Message", forgotpasswordResponse.response.message)
-          this.props.navigation.navigate("home")
+          // Alert.alert("Message", forgotpasswordResponse.response.message)
+          this.props.navigation.navigate("login")
       }
       else {
         Alert.alert("Message", forgotpasswordResponse.response.message)
@@ -86,17 +87,17 @@ export default class index extends Component {
   validateUser = () => {
     const { email,password  } = this.state;
 
-    if (email.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
-    }
-    else if(password.length === 0){
+    // if (email.length === 0) {
+    //   this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
+    // }
+     if(password.length === 0){
             this.myAlert("Message","veuillez entrer votre mot de passe!")
     } else {
-      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Email-Id invalide!');
-        return false;
-      }
+      // const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      // if (!email.match(mailformat)) {
+      //   this.myAlert('Message', 'Email-Id invalide!');
+      //   return false;
+      // }
       this.userForgotPasswordRe2Function();
     }
   };
@@ -134,6 +135,9 @@ export default class index extends Component {
 
 
   render() {
+
+    let email =  this.props.navigation.getParam("email");
+
     return (
       <View style={Styles.container}>
         <StatusBar hidden />
@@ -164,14 +168,16 @@ export default class index extends Component {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder=" Email"
-                    onChangeText={(email) => this.setState({ email })}
+                    value={email}
+                    editable={false}
+                    // onChangeText={(email) => this.setState({ email })}
                 />
                 </View>
 
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder=" code"
+                    placeholder=" nouveau mot de passe"
                     onChangeText={(password) => this.setState({ password })}
               />
                 </View>

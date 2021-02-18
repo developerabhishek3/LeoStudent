@@ -152,19 +152,17 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
-            storeFile file('your_key_name.keystore')
-            storePassword 'your_key_store_password'
-            keyAlias 'your_key_alias'
-            keyPassword 'your_key_file_alias_password'
-        }
+        // release {
+        //     storeFile file('your_key_name.keystore')
+        //     storePassword 'your_key_store_password'
+        //     keyAlias 'your_key_alias'
+        //     keyPassword 'your_key_file_alias_password'
+        // }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            signingConfig signingConfigs.release
-
-
+            // signingConfig signingConfigs.release
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -249,4 +247,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-

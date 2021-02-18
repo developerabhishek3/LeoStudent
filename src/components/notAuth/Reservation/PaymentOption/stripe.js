@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, Text,  ActivityIndicator, BackHandler, View, StyleSheet, Dimensions } from 'react-native'
+import { Alert, Text,  ActivityIndicator, BackHandler, View, StyleSheet, Dimensions,Modal,Image,TouchableOpacity } from 'react-native'
 import { WebView } from 'react-native-webview'
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
