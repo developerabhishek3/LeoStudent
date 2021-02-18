@@ -65,7 +65,7 @@ export default StyleSheet.create({
     width: '99%',
   },
   contentView: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: '#DDDDDD',
     elevation: 0,
     width: '96%',

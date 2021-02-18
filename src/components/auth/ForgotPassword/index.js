@@ -64,7 +64,7 @@ export default class index extends Component {
       // }
       if (forgotpasswordResponse.response.status === true) {           
           console.log("getting response >>>>>>>>>>>>>>>>",forgotpasswordResponse.response)      
-          this.props.navigation.navigate("forgotpasswordReq2")
+          this.props.navigation.navigate("forgotpasswordReq2",{email:email})
       }
       else {
         Alert.alert("Message", forgotpasswordResponse.response.message)
@@ -85,7 +85,8 @@ export default class index extends Component {
 
     if (email.length === 0) {
       this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
-    } else {
+    }
+     else {
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!email.match(mailformat)) {
         this.myAlert('Message', 'Email-Id invalide!');

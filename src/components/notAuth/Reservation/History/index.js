@@ -248,7 +248,7 @@ console.log("insiderender =",this.state.historyData)
   teacher_name:singleHistoryMap.teacher_name,
   teacher_profile_url:singleHistoryMap.teacher_profile_url
    })}}>
-            <View style={{flexDirection: 'row',borderWidth:0,}}>
+            <View style={{flexDirection: 'row',borderWidth:1,margin:4,borderColor:"#DDDDDD",borderRadius:7}}>
            
               <Image 
               
