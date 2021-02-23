@@ -50,7 +50,7 @@ export default class index extends Component {
 
   Show_Custom_Alert(reservation_id, visible) {
     this.setState({Alert_Visibility: visible, reservation_id});
-    // console.log("getting reservation id here----------",reservation_id)
+    console.log("getting reservation id here----------",reservation_id)
   }
   Hide_Custom_Alert() {
     this.setState({Alert_Visibility: false});
@@ -175,7 +175,7 @@ export default class index extends Component {
   render() {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <View style={Styles.header}>
         <TouchableOpacity
             onPress={() => {
@@ -302,7 +302,8 @@ export default class index extends Component {
                                     reservation_id,
                                   );
                                   this.Show_Custom_Alert(reservation_id);
-                                }}>
+                                }}                               
+                                >
                               <Text style={Styles.continueBtnTxt}>Annuler man coaching</Text>
                               </TouchableOpacity>
                             </View>
@@ -343,8 +344,8 @@ export default class index extends Component {
             </TouchableOpacity>
           </View> */}
           
-          <View style={{position:"absolute",alignSelf:"flex-end",right:20,bottom:20}}>
-            <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}} style={{backgroundColor:"#b41565",borderRadius:10,justifyContent:"center",flexDirection:"row"}}>
+          <View style={{position:"absolute",alignSelf:"flex-end",right:20,bottom:-36}}>
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("cancelreservation")}} style={{backgroundColor:"#b41565",borderRadius:10,justifyContent:"center",flexDirection:"row"}}>
             <Image source={require("../../../../assets/icon/calendar3.jpg")} style={{height:27,width:27,margin:10}} />
             <Text style={{fontSize:14,fontWeight:'700',color:"#FFFFFF",margin:10,marginStart:0,marginEnd:20,alignSelf:'center'}}>Réserver mon coaching</Text>
             </TouchableOpacity>
@@ -356,120 +357,10 @@ export default class index extends Component {
 
 
 
+
+
+
           <Modal
-            visible={this.state.Alert_Visibility1}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert(!this.state.Alert_Visibility1);
-            }}>
-            <View
-              style={{
-                // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: 221,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image
-                      source={require("../../../../assets/icon/mobile.png")}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 10,
-                      marginTop: -10,
-                      color: '#000000',
-                      textAlign: 'center',                      
-                    }}>
-                    Reservation de man coaching d'anglais
-                  </Text>
-                </View>                  
-
-                <View
-                  style={{                                        
-                    borderRadius: 6,
-                    justifyContent:'space-around',
-                    margin: 5,
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert3()}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 10,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 12,
-                        marginStart: 7,
-                        marginEnd: 7,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                     fair man coaching maintenant
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert2()}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 10,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 12,
-                        marginStart: 10,
-                        marginEnd: 10,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                      Programmer man coaching pour plus tord
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal>
-
-
-
-          {/* <Modal
             visible={this.state.Alert_Visibility}
             animationType={'fade'}
             transparent={true}
@@ -479,7 +370,7 @@ export default class index extends Component {
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -487,7 +378,7 @@ export default class index extends Component {
               <View
                 style={{
                   width: '80%',
-                  height: SCREEN_HEIGHT / 2.7,
+                  height: 245,
                   backgroundColor: '#ffffff',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -527,9 +418,6 @@ export default class index extends Component {
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
                   <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text>
-
-
-
 
                 <View
                   style={{
@@ -599,7 +487,7 @@ export default class index extends Component {
               </View>
             </View>
           </Modal>
- */}
+
 
 
 

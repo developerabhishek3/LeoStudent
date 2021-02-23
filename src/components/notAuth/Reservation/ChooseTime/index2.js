@@ -416,7 +416,7 @@ this.setState({reserve_date: d});
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <StatusBar
           barStyle={'light-content'}
-          backgroundColor="blue"
+          backgroundColor="#5541E1"
           hidden={false}
         />
           <Spinner visible={this.state.isSpinner} 
@@ -703,7 +703,7 @@ this.setState({reserve_date: d});
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                  backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
                 // justifyContent: 'center',
                 // alignItems: 'center',
@@ -711,7 +711,7 @@ this.setState({reserve_date: d});
               <View
                 style={{
                   width: '99%',
-                  backgroundColor: 'rgba(0,0,230,0.700)',
+                    backgroundColor: 'rgba(85,65,225,0.900)',
                   // alignItems: 'center',
                   // justifyContent: 'center',
                   margin: 10,

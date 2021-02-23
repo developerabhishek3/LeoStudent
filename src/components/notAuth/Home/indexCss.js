@@ -11,7 +11,7 @@ export default StyleSheet.create({
     },
     header:{
         height:130,
-        backgroundColor:'blue',       
+        backgroundColor:'#5541E1',       
         borderColor:'red',
         borderWidth:0,
         width:'103%',    

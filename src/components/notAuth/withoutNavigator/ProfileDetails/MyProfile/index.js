@@ -108,7 +108,7 @@ handleBackButton = (nav) => {
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <Spinner visible={this.state.isSpinner}/>
-        <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+        <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         {/* {
           isBodyLoaded == true ?  */}
           <Fragment>

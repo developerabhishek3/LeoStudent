@@ -203,7 +203,7 @@ export default class index extends Component {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <StatusBar
           barStyle={'light-content'}
-          backgroundColor="blue"
+          backgroundColor="#5541E1"
           hidden={false}
         />
         <View style={Styles.header}>

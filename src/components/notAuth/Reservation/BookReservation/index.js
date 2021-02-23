@@ -336,7 +336,7 @@ const {TeacherDetails} = this.state;
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <View style={Styles.header}>
         <TouchableOpacity
             onPress={() => {
@@ -432,7 +432,7 @@ const {TeacherDetails} = this.state;
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Image source={books} style={Styles.bookStyle} />
-                    <Text style={Styles.contentTextStyle}>Numbre de evaluations : {singleTeacherDetails.teacher_course_session_done}</Text>
+                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : au</Text>
                   </View>
 
                   <View style={{flexDirection: 'row'}}>
@@ -466,7 +466,7 @@ const {TeacherDetails} = this.state;
                 <View style={{flexDirection: 'column'}}>                
                   <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Profil du coach d'anglais : </Text>
-                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_course_session_done}</Text>
+                <Text style={Styles.contentTextStyle}>coach natif</Text>
                   </View>
 
                   <View style={{flexDirection: 'row',margin:4}}>
@@ -619,7 +619,7 @@ const {TeacherDetails} = this.state;
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+              backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',

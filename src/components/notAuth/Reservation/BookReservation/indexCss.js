@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   header: {
     height: 70,
-    backgroundColor: 'blue',
+    backgroundColor: '#5541E1',
     borderColor: 'red',
     borderWidth: 0,
     width: '103%',

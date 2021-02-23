@@ -179,7 +179,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <View style={Styles.header}>
         <TouchableOpacity
             onPress={() => {
@@ -242,7 +242,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Image source={books} style={Styles.bookStyle} />
-                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : {singleTeacherDetails.teacher_course_session_done}</Text>
+                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : au</Text>
                   </View>
 
                   <View style={{flexDirection: 'row'}}>
@@ -416,7 +416,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                backgroundColor: '#5541E1',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',

@@ -221,7 +221,7 @@ export default class index extends Component {
       );
       return false;
     } else {
-      nav.goBack();
+      nav.navigate("currentreservation");
       return true;
     }
   };
@@ -425,13 +425,13 @@ this.setState({reserve_date: d});
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
           <Spinner visible={this.state.isSpinner} 
         />
         <View style={Styles.header}>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.goBack();
+              this.props.navigation.navigate("currentreservation");
             }}>
             <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
@@ -558,7 +558,7 @@ this.setState({reserve_date: d});
               style={{
                 height: 380,
                 borderWidth: 0,
-                backgroundColor: '#5495ED',
+                backgroundColor: '#B3AAFC',
                 borderRadius: 10,
               }}>
               {/* <Calendar
@@ -603,8 +603,8 @@ this.setState({reserve_date: d});
                   markedDates={this.state.markedDates}
 
                    theme={{
-                  backgroundColor: '#5495ED',
-                  calendarBackground: '#5495ED',
+                  backgroundColor: '#B3AAFC',
+                  calendarBackground: '#B3AAFC',
                   textSectionTitleColor: '#000000',
                   textSectionTitleDisabledColor: '#000000',
                   dayTextColor: '#000000',
@@ -625,7 +625,7 @@ this.setState({reserve_date: d});
               <View
                 style={{
                   flexDirection: 'row',
-                  backgroundColor: '#5495ED',
+                  backgroundColor: '#B3AAFC',
                   marginTop: -10,
                   width: '96%',
                   alignSelf: 'center',
@@ -721,7 +721,7 @@ this.setState({reserve_date: d});
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                  backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
                 // justifyContent: 'center',
                 // alignItems: 'center',
@@ -729,7 +729,7 @@ this.setState({reserve_date: d});
               <View
                 style={{
                   width: '99%',
-                  backgroundColor: 'rgba(0,0,230,0.700)',
+                    backgroundColor: 'rgba(85,65,225,0.900)',
                   // alignItems: 'center',
                   // justifyContent: 'center',
                   margin: 10,

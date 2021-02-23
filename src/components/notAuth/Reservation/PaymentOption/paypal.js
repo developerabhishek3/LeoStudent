@@ -199,7 +199,7 @@ class Webview_Paypal extends React.Component {
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
