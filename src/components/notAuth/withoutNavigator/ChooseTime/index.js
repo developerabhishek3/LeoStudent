@@ -91,7 +91,7 @@ export default class index extends Component {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <StatusBar
           barStyle={'light-content'}
-          backgroundColor="blue"
+          backgroundColor="#5541E1"
           hidden={false}
         />
         <View style={Styles.header}>
@@ -179,7 +179,7 @@ export default class index extends Component {
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                   backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
                 // justifyContent: 'center',
                 // alignItems: 'center',
@@ -187,7 +187,7 @@ export default class index extends Component {
               <View
                 style={{
                   width: '99%',
-                  backgroundColor: 'rgba(0,0,230,0.700)',
+                     backgroundColor: 'rgba(85,65,225,0.900)',
                   // alignItems: 'center',
                   // justifyContent: 'center',
                   margin: 10,

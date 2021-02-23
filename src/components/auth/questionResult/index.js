@@ -39,7 +39,7 @@ class questionResult extends Component {
             </Text>
           </View>
 
-          <View style={{borderWidth: 0, marginTop: 40, alignSelf: 'center'}}>
+          <View style={{borderWidth: 0, marginTop: 40, alignSelf: 'center',marginTop:100}}>
             <Text
               style={{
                 fontSize: 18,
@@ -110,8 +110,11 @@ class questionResult extends Component {
                 style={{
                   margin: 7,
                   textAlign: 'center',
+                  fontWeight:"700",
                   marginStart: 10,
                   marginEnd: 10,
+                  fontSize:18,
+                  color:"#b41565"
                 }}>
                 Débutant
               </Text>

@@ -164,7 +164,7 @@ console.log("getint inside state ",this.state.teacherSlideData)
         />
       
     
-      <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+      <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
           <View style={Styles.header} >         
           <Text style={Styles.headerTxt}>Accueil   </Text>
           <Image source={logo} style={Styles.headertxtInputImg} />
@@ -380,7 +380,7 @@ console.log("getint inside state ",this.state.teacherSlideData)
           <View
             style={{
               // backgroundColor:'#FFF',
-              backgroundColor: 'rgba(0,0,230,0.700)',
+              backgroundColor: '#5541E1',
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',

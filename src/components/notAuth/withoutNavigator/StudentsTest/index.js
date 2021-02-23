@@ -130,7 +130,7 @@ export default class index extends Component {
     // console.log("getting inside render-----------",this.state.questionData)
     return (
       <View style={Styles.container}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <Spinner visible={this.state.isSpinner} />
         <ImageBackground
           source={bgImg}
@@ -160,7 +160,7 @@ export default class index extends Component {
                   </View> */}
 
                   <View style={Styles.radiobtnMainView}>
-                  <View style={{width:'96%',}}>
+                  <View style={{width:'96%',marginTop:50}}>
                     {this.state.questionData.map((singleData, qIndex) => {     
                       
                       

@@ -202,7 +202,7 @@ const {TeacherDetails} = this.state;
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <View style={Styles.header}>
         <TouchableOpacity
             onPress={() => {
@@ -410,7 +410,7 @@ const {TeacherDetails} = this.state;
             <View
               style={{
                 // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
+                backgroundColor: '#5541E1',
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',

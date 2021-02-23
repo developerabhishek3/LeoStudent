@@ -92,6 +92,8 @@ import RejectRequest from '../components/notification/Reject';
 
 import questionResult from '../components/auth/questionResult';
 
+import CancelReservation from '../components/notAuth/Reservation/currentReservation/CancelReservation';
+
 
 const AppNavigator = createStackNavigator(
   {
@@ -145,6 +147,12 @@ const AppNavigator = createStackNavigator(
     },
     questionresult:{
       screen:questionResult,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    cancelreservation:{
+      screen:CancelReservation,
       navigationOptions: {
         headerShown: false,
       },

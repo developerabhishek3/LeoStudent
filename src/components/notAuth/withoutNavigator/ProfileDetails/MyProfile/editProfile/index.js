@@ -446,7 +446,7 @@ async uploadWholeData(){
     console.log("INSIDE REDNER METHOD+++++++++++++",profile_url)
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <ImageBackground
           source={bgImg}
           resizeMode="cover"
@@ -714,7 +714,7 @@ en anglais?
 
 
 
-              <Text style={{fontSize:16,fontWeight:'700',alignSelf:'flex-start',marginStart:30,color:"gray"}}>Quel est votre besoin en anglais : </Text>
+              <Text style={{fontSize:16,fontWeight:'700',alignSelf:'flex-start',marginStart:30,color:"gray"}}>Votre besoin en anglais </Text>
 
               <View style={Styles.radiobtnMainView}>
                 <View style={{flexDirection:'row',flexWrap:'wrap'}}>

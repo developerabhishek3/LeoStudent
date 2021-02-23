@@ -153,7 +153,7 @@ validateFunction(){
 
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
         <View style={Styles.header}>
           <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}>

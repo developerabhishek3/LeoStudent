@@ -56,7 +56,7 @@ export default StyleSheet.create({
         fontSize:15,
         fontWeight:'600',        
         marginStart:20,
-        alignSelf:'flex-start',        
+        alignSelf:'center',        
         margin:2,
     },
     txtStyle3:{

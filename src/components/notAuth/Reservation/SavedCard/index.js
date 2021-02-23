@@ -183,7 +183,7 @@ export default class index extends Component {
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "blue" translucent = {false}/>
+          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <View style={Styles.header}>
           <TouchableOpacity
             onPress={() => {
