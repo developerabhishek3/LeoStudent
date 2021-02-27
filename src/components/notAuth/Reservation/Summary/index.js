@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,Fragment} from 'react';
 import {
   View,
   Text,
@@ -183,7 +183,12 @@ export default class index extends Component {
  
     let amount_en = this.props.navigation.getParam("amount_en")
 
-    let realamout = amount_en - this.state.amount
+    let realamout = amount_en
+
+    let afterAmount = amount_en - this.state.amount;
+
+    // console.log("getting after adding promocode amount-------------",this.state.amount)
+    // console.log("gettigittiti----------",afterAmount)
 
     // console.log("gettig real ampunt ============",realamout)
     
@@ -269,16 +274,39 @@ export default class index extends Component {
 
               {
                    this.state.amount != "" ?
+                   <Fragment>
+                     {
+                       afterAmount  > 0 ?
 
-            <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
-            <Text style={{margin:10,fontSize:15}}>Votre derniere accusation</Text>
+                        <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
+                        <Text style={{margin:10,fontSize:15}}>Votre derniere accusation</Text>
 
-            <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
-            <Image style={{height:12,width:12,marginTop:13,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
-              <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text>
-              {/* <NumberFormat value={2456981} displayType={'text'} thousandSeparator={true} prefix={'$'} /> */}
-            </TouchableOpacity>
-            </View> 
+                        <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
+                        <Image style={{height:12,width:12,marginTop:13,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
+                          {/* <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text> */}
+                            
+
+                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{afterAmount}</Text>
+                          {/* <NumberFormat value={2456981} displayType={'text'} thousandSeparator={true} prefix={'$'} /> */}
+                        </TouchableOpacity>
+                        </View>                         
+                        :
+
+                        
+                        <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
+                        <Text style={{margin:10,fontSize:15}}>Votre derniere accusation</Text>
+
+                        <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
+                        <Image style={{height:12,width:12,marginTop:13,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
+                          {/* <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text> */}
+                            
+
+                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{  0  }</Text>
+                          {/* <NumberFormat value={2456981} displayType={'text'} thousandSeparator={true} prefix={'$'} /> */}
+                        </TouchableOpacity>
+                        </View>     
+                     }            
+            </Fragment>
             :null
               }
  

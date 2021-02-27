@@ -149,12 +149,19 @@ class Webview_Paypal extends React.Component {
             // Actions.push("OrderStatus",{order_id: currentOrderId})
 
         }
-        else if (String_url.includes('https://www.spyk.fr/stripe/response?response_para=1')) {         
-            Alert.alert("Message","Votre transaction a échoué.")
+        else if (String_url.includes('https://www.spyk.fr/stripe/response?response_para=1')) {    
+          
+          Alert.alert("Message","Votre transaction a échoué.",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}])   
+            // Alert.alert("Message","Votre transaction a échoué.")
             // this.props.navigation.goBack('MyCart');            
         }
         else if (String_url.includes('https://www.spyk.fr/stripe/response?response_para=2')) {
-          Alert.alert("Message","Désolé ! Nous ne sommes pas en mesure de traiter votre demande en raison de certains problèmes techniques.")
+          Alert.alert("Message","Désolé ! Nous ne sommes pas en mesure de traiter votre demande en raison de certains problèmes techniques.",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}])  
+          // Alert.alert("Message","Désolé ! Nous ne sommes pas en mesure de traiter votre demande en raison de certains problèmes techniques.")
             // this.props.navigation.goBack('MyCart');
 
         }
@@ -284,6 +291,7 @@ class Webview_Paypal extends React.Component {
                         color: '#FFF',
                         fontSize: 13,                       
                         fontWeight: '700',
+                        marginStart:6,marginEnd:6,margin:3,
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
@@ -315,6 +323,7 @@ class Webview_Paypal extends React.Component {
                         color: '#FFF',
                         fontSize: 13,                       
                         fontWeight: '700',
+                        marginStart:6,marginEnd:6,margin:3,
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>

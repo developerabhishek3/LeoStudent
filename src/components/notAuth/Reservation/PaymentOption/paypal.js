@@ -135,27 +135,40 @@ class Webview_Paypal extends React.Component {
         console.log("Url: path:::" + String_url)
 
         if (String_url.includes('https://www.spyk.fr/payment/txn_success')) { 
+          this.Show_Custom_Alert()
+        console.log("getting after sucess-1111111111111-------------------------------------------------",)
 
                 // if(booktype == "now"){
 
                 // }else{
 
                 // }
-            this.Show_Custom_Alert()
+           
             // this.props.navigation.navigate("home",{time_slot:time_slot,reserve_date:reserve_date,booktype:booktype})
             // Actions.push("OrderStatus",{order_id: currentOrderId})
-
         }
+        else if (String_url.includes('https://www.spyk.fr/payment/txn_success_2')) { 
+
+          this.Show_Custom_Alert()
+          console.log("getting after sucess- 2222222222222-------------------------------------------------",)
+
+        }       
         else if (String_url.includes('https://www.spyk.fr/payment/txn_cancel')) {         
-            Alert.alert("Message","Payment Cancel")
+          console.log("getting after Cancel--------------------------------------------------",)
+          Alert.alert("Message","Annulation de paiement",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}])
+            // Alert.alert("Message","Annulation de paiement")            
             // this.props.navigation.goBack('MyCart');            
         }
-        else if (String_url.includes('https://www.spyk.fr/payment/txn_fail')) {
-          Alert.alert("Message","Payment Cancel")
+        else if (String_url.includes('https://www.spyk.fr/payment/txn_fail')) { 
+          console.log("getting after Failed--------------------------------------------------",) 
+          Alert.alert("Message","Échec du paiement",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}])        
+          // Alert.alert("Message","Échec du paiement")          
             // this.props.navigation.goBack('MyCart');
-
         }
-
     }
     LoadingIndicatorView() {
         return (<View style={{ flex: 1 }}>
@@ -277,6 +290,7 @@ class Webview_Paypal extends React.Component {
                         color: '#FFF',
                         fontSize: 13,                       
                         fontWeight: '700',
+                        marginStart:6,marginEnd:6,margin:3,
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
@@ -306,7 +320,8 @@ class Webview_Paypal extends React.Component {
                     <Text
                       style={{
                         color: '#FFF',
-                        fontSize: 13,                       
+                        fontSize: 13,    
+                        marginStart:6,marginEnd:6,margin:3,                   
                         fontWeight: '700',
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
