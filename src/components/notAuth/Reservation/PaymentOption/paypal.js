@@ -187,14 +187,15 @@ class Webview_Paypal extends React.Component {
         let time_slot = this.props.navigation.getParam("time_slot")
         let booktype = this.props.navigation.getParam("booktype")
 
-        console.log("getting promocode id here--",timeDuration)
+        console.log("getting promocode id here--",time_slot)
+        let user_id = this.props.navigation.getParam("user_id")
         
-        console.log("inside render user id == = =  =  =  =",this.state.user_id)
+        // console.log("inside render user id == = =  =  =  =",this.state.user_id)
 
         return (
             <View style={styles.container}>
                 <WebView
-                   source={{ uri: `https://www.spyk.fr/payment/transaction?user_id=${this.state.user_id}&course_date=${reserve_date}&course_time=${time_slot}&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=paypal&booktype=${booktype}`}}
+                   source={{ uri: `https://www.spyk.fr/payment/transaction?user_id=${user_id}&course_date=${reserve_date}&course_time=${time_slot}&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=paypal&booktype=${booktype}`}}
                     renderLoading={this.LoadingIndicatorView}
                     startInLoadingState={true}
                     onMessage={(event) => this.handleMessage(event)}
