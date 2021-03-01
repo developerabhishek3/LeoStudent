@@ -177,6 +177,8 @@ export default class index extends Component {
     let reserve_date = this.props.navigation.getParam('reserve_date');
     let promocodeId = this.props.navigation.getParam('promocodeId');
 
+    let user_id = this.props.navigation.getParam('user_id');
+
     let amount = this.props.navigation.getParam('amount');
     let exacttime = this.props.navigation.getParam('exacttime');
 
@@ -342,9 +344,9 @@ export default class index extends Component {
                 </View>
               </View>
             </View>
-            <TouchableOpacity style={{alignSelf:'flex-end',margin:10}} onPress={()=>{this.props.navigation.navigate("savedcard")}}>
+            {/* <TouchableOpacity style={{alignSelf:'flex-end',margin:10}} onPress={()=>{this.props.navigation.navigate("savedcard")}}>
               <Text style={{color:"red",fontSize:14,fontWeight:"700"}}>Saved Card</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <View style={Styles.continueBtn}>
               {
@@ -363,7 +365,8 @@ export default class index extends Component {
                       amount:amount,
                       exacttime:exacttime,
                       time_slot:this.state.time_slot,
-                      booktype:booktype              
+                      booktype:booktype,
+                      user_id:user_id          
                     })
                     :
                     this.props.navigation.navigate("stripe",{
@@ -375,7 +378,8 @@ export default class index extends Component {
                       amount:amount,
                       exacttime:exacttime,
                       time_slot:this.state.time_slot,
-                      booktype:booktype
+                      booktype:booktype,
+                      user_id:user_id   
                     })
 
                   }

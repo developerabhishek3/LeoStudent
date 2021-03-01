@@ -24,6 +24,8 @@ import calenderIcon from '../../../../assets/icon/10.png';
 import moment from 'moment';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 
+import AsyncStorage from '@react-native-community/async-storage'
+
 import Styles from './indexCss';
 
 import {RadioButton} from 'react-native-paper';
@@ -41,6 +43,8 @@ export default class index extends Component {
       amount:0,
       exacttime:'',
       promocode:"",
+      time_slot:"",
+      user_id:0,
     };
     today = moment().format('YYYY-MM-DD');
   } 
@@ -61,21 +65,48 @@ export default class index extends Component {
   async componentDidMount(){
 
 
+    let UserId = await AsyncStorage.getItem('user_id');
+        
+    let user_id = JSON.parse(UserId)
+    setTimeout(() => {
+        this.setState({user_id})
+    }, 100);
+
+
+
+    let time_slot;
     let timeDuration = this.props.navigation.getParam("timeDuration")
     let reserve_time = this.props.navigation.getParam("reserve_time")
+    // console.log("getting timeuration inisde valida ===",reserve_time)
+    if(timeDuration == `30 minutes`) {
 
-    let booktype = this.props.navigation.getParam("booktype")
-    // console.log("getting timeuration inisde valida ===",reserve_time,timeDuration)
+      var exacttime = moment(reserve_time, 'HH:mm A')       
+      .add(30, 'minutes')
+      .format("HH:mm")
+      setTimeout(() => {
+        this.setState({exacttime})
+      }, 10);
 
-    
-    var new_time= moment(reserve_time, 'HH:mm A')       
-    .add(60, 'minutes')
-    .format("HH:mm")
-// console.log("now getting or not===========",new_time)
+      // console.log("gett   1111111---------",exacttime)
+     } 
+     else{
+      var exacttime = moment(reserve_time, 'HH:mm A')       
+      .add(60, 'minutes')
+      .format("HH:mm")
+      setTimeout(() => {
+        this.setState({exacttime})
+      }, 10);
+  
+      // console.log("gett   22222222---------",exacttime)
+     }
+
+      time_slot = `${reserve_time}-${exacttime}`
+     this.setState({time_slot})
+
+     console.log("gettint time slot----------",time_slot)
 
 
-
-
+  
 
     setInterval(() => {
       this.getPromocodeId()
@@ -84,7 +115,7 @@ export default class index extends Component {
 
     
     
-    this.checkTimeDuration()
+    // this.checkTimeDuration()
 
     let amount_en = this.props.navigation.getParam("amount_en")
     // let reserve_time = this.props.navigation.getParam("reserve_time")
@@ -94,11 +125,30 @@ export default class index extends Component {
 
   //  console.log("getting  reserve_date and amount --4 ----------",reserve_date,)
 
+  
  
 
    BackHandler.addEventListener('hardwareBackPress', () =>
    this.handleBackButton(this.props.navigation),
  );
+  }
+
+
+
+
+  getExactTime(){
+    let reserve_time = this.props.navigation.getParam('reserve_time');
+  
+    let reserve_date = this.props.navigation.getParam('reserve_date')
+
+    let exacttime = this.state.exacttime
+
+
+    let time_slot = `${reserve_time}-${exacttime}`
+
+    console.log("timeslot ===========",time_slot)
+
+    this.setState({date_slot:reserve_date,time_slot})
   }
 
   getPromocodeId(){  
@@ -180,6 +230,8 @@ export default class index extends Component {
 
   render() {
     // console.log("iniside the render finding id ---------",this.state.promocodeId,this.state.amount)
+
+    // console.log("gettintg user id here----------------",this.state.user_id)
  
     let amount_en = this.props.navigation.getParam("amount_en")
 
@@ -187,7 +239,9 @@ export default class index extends Component {
 
     let afterAmount = amount_en - this.state.amount;
 
-    // console.log("getting after adding promocode amount-------------",this.state.amount)
+    // console.log("getting after adding promocode amount-------------",this.sta)
+
+
     // console.log("gettigittiti----------",afterAmount)
 
     // console.log("gettig real ampunt ============",realamout)
@@ -199,6 +253,8 @@ export default class index extends Component {
 
     let booktype = this.props.navigation.getParam("booktype")
     let reserve_date = this.props.navigation.getParam("reserve_date")
+
+    // console.log("getting course reservationp +++++++++++++++++++++++",this.state.time_slot)
 
 
     // console.log("getting promocode  -",typeof this.state.promocode)
@@ -310,23 +366,44 @@ export default class index extends Component {
             :null
               }
  
-              
+                
+                 <View style={Styles.continueBtn}>
+                 <TouchableOpacity onPress={()=> { 
+                    afterAmount > 0 ?
+                    this.props.navigation.navigate("paymentoption",{
+                        amount_en:realamout,
+                        reserve_time:reserve_time,
+                        timeDuration:timeDuration,
+                        reserve_date:reserve_date,
+                        promocodeId:this.state.promocodeId,
+                        amount:this.state.amount,
+                        exacttime:this.state.exacttime,
+                        booktype:booktype,
+                        time_slot:this.state.time_slot,
+                        user_id:this.state.user_id
+                        
 
+                 })
+                : 
+                this.props.navigation.navigate("stripe",{
+                  amount_en:realamout,
+                  reserve_time:reserve_time,
+                  timeDuration:timeDuration,
+                  reserve_date:reserve_date,
+                  promocodeId:this.state.promocodeId,
+                  amount:this.state.amount,
+                  exacttime:this.state.exacttime,
+                  booktype:booktype,
+                  time_slot:this.state.time_slot,
+                  user_id:this.state.user_id
+                        
+           })
+                }}>
+                   <Text style={Styles.continueBtnTxt}>Réserver et payer</Text>
+                 </TouchableOpacity>
+               </View>
                
-            <View style={Styles.continueBtn}>
-              <TouchableOpacity onPress={()=>{this.props.navigation.navigate("paymentoption",{
-                     amount_en:realamout,
-                     reserve_time:reserve_time,
-                     timeDuration:timeDuration,
-                     reserve_date:reserve_date,
-                     promocodeId:this.state.promocodeId,
-                     amount:this.state.amount,
-                     exacttime:this.state.exacttime,
-                     booktype:booktype
-              })}}>
-                <Text style={Styles.continueBtnTxt}>Réserver et payer</Text>
-              </TouchableOpacity>
-            </View>
+           
           </ScrollView>         
         </View>
       </View>

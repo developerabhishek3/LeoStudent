@@ -40,12 +40,7 @@ class Webview_Paypal extends React.Component {
 
     async  componentDidMount() {
 
-        let UserId = await AsyncStorage.getItem('user_id');
-        
-        let user_id = JSON.parse(UserId)
-        setTimeout(() => {
-            this.setState({user_id})
-        }, 100);
+     let user_id = this.props.navigation.getParam("user_id")
       
 
         let amount_en = this.props.navigation.getParam("amount_en")
@@ -177,6 +172,9 @@ class Webview_Paypal extends React.Component {
     }
     render() {
 
+
+      let user_id = this.props.navigation.getParam("user_id")
+
         let amount_en = this.props.navigation.getParam("amount_en")
         let reserve_time = this.props.navigation.getParam("reserve_time")
         let timeDuration = this.props.navigation.getParam("timeDuration")
@@ -185,23 +183,49 @@ class Webview_Paypal extends React.Component {
         let promocode_amount = this.props.navigation.getParam("amount")
 
         let time_slot = this.props.navigation.getParam("time_slot")
+
+
+        console.log("gettint reserve time ----------------",reserve_time)
+
+        console.log("getting time sloe==================",time_slot)
+
+        console.log
         let booktype = this.props.navigation.getParam("booktype")
 
-        console.log("getting promocode id here--",timeDuration)
+        console.log("getting booktype id here-------------------------------",booktype)
         
-        console.log("inside render user id == = =  =  =  =",this.state.user_id)
+        // console.log("inside render user id == = =  =  =  =",this.state.user_id)
 
         return (
             <View style={styles.container}>
-                <WebView                
-                   source={{ uri: `https://www.spyk.fr/stripe?user_id=${this.state.user_id}&course_date=${reserve_date}&course_time=${time_slot}&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=stripe&booktype=${booktype}card_id=${this.state.card_id}`}}
-                    renderLoading={this.LoadingIndicatorView}
-                    startInLoadingState={true}
-                    onMessage={(event) => this.handleMessage(event)}
-                    onNavigationStateChange={(event) => this.handleNavigation(event)}
-                    javaScriptEnabled={true}
-                />
 
+              {
+                  booktype  == 'now' ?
+
+                  <WebView                
+                  source={{ uri: `https://www.spyk.fr/stripe?user_id=${user_id}&course_date=${reserve_date}&course_time=&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=stripe&booktype=${booktype}&card_id=${this.state.card_id}`}}
+                   renderLoading={this.LoadingIndicatorView}
+                   startInLoadingState={true}
+                   onMessage={(event) => this.handleMessage(event)}
+                   onNavigationStateChange={(event) => this.handleNavigation(event)}
+                   javaScriptEnabled={true}
+               />
+
+
+               :
+
+
+               <WebView                
+               source={{ uri: `https://www.spyk.fr/stripe?user_id=${user_id}&course_date=${reserve_date}&course_time=${time_slot}&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=stripe&booktype=${booktype}&card_id=${this.state.card_id}`}}
+                renderLoading={this.LoadingIndicatorView}
+                startInLoadingState={true}
+                onMessage={(event) => this.handleMessage(event)}
+                onNavigationStateChange={(event) => this.handleNavigation(event)}
+                javaScriptEnabled={true}
+            />
+
+              }
+               
                 
 <Modal
             visible={this.state.Alert_Visibility}
