@@ -190,6 +190,7 @@ export default class index extends Component {
                           style={Styles.textInputField}
                           onChangeText={(email) => this.setState({ email })}
                           placeholder="Adresse email"
+                          // placeholderStyle={{ fontFamily: "Ariel", borderColor: 'red' }}
                         />
                     </View>
 
@@ -201,6 +202,8 @@ export default class index extends Component {
                            secureTextEntry={true}
                            onChangeText={(password) => this.setState({ password })}
                           placeholder="Mot de passe"
+                          
+                          // placeholderStyle={{ fontFamily: "Ariel", borderColor: 'red' }}
                         />
                     </View>
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate("forgotpassword")}}>

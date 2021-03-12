@@ -335,14 +335,13 @@ currentDateFormat(){
 
 
 
-  render() {
+  render() {    
     const {durationAmount, dateArray} = this.state;
 
     // console.log('getting day -- -', this.state.reserve_time);
 
     // console.log("getting exact time ==============",this.state.exacttime_new)
-    
-
+        
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
