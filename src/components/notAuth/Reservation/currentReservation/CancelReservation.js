@@ -144,7 +144,7 @@ class CancelReservation extends Component{
                       color: '#000000',
                       textAlign: 'center',                      
                     }}>
-                    Reservation de man coaching d'anglais
+                      Réservation de mon coaching d'anglais
                   </Text>
                 </View>                  
 
@@ -175,7 +175,7 @@ class CancelReservation extends Component{
                         fontWeight: '700',
                         textAlign:"center"                              
                       }}>
-                     fair man coaching maintenant
+                    Faire mon coaching maintenant
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -197,7 +197,7 @@ class CancelReservation extends Component{
                         fontWeight: '700', 
                         textAlign:'center'               
                       }}>
-                      Programmer man coaching pour plus tord
+                     Programmer mon coaching pour plus tard
                     </Text>
                   </TouchableOpacity>
                 </View>

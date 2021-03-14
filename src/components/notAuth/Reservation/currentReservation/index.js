@@ -203,7 +203,7 @@ export default class index extends Component {
 
         <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
-            <Text style={Styles.subheadingTxt}>incomplet</Text>
+            <Text style={Styles.subheadingTxt}>En attente</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
@@ -266,7 +266,7 @@ export default class index extends Component {
                           </Text>
                           <View style={{flexDirection: 'row'}}>
                             <Image source={books} style={Styles.bookStyle} />
-                          <Text style={Styles.contentTextStyle}>Nimber de coaching faits: {singleCurrrentMap.teacher_course_session_done}</Text>
+                          <Text style={Styles.contentTextStyle}>Nombre de coaching faits: {singleCurrrentMap.teacher_course_session_done}</Text>
                           </View>
 
                           <View style={{flexDirection: 'row'}}>
@@ -304,7 +304,7 @@ export default class index extends Component {
                                   this.Show_Custom_Alert(reservation_id);
                                 }}                               
                                 >
-                              <Text style={Styles.continueBtnTxt}>Annuler man coaching</Text>
+                              <Text style={Styles.continueBtnTxt}>Annuler mon coaching</Text>
                               </TouchableOpacity>
                             </View>
                           </View>

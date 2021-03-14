@@ -114,6 +114,8 @@ callAlertFunction(){
 
     const {allPromocide} = this.state;
 
+    console.log("inside the render ---------------",allPromocide)
+
     let promocodeType = this.props.navigation.getParam("promocodeType")
     console.log("getting inisde the render method ???????????????",promocodeType)
 

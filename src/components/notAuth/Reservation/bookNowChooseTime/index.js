@@ -454,14 +454,14 @@ currentDateFormat(){
               </View>
                 :
                 <View style={{alignItems:"center",justifyContent:'center'}}>
-                  <Text style={{fontSize:16,fontWeight:'700'}}>Durée non trouvée</Text>
+                  <Text style={{fontSize:16,fontWeight:'700'}}></Text>
                 </View>
               }
-            <View style={Styles.subheaderView}>
-              <Text style={Styles.subheaderTxt}>une date & time</Text>
+            {/* <View style={Styles.subheaderView}>
+            <Text style={Styles.subheaderTxt}>une date & time</Text>
               <Image source={calenderIcon} style={Styles.headertxtInputImg1} />
-            </View>
-
+            </View> */}
+{/* 
               <View style={{flexDirection:'row',justifyContent:'space-between',marginStart:15,marginEnd:15,margin:15}}>
               <Text>
                  une date : 
@@ -469,7 +469,7 @@ currentDateFormat(){
               <Text>
                 {this.state.reserve_date}
               </Text>
-            </View>
+            </View> */}
             <View>          
               <View
                 style={{

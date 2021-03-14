@@ -159,7 +159,7 @@ validateFunction(){
           <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}>
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Réservations</Text>
+          <Text style={Styles.headerTxt}>Notez votre coach</Text>
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
         <Spinner visible={this.state.isSpinner} 
@@ -184,13 +184,13 @@ validateFunction(){
         <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:30}}>
 
             <View style={{flexDirection:'column'}}>
-              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>date de cours</Text>
+              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Durée du coaching</Text>
               <Text style={{fontSize:16,fontWeight:'700'}}>{course_date}</Text>
             </View>
 
 
             <View style={{flexDirection:'column'}}>
-              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Horaire du cours</Text>
+              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Horaire du coaching</Text>
     <Text style={{fontSize:16,fontWeight:'700'}}>{course_time}</Text>
             </View>
 
@@ -235,7 +235,7 @@ validateFunction(){
           <TextInput
             numberOfLines={4}
             onChangeText={(comment) => this.setState({ comment })}
-            placeholder="Commentaire supplémentaire"
+            placeholder="Comments'est déroulé votre coaching ?"
             style={{textAlign:'left',textAlignVertical:'top',width:'90%',alignSelf:'center',margin:10,paddingVertical:3,backfaceVisibility:'hidden',backgroundColor:'#FFFFFF',elevation:3,borderRadius:7,}}
           />
           </View>

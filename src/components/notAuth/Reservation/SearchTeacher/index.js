@@ -247,7 +247,7 @@ export default class index extends Component {
             }}>
           <Image source={require("../../../../assets/icon/filter2.png")} style={{width:33,height:33,margin:10}} />
          
-            <Text style={{fontWeight:'700',fontSize:20,margin:12}}>Filtrers les coach</Text>
+            <Text style={{fontWeight:'700',fontSize:20,margin:12}}>Filtrer les coach</Text>
             </TouchableOpacity>
       
         <Spinner visible={this.state.isSpinner} />
@@ -305,7 +305,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          Numbre de evaluations :{' '}
+                                         Nombre d'évaluations :{' '}
                                           {
                                             singleMap.teacher_course_session_done
                                           }
@@ -430,7 +430,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          Numbre de evaluations :{' '}
+                                         Nombre d'évaluations :{' '}
                                           {
                                             singleMap.teacher_course_session_done
                                           }
@@ -554,7 +554,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          Numbre de evaluations :{' '}
+                                         Nombre d'évaluations :{' '}
                                           {
                                             singleMap.teacher_course_session_done
                                           }
@@ -679,7 +679,7 @@ export default class index extends Component {
                                         style={Styles.bookStyle}
                                       />
                                       <Text style={Styles.contentTextStyle}>
-                                        Numbre de evaluations :{' '}
+                                       Nombre d'évaluations :{' '}
                                         {singleMap.teacher_course_session_done}
                                       </Text>
                                     </View>
@@ -774,7 +774,7 @@ export default class index extends Component {
                         fontSize: 18,
                         fontWeight: '700',
                       }}>
-                      No record found!
+                   Aucun coach n'est disponible à cet horaire !
                     </Text>
                   </View>
                 )}
@@ -827,7 +827,7 @@ export default class index extends Component {
                                             style={Styles.bookStyle}
                                           />
                                           <Text style={Styles.contentTextStyle}>
-                                            Numbre de evaluations :{' '}
+                                           Nombre d'évaluations :{' '}
                                             {
                                               singleMap.teacher_course_session_done
                                             }
@@ -953,7 +953,7 @@ export default class index extends Component {
                                             style={Styles.bookStyle}
                                           />
                                           <Text style={Styles.contentTextStyle}>
-                                            Numbre de evaluations :{' '}
+                                           Nombre d'évaluations :{' '}
                                             {
                                               singleMap.teacher_course_session_done
                                             }
@@ -1077,7 +1077,7 @@ export default class index extends Component {
                                               style={Styles.bookStyle}
                                             />
                                             <Text style={Styles.contentTextStyle}>
-                                              Numbre de evaluations :{' '}
+                                             Nombre d'évaluations :{' '}
                                               {
                                                 singleMap.teacher_course_session_done
                                               }
@@ -1202,7 +1202,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          Numbre de evaluations :{' '}
+                                         Nombre d'évaluations :{' '}
                                           {
                                             singleMap.teacher_course_session_done
                                           }
@@ -1302,7 +1302,7 @@ export default class index extends Component {
                         fontSize: 18,
                         fontWeight: '700',
                       }}>
-                      No record found!
+                     Aucun coach n'est disponible à cet horaire !
                     </Text>
                   </View>
                 )}

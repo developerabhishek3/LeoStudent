@@ -331,6 +331,8 @@ getTimeDurationFunction(){
 
 const {TeacherDetails} = this.state;
 
+console.log("getting result -             -  - -  -",TeacherDetails)
+
 
 
 
@@ -432,7 +434,7 @@ const {TeacherDetails} = this.state;
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Image source={books} style={Styles.bookStyle} />
-                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : au</Text>
+                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : {singleTeacherDetails.teacher_course_session_done} </Text>
                   </View>
 
                   <View style={{flexDirection: 'row'}}>
@@ -583,7 +585,7 @@ const {TeacherDetails} = this.state;
                         // onPress={()=>{this.props.navigation.navigate("chat2")}}
                             onPress={()=>{this.reservation_requestFunction()}}
                         >
-                        <Text style={Styles.continueBtnTxt}>Envoyer l demande au coach</Text>
+                        <Text style={Styles.continueBtnTxt}>Envoyer	la demande au coach</Text>
                         </TouchableOpacity>
                         </View>
                         :null
@@ -659,10 +661,10 @@ const {TeacherDetails} = this.state;
                       color: '#000000',
                       textAlign: 'center',                      
                     }}>
-                   Demande acceptée
+                    Well done!
                   </Text>
                 </View>  
-                  <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre coach va vous</Text>
+                  <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>"Votre session est terminée</Text>
                   <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacter</Text>
                   {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> d'anglais, vous pouvez maintenant profiter de</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>coaching d'anglais! Vous allez être</Text>
