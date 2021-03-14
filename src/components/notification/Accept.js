@@ -79,7 +79,7 @@ class Accept extends Component{
                       color: '#000000',
                       textAlign: 'center',                      
                     }}>
-                    Demande acceptee
+                   Demande acceptée
                   </Text>
                 </View>  
                   <Text style={{margin:2,fontSize:15,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre coach va vous  </Text>

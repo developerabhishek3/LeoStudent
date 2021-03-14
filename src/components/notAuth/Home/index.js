@@ -128,15 +128,15 @@ export default class index extends Component {
       } else {
         console.log('getting inside the else conditin---------------');
         Alert.alert(
-          'Exit App',
-          'Do you want to Exit..',
+          'Quitter Spyk',
+          'Voulez-vous vraiment quitter Spyk ?',
           [
             {
-              text: 'Cancel',
+              text: 'Annuler',
               style: 'cancel',
             },
             {
-              text: 'Exit',
+              text: 'Quitter Spyk',
               onPress: () => BackHandler.exitApp(),
             },
           ],
@@ -238,8 +238,8 @@ console.log("getint inside state ",this.state.teacherSlideData)
 
          <View>
           <TouchableOpacity style={{backgroundColor:"#b41565",margin:10,justifyContent:'center',alignSelf:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
-            onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
-            
+            // onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
+            onPress={()=>{this.props.navigation.navigate("cancelreservation")}} 
           >
               <Image source={require("../../../assets/icon/whatsapp.png")} style={{height:30,width:30,margin:10}} />
               <Text style={{fontSize:14,fontWeight:"700",margin:15,marginStart:20,marginEnd:40,color:"#FFFFFF"}}>START</Text>
@@ -285,7 +285,7 @@ console.log("getint inside state ",this.state.teacherSlideData)
 
 
 <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Numbre de coachings suivis</Text>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Nombre de coachings suivis</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
                           <Image source={require("../../../assets/icon/books.png")} style={{height:35,width:35,margin:4}} />
                   <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.monitored_coaching}</Text>

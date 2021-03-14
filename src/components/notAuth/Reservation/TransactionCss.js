@@ -98,12 +98,12 @@ export default StyleSheet.create({
     marginEnd: 30,
   },
   continueBtnTxt: {
-    margin: 3,
+    margin: 6,
     marginStart: 16,
     marginEnd: 16,
     color: '#FFFFFF',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 14,
     alignSelf: 'center',
   },
 });

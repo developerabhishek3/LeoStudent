@@ -31,8 +31,8 @@ class questionResult extends Component {
               marginEnd: 60,
             }}>
             <Image
-              source={require('../../../assets/icon/196.png')}
-              style={{width: 70, height: 70, alignSelf: 'center'}}
+              source={require('../../../assets/icon/96.png')}
+              style={{width: 55, height: 70, alignSelf: 'center'}}
             />
             <Text style={{fontSize: 26, fontWeight: '700', color: '#FFFFFF'}}>
               Félicitations !

@@ -155,7 +155,7 @@ export default class index extends Component {
         <View style={Styles.subhaderView}>
           <View style={{flexDirection: 'column'}}>
             
-            <Text style={Styles.subheadingTxt1}>incomplet </Text>
+            <Text style={Styles.subheadingTxt1}>En attente </Text>
             <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
           </View>
 
@@ -208,7 +208,7 @@ export default class index extends Component {
 
                         <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                         <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
-                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>promocode Charge</Text>
+                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Bon cadeau</Text>
                                         <Image style={{height:12,width:12,marginTop:6,marginRight:-7}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
                         <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_amount} </Text>
 
@@ -217,7 +217,7 @@ export default class index extends Component {
 
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                         <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
-                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Charge</Text>
+                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
                                         <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
                         <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
                         
@@ -245,7 +245,7 @@ export default class index extends Component {
                                        
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/watch.png")} />
-                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Duratoin</Text>
+                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Durée</Text>
                                         <View style={{flexDirection:'row',}}> 
                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_duration}</Text>
                                          
@@ -259,7 +259,7 @@ export default class index extends Component {
                                       <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{time_slot:singleIncompleteDate.course_time,reserve_date:singleIncompleteDate.course_date,transactinId:singleIncompleteDate.id,
                                               booktype:singleIncompleteDate.booking_type
                                       })}}>
-                                      <Text style={Styles.continueBtnTxt}>Continuer</Text>
+                                      <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
                                       </TouchableOpacity>
                                     </View>
 

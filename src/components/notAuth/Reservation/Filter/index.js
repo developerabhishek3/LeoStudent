@@ -26,11 +26,11 @@ export default class index extends Component {
         value:'',
       data1:[
         {"id": "1",
-        "value":"coach natif",
+        "value":"Coach natif",
         "description":"Conseillé pour les niveaux intermédiaires voulant acquérir une aisance orale et les niveaux avancés pour devenir bilingue"
           },
           {"id": "2",
-          "value":"coach bilingue",
+          "value":"Coach bilingue",
           "description":"Conseillé pour les niveaux débutants et les niveaux intermédiaires qui veulent être plus en confiance et progresser tant sur l'oral que la grammaire"
           },
           {"id": "3",
@@ -106,7 +106,7 @@ export default class index extends Component {
         
               <View style={{flex:2,width:"100%",borderWidth:0,marginStart:20,margin:10}}>
                 <View >
-                  <Text style={{fontSize:18,fontWeight:'700',color:"red",marginStart:10,margin:7}}>Choisir l'experience</Text>
+                  {/* <Text style={{fontSize:18,fontWeight:'700',color:"red",marginStart:10,margin:7}}>Choisir l'experience</Text> */}
                 </View>
 
                 <View>

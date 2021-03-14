@@ -189,7 +189,7 @@ console.log("insiderender =",this.state.historyData)
 
           <View style={{flexDirection: 'column'}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
-            <Text style={Styles.subheadingTxt}>incomplet</Text>
+            <Text style={Styles.subheadingTxt}>En attente</Text>
             <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
@@ -321,7 +321,7 @@ console.log("insiderender =",this.state.historyData)
           :
         
           <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}></Text>
+          <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>Aucun coaching fait</Text>
         </View>
 
 
@@ -557,7 +557,7 @@ console.log("insiderender =",this.state.historyData)
                       color: '#000000',
                       textAlign: 'center',                      
                     }}>
-                    Reservation de man coaching d'anglais
+                   Réservation de mon coaching d'anglais
                   </Text>
                 </View>                  
 
@@ -588,7 +588,7 @@ console.log("insiderender =",this.state.historyData)
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
-                     fair man coaching maintenant
+                    Faire mon coaching maintenant
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -611,7 +611,7 @@ console.log("insiderender =",this.state.historyData)
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
-                      Programmer man coaching pour plus tord
+                     Programmer mon coaching pour plus tard
                     </Text>
                   </TouchableOpacity>
                 </View>
