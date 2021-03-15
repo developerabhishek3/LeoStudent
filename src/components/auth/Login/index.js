@@ -10,7 +10,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-
 export default class index extends Component {
 
     constructor(props) {
@@ -21,13 +20,18 @@ export default class index extends Component {
           fcm_token: '',        
           token: '',    
           userLoggedInData: {},    
-          username: '',    
+          username: '',  
+          showPassword: true,  
           userDetais: []
         };
+        this.toggleSwitch = this.toggleSwitch.bind(this);
       }
 
 
-
+      toggleSwitch() {
+        this.setState({ showPassword: !this.state.showPassword });
+      }
+    
 
 
 
@@ -167,6 +171,7 @@ export default class index extends Component {
                     resizeMode="stretch"
                     style={Styles.bgImgStyle}                    
                 >
+                      <KeyboardAwareScrollView enableOnAndroid={true} extraHeight={60} extraScrollHeight={60} showsVerticalScrollIndicator={false}>
                    <ScrollView>
                     <View style={{borderWidth:0,marginBottom:20,marginTop:20}}>
 
@@ -196,16 +201,45 @@ export default class index extends Component {
 
                     
 
-                    <View>
-                        <TextInput 
-                           style={Styles.textInputField}
-                           secureTextEntry={true}
-                           onChangeText={(password) => this.setState({ password })}
-                          placeholder="Mot de passe"
-                          
-                          // placeholderStyle={{ fontFamily: "Ariel", borderColor: 'red' }}
-                        />
+                    {/* <TextInput 
+                  secureTextEntry={this.state.password.length > 0 ? true : false }
+                  style={{fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Italic',  borderColor: '#DDDDDD',color:"gray",borderWidth:1,borderRadius:10,margin:10,paddingStart:10}}
+                  placeholder="Mot de passe"
+                  value={this.state.password}     
+                  onChangeText={(password) => this.setState({ password })}           
+                /> */}
+
+                  <View style={{flexDirection:'row', borderWidth: 1,
+                          borderColor: '#DDDDDD',
+                          borderRadius: 10,
+                          justifyContent:'space-between',
+                          margin: 10,
+                }}>
+                      <TextInput 
+                        // secureTextEntry={this.state.password.length > 0 ? true : false }
+                        secureTextEntry={this.state.showPassword && this.state.password.length > 0 ? true:false}
+                        // style={{fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Italic',  borderColor: '#DDDDDD',color:"gray",borderWidth:1,borderRadius:10,margin:10,paddingStart:10}}
+                        placeholder="Mot de passe"
+                        style={{paddingStart:10,fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Regular', borderWidth:0,width:"85%",color:"gray"}}
+                        value={this.state.password}     
+                        onChangeText={(password) => this.setState({ password })}           
+                      />
+                      <TouchableOpacity  
+                        onPress={this.toggleSwitch}            
+                        value={!this.state.showPassword}>
+                          {
+                            this.state.showPassword == true ?
+                            <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                            :
+                            <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                          }                      
+                      </TouchableOpacity>
                     </View>
+
+
+
+
+
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate("forgotpassword")}}>
                     <Text style={Styles.forgotPwd}>Mot de passe oublié?</Text>
                     </TouchableOpacity>
@@ -227,16 +261,6 @@ export default class index extends Component {
                         </TouchableOpacity>
                     </View>  
 
-                  {/* <View style={{flexDirection:'row',margin:0,alignSelf:'center'}}>
-                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("bankdetails")}}>
-                    <Image source={facebook} style={Styles.socialLogo} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("googlelogin")}}>
-                    <Image source={require("../../../assets/icon/google.png")} style={Styles.socialLogo} />
-                    </TouchableOpacity>
-                  </View> */}
-
                     <View  style={{flexDirection:'row',margin:3,alignSelf:'center',marginTop:30}}>
                     <Text style={Styles.txtStyle2}>Nouvel utilisateur ?</Text>
                       <TouchableOpacity onPress={()=>{this.props.navigation.navigate("singup")}}>
@@ -248,7 +272,8 @@ export default class index extends Component {
 
 
                     </View>
-                    </ScrollView>                
+                    </ScrollView>   
+                    </KeyboardAwareScrollView>             
                     </ImageBackground>
 
             </View>

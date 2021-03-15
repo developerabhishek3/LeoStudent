@@ -29,6 +29,7 @@ export default StyleSheet.create({
     width: 60,
     margin: 3,
     marginEnd: 50,
+    marginTop:20,
     alignSelf: 'center',
   },
   headerTxt: {
@@ -90,8 +91,17 @@ export default StyleSheet.create({
     borderColor: '#DDDDDD',
     borderRadius: 10,
     margin: 10,
+    color:"gray",
     paddingStart: 10,
-    fontFamily:"Rubik"
+    fontFamily:"OpenSans-Regular"
+  },
+  textInputField1: {
+    borderWidth: 1,
+    borderColor: '#DDDDDD',
+    borderRadius: 10,
+    margin: 10,
+    paddingStart: 10,
+    fontFamily:"OpenSans-Regular"
   },
 
   socialLogo: {

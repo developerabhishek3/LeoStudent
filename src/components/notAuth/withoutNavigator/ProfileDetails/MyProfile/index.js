@@ -11,9 +11,12 @@ import { Rating, AirbnbRating } from 'react-native-ratings';
 import Spinner from 'react-native-loading-spinner-overlay';
 import People from '../../../../../assets/icon/avatar.png';
 
-import {StudentProfile} from '../../../../../Api/afterAuth'
-
-export default class index extends Component {
+import {StudentProfile} from '../../../../../Api/afterAuth';
+import { connect } from 'react-redux';
+import {
+  getStudentsData,
+} from '@redux';
+class MyProfile extends Component {
 
 constructor(props){
   super(props)
@@ -28,6 +31,10 @@ constructor(props){
 }
 
 componentDidMount = async () => {
+  setTimeout(() => {    
+  this.fetchGetStdents()
+  }, 3000);
+
   let profile_url = this.props.navigation.getParam("profile_url")
  this.setState({profile_url})
 
@@ -38,15 +45,15 @@ componentDidMount = async () => {
 );
 }
 
-
+fetchGetStdents = async () => {
+  this.props.fetchStudentsData(); 
+};
   
 componentWillUnmount() {
   BackHandler.removeEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
 }
-
-
 handleBackButton = (nav) => {
   if (!nav.isFocused()) {
     BackHandler.removeEventListener('hardwareBackPress', () =>
@@ -58,13 +65,6 @@ handleBackButton = (nav) => {
     return true;
   }
 };
-
-
-
-
-
-
-
 
   fetchStudentProfileData = async () => {
     const GetProfileDetails = await StudentProfile();
@@ -94,15 +94,21 @@ handleBackButton = (nav) => {
   }
    
   render() {
+    const { studentStore } = this.props;
+    const { studentsDetails, loader } = studentStore;
+
+    console.log("getting student store details from the redux=============",studentStore)
+    console.log("getting student store details 11111111111     from the redux=============",studentsDetails)
+
     const { profileData,isBodyLoaded,isSpinner } = this.state;
-    console.log("getting inside the render method ??????????????",this.state.birth_date)
+    // console.log("getting inside the render method ??????????????",this.state.birth_date)
 
     
       var birth_date =  JSON.stringify(this.state.birth_date)
 
 
         let birth_date_new =  birth_date.substring(1,birth_date.indexOf('T'));
-    console.log("getting birthdate==========",birth_date_new)
+    // console.log("getting birthdate==========",birth_date_new)
 
     // const userMap = Object.assign(profileData)
     return (
@@ -112,10 +118,7 @@ handleBackButton = (nav) => {
         {/* {
           isBodyLoaded == true ?  */}
           <Fragment>
-
-
-
-<ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
+        <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
         <View style={Styles.header}>
         <TouchableOpacity
             onPress={() => {
@@ -178,7 +181,7 @@ handleBackButton = (nav) => {
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Email</Text>
 
-    <Text style={Styles.nameHeadingTxt}>{profileData.email}</Text>
+            <Text style={Styles.nameHeadingTxt}>{profileData.email}</Text>
 
             </View>
 
@@ -222,20 +225,13 @@ handleBackButton = (nav) => {
             </View> */}
 
 
-
+{/* 
             <View style={Styles.addressView}>
                 <Text style={Styles.nameHeading}>Objectif</Text>
                 <Text style={Styles.nameHeadingTxt}>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century .</Text>
                 <Text style={Styles.nameHeadingTxt}>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century .</Text>
 
-            </View>
-
-
-
-
-
-
-
+            </View> */}
 
 
           </View>
@@ -251,7 +247,23 @@ handleBackButton = (nav) => {
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    studentStore: state.studentStore,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchStudentsData: () => {
+      dispatch(getStudentsData());
+    },  
+    // setCurrentSelectedCategoryDispatch: (categoryData) => {
+    //   dispatch(setCurrentSelectedCategory(categoryData));
+    // },
+  };
+};
 
+export default connect(mapStateToProps,mapDispatchToProps)(MyProfile);
 
 
 // 23.Mon profil

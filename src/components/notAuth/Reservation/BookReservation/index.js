@@ -661,10 +661,10 @@ console.log("getting result -             -  - -  -",TeacherDetails)
                       color: '#000000',
                       textAlign: 'center',                      
                     }}>
-                    Well done!
+                    Demande acceptée
                   </Text>
                 </View>  
-                  <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>"Votre session est terminée</Text>
+                  <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre session est terminée</Text>
                   <Text style={{margin:4,fontSize:16,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacter</Text>
                   {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> d'anglais, vous pouvez maintenant profiter de</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>coaching d'anglais! Vous allez être</Text>
