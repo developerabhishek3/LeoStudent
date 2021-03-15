@@ -459,8 +459,8 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                     Well done!
                   </Text>
                 </View>  
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre session est terminate</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"gray",alignSelf:'center'}}>Hope you had fun See you seen !</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"gray",alignSelf:'center'}}>Votre session est terminée</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"gray",alignSelf:'center'}}>Hope you had fun See you soon!</Text>
                   {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>coaching d'anglais! Vous allez être</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>contacté(e) par votre coach.</Text>                   */}
                 <View

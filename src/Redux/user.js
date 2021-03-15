@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {UserProfile} from '../Api/afterAuth';
+
 
 const FETCH_USERDETAILS_REQUEST = 'FETCH_USERDETAILS_REQUEST';
 const FETCH_USERDETAILS_SUCCESS = 'FETCH_USERDETAILS_SUCCESS';

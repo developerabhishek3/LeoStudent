@@ -345,15 +345,20 @@ async uploadWholeData(){
 
   chooseFile = () => {
     var options = {
-      title: 'Select Image',
-      // customButtons: [
-      //   { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-      // ],
+      title: 'Choisir une photo',     
       storageOptions: {
-        skipBackup: true,
+        skipBackup: false,
         path: 'images',
       },
     };
+    // let options = {
+    //   title: 'Choisir une photo',
+    //   maxWidth: 256,
+    //   maxHeight: 256,
+    //   storageOptions: {
+    //     skipBackup: true
+    //   }
+    // };
     ImagePicker.showImagePicker(options, response => {
       // console.log('Response = ', response);
 
