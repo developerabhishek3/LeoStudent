@@ -348,7 +348,7 @@ console.log("insiderender =",this.state.historyData)
 
           <View style={{position:"absolute",alignSelf:"flex-end",right:20,bottom:20}}>
             <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}} style={{backgroundColor:"#b41565",borderRadius:10,justifyContent:"center",flexDirection:"row"}}>
-            <Image source={require("../../../../assets/icon/calendar3.jpg")} style={{height:27,width:27,margin:10}} />
+            <Image source={require("../../../../assets/icon/calendar3.png")} style={{height:27,width:27,margin:10}} />
             <Text style={{fontSize:14,fontWeight:'700',color:"#FFFFFF",margin:10,marginStart:0,marginEnd:20,alignSelf:'center'}}>Réserver mon coaching</Text>
             </TouchableOpacity>
           </View>

@@ -234,23 +234,17 @@ console.log("getint inside state ",this.state.teacherSlideData)
                </TouchableOpacity>                     
          </View> */}
      </ImageBackground>
-
-
          <View>
           <TouchableOpacity style={{backgroundColor:"#b41565",margin:10,justifyContent:'center',alignSelf:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
             // onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
             onPress={()=>{this.props.navigation.navigate("cancelreservation")}} 
           >
               <Image source={require("../../../assets/icon/whatsapp.png")} style={{height:30,width:30,margin:10}} />
-              <Text style={{fontSize:14,fontWeight:"700",margin:15,marginStart:20,marginEnd:40,color:"#FFFFFF"}}>START</Text>
+              <Text style={{fontSize:20,fontWeight:"700",margin:15,marginStart:10,marginEnd:40,color:"#FFFFFF"}}>START</Text>
           </TouchableOpacity>
          </View>
-
-
-
               {
-                this.state.countData.map((singleCountData)=>{
-                  
+                this.state.countData.map((singleCountData)=>{                  
                   return(
                     <Fragment>
 

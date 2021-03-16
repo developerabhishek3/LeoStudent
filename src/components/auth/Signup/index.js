@@ -465,53 +465,53 @@ handleBackButton = (nav) => {
                   />
                 </View>
                 <View style={{flexDirection:'row', borderWidth: 1,
-    borderColor: '#DDDDDD',
-    borderRadius: 10,
-    justifyContent:'space-between',
-    margin: 10,
-    paddingStart: 20,}}>
+                  borderColor: '#DDDDDD',
+                  borderRadius: 10,
+                  justifyContent:'space-between',
+                  margin: 10,
+                  paddingStart: 10,}}>
                   <TextInput
-                    // style={Styles.textInputField}
-                    secureTextEntry={this.state.showPassword}
+                     style={{borderWidth:0,width:"85%"}}
+                    // secureTextEntry={this.state.showPassword}
+                    secureTextEntry={this.state.showPassword && this.state.password.length > 0 ? true:false}
                     placeholder="Mot de passe"
                     onChangeText={(password) => this.setState({password})}
                   />
                    <TouchableOpacity  
-              onPress={this.toggleSwitch}            
-              value={!this.state.showPassword}>
-                {
-                  this.state.showPassword == true ?
-                  <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
-                  :
-                  <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
-                }
-                 
-              </TouchableOpacity>
-                </View>
-
-                <View style={{flexDirection:'row', borderWidth: 1,
-                    borderColor: '#DDDDDD',
-                    borderRadius: 10,
-                    justifyContent:'space-between',
-                    margin: 10,
-                    paddingStart: 20,}}>
-                  <TextInput
-                    // style={Styles.textInputField}
-                    secureTextEntry={ this.state.showPassword2}
-                    placeholder="Confirmation Mot de passe"
-                    onChangeText={(confirm_password) => this.setState({confirm_password})}
-                  />
-                   <TouchableOpacity  
-              onPress={this.toggleSwitch2}            
-              value={!this.state.showPassword2}>
-                {
-                  this.state.showPassword2 == true ?
-                  <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
-                  :
-                  <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
-                }
-                  </TouchableOpacity>
-                </View>
+                      onPress={this.toggleSwitch}            
+                      value={!this.state.showPassword}>
+                        {
+                          this.state.showPassword == true ?
+                          <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                          :
+                          <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                        }                 
+                 </TouchableOpacity>
+                      </View>
+                      <View style={{flexDirection:'row', borderWidth: 1,
+                          borderColor: '#DDDDDD',
+                          borderRadius: 10,
+                          justifyContent:'space-between',
+                          margin: 10,
+                          paddingStart: 10,}}>                      
+                        <TextInput
+                          style={{borderWidth:0,width:"85%"}}
+                          secureTextEntry={this.state.showPassword2 && this.state.confirm_password.length > 0 ? true:false}
+                          // secureTextEntry={ this.state.showPassword2}
+                          placeholder="Confirmation Mot de passe"
+                          onChangeText={(confirm_password) => this.setState({confirm_password})}
+                        />
+                        <TouchableOpacity  
+                          onPress={this.toggleSwitch2}            
+                          value={!this.state.showPassword2}>
+                            {
+                              this.state.showPassword2 == true ?
+                              <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                              :
+                              <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                            }
+                        </TouchableOpacity>
+                      </View>
 
                 {/* <View>
                   <TextInput
