@@ -181,16 +181,15 @@ class Webview_Paypal extends React.Component {
         let reserve_date = this.props.navigation.getParam("reserve_date")
         let promocodeId = this.props.navigation.getParam("promocodeId")
         let promocode_amount = this.props.navigation.getParam("amount")
-
+        let booktype = this.props.navigation.getParam("booktype")
         let time_slot = this.props.navigation.getParam("time_slot")
 
 
         console.log("gettint reserve time ----------------",reserve_time)
 
         console.log("getting time sloe==================",time_slot)
-
-        console.log
-        let booktype = this.props.navigation.getParam("booktype")
+    
+     
 
         console.log("getting booktype id here-------------------------------",booktype)
         
@@ -203,7 +202,7 @@ class Webview_Paypal extends React.Component {
                   booktype  == 'now' ?
 
                   <WebView                
-                  source={{ uri: `https://www.spyk.fr/stripe?user_id=${user_id}&course_date=${reserve_date}&course_time=&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=stripe&booktype=${booktype}&card_id=${this.state.card_id}`}}
+                  source={{ uri: `https://www.spyk.fr/stripe?user_id=${user_id}&course_date=${reserve_date}&course_time=${time_slot}&course_duration=${timeDuration}&course_amount=${amount_en}&promocode_id=${promocodeId}&promocode_amount=${promocode_amount}&type=stripe&booktype=${booktype}&card_id=${this.state.card_id}`}}
                    renderLoading={this.LoadingIndicatorView}
                    startInLoadingState={true}
                    onMessage={(event) => this.handleMessage(event)}

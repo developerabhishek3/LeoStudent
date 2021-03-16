@@ -184,6 +184,8 @@ export default class index extends Component {
 
     let booktype = this.props.navigation.getParam("booktype")
 
+    console.log("Checking i am here for checking time duration and time slot-  - - - - - - - - ",timeDuration,"exact time   - - - - - -" +    exacttime,"reserve time -- - - -  - - - - -",reserve_time)
+
     console.log("inside did mount found time slot --------",this.state.time_slot)
 
     return (

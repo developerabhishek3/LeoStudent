@@ -193,14 +193,9 @@ export default class index extends Component {
                 {     
                 this.state.IncompleteReservation.length > 0 ?
                 <Fragment>
-
                   {
                         this.state.IncompleteReservation.map((singleIncompleteDate)=>{
-
-
-
-                          console.log("getting transaction id =============",singleIncompleteDate.id)
-                         
+                          console.log("getting transaction id =============",singleIncompleteDate.id)                         
                           return(
                             <Fragment>
                                   
@@ -235,14 +230,9 @@ export default class index extends Component {
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/watch.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Heure</Text>
                                         <View style={{flexDirection:'row',}}> 
-                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_time}</Text>
-                                         
-                                      </View>
-
-                                      
-                                    </View>
-
-                                       
+                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_time}</Text>                                         
+                                      </View>                                      
+                                    </View>                                       
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/watch.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Durée</Text>
@@ -262,19 +252,14 @@ export default class index extends Component {
                                       <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
                                       </TouchableOpacity>
                                     </View>
-
-
-                            </View>
-
-
-                            
+                            </View>                            
                                     </Fragment>
                                   )
                                 })
                   }               
                         </Fragment>
                       :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-                        <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>Record non trouvé!</Text>
+                        <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}></Text>
                       </View>
                       }
               </Fragment>

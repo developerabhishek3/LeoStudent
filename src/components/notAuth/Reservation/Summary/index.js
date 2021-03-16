@@ -239,7 +239,7 @@ export default class index extends Component {
 
     let afterAmount = amount_en - this.state.amount;
 
-    // console.log("getting after adding promocode amount-------------",this.sta)
+    console.log("getting after adding promocode amount-------------",afterAmount)
 
 
     // console.log("gettigittiti----------",afterAmount)
@@ -254,7 +254,7 @@ export default class index extends Component {
     let booktype = this.props.navigation.getParam("booktype")
     let reserve_date = this.props.navigation.getParam("reserve_date")
 
-    // console.log("getting course reservationp +++++++++++++++++++++++",this.state.time_slot)
+    // console.log("On the Summary page checking reserve_date+++++++++++++++++++++++",reserve_date)
 
 
     // console.log("getting promocode  -",typeof this.state.promocode)
@@ -339,16 +339,15 @@ export default class index extends Component {
                        afterAmount  > 0 ?
 
                         <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
-                        <Text style={{margin:10,fontSize:15}}>Votre derniere accusation</Text>
-
-                        <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
+                      <Text style={{margin:10,fontSize:16,width:"90%",alignSelf:'center',fontWeight:"700",color:"gray"}}>Votre choix de bon cadeau a bien été enregistré</Text>
+                        {/* <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
                         <Image style={{height:12,width:12,marginTop:13,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
-                          {/* <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text> */}
+                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text>
                             
 
-                          {/* <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{afterAmount}</Text> */}
-                          {/* <NumberFormat value={2456981} displayType={'text'} thousandSeparator={true} prefix={'$'} /> */}
-                        </TouchableOpacity>
+                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{afterAmount}</Text>
+                         
+                        </TouchableOpacity> */}
                         </View>                         
                         :
 

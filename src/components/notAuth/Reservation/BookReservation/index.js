@@ -603,7 +603,7 @@ console.log("getting result -             -  - -  -",TeacherDetails)
               </Fragment>
               
               :<View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-              <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>Record non trouvé</Text>
+              <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}></Text>
             </View>
             }
 
