@@ -147,7 +147,7 @@ const {level_id} = this.state;
 
               <View style={{marginTop: 50}}>
                 <View style={Styles.subHeader}>
-                  <Text style={Styles.txtStyle1}>Précisez votre niveau d'anglais" </Text>
+                  <Text style={Styles.txtStyle1}>Précisez votre niveau d'anglais</Text>
                 </View>
                 
                               

@@ -48,7 +48,7 @@ export default class index extends Component {
       const GetquestionDataResponse = await get_questionaireFunction();
       if (GetquestionDataResponse.result == true) {
         var questionData = GetquestionDataResponse.response.questionaire;
-        console.log("getting response inside getting all question.............",questionData)
+        // console.log("getting response inside getting all question.............",questionData)
         this.setState({questionData,isBodyLoaded:true,isSpinner:false});
         // console.log("getting GetquestionDataResponse data----------", JSON.stringify(questionData))
       }
@@ -60,7 +60,7 @@ export default class index extends Component {
     
     
     userPostQuestionFunction = async () => {
-      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh ----------============ ======== = = = =   =  =========== = = =  =")
+      // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh ----------============ ======== = = = =   =  =========== = = =  =")
       //Single question body
       //{ "question_id": 1, "option_id": 1 },
       let questionBody = [];
@@ -69,16 +69,18 @@ export default class index extends Component {
             questionBody.push({ "question_id": question.ques_id, "option_id": question.selectedAns.option_id });
         }
       });
-      console.log("POST_QUESTION_BODY - ", {test_data: JSON.stringify(questionBody)});
+      // console.log("POST_QUESTION_BODY - ", {test_data: JSON.stringify(questionBody)});
 
       const post_questionaireResponse = await post_questionaireFunction({test_data: questionBody});
       if (post_questionaireResponse.result == true) {
-        console.log("getting result here --------", post_questionaireResponse.response)
+        // console.log("getting result here --------", post_questionaireResponse.response)
 
         if (post_questionaireResponse.response.status == true) {           
-            console.log("getting response >>>>>>>>>>>>>>>>",post_questionaireResponse.response)  
+            console.log("getting response after giving question >>>>>>>>>>>>>>>>",post_questionaireResponse.response)  
             let questionAttempt = post_questionaireResponse.response.ques_ans_attempt;
             let correctAnswer = post_questionaireResponse.response.ques_ans_right
+            // console.log("getting corect annswer result here--------------",correctAnswer)
+
             await AsyncStorage.setItem("level_id", JSON.stringify(post_questionaireResponse.response.level_id)); 
 
            this.props.navigation.navigate("questionresult",{correctAnswer:correctAnswer,questionAttempt:questionAttempt})
@@ -221,13 +223,6 @@ export default class index extends Component {
                   </View>                  
                   </View>
   
-  
-
-
-
-
-
-
                 <View style={{marginTop:60}}>               
   
                   <View style={Styles.continueBtn}>

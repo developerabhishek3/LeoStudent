@@ -240,7 +240,7 @@ export default class index extends Component {
                     <TouchableOpacity onPress={()=>{this.props.navigation.navigate("forgotpassword")}}>
                     <Text style={Styles.forgotPwd}>Mot de passe oublié?</Text>
                     </TouchableOpacity>
-
+ 
 
                     {/* <TouchableOpacity onPress={()=>{this.props.navigation.navigate("questionresult")}}>
                     <Text style={Styles.forgotPwd}>question result</Text>
