@@ -15,14 +15,14 @@ import {StudentProfile} from '../../../../../Api/afterAuth';
 import { connect } from 'react-redux';
 import {
   getStudentsData,
-} from '@redux';
+} from '../../../../../Redux/StudentDetails';
 class MyProfile extends Component {
 
 constructor(props){
   super(props)
   this.state={
     profileData:[],
-      
+                   
     isBodyLoaded: false,
     isSpinner: true,
     profile_url:"",
@@ -264,23 +264,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(MyProfile);
-
-
-// 23.Mon profil
-// Nom
-// John Smith
-//
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-//  :
-// 
-// 
-// 
-// 
-// 
-// Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century .
