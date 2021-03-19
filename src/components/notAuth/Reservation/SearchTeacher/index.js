@@ -208,7 +208,7 @@ export default class index extends Component {
 
     let booktype = this.props.navigation.getParam('booktype');
 
-    // console.log("checking book type hrere==================",booktype)
+    console.log("checking book type hrere==================",booktype)
 
 
      let transactinId = this.props.navigation.getParam("transactinId")

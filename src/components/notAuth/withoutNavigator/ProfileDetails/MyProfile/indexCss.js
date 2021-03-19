@@ -67,7 +67,7 @@ export default StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     margin:10,
-    marginTop:36
+    marginTop:16
     
   },
   nameStyleView:{

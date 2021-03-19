@@ -482,9 +482,9 @@ handleBackButton = (nav) => {
                       value={!this.state.showPassword}>
                         {
                           this.state.showPassword == true ?
-                          <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                          <Image source={require("../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
                           :
-                          <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                          <Image source={require("../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
                         }                 
                  </TouchableOpacity>
                       </View>
@@ -506,9 +506,9 @@ handleBackButton = (nav) => {
                           value={!this.state.showPassword2}>
                             {
                               this.state.showPassword2 == true ?
-                              <Image source={require("../../../assets/icon/eyeclose.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                              <Image source={require("../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
                               :
-                              <Image source={require("../../../assets/icon/eyeopen.jpg")} style={{width: 27, height: 27,marginTop:10,margin:6}} />
+                              <Image source={require("../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
                             }
                         </TouchableOpacity>
                       </View>

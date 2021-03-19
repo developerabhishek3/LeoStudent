@@ -819,11 +819,11 @@ export async function incomplete_reservation() {
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
 
-  console.log(
-    'ghetting incomplete transactoin tokena dn ujserId =========',
-    TokenValue,
-    UserId,
-  );
+  // console.log(
+  //   'ghetting incomplete transactoin tokena dn ujserId =========',
+  //   TokenValue,
+  //   UserId,
+  // );
 
   try {
     const incomplete_reservationResponse = await Axios.get(

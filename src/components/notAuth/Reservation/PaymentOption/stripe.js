@@ -29,7 +29,7 @@ class Webview_Paypal extends React.Component {
       }
       Hide_Custom_Alert() {
         this.setState({Alert_Visibility: false});
-        this.props.navigation.navigate("currentreservation")
+        this.props.navigation.navigate("transaction")
         // this.Fetchcancel_reservation();
       }
       Hide_Custom_Alert1() {
@@ -191,8 +191,7 @@ class Webview_Paypal extends React.Component {
     
      
 
-        console.log("getting booktype id here-------------------------------",booktype)
-        
+          console.log("checking book type on stripe page -  - - - - - - -",booktype)
         // console.log("inside render user id == = =  =  =  =",this.state.user_id)
 
         return (
@@ -314,7 +313,7 @@ class Webview_Paypal extends React.Component {
                         color: '#FFF',
                         fontSize: 13,                       
                         fontWeight: '700',
-                        marginStart:6,marginEnd:6,margin:3,
+                        marginStart:6,marginEnd:6,margin:7,
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
@@ -346,7 +345,7 @@ class Webview_Paypal extends React.Component {
                         color: '#FFF',
                         fontSize: 13,                       
                         fontWeight: '700',
-                        marginStart:6,marginEnd:6,margin:3,
+                        marginStart:6,marginEnd:6,margin:7,
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
