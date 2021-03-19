@@ -239,7 +239,7 @@ export default class index extends Component {
 
     let afterAmount = amount_en - this.state.amount;
 
-    console.log("getting after adding promocode amount-------------",afterAmount)
+    // console.log("getting after adding promocode amount-------------",afterAmount)
 
 
     // console.log("gettigittiti----------",afterAmount)
@@ -283,9 +283,9 @@ export default class index extends Component {
             <View style={{width:'94%',borderWidth:1,borderColor:"#DDDDDD",borderRadius:10,elevation:0,shadowColor:"#FFFFFFF",shadowOffset:3,shadowOpacity:1,alignSelf:'center'}}> 
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                         <Image style={{height:16,width:16,margin:3}} source={require("../../../../assets/icon/currency.png")} />
-                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
-                        <Image style={{height:12,width:12,marginTop:6,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
+                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>                        
     <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{amount_en} </Text>
+    <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
     
                     </View>
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>

@@ -320,6 +320,33 @@ validateFunction() {
 }
 
 
+
+
+// validateFunction() {
+//   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
+//   if(!timeDuration){
+//     Alert.alert("Message","Veuillez choisir la durée!")
+//     // this.props.navigation.navigate("firstvalidationcheck")
+//   }
+//   else if(!reserve_date){
+//     Alert.alert("Message","Veuillez choisir la date!")
+//     // this.props.navigation.navigate("secondvalidationcheck")
+//   }
+//   else if(!reserve_time){
+//     console.log("gettig here or not abhishek------------",reserve_time)
+//     Alert.alert("Message","Veuillez choisir l'heure !")
+//     // this.props.navigation.navigate("thirdvalidationcheck")
+//   }
+//   else {   
+//     this.check_reservation_by_datetime_slotFunction()
+
+//   }
+// }
+
+
+
+
+
 duration_amount_by_levelData = async () => {
   // console.log("getting inside the function level id " + this.state.level_id)
   const {level_id} = this.state;
@@ -435,7 +462,7 @@ this.setState({reserve_date: d});
             }}>
             <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Réservations</Text>
+          <Text style={Styles.headerTxt}>Ma réservation</Text>
           <View style={{flexDirection: 'row'}}>
             {/* <TouchableOpacity
               onPress={() => {

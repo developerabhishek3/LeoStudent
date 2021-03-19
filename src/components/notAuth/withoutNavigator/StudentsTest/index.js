@@ -150,9 +150,9 @@ export default class index extends Component {
             }}>
                   <Image source={logo} style={Styles.headerLogo} />
                   </TouchableOpacity>
-                  <View style={{marginEnd: 50, marginTop: -10}}>                   
+                  <View style={{marginEnd: 50, marginTop: 10}}>                   
                     <Text style={Styles.headerTxt1}>     Test de niveau </Text>
-                     <Text style={Styles.headerTxt}>(10 min)</Text>
+                     {/* <Text style={Styles.headerTxt}>(10 min)</Text> */}
                   </View>
                 </View>
 

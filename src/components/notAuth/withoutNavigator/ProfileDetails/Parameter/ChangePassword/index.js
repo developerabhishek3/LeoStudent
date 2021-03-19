@@ -100,6 +100,34 @@ export default class index extends Component {
 
 
 
+  // Show_Custom_Alert2(visible) {
+  //   this.setState({Alert_Visibility2: visible});
+  //   console.log("checking did mont 1 -----------")
+  // }
+  // Hide_Custom_Alert2() {
+  //   this.setState({Alert_Visibility2: false}); 
+  //   // this.props.navigation.navigate("login")    
+  // }
+
+
+  // Show_Custom_Alert3(visible) {
+  //   this.setState({Alert_Visibility3: visible});
+  //   console.log("checking did mont 2 -----------")
+  // }
+  // Hide_Custom_Alert3() {
+  //   this.setState({Alert_Visibility3: false}); 
+  //   console.log("checking did mont 3 -----------")
+  //   // this.props.navigation.navigate("login")    
+  // }
+
+
+  // Show_Custom_Alert4(visible) {
+  //   this.setState({Alert_Visibility4: visible});
+  // }
+  // Hide_Custom_Alert4() {
+  //   this.setState({Alert_Visibility4: false}); 
+  //   // this.props.navigation.navigate("login")    
+  // }
 
 
 
@@ -157,15 +185,20 @@ export default class index extends Component {
 
   validateUser = () => {
     const { old_password,new_password, confirm_new_password } = this.state;
-
     if (old_password.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre ancien_mot de passe');
+      // this.myAlert('Message', 'Veuillez entrer votre ancien_mot de passe');
+      this.props.navigation.navigate("firstcheck")
     } else if (new_password.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe');
+      this.props.navigation.navigate("secondcheck")
+      // this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe');   
     }
     else if (confirm_new_password.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe de confirmation');
+      this.props.navigation.navigate("thirdcheck")     
+      // this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe de confirmation');
     } 
+    else if (new_password != confirm_new_password) {
+      this.props.navigation.navigate("fourthcheck")     
+    }
     else {     
       this.ChangePasswordFunction();
     }
@@ -208,23 +241,22 @@ export default class index extends Component {
 
 
             <TextInput placeholder="  Ancien mot de passe" style={Styles.txtInput}
-            
+            value={this.state.old_password}
             onChangeText={(old_password) => this.setState({ old_password })}
             />
 
             <TextInput placeholder="  Nouveau mot de passe" style={Styles.txtInput} 
+            value={this.state.new_password}
               onChangeText={(new_password) => this.setState({ new_password })}
             />
 
             <TextInput placeholder="  Confirmer le mot de passe" style={Styles.txtInput}
+            value={this.state.confirm_new_password}
             onChangeText={(confirm_new_password) => this.setState({ confirm_new_password })}
             />
             
             <View style={Styles.continueBtn}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.props.navigation.goBack();
-                    }}
+                  <TouchableOpacity                  
                     onPress={()=>{this.validateUser()}}
                     >
                     <Text style={Styles.continueBtnTxt}>Valider</Text>
@@ -280,12 +312,12 @@ export default class index extends Component {
                   </View>
                   <Text
                     style={{
-                      fontSize: 22,
+                      fontSize: 20,
                       alignSelf: 'center',
                       fontWeight: '700',
                       margin: 6,
                       marginTop: -10,
-                      color: '#000000',
+                      color: 'gray',
                       textAlign: 'center',                      
                     }}>
                     Nouveau mot de passe enregistré
@@ -343,6 +375,324 @@ export default class index extends Component {
               </View>
             </View>
           </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {/* for 1st validation condition............ */}
+
+
+{/* 
+          <Modal
+            visible={this.state.Alert_Visibility2}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert2(!this.state.Alert_Visibility2);
+            }}>
+            <View
+              style={{
+                // backgroundColor:'#FFF',
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                  Veuillez entrer votre ancien mot de passe
+                  </Text>
+                </View>  
+              
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => {                  
+                      this.Hide_Custom_Alert2();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> */}
+
+
+
+
+
+          {/* FOR THE 2ND VALIDATION CONDITION......... */}
+
+
+
+
+{/*           
+          <Modal
+            visible={this.state.Alert_Visibility3}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert3(!this.state.Alert_Visibility3);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                 Veuillez entrer votre nouveau mot de passe
+                  </Text>
+                </View>  
+              
+
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity
+                
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert3();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> */}
+
+
+
+
+{/* 
+
+   
+          <Modal
+            visible={this.state.Alert_Visibility4}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert4(!this.state.Alert_Visibility4);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     Veuillez entrer votre nouveau mot de passe de confirmation
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert4();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> */}
+
+
 
 
 

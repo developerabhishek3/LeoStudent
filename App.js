@@ -4,8 +4,8 @@ import firebase from 'react-native-firebase';
 import Appcontainer from './src/router/index';
 import AsyncStorage from '@react-native-community/async-storage';
 import { EventRegister } from 'react-native-event-listeners';
-import { Provider} from 'react-redux';
-import store from './src/Redux/store'
+// import { Provider} from 'react-redux';
+// import store from './src/Redux/store'
 
 class App extends React.Component {
 
@@ -147,11 +147,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <Provider store={store}>
+      // <Provider store={store}>
         <SafeAreaView style={{ flex:1}}>        
           <Appcontainer />
         </SafeAreaView>
-      </Provider>
+      // </Provider>
     );
   }
 }

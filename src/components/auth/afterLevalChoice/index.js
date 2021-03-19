@@ -47,7 +47,7 @@ export default class index extends Component {
    level_id
     });
     if (updateStudentLevelResponse.result === true) {
-      console.log("getting result here --------", updateStudentLevelResponse.response)     
+      // console.log("getting result here --------", updateStudentLevelResponse.response)     
         await AsyncStorage.setItem("level_id", JSON.stringify(level_id)); 
         this.props.navigation.navigate('login')           
     } else {
@@ -65,8 +65,9 @@ export default class index extends Component {
 
 
 validateFunction(){
-  const {checked} =  this.state;
-  if(!checked){
+  const {checked,level_id} =  this.state;
+  console.log("getting checked value -------------", checked)
+  if(checked < 0 || checked == undefined || checked == null){
     Alert.alert("Message", "Veuillez sélectionner votre niveau!")
   }
   else{
@@ -162,7 +163,7 @@ const {level_id} = this.state;
                                     <View>
                                         {
                                             this.state.checked == key ? 
-                                            <TouchableOpacity style={{flexDirection:'row',alignItems:'center',margin:10,flexWrap:'wrap'}}>
+                                            <TouchableOpacity onPress={()=>{this.setState({checked:key,level_id:singleMap.id})}} style={{flexDirection:'row',alignItems:'center',margin:10,flexWrap:'wrap'}}>
                                                 <Image source={require("../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
                                                 <Text style={{color:"lightgreen",fontWeight:"700"}}>{singleMap.level_fr}</Text>
                                                 <Text style={{color:"gray",alignSelf:"flex-start",borderWidth:0,borderColor:"red",fontSize:12,marginStart:24}}>{singleMap.description}</Text>

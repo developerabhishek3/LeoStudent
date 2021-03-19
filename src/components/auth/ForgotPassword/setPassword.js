@@ -8,14 +8,14 @@ import {
   ScrollView,
   Alert,
   StatusBar,
-  BackHandler
+  BackHandler,
+  TextInput
 } from 'react-native';
 import Styles from './indexCss';
 import bgImg from '../../../assets/bgImages/3.png';
 import logo from '../../../assets/icon/96.png';
 import facebook from '../../../assets/icon/fb.png';
-import {TextInput} from 'react-native-gesture-handler';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import {forgotPasswordReq3Function} from '../../../Api/afterAuth'
 
@@ -27,6 +27,7 @@ export default class index extends Component {
       email: '',
       vcode:"",
       password: '',
+      confirm_password:'',
       fcm_token: '',
 
 
@@ -85,14 +86,21 @@ export default class index extends Component {
   };
 
   validateUser = () => {
-    const { email,password  } = this.state;
+    const { email,password,confirm_password } = this.state;
 
     // if (email.length === 0) {
     //   this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     // }
      if(password.length === 0){
-            this.myAlert("Message","veuillez entrer votre mot de passe!")
-    } else {
+            this.myAlert("Message","Veuillez entrer votre mot de passe!")
+    }
+    else if(confirm_password.length === 0) {
+      this.myAlert("Message","Veuillez entrer votre mot de passe de confirmation !")
+    }
+    else if( password != confirm_password){
+      this.myAlert("Message","Le nouveau mot de passe et la confirmation du nouveau mot de passe ne correspondent pas !")
+    }
+    else {
       // const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       // if (!email.match(mailformat)) {
       //   this.myAlert('Message', 'Email-Id invalide!');
@@ -146,6 +154,7 @@ export default class index extends Component {
           resizeMethod="resize"
           resizeMode="stretch"
           style={Styles.bgImgStyle}>
+               <KeyboardAwareScrollView enableOnAndroid={true} extraHeight={60} extraScrollHeight={60} showsVerticalScrollIndicator={false}>
           <ScrollView>
             <View style={{borderWidth: 0, marginBottom: 20, marginTop: 20}}>
               <View style={Styles.headerView}>
@@ -158,13 +167,13 @@ export default class index extends Component {
               </View>
 
               <View style={Styles.subHeader}>
-                <Text style={Styles.txtStyle1}>Entrez votre adresse électronique, nous</Text>
+                <Text style={Styles.txtStyle1}>Entrez votre nouveau mot de passe, nous</Text>
                 <Text style={Styles.txtStyle1}>vous enverrons un lien pour réinitialiser</Text>
                 <Text style={Styles.txtStyle1}>votre mot de passe.</Text>
               </View>
 
               <View style={Styles.textInputView}>
-                <View>
+                {/* <View>
                   <TextInput
                     style={Styles.textInputField}
                     placeholder=" Email"
@@ -172,13 +181,22 @@ export default class index extends Component {
                     editable={false}
                     // onChangeText={(email) => this.setState({ email })}
                 />
-                </View>
+                </View> */}
 
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder=" nouveau mot de passe"
+                    placeholder="Nouveau mot de passe"
+                    value={this.state.password}
                     onChangeText={(password) => this.setState({ password })}
+              />
+                </View>
+                <View>
+                  <TextInput
+                    style={Styles.textInputField}
+                    value={this.state.confirm_password}
+                    placeholder="Mot de passe de confirmation !"
+                    onChangeText={(confirm_password) => this.setState({ confirm_password })}
               />
                 </View>
                 
@@ -206,6 +224,7 @@ export default class index extends Component {
               </View> */}
             </View>
           </ScrollView>
+          </KeyboardAwareScrollView>
         </ImageBackground>
       </View>
     );

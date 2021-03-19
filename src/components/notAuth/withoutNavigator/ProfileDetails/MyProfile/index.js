@@ -169,7 +169,7 @@ handleBackButton = (nav) => {
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}> Numéro de téléphone</Text>
 
-    <Text style={Styles.nameHeadingTxt}>+{profileData.phone}</Text>
+    <Text style={Styles.nameHeadingTxt}> {profileData.phone}</Text>
 
             </View>
             </View>
@@ -187,14 +187,24 @@ handleBackButton = (nav) => {
 
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Date de naissance</Text>
+              <Text style={Styles.nameHeadingTxt}>{this.state.birth_date}</Text>        
+              </View>
+            </View>
 
 
-        
-            <Text style={Styles.nameHeadingTxt}>{this.state.birth_date}</Text>
-          
-             
+
+            <View style={Styles.maincontentContaine}>
+            <View style={Styles.nameStyleView}>
+              <Text style={Styles.nameHeading}>Ville</Text>
+
+            <Text style={Styles.nameHeadingTxt}>{profileData.city}</Text>
 
             </View>
+
+            <View style={Styles.nameStyleView}>
+              <Text style={Styles.nameHeading}>Pays</Text>
+              <Text style={Styles.nameHeadingTxt}>{profileData.country}</Text>        
+              </View>
             </View>
 
 

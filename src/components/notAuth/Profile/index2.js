@@ -174,14 +174,13 @@ export default class index extends Component {
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
 
-
-<View>
-{
+            <View>
+            {
             this.state.isBodyLoaded == true ?
 
-<Fragment>
+        <Fragment>
 
-          <View style={{marginTop:-15}}> 
+          <View style={{marginTop:15}}> 
           {
             this.state.profile_url == "" ?
 
@@ -195,7 +194,7 @@ export default class index extends Component {
             
           </View>
           {/* <Text style={{fontSize:13,color:'gray',fontWeight:'700',alignSelf:'center'}}>Votre client</Text> */}
-          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#b41565"}}>{profileData.first_name} {profileData.last_name}</Text>          
+          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#000000",marginTop:10}}>{profileData.first_name} {profileData.last_name}</Text>          
           <ScrollView>
 
             <View style={{flex:2,margin:10}}> 
@@ -210,14 +209,14 @@ export default class index extends Component {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                      onPress={()=>{this.props.navigation.navigate("promocode2",{promocodeType:"profile"})}}
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                 <Image source={require("../../../assets/icon/gift1.png")} style={{height:24,width:24,margin:10}}  />
                     <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Bon cadeau</Text>
                 </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
 
                 {/* <TouchableOpacity 

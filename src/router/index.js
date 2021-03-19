@@ -94,6 +94,16 @@ import questionResult from '../components/auth/questionResult';
 
 import CancelReservation from '../components/notAuth/Reservation/currentReservation/CancelReservation';
 
+import FirstCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/FirstChceck';
+import SecondCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/SecondCheck';
+import ThirdCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/ThirdCheck';
+import FourthCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/FourthCheck';
+
+
+
+import FirstValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/FirstValidationCheck';
+import SecondValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/SecondValidationCheck';
+import ThirdValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/ThirdValidationCheck';
 
 const AppNavigator = createStackNavigator(
   {
@@ -115,6 +125,52 @@ const AppNavigator = createStackNavigator(
         headerShown: false,
       },
     },
+    firstcheck: {
+      screen: FirstCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    secondcheck: {
+      screen: SecondCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    thirdcheck: {
+      screen: ThirdCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    fourthcheck: {
+      screen: FourthCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+
+    firstvalidationcheck: {
+      screen: FirstValidationCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+
+    secondvalidationcheck: {
+      screen: SecondValidationCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    thirdvalidationcheck: {
+      screen: ThirdValidationCheck,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+
+
     welcome: {
       screen: Welcome,
       navigationOptions: {

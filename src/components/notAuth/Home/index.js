@@ -320,7 +320,7 @@ console.log("getint inside state ",this.state.teacherSlideData)
                      <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                      <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau initial</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/Niveau.png")} style={{height:35,width:35,margin:4}} />
+                          <Image source={require("../../../assets/icon/cap.png")} style={{height:35,width:35,margin:4}} />
                   <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.point_total}</Text>
                         </View>
                         </View>

@@ -585,7 +585,7 @@ console.log("getting result -             -  - -  -",TeacherDetails)
                         // onPress={()=>{this.props.navigation.navigate("chat2")}}
                             onPress={()=>{this.reservation_requestFunction()}}
                         >
-                        <Text style={Styles.continueBtnTxt}>Envoyer	la demande au coach</Text>
+                        <Text style={Styles.continueBtnTxt}>Envoyer la demande au coach</Text>
                         </TouchableOpacity>
                         </View>
                         :null

@@ -26,7 +26,7 @@ import People from '../../../assets/icon/25.png';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-
+import moment from 'moment'
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -58,11 +58,11 @@ export default class index extends Component {
   incomplete_reservationData = async () => {
     const incomplete_reservationResponse = await incomplete_reservation();
     if (incomplete_reservationResponse.result == true) {
-      console.log("getting herer---------------",incomplete_reservationResponse.response)
+      // console.log("getting herer---------------",incomplete_reservationResponse.response)
       if(incomplete_reservationResponse.response.status == true){
-        console.log("gettig beffore stare==========",incomplete_reservationResponse.response)
+        // console.log("gettig beffore stare==========",incomplete_reservationResponse.response)
         var IncompleteReservation = incomplete_reservationResponse.response.incomplete_transaction;
-        console.log("getting IncompleteReservation data----------",IncompleteReservation)
+        // console.log("getting IncompleteReservation data----------",IncompleteReservation)
         this.setState({IncompleteReservation,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
       }
       else{
@@ -87,7 +87,13 @@ export default class index extends Component {
 
 
   componentDidMount = async () => {
-    this.incomplete_reservationData()
+  
+    setInterval(() => {
+      this.incomplete_reservationData()
+    }, 3000);
+      
+   
+    
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
   );
@@ -132,7 +138,7 @@ export default class index extends Component {
   render() {
 
 
-    console.log("getting incomplete data =============",this.state.IncompleteReservation)
+    // console.log("getting incomplete data =============",this.state.IncompleteReservation)
 
 
 
@@ -194,8 +200,11 @@ export default class index extends Component {
                 this.state.IncompleteReservation.length > 0 ?
                 <Fragment>
                   {
-                        this.state.IncompleteReservation.map((singleIncompleteDate)=>{
-                          console.log("getting transaction id =============",singleIncompleteDate.id)                         
+                        this.state.IncompleteReservation.map((singleIncompleteDate,index)=>{                 
+                          // const yourDate = new Date(singleIncompleteDate.course_date)                     
+                          let NewDate = moment(singleIncompleteDate.course_date).format('DD-MM-YYYY')                       
+                          // console.log("getting all date s  - -  - - - - - - - -",NewDate)
+                          // console.log("getting transaction id =============",singleIncompleteDate.id)                         
                           return(
                             <Fragment>
                                   
@@ -204,28 +213,29 @@ export default class index extends Component {
                         <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                         <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Bon cadeau</Text>
-                                        <Image style={{height:12,width:12,marginTop:6,marginRight:-7}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                                     
                         <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_amount} </Text>
+                        <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
 
-                       
                                     </View>
 
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                         <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
-                                        <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                                        {/* <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} /> */}
                         <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
-                        
+                        <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
                                     </View>
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/date.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Date</Text>
-                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_date}</Text>
+                                  <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}> 
+                                  
+                                  {/* {NewDate} */}
+                                { singleIncompleteDate.course_date}   
+                                  </Text>
                                     </View>
 
-             
-
-                                   
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/watch.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Heure</Text>
@@ -240,10 +250,7 @@ export default class index extends Component {
                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_duration}</Text>
                                          
                                       </View>
-
-                                      
                                     </View>
-
 
                                     <View style={Styles.continueBtn}>
                                       <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{time_slot:singleIncompleteDate.course_time,reserve_date:singleIncompleteDate.course_date,transactinId:singleIncompleteDate.id,
@@ -388,7 +395,17 @@ export default class index extends Component {
               </View>
             </View>
           </Modal>
+
+
+
         </View>
+
+
+
+
+
+
+
 
         <BottomNavigator
           currentRoute={'transaction'}
