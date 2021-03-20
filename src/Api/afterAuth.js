@@ -810,6 +810,68 @@ export async function check_reservation_by_datetime_slot(body = {}) {
   }
 }
 
+
+
+
+
+
+
+
+
+
+export async function modified_reservation(body = {}) {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+  try {
+    const modified_reservationResponse = await Axios.post(
+      'https://www.spyk.fr/api_student/modified_reservation',
+      body,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (modified_reservationResponse.status) {
+      return {
+        result: true,
+        response: modified_reservationResponse.data,
+      };
+    } else {
+      return {
+        result: false,
+        response: modified_reservationResponse.data,
+      };
+    }
+  } catch (err) {
+    let error = new Error();
+    const {data, status} = err.response;
+    error.response = err.response;
+    if (status == 400 && data.error === 'invalid_grant') {
+      error.message = 'Invalid Credentials';
+    } else {
+      error.message = 'Request Failed';
+    }
+    throw error;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // get incomplete transaction
 
 export async function incomplete_reservation() {

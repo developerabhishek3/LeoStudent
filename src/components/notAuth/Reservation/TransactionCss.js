@@ -103,7 +103,16 @@ export default StyleSheet.create({
     marginEnd: 16,
     color: '#FFFFFF',
     fontWeight: '700',
-    fontSize: 14,
+    fontSize: 12,
+    alignSelf: 'center',
+  },
+  continueBtnTxt1: {
+    margin: 6,
+    marginStart: 16,
+    marginEnd: 16,
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 12,
     alignSelf: 'center',
   },
 });
