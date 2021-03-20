@@ -1,6 +1,6 @@
 {
   "name": "LEOStudent",
-  "version": "1.0.6",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -29,7 +29,6 @@
     "react-native-collapsible": "^1.5.2",
     "react-native-collapsible-header-views": "^1.1.2",
     "react-native-countdown-component": "^2.7.1",
-    "react-native-customized-image-picker": "^1.2.0",
     "react-native-date-picker": "^3.2.7",
     "react-native-datepicker": "^1.7.2",
     "react-native-dropdown-picker": "^3.1.11",
@@ -41,7 +40,6 @@
     "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-gifted-chat": "^0.16.3",
-    "react-native-hide-show-password-input": "^1.2.0",
     "react-native-image-picker": "^2.3.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-linear-gradient": "^2.5.6",

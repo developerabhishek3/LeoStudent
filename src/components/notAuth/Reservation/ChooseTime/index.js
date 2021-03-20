@@ -22,7 +22,7 @@ import rightIcon from '../../../../assets/icon/33.png';
 import calenderIcon from '../../../../assets/icon/10.png';
 import moment from 'moment';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
-import {duration_amount_by_level} from '../../../../Api/afterAuth';
+import {duration_amount_by_level,modified_reservation} from '../../../../Api/afterAuth';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -175,6 +175,7 @@ export default class index extends Component {
     this.setState({level_id});
     
 
+    // console.log("getting reservation id   - - - - - - - - -",this.props.navigation.getParam("reservation_id"))
 
    
 
@@ -302,16 +303,97 @@ export default class index extends Component {
 
 
 
+
+
+
+
+
+  modified_reservationFunction = async () => {
+    // console.log("gettin after contnue funtion =====================",this.state.reserve_date,          this.state.exacttime)
+   
+    let time_slot_new = `${this.state.reserve_time}-${this.state.exacttime} `
+    console.log("getting time slot herere-e-e- -- -  - - - - -", time_slot_new)
+    // console.log("timeslot ===========",time_slot_new)
+    let reservation_id = this.props.navigation.getParam("reservation_id")
+    console.log("getting reservation id here - - - - - -",reservation_id)
+
+    console.log("getting course time -  - - - - - - -",this.state.timeDuration    +   this.state.time_slot)
+
+    console.log("getting course date  - - -  - - - - - - - -- ",this.state.reserve_date)
+
+      
+    const modified_reservationResponse = await modified_reservation({
+      reservation_id:reservation_id,
+      course_date:this.state.reserve_date,
+      course_time:time_slot_new,     
+    });
+    if (modified_reservationResponse.result === true) {
+      console.log("gettning modified date and time -  - - - - - - - - - - - - - - - - - -",modified_reservationResponse.response)
+      if(modified_reservationResponse.response.status === true){
+        console.log("getting response ------------------------",modified_reservationResponse.response)
+        // this.paypalFunction()
+        this.props.navigation.navigate('transaction', {
+          // amount_en: this.state.amount_en,
+          // reserve_time:this.state.reserve_time,
+          // timeDuration: this.state.timeDuration,
+          // reserve_date: this.state.reserve_date,
+          booktype:"later"
+        });
+      }
+    else {
+            Alert.alert("Message", modified_reservationResponse.response.message)
+    }
+      // console.log("getting result here --------", )     
+        // await AsyncStorage.setItem("token", JSON.stringify(modified_reservationResponse.response.token));            
+    } else {
+      this.myAlert('Error', modified_reservationResponse.error);
+      // console.log('getting error here-------------');
+    }
+    return;
+  };
+
+
+
+
+
+
+
+
+
+// validateFunction() {
+//   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
+//   if(!timeDuration){
+//     Alert.alert("Message","veuillez choisir la durée!")
+//   }
+//   else if(!reserve_date){
+//     Alert.alert("Message","veuillez choisir la date !")
+//   }
+//   else if(!reserve_time){
+//     Alert.alert("Message","veuillez choisir l'heure !")
+//   }
+//   else {   
+//     this.check_reservation_by_datetime_slotFunction()
+
+//   }
+// }
+
+
+
+
 validateFunction() {
   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
   if(!timeDuration){
-    Alert.alert("Message","veuillez choisir la durée!")
+    // Alert.alert("Message","Veuillez choisir la durée!")
+    this.props.navigation.navigate("firstvalidationcheck")
   }
   else if(!reserve_date){
-    Alert.alert("Message","veuillez choisir la date !")
+    // Alert.alert("Message","Veuillez choisir la date!")
+    this.props.navigation.navigate("secondvalidationcheck")
   }
   else if(!reserve_time){
-    Alert.alert("Message","veuillez choisir l'heure !")
+    console.log("gettig here or not abhishek------------",reserve_time)
+    // Alert.alert("Message","Veuillez choisir l'heure !")
+    this.props.navigation.navigate("thirdvalidationcheck")
   }
   else {   
     this.check_reservation_by_datetime_slotFunction()
@@ -322,27 +404,32 @@ validateFunction() {
 
 
 
-// validateFunction() {
-//   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
-//   if(!timeDuration){
-//     Alert.alert("Message","Veuillez choisir la durée!")
-//     // this.props.navigation.navigate("firstvalidationcheck")
-//   }
-//   else if(!reserve_date){
-//     Alert.alert("Message","Veuillez choisir la date!")
-//     // this.props.navigation.navigate("secondvalidationcheck")
-//   }
-//   else if(!reserve_time){
-//     console.log("gettig here or not abhishek------------",reserve_time)
-//     Alert.alert("Message","Veuillez choisir l'heure !")
-//     // this.props.navigation.navigate("thirdvalidationcheck")
-//   }
-//   else {   
-//     this.check_reservation_by_datetime_slotFunction()
 
-//   }
-// }
 
+
+
+
+
+validateFunction1() {
+  const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
+  if(!timeDuration){
+    // Alert.alert("Message","Veuillez choisir la durée!")
+    this.props.navigation.navigate("firstvalidationcheck")
+  }
+  else if(!reserve_date){
+    // Alert.alert("Message","Veuillez choisir la date!")
+    this.props.navigation.navigate("secondvalidationcheck")
+  }
+  else if(!reserve_time){
+    console.log("gettig here or not abhishek------------",reserve_time)
+    // Alert.alert("Message","Veuillez choisir l'heure !")
+    this.props.navigation.navigate("thirdvalidationcheck")
+  }
+  else {   
+    this.modified_reservationFunction()
+
+  }
+}
 
 
 
@@ -373,7 +460,8 @@ this.setState({reserve_date: d});
 
 
   if (this.state.markedDates[d]) {
-    Alert.alert('Message', 'Veuillez choisir les dates!');
+    // Alert.alert('Message', 'Veuillez choisir les dates!');
+    this.props.navigation.navigate("secondvalidationcheck")
   } else{
 
     const markedDates_blue = {
@@ -446,6 +534,10 @@ this.setState({reserve_date: d});
     const {durationAmount, dateArray} = this.state;
 
     // console.log('getting day -- -', this.state.day);
+
+    let ChangeDateTime = this.props.navigation.getParam("changeTimeDate")
+    // console.log("getting change time date type -  - - - - - - - -",ChangeDateTime)
+    
 
     // console.log("getting exact time ==============",this.state.exacttime_new)
     
@@ -720,20 +812,36 @@ this.setState({reserve_date: d});
               </Text>
             </View>
 
-            <View style={Styles.continueBtn}>
-              <TouchableOpacity
-                onPress={() => {                  
-                  // this.props.navigation.navigate('summary', {
-                  //   amount_en: this.state.amount_en,
-                  //   reserve_time: this.state.reserve_time,
-                  //   timeDuration: this.state.timeDuration,
-                  //   reserve_date: this.state.reserve_date,
-                  // });
-                  this.validateFunction()
-                }}>
-                <Text style={Styles.continueBtnTxt}>Valider</Text>
-              </TouchableOpacity>
-            </View>
+            {
+              ChangeDateTime != null || ChangeDateTime != undefined || ChangeDateTime != "" ?
+
+                <View style={Styles.continueBtn}>
+                <TouchableOpacity
+                  onPress={() => {                                    
+                    this.validateFunction1()
+                  }}>
+                  <Text style={Styles.continueBtnTxt}>Valider</Text>
+                </TouchableOpacity>
+              </View>
+
+
+              :
+                
+                  <View style={Styles.continueBtn}>
+                  <TouchableOpacity
+                    onPress={() => {                                    
+                      this.validateFunction()
+                    }}>
+                    <Text style={Styles.continueBtnTxt}>Valider</Text>
+                  </TouchableOpacity>
+                  </View>
+
+
+            }
+            
+
+
+
           </ScrollView> 
             : null
           }

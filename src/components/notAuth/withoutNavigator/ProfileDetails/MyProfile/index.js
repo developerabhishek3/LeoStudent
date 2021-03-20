@@ -12,11 +12,11 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import People from '../../../../../assets/icon/avatar.png';
 
 import {StudentProfile} from '../../../../../Api/afterAuth';
-import { connect } from 'react-redux';
-import {
-  getStudentsData,
-} from '../../../../../Redux/StudentDetails';
-class MyProfile extends Component {
+// import { connect } from 'react-redux';
+// import {
+//   getStudentsData,
+// } from '../../../../../Redux/StudentDetails';
+export default class MyProfile extends Component {
 
 constructor(props){
   super(props)
@@ -94,11 +94,11 @@ handleBackButton = (nav) => {
   }
    
   render() {
-    const { studentStore } = this.props;
-    const { studentsDetails, loader } = studentStore;
+    // const { studentStore } = this.props;
+    // const { studentsDetails, loader } = studentStore;
 
-    console.log("getting student store details from the redux=============",studentStore)
-    console.log("getting student store details 11111111111     from the redux=============",studentsDetails)
+    // console.log("getting student store details from the redux=============",studentStore)
+    // console.log("getting student store details 11111111111     from the redux=============",studentsDetails)
 
     const { profileData,isBodyLoaded,isSpinner } = this.state;
     // console.log("getting inside the render method ??????????????",this.state.birth_date)
@@ -257,20 +257,20 @@ handleBackButton = (nav) => {
     )
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    studentStore: state.studentStore,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchStudentsData: () => {
-      dispatch(getStudentsData());
-    },  
-    // setCurrentSelectedCategoryDispatch: (categoryData) => {
-    //   dispatch(setCurrentSelectedCategory(categoryData));
-    // },
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     studentStore: state.studentStore,
+//   };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchStudentsData: () => {
+//       dispatch(getStudentsData());
+//     },  
+//     // setCurrentSelectedCategoryDispatch: (categoryData) => {
+//     //   dispatch(setCurrentSelectedCategory(categoryData));
+//     // },
+//   };
+// };
 
-export default connect(mapStateToProps,mapDispatchToProps)(MyProfile);
+// export default connect(mapStateToProps,mapDispatchToProps)(MyProfile);

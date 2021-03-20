@@ -201,10 +201,11 @@ export default class index extends Component {
                 <Fragment>
                   {
                         this.state.IncompleteReservation.map((singleIncompleteDate,index)=>{                 
-                          // const yourDate = new Date(singleIncompleteDate.course_date)                     
+                          // const yourDate = new Date(singleIncompleteDate.course_date)         
+                          // console.log("gettin all respose for checking reservation id - - - - -  - - - --  -",singleIncompleteDate)            
                           let NewDate = moment(singleIncompleteDate.course_date).format('DD-MM-YYYY')                       
                           // console.log("getting all date s  - -  - - - - - - - -",NewDate)
-                          // console.log("getting transaction id =============",singleIncompleteDate.id)                         
+                          // console.log("getting reservation id =============",singleIncompleteDate.id)                         
                           return(
                             <Fragment>
                                   
@@ -252,6 +253,8 @@ export default class index extends Component {
                                       </View>
                                     </View>
 
+
+                              <View style={{flexDirection:'row',justifyContent:"space-between",margin:1,marginRight:30,width:"90%",}}>
                                     <View style={Styles.continueBtn}>
                                       <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{time_slot:singleIncompleteDate.course_time,reserve_date:singleIncompleteDate.course_date,transactinId:singleIncompleteDate.id,
                                               booktype:singleIncompleteDate.booking_type
@@ -259,7 +262,20 @@ export default class index extends Component {
                                       <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
                                       </TouchableOpacity>
                                     </View>
-                            </View>                            
+
+
+                                    <View style={Styles.continueBtn}>
+                                      <TouchableOpacity onPress={                                        
+                                        ()=>{this.props.navigation.navigate("choosetime",{
+                                        changeTimeDate:"changeTimeDate",
+                                        reservation_id:singleIncompleteDate.id
+
+                                      })}}>
+                                      <Text style={Styles.continueBtnTxt1}>Modifier ma réservation</Text>
+                                      </TouchableOpacity>
+                                    </View>
+                            </View>      
+                            </View>                      
                                     </Fragment>
                                   )
                                 })
