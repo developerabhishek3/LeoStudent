@@ -18,7 +18,7 @@ import logo from '../../../assets/icon/96.png';
 import DatePicker from 'react-native-date-picker';
 import facebook from '../../../assets/icon/fb.png';
 import {TextInput} from 'react-native-gesture-handler';
-import downArrow from '../../../assets/icon/downArrow.png';
+import downArrow from '../../../assets/icon/ArrowDown.png';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import {createUser,getCountryList} from '../../../Api/auth'; 
@@ -292,6 +292,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Nom"
+                    value={this.state.first_name}
                     onChangeText={(first_name) => this.setState({first_name})}
               />
                 </View>
@@ -300,6 +301,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Prénom"
+                    value={this.state.last_name}
                     onChangeText={(last_name) => this.setState({last_name})}
                   />
                 </View>
@@ -368,6 +370,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Ville"
+                    value={this.state.city}
                     onChangeText={(city) => this.setState({city})}  
                   />
                 </View>
@@ -414,8 +417,6 @@ handleBackButton = (nav) => {
                                 fontWeight:'600',
                                 fontSize: 14,
                                 marginTop:6
-                                                              
-
                               }}>                        
                             Pays
                             </Text>
@@ -426,10 +427,7 @@ handleBackButton = (nav) => {
                                 fontWeight:'600',
                                 fontSize: 14,
                                 padding:5,
-                                marginTop:6
-                               
-                               
-      
+                                marginTop:6      
                               }}>                            
                                 {this.state.country}
                             </Text>
@@ -437,10 +435,10 @@ handleBackButton = (nav) => {
                       <Image
                         source={downArrow}
                         style={{
-                          width: 18,
-                          height: 18,
+                          width: 22,
+                          height: 22,
                           margin: 3,
-                          marginEnd:5,
+                          marginEnd:10,
                           alignSelf: 'flex-end',
                           justifyContent: 'flex-end',
                         }}
@@ -453,6 +451,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     keyboardType="phone-pad"
+                    value={this.state.telephone_no}
                     placeholder="Numéro de téléphone"
                     onChangeText={(telephone_no) => this.setState({telephone_no})}
                   />
@@ -461,6 +460,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Email"
+                    value={this.state.email}
                     onChangeText={(email) => this.setState({email})}
                   />
                 </View>
@@ -472,6 +472,7 @@ handleBackButton = (nav) => {
                   paddingStart: 10,}}>
                   <TextInput
                      style={{borderWidth:0,width:"85%"}}
+                     value={this.state.password}
                     // secureTextEntry={this.state.showPassword}
                     secureTextEntry={this.state.showPassword && this.state.password.length > 0 ? true:false}
                     placeholder="Mot de passe"
@@ -496,6 +497,7 @@ handleBackButton = (nav) => {
                           paddingStart: 10,}}>                      
                         <TextInput
                           style={{borderWidth:0,width:"85%"}}
+                          value={this.state.confirm_password}
                           secureTextEntry={this.state.showPassword2 && this.state.confirm_password.length > 0 ? true:false}
                           // secureTextEntry={ this.state.showPassword2}
                           placeholder="Confirmation Mot de passe"

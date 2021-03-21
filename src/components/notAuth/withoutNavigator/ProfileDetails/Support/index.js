@@ -140,7 +140,7 @@ export default class index extends Component {
                 }}
                 >
                     <Image source={require("../../../../../assets/icon/call1.png")} style={{height:60,width:60,margin:1,alignSelf:'center'}} />
-                    <Text style={{fot:16,fontWeight:'600',color:"gray"}}>Appelez notre service clientèle</Text>
+                    <Text style={{fontSize:16,fontWeight:'700',color:"gray",}}>Appelez notre service clientèle</Text>
                 </TouchableOpacity>
   
   
@@ -149,7 +149,7 @@ export default class index extends Component {
                   title="support@example.com"
                 >
                 <Image source={require("../../../../../assets/icon/mssg1.png")} style={{height:60,width:60,margin:1,alignSelf:"center"}} />
-                <Text style={{fot:16,fontWeight:'600',color:"gray"}}>Envoyez un message à notre service clientèle</Text>
+                <Text style={{fontSize:16,fontWeight:'700',color:"gray"}}>Envoyez un message à notre service clientèle</Text>
                   </TouchableOpacity>
     
     

@@ -15,7 +15,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 import {ChangePassword,LogoutFunction} from '../../../../../../Api/afterAuth';
 import AsyncStorage from '@react-native-community/async-storage';
-
 export default class index extends Component {
 
   constructor(props){
@@ -29,11 +28,34 @@ export default class index extends Component {
       confirm_new_password:"",
       Model_Visibility1: false,
       Alert_Visibility1: false,
+      alertValue:"",
 
-    }    
+      Model_Visibility5: false,
+      Alert_Visibility5: false,
+
+      showPassword1: true,
+      showPassword2:true,
+      showPassword3:true,   
+
+    }  
+    this.toggleSwitch1 = this.toggleSwitch1.bind(this);
+    this.toggleSwitch2 = this.toggleSwitch2.bind(this);  
+    this.toggleSwitch3 = this.toggleSwitch3.bind(this);  
   }
       
 
+  toggleSwitch1() {
+    this.setState({ showPassword1: !this.state.showPassword1 });
+  }
+
+  
+  toggleSwitch2() {
+    this.setState({ showPassword2: !this.state.showPassword2 });
+  }
+
+  toggleSwitch3() {
+    this.setState({ showPassword3: !this.state.showPassword3 });
+  }
 
 
   componentDidMount = async () => {
@@ -98,6 +120,12 @@ export default class index extends Component {
   }
 
 
+  Show_Custom_Alert5(visible,) {
+    this.setState({Alert_Visibility5: visible});
+  }
+  Hide_Custom_Alert5() {
+    this.setState({Alert_Visibility5: false});     
+  }
 
 
   // Show_Custom_Alert2(visible) {
@@ -170,7 +198,16 @@ export default class index extends Component {
           
       }
       else {
-        Alert.alert("Message", ChangePasswordResponse.response.message)
+        let alertValue = ChangePasswordResponse.response.message;
+        console.log("alert value here - - - - - - - - - ",alertValue)
+        this.setState({alertValue})
+
+        setTimeout(() => {
+          this.Show_Custom_Alert5()
+        }, 1000);
+      
+
+        // Alert.alert("Message", ChangePasswordResponse.response.message)
       }
     } else {
       this.myAlert('Error', ChangePasswordResponse.error);
@@ -240,12 +277,94 @@ export default class index extends Component {
             <View style={{margin:10}}>
 
 
-            <TextInput placeholder="  Ancien mot de passe" style={Styles.txtInput}
-            value={this.state.old_password}
-            onChangeText={(old_password) => this.setState({ old_password })}
-            />
+            <View style={{flexDirection:'row', borderWidth: 1,
+                  borderColor: '#DDDDDD',
+                  borderRadius: 10,
+                  justifyContent:'space-between',
+                  margin: 10,
+                  paddingStart: 10,}}>
+                  <TextInput
+                     style={{borderWidth:0,width:"80%"}}
+                     value={this.state.old_password}
+                onChangeText={(old_password) => this.setState({ old_password })}
+                    secureTextEntry={this.state.showPassword1 && this.state.old_password.length > 0 ? true:false}
+                    placeholder="Ancien mot de passe"           
+                  />
+                   <TouchableOpacity  
+                      onPress={this.toggleSwitch1}            
+                      value={!this.state.showPassword1}>
+                        {
+                          this.state.showPassword1 == true ?
+                          <Image source={require("../../../../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                        
+                          :
+                          <Image source={require("../../../../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                        }                 
+                 </TouchableOpacity>
+                      </View>
 
-            <TextInput placeholder="  Nouveau mot de passe" style={Styles.txtInput} 
+
+
+
+                      <View style={{flexDirection:'row', borderWidth: 1,
+                  borderColor: '#DDDDDD',
+                  borderRadius: 10,
+                  justifyContent:'space-between',
+                  margin: 10,
+                  paddingStart: 10,}}>
+                  <TextInput
+                     style={{borderWidth:0,width:"80%"}}
+                     value={this.state.new_password}
+              onChangeText={(new_password) => this.setState({ new_password })}
+                    secureTextEntry={this.state.showPassword2 && this.state.new_password.length > 0 ? true:false}
+                    placeholder="Nouveau mot de passe"          
+                  />
+                   <TouchableOpacity  
+                      onPress={this.toggleSwitch2}            
+                      value={!this.state.showPassword2}>
+                        {
+                          this.state.showPassword2 == true ?
+                          <Image source={require("../../../../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                        
+                          :
+                          <Image source={require("../../../../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                        }                 
+                 </TouchableOpacity>
+                      </View>
+
+
+                      <View style={{flexDirection:'row', borderWidth: 1,
+                  borderColor: '#DDDDDD',
+                  borderRadius: 10,
+                  justifyContent:'space-between',
+                  margin: 10,
+                  paddingStart: 10,}}>
+                  <TextInput
+                     style={{borderWidth:0,width:"80%"}}
+                     value={this.state.confirm_new_password}
+                     onChangeText={(confirm_new_password) => this.setState({ confirm_new_password })}
+                    secureTextEntry={this.state.showPassword3 && this.state.confirm_new_password.length > 0 ? true:false}
+                    placeholder="Confirmer le mot de passe" 
+                  />
+                   <TouchableOpacity  
+                      onPress={this.toggleSwitch3}            
+                      value={!this.state.showPassword3}>
+                        {
+                          this.state.showPassword3 == true ?
+                          <Image source={require("../../../../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                        
+                          :
+                          <Image source={require("../../../../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                        }                 
+                 </TouchableOpacity>
+                      </View>
+
+
+
+
+
+
+            {/* <TextInput placeholder="  Nouveau mot de passe" style={Styles.txtInput} 
             value={this.state.new_password}
               onChangeText={(new_password) => this.setState({ new_password })}
             />
@@ -253,7 +372,7 @@ export default class index extends Component {
             <TextInput placeholder="  Confirmer le mot de passe" style={Styles.txtInput}
             value={this.state.confirm_new_password}
             onChangeText={(confirm_new_password) => this.setState({ confirm_new_password })}
-            />
+            /> */}
             
             <View style={Styles.continueBtn}>
                   <TouchableOpacity                  
@@ -695,6 +814,97 @@ export default class index extends Component {
 
 
 
+          <Modal
+            visible={this.state.Alert_Visibility5}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert5(!this.state.Alert_Visibility5);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert5();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> 
 
 
 

@@ -193,6 +193,7 @@ export default class index extends Component {
                         <TextInput    
                                                
                           style={Styles.textInputField}
+                          value={this.state.email}
                           onChangeText={(email) => this.setState({ email })}
                           placeholder="Adresse email"
                           // placeholderStyle={{ fontFamily: "Ariel", borderColor: 'red' }}
@@ -220,6 +221,7 @@ export default class index extends Component {
                         secureTextEntry={this.state.showPassword && this.state.password.length > 0 ? true:false}
                         // style={{fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Italic',  borderColor: '#DDDDDD',color:"gray",borderWidth:1,borderRadius:10,margin:10,paddingStart:10}}
                         placeholder="Mot de passe"
+                        
                         style={{paddingStart:10,fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Regular', borderWidth:0,width:"85%",color:"gray"}}
                         value={this.state.password}     
                         onChangeText={(password) => this.setState({ password })}           

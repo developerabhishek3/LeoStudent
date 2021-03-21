@@ -98,7 +98,7 @@ export default class index extends Component {
 
               <View style={{marginTop: 30}}>
                 <View style={Styles.subHeader}>
-                  <Text style={Styles.txtStyle1}>Choisissez votre niveau ou faites le test (10min)</Text>
+                  <Text style={Styles.txtStyle1}>Choisissez votre niveau ou faites le test</Text>
                 </View>
 
                 <View style={Styles.radiobtnMainView}>

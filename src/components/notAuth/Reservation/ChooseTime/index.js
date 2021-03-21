@@ -813,7 +813,7 @@ this.setState({reserve_date: d});
             </View>
 
             {
-              ChangeDateTime != null || ChangeDateTime != undefined || ChangeDateTime != "" ?
+              ChangeDateTime != null && ChangeDateTime != undefined && ChangeDateTime != "" ?
 
                 <View style={Styles.continueBtn}>
                 <TouchableOpacity
