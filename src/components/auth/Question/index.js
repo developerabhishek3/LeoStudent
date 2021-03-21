@@ -269,7 +269,8 @@ export default class index extends Component {
 
                 <View style={{borderWidth:1,borderColor:"#DDDDDD",width:"90%",height:40,alignSelf:'center',margin:7,borderRadius:10}}>
                   <TextInput 
-                      placeholder=" Profession"
+                      placeholder="Profession"
+                      style={{paddingStart:15}}
                       onChangeText={(q_2_ans)=>this.setState({q_2_ans })}
                   />
                 </View>

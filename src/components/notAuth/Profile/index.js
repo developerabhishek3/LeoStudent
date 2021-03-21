@@ -227,7 +227,7 @@ validateFunction(){
 
         <View>
           {/* <Text style={{fontSize:14,fontWeight:'700',color:'gray',alignSelf:'center',margin:1}}>Hardley</Text> */}
-          <Text style={{fontSize:16,fontWeight:'700',color:'#000000',alignSelf:'center',margin:1}}>Comment s'est déroulée votre session ?</Text>
+          <Text style={{fontSize:16,fontWeight:'700',color:'#000000',alignSelf:'center',margin:1}}>Comments'est déroulé votre coaching ?</Text>
         </View>
 
 
@@ -235,7 +235,7 @@ validateFunction(){
           <TextInput
             numberOfLines={4}
             onChangeText={(comment) => this.setState({ comment })}
-            placeholder="Comments'est déroulé votre coaching ?"
+            placeholder="Commentaire supplémentaire"
             style={{textAlign:'left',textAlignVertical:'top',width:'90%',alignSelf:'center',margin:10,paddingVertical:3,backfaceVisibility:'hidden',backgroundColor:'#FFFFFF',elevation:3,borderRadius:7,}}
           />
           </View>

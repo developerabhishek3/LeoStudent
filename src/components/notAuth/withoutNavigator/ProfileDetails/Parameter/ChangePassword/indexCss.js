@@ -49,7 +49,7 @@ export default StyleSheet.create({
 
   continueBtn: {
     backgroundColor: '#b41565',
-    margin: 3,
+    margin: 30,
     borderRadius: 5,
     width: '40%',
     alignSelf: 'center',

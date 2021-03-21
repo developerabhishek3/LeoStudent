@@ -115,7 +115,7 @@ render() {
                    <View style={Styles.headerView}>
                    <Image source={logo} style={Styles.headerLogo} />
                      <View style={{alignSelf:'center',marginBottom:10}}>
-                       <Text style={Styles.headerTxt}>Connectez-vous avec un coach </Text>
+                       <Text style={Styles.headerTxt}>Connectez-vous avec un coach</Text>
                        <Text style={Styles.headerTxt}>d'anglais pour un call in English</Text>
                      </View>                     
                    </View>                                  
