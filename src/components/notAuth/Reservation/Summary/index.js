@@ -254,6 +254,17 @@ export default class index extends Component {
     let booktype = this.props.navigation.getParam("booktype")
     let reserve_date = this.props.navigation.getParam("reserve_date")
 
+    console.log("getting reserve date here - - - - - - - - -",reserve_date)
+
+    var newdate = reserve_date.split("-").reverse().join("/");
+
+    console.log("gettign new date value here - - - - - - - - - -",newdate)
+
+
+
+
+
+    // let NewDate = moment(reserve_date).format('DD/MM/YYYY')                       
     // console.log("On the Summary page checking reserve_date+++++++++++++++++++++++",reserve_date)
 
 
@@ -291,7 +302,7 @@ export default class index extends Component {
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                     <Image style={{height:16,width:16,margin:3}} source={require("../../../../assets/icon/date.png")} />
                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Date</Text>
-              <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{reserve_date}</Text>
+              <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{newdate}</Text>
                     </View>
                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                     <Image style={{height:16,width:16,margin:3}} source={require("../../../../assets/icon/watch.png")} />

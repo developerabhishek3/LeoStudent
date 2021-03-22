@@ -342,7 +342,8 @@ currentDateFormat(){
   {
       mm='0'+mm;
   } 
-  today = dd+'-'+mm+'-'+yyyy;
+  // today = dd+'-'+mm+'-'+yyyy;
+  today = yyyy+'-'+mm+'-'+dd;
   console.log(today);
   this.setState({reserve_date:today})
   // today = mm+'/'+dd+'/'+yyyy;
