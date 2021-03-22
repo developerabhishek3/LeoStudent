@@ -330,10 +330,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
                   )
                 })
               }
-
-
-                
-
               </ScrollView>
               : null
 
@@ -341,18 +337,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
 
 
             </View>
-
-
-
-
-
-
-
-
-
-
-          
-
           
           {/* <View style={Styles.continueBtn}>
                   <TouchableOpacity

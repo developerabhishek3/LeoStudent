@@ -200,11 +200,14 @@ export default class index extends Component {
                 this.state.IncompleteReservation.length > 0 ?
                 <Fragment>
                   {
-                        this.state.IncompleteReservation.map((singleIncompleteDate,index)=>{                 
+                        this.state.IncompleteReservation.map((singleIncompleteDate,index)=>{  
+                          // console.log("getting all pending details - - - - - - - ",singleIncompleteDate)               
                           // const yourDate = new Date(singleIncompleteDate.course_date)         
                           // console.log("gettin all respose for checking reservation id - - - - -  - - - --  -",singleIncompleteDate)            
-                          let NewDate = moment(singleIncompleteDate.course_date).format('DD-MM-YYYY')                       
+                          let NewDate = moment(singleIncompleteDate.course_date).format('DD/MM/YYYY')                       
                           // console.log("getting all date s  - -  - - - - - - - -",NewDate)
+                          // let exactDate = NewDate[index+1]
+                          // console.log('getting exact date -  - - - - - - - - - - -',exactDate)
                           // console.log("getting reservation id =============",singleIncompleteDate.id)                         
                           return(
                             <Fragment>
@@ -219,21 +222,41 @@ export default class index extends Component {
                         <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
 
                                     </View>
+                                  {
+                                    singleIncompleteDate.promocode_name != "" && singleIncompleteDate.promocode_name != null && singleIncompleteDate.promocode_name != undefined  ?
+                                    
 
-                                    <View style={{flexDirection:'row',margin:3,marginStart:10}}>
-                                        <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
-                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
-                                        {/* <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} /> */}
-                        <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
-                        <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
-                                    </View>
+                                    <View style={{flexDirection:'row',margin:3,marginStart:10,borderWidth:0}}>
+                                    <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
+                                    <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Nom du code promo</Text>                                      
+                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_name} </Text>
+                                   {/* <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} /> */}
+                                 </View>
+
+
+
+                                    :
+
+                                     
+                                    <View style={{flexDirection:'row',margin:3,marginStart:10,borderWidth:0}}>
+                                    <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
+                                    <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
+                                    {/* <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} /> */}
+                                    <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
+                                    <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                                  </View>
+
+
+
+                                  }
+                                   
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/date.png")} />
                                         <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Date</Text>
                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}> 
                                   
-                                  {/* {NewDate} */}
-                                { singleIncompleteDate.course_date}   
+                                  {NewDate}
+                                {/* { singleIncompleteDate.course_date}    */}
                                   </Text>
                                     </View>
 

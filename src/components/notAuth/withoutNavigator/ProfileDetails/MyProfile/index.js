@@ -31,9 +31,6 @@ constructor(props){
 }
 
 componentDidMount = async () => {
-  setTimeout(() => {    
-  this.fetchGetStdents()
-  }, 3000);
 
   let profile_url = this.props.navigation.getParam("profile_url")
  this.setState({profile_url})
@@ -45,9 +42,9 @@ componentDidMount = async () => {
 );
 }
 
-fetchGetStdents = async () => {
-  this.props.fetchStudentsData(); 
-};
+// fetchGetStdents = async () => {
+//   this.props.fetchStudentsData(); 
+// };
   
 componentWillUnmount() {
   BackHandler.removeEventListener('hardwareBackPress', () =>
@@ -85,7 +82,7 @@ handleBackButton = (nav) => {
     }   
     // console.log("getting country response----------------",countryData.country_list)
   };
-
+ 
 
 
 
@@ -103,12 +100,8 @@ handleBackButton = (nav) => {
     const { profileData,isBodyLoaded,isSpinner } = this.state;
     // console.log("getting inside the render method ??????????????",this.state.birth_date)
 
-    
-      var birth_date =  JSON.stringify(this.state.birth_date)
-
-
-        let birth_date_new =  birth_date.substring(1,birth_date.indexOf('T'));
-    // console.log("getting birthdate==========",birth_date_new)
+    var newdate = this.state.birth_date.split("-").reverse().join("/");
+    console.log("getting birthdate==========",newdate)
 
     // const userMap = Object.assign(profileData)
     return (
@@ -187,7 +180,7 @@ handleBackButton = (nav) => {
 
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Date de naissance</Text>
-              <Text style={Styles.nameHeadingTxt}>{this.state.birth_date}</Text>        
+              <Text style={Styles.nameHeadingTxt}>{newdate}</Text>        
               </View>
             </View>
 
