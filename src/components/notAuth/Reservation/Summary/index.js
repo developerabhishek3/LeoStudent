@@ -254,11 +254,11 @@ export default class index extends Component {
     let booktype = this.props.navigation.getParam("booktype")
     let reserve_date = this.props.navigation.getParam("reserve_date")
 
-    console.log("getting reserve date here - - - - - - - - -",reserve_date)
+    // console.log("getting reserve date here - - - - - - - - -",reserve_date)
 
     var newdate = reserve_date.split("-").reverse().join("/");
 
-    console.log("gettign new date value here - - - - - - - - - -",newdate)
+    // console.log("gettign new date value here - - - - - - - - - -",newdate)
 
 
 

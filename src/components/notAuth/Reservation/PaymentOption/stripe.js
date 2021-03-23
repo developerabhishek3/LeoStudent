@@ -160,7 +160,7 @@ class Webview_Paypal extends React.Component {
             // this.props.navigation.goBack('MyCart');
 
         }
-        else if (String_url.includes('https://www.spyk.fr/stripe/response?response_para=2')) {
+        else if (String_url.includes('https://www.spyk.fr/stripe/response?response_para=3')) {
             this.props.navigation.goBack()
         }
 

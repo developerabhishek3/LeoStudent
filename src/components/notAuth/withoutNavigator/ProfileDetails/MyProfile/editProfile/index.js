@@ -247,7 +247,7 @@ async uploadWholeData(){
      var q_4_ans = get_academic_infoResponse.response.academic_info.q_4
      var q_5_ans = get_academic_infoResponse.response.academic_info.q_5
 
-      console.log("getting get academic detail data----------",get_academic_infoResponse)
+      console.log("getting get academic detail data----------",get_academic_infoResponse.academic_info)
       this.setState({ isBodyLoaded: true,isSpinner: false,AcademicDetails,
         q_1_ans,q_2_ans,q_3_ans,q_4_ans,q_5_ans      
       });

@@ -11,7 +11,7 @@ import { Rating, AirbnbRating } from 'react-native-ratings';
 import Spinner from 'react-native-loading-spinner-overlay';
 import People from '../../../../../assets/icon/avatar.png';
 
-import {StudentProfile} from '../../../../../Api/afterAuth';
+import {StudentProfile,get_academic_info} from '../../../../../Api/afterAuth';
 // import { connect } from 'react-redux';
 // import {
 //   getStudentsData,
@@ -22,11 +22,15 @@ constructor(props){
   super(props)
   this.state={
     profileData:[],
+    AcademicDetails:[],
                    
     isBodyLoaded: false,
     isSpinner: true,
     profile_url:"",
     birth_date:"",
+
+    diploma:"",
+    interest:"",
   }
 }
 
@@ -36,6 +40,7 @@ componentDidMount = async () => {
  this.setState({profile_url})
 
   this.fetchStudentProfileData()
+  this.fetchget_academic_info()
 
   BackHandler.addEventListener('hardwareBackPress', () =>
   this.handleBackButton(this.props.navigation),
@@ -83,6 +88,41 @@ handleBackButton = (nav) => {
     // console.log("getting country response----------------",countryData.country_list)
   };
  
+
+
+
+
+
+
+
+  fetchget_academic_info = async () => {
+    const get_academic_infoResponse = await get_academic_info();
+    if (get_academic_infoResponse.result == true) {
+     var AcademicDetails = get_academic_infoResponse.response.academic_info;
+     var diploma = get_academic_infoResponse.response.academic_info.q_1
+     var interest = get_academic_infoResponse.response.academic_info.q_2
+     var q_3_ans = get_academic_infoResponse.response.academic_info.q_3
+     var q_4_ans = get_academic_infoResponse.response.academic_info.q_4
+     var q_5_ans = get_academic_infoResponse.response.academic_info.q_5
+
+      console.log("getting get academic detail data----------",get_academic_infoResponse.response.academic_info)
+      this.setState({diploma,interest})
+    }
+   
+    else{
+      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+        Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}]);
+    })
+    }   
+    // console.log("getting country response----------------",countryData.country_list)
+  };
+
+
+
+
+
 
 
 
@@ -197,6 +237,23 @@ handleBackButton = (nav) => {
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Pays</Text>
               <Text style={Styles.nameHeadingTxt}>{profileData.country}</Text>        
+              </View>
+            </View>
+
+
+
+
+            <View style={Styles.maincontentContaine}>
+            <View style={Styles.nameStyleView}>
+              <Text style={Styles.nameHeading}>Diplôme</Text>
+
+            <Text style={Styles.nameHeadingTxt}>{this.state.diploma}</Text>
+
+            </View>
+
+            <View style={Styles.nameStyleView}>
+              <Text style={Styles.nameHeading}>Centres d'intérêts</Text>
+              <Text style={Styles.nameHeadingTxt}>{this.state.interest}</Text>        
               </View>
             </View>
 
