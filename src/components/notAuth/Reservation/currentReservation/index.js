@@ -239,6 +239,10 @@ export default class index extends Component {
                       {
                       this.state.CurrrentData.map((singleCurrrentMap)=>{
                         console.log("checking date on current-------------",singleCurrrentMap)
+                          let date1   = singleCurrrentMap.course_date
+                        var newdate = date1.split("-").reverse().join("/");
+                        console.log("getting new date here - -  - - - - -",newdate)
+
                         return(
                           <Fragment>
                             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
@@ -272,7 +276,7 @@ export default class index extends Component {
                           <View style={{flexDirection: 'row'}}>
                             <Image source={watch} style={Styles.bookStyle} />
                             <Text style={Styles.contentTextStyle}>
-                              {singleCurrrentMap.course_date} - { singleCurrrentMap.course_time}
+                              {newdate} - { singleCurrrentMap.course_time}
                             </Text>
                           </View>
                           <View

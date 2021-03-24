@@ -78,7 +78,7 @@ export default class index extends Component {
   componentDidMount = async () => {
 
       // let teacher_id = this.props.navigation.getParam("teacher_id")
-
+      console.log("insdie did moint  - - - - - - - - -",)
       
     let teacher_id = this.props.navigation.getParam("teacher_id")
     let course_date = this.props.navigation.getParam("course_date")
@@ -207,7 +207,11 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                   
               TeacherDetails.map((singleTeacherDetails)=>{
 
-               
+               console.log("getting singe teacher history  - - - - - - - - - ",singleTeacherDetails)
+
+               let date1   = singleTeacherDetails.course_date
+               var newdate = date1.split("-").reverse().join("/");
+               console.log("getting new date here - -  - - - - -",newdate)
                 // teacher_profile_url = singleTeacherDetails.teacher_profile_url,
                 //   course_date=singleTeacherDetails.course_date,
                 //   course_time=singleTeacherDetails.course_time,
@@ -242,13 +246,13 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Image source={books} style={Styles.bookStyle} />
-                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : au</Text>
+                    <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : {singleTeacherDetails.evaluations_no}</Text>
                   </View>
 
                   <View style={{flexDirection: 'row'}}>
                     <Image source={watch} style={Styles.bookStyle} />
                     <Text style={Styles.contentTextStyle}>
-                    {singleTeacherDetails.course_date}  - {singleTeacherDetails.course_time}
+                    {newdate}  - {singleTeacherDetails.course_time}
                     </Text>
                   </View>
 
