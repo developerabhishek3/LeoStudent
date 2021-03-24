@@ -239,6 +239,11 @@ console.log("insiderender =",this.state.historyData)
 
             this.state.historyData.map((singleHistoryMap)=>{
               // console.log("kkkkkkkkkkkkkkkkkkkkkkkk",singleHistoryMap)
+
+              let date1   = singleHistoryMap.course_date
+              var newdate = date1.split("-").reverse().join("/");
+              console.log("getting new date here - -  - - - - -",newdate)
+
               return(
                 <Fragment>
    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
@@ -274,7 +279,7 @@ console.log("insiderender =",this.state.historyData)
                 <View style={{flexDirection: 'row'}}>
                   <Image source={watch} style={Styles.bookStyle} />
                   <Text style={Styles.contentTextStyle}>
-                    {singleHistoryMap.course_date} - { singleHistoryMap.course_time}
+                    {newdate} - { singleHistoryMap.course_time}
                   </Text>
                 </View>
 

@@ -56,7 +56,10 @@ export default class index extends Component {
 
     this.getnewesletterInfoData()
 
-    this.count_dataFunction()
+    setInterval(() => {
+      this.count_dataFunction()
+    }, 3000);
+    
 
     this.home_teacher_slideFunction()
 
@@ -69,7 +72,7 @@ export default class index extends Component {
       const getnewesletterInfoResponse = await getnewesletterInfo();
       if (getnewesletterInfoResponse.result == true) {
         var newsletter = getnewesletterInfoResponse.response.newsletter_info;
-        console.log("getting newsletter data----------",newsletter)
+        // console.log("getting newsletter data----------",newsletter)
       }
       this.setState({newsletter,isBodyLoaded:true,isSpinner:false});
       // console.log("getting country response----------------",countryData.country_list)
@@ -80,7 +83,8 @@ export default class index extends Component {
     count_dataFunction = async () => {
       const count_dataResponse = await count_data();
       if (count_dataResponse.result == true) {       
-      var  countData = count_dataResponse.response.count_data
+      var  countData = count_dataResponse.response.count_data;
+      // console.log("gettng count data here - - - - - - - - - - - ",countData)
       }
       this.setState({countData,isBodyLoaded:true,isSpinner:false});
       // console.log("getting country response----------------",countryData.country_list)
@@ -90,7 +94,7 @@ export default class index extends Component {
     home_teacher_slideFunction = async () => {
       const home_teacher_slideResponse = await home_teacher_slide();
       if (home_teacher_slideResponse.result == true) {       
-        console.log("getting teacher slide data==============",home_teacher_slideResponse.response)
+        // console.log("getting teacher slide data==============",home_teacher_slideResponse.response)
       var  teacherSlideData = home_teacher_slideResponse.response.home_teacher_slide
       }
       this.setState({teacherSlideData,isBodyLoaded:true,isSpinner:false});
@@ -155,7 +159,7 @@ export default class index extends Component {
  
 const { newsletter } = this.state;
 
-console.log("getint inside state ",this.state.teacherSlideData)
+// console.log("getint inside state ",this.state.countData)
 
     return (
       <Fragment>
@@ -174,49 +178,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
               this.state.isBodyLoaded == true ?              
               <ScrollView>
               
-{/*                
-              <ScrollView horizontal={true}>
-               
-               {
-                 this.state.teacherSlideData.length > 0 ?
-                 <Fragment>
-              {
-                  this.state.teacherSlideData.map((singleTeacherSlideMAp)=>{
-                    return(
-                      <Fragment>
-                         <TouchableOpacity onPress={()=>{this.props.navigation.navigate('teacherviewhome',{
-                           teacher_id:singleTeacherSlideMAp.teacher_id
-                         });}} >
-                         <View style={{backgroundColor:"#FFFFFF",margin:10,borderRadius:10}}>
-                          <Text style={{fontSize:15,fontWeight:'700',margin:3,alignSelf:'center'}}>{singleTeacherSlideMAp.coach_type}</Text>
-                          <View style={{flexDirection:'row',margin:3,alignSelf:'center'}}>
-                            <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:4}}>{singleTeacherSlideMAp.course_date}</Text>
-                            <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>{singleTeacherSlideMAp.course_time}</Text>
-                          </View>
-                          <View style={{borderColor:"gray",borderWidth:1,width:'90%',alignSelf:'center'}} />
-                          <View style={{flexDirection:'row',margin:7}}>
-                              <Image  source={{
-                              uri: `https://www.spyk.fr/${singleTeacherSlideMAp.teacher_profile_url}`,
-                            }}  style={{height:40,width:40,margin:7}} />
-                              <View style={{flexDirection:'column',margin:3,alignSelf:'center'}}>
-                                <Text style={{fontSize:15,fontWeight:'700',marginStart:10}}>{singleTeacherSlideMAp.teacher_name}</Text>
-                                <Text style={{fontSize:12,fontWeight:'700',color:"gray",marginStart:10}}>Numbre d'Evaluation : {singleTeacherSlideMAp.evaluations_no}</Text>
-                              </View>
-                              <Image source={require("../../../assets/icon/5.png")} style={{height:20,width:20,margin:25}} />
-                          </View>                    
-                      </View>
-                      </TouchableOpacity>
-                      </Fragment>
-                    )
-                  })
-                }         
-
-                  </Fragment>
-                 :<View>
-                  </View>
-               }
-               
-              </ScrollView> */}
 
           <Text style={{fontWeight:'700',margin:7,fontSize:20,alignSelf:'center',marginTop:0}}>Démarrer mon coaching d'anglais</Text>
 
@@ -225,14 +186,6 @@ console.log("getint inside state ",this.state.teacherSlideData)
                    uri: `https://www.spyk.fr/${newsletter.image_path}`,
                  }} 
                   style={{width:'98%',alignSelf:'center',height:180,justifyContent:'flex-end',alignItems:'center'}} >
-         {/* <View style={{opacity:0.6,width:'98%',height:50,backgroundColor:"#000000",alignSelf:'center',flexDirection:"row",justifyContent:'center',borderWidth:0,borderColor:"red",marginEnd:7}}>
-               <Text style={{color:"#FFFFFF",fontSize:12,fontWeight:'700',margin:1,width:"70%"}}>{newsletter.description}</Text>
-               <TouchableOpacity style={Styles.continueBtn} onPress={()=>{
-                 this.newsletterSubscriptionFunction()
-               }} >
-               <Text style={Styles.continueBtnTxt}>S'criber</Text>
-               </TouchableOpacity>                     
-         </View> */}
      </ImageBackground>
          <View>
           <TouchableOpacity style={{backgroundColor:"#b41565",margin:10,justifyContent:'center',alignSelf:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
@@ -244,7 +197,9 @@ console.log("getint inside state ",this.state.teacherSlideData)
           </TouchableOpacity>
          </View>
               {
-                this.state.countData.map((singleCountData)=>{                  
+                this.state.countData.map((singleCountData)=>{   
+                  
+                  console.log("single count data - - - - - - ",singleCountData)
                   return(
                     <Fragment>
 
@@ -253,8 +208,7 @@ console.log("getint inside state ",this.state.teacherSlideData)
                     <ImageBackground                 
                       resizeMode='cover' 
                       source={require("../../../assets/icon/green.png")}
-                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}
-                      
+                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
                     >
                       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                      <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Total des heures</Text>
@@ -298,15 +252,12 @@ console.log("getint inside state ",this.state.teacherSlideData)
                       resizeMode='cover' 
                       source={require("../../../assets/icon/orange.png")}
                       style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
-                    >
-
-                      
-
-<View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                    >                      
+                    <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                      <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Bons cadeaux</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
                           <Image source={require("../../../assets/icon/gift.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.offered_coaching}</Text>
+                          <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.promo_count}</Text>
                         </View>
                         </View>
 
@@ -320,8 +271,8 @@ console.log("getint inside state ",this.state.teacherSlideData)
                      <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                      <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau initial</Text>
                         <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/cap.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.point_total}</Text>
+                          <Image source={require("../../../assets/icon/cap.png")} style={{height:45,width:45,margin:4,marginTop:-2}} />
+                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3,marginTop:-6}}>{singleCountData.init_level}</Text>
                         </View>
                         </View>
                     </ImageBackground>
@@ -332,128 +283,114 @@ console.log("getint inside state ",this.state.teacherSlideData)
               }
               </ScrollView>
               : null
-
             }
-
-
-            </View>
-          
-          {/* <View style={Styles.continueBtn}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.Show_Custom_Alert()
-                    }}>
-                    <Text style={Styles.continueBtnTxt}>Définissez votre disponibilité</Text>
-                  </TouchableOpacity>
-                </View> */}
-
-
-          <Modal
-          visible={this.state.Alert_Visibility}
-          animationType={'fade'}
-          transparent={true}
-          onRequestClose={() => {
-            this.Show_Custom_Alert(!this.state.Alert_Visibility);
-          }}>
-          <View
-            style={{
-              // backgroundColor:'#FFF',
-              backgroundColor: '#5541E1',
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View
-              style={{
-                width: '80%',
-                height: SCREEN_HEIGHT /2.7,
-                backgroundColor: '#ffffff',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: 10,
-                borderRadius: 10,
-              }}>
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            </View>                  
+                <Modal
+                visible={this.state.Alert_Visibility}
+                animationType={'fade'}
+                transparent={true}
+                onRequestClose={() => {
+                  this.Show_Custom_Alert(!this.state.Alert_Visibility);
+                }}>
                 <View
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    height: 100,
-                    width: 100,
-                    borderRadius: 50,
-                    borderWidth: 0,
-                    marginTop: -50,
-                  }}>
-                 <Image source={watch} style={{height:80,width:80,margin:10}} />
-                </View>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    alignSelf: 'center',
-                    fontWeight: '700',
-                    margin:10,
-                    marginTop:-10,
-                    color: '#000000',
-                    textAlign: 'center',
-                    fontFamily: 'Montserrat-Regular',
-                  }}>
-                 Je suis disponible pour
-                </Text>
-            
-              </View>  
-              <View style={Styles.radiobtnMainView}>
-                  <RadioButton.Group
-                    onValueChange={(value) => this.setState({value})}
-                    value={this.state.value}>
-                    <View style={Styles.radioBtnView}>
-                      <RadioButton value="first" />
-                      <Text style={Styles.radiobtnText}>COURS RÉSERVÉS</Text>
-                    </View>
-                    <View style={Styles.radioBtnView}>
-                      <RadioButton value="second" />
-                      <Text style={Styles.radiobtnText}>COURS INSTANTANÉS</Text>
-                    </View>                   
-                  </RadioButton.Group>
-                </View>           
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  alignSelf:'center',
-                  borderRadius:6,
-                  textAlign: 'center',
-                  margin: 5,                
-                }}>
-                <TouchableOpacity
-                  onPress={() => this.Hide_Custom_Alert()}                 
-                  style={{
-                   
-                    backgroundColor: '#b41565',
+                    // backgroundColor:'#FFF',
+                    backgroundColor: '#5541E1',
+                    flex: 1,
                     justifyContent: 'center',
-                    margin: 10,
-                    marginStart: 25,
-                    marginEnd: 25,
-                    height: 35,
-                    borderRadius:6,
+                    alignItems: 'center',
                   }}>
-                  <Text
+                  <View
                     style={{
-                      color: '#FFF',
-                      fontSize: 18,
-                      marginStart: 20,
-                      marginEnd: 20,
-                      fontWeight: '700',
-                      textAlign: 'center',
-                      fontFamily: 'Montserrat-Regular',
+                      width: '80%',
+                      height: SCREEN_HEIGHT /2.7,
+                      backgroundColor: '#ffffff',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: 10,
+                      borderRadius: 10,
                     }}>
-                    Continuer
-                  </Text>
-                </TouchableOpacity>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                      <View
+                        style={{
+                          backgroundColor: '#FFFFFF',
+                          height: 100,
+                          width: 100,
+                          borderRadius: 50,
+                          borderWidth: 0,
+                          marginTop: -50,
+                        }}>
+                      <Image source={watch} style={{height:80,width:80,margin:10}} />
+                      </View>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          alignSelf: 'center',
+                          fontWeight: '700',
+                          margin:10,
+                          marginTop:-10,
+                          color: '#000000',
+                          textAlign: 'center',
+                          fontFamily: 'Montserrat-Regular',
+                        }}>
+                      Je suis disponible pour
+                      </Text>
+                  
+                    </View>  
+                    <View style={Styles.radiobtnMainView}>
+                        <RadioButton.Group
+                          onValueChange={(value) => this.setState({value})}
+                          value={this.state.value}>
+                          <View style={Styles.radioBtnView}>
+                            <RadioButton value="first" />
+                            <Text style={Styles.radiobtnText}>COURS RÉSERVÉS</Text>
+                          </View>
+                          <View style={Styles.radioBtnView}>
+                            <RadioButton value="second" />
+                            <Text style={Styles.radiobtnText}>COURS INSTANTANÉS</Text>
+                          </View>                   
+                        </RadioButton.Group>
+                      </View>           
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        alignSelf:'center',
+                        borderRadius:6,
+                        textAlign: 'center',
+                        margin: 5,                
+                      }}>
+                      <TouchableOpacity
+                        onPress={() => this.Hide_Custom_Alert()}                 
+                        style={{
+                        
+                          backgroundColor: '#b41565',
+                          justifyContent: 'center',
+                          margin: 10,
+                          marginStart: 25,
+                          marginEnd: 25,
+                          height: 35,
+                          borderRadius:6,
+                        }}>
+                        <Text
+                          style={{
+                            color: '#FFF',
+                            fontSize: 18,
+                            marginStart: 20,
+                            marginEnd: 20,
+                            fontWeight: '700',
+                            textAlign: 'center',
+                            fontFamily: 'Montserrat-Regular',
+                          }}>
+                          Continuer
+                        </Text>
+                      </TouchableOpacity>
 
-             
-              </View>
-            </View>
-          </View>
-        </Modal>
+                  
+                    </View>
+                  </View>
+                </View>
+              </Modal>
 
 
           <BottomNavigator

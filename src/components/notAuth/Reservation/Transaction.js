@@ -214,16 +214,20 @@ export default class index extends Component {
                                   
                         <View style={{width:'98%',borderWidth:1,borderColor:"#DDDDDD",borderRadius:10,elevation:0,shadowColor:"#FFFFFFF",shadowOffset:3,shadowOpacity:1,alignSelf:'center',margin:7}}> 
 
-                        <View style={{flexDirection:'row',margin:3,marginStart:10}}>
-                                        <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
-                                        <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Bon cadeau</Text>
-                                     
-                        <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_amount} </Text>
-                        <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
-
-                                    </View>
                                   {
-                                    singleIncompleteDate.promocode_name != "" && singleIncompleteDate.promocode_name != null && singleIncompleteDate.promocode_name != undefined  ?
+                                     singleIncompleteDate.promocode_amount != 0 && singleIncompleteDate.promocode_amount != null && singleIncompleteDate.promocode_amount != undefined  ?
+
+                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
+                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
+                                     <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Bon cadeau</Text>                                     
+                                     <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_amount} </Text>
+                                     <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
+                                     </View>
+
+                                     : null
+                                  }                                    
+                                  {
+                                    singleIncompleteDate.promocode_amount != 0 && singleIncompleteDate.promocode_amount != null && singleIncompleteDate.promocode_amount != undefined  ?
                                     
 
                                     <View style={{flexDirection:'row',margin:3,marginStart:10,borderWidth:0}}>
