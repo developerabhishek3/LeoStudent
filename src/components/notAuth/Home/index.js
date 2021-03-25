@@ -199,7 +199,7 @@ const { newsletter } = this.state;
               {
                 this.state.countData.map((singleCountData)=>{   
                   
-                  console.log("single count data - - - - - - ",singleCountData)
+                  // console.log("single count data - - - - - - ",singleCountData)
                   return(
                     <Fragment>
 

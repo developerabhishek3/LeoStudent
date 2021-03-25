@@ -250,8 +250,6 @@ export default class index extends Component {
                                     <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
                                   </View>
 
-
-
                                   }
                                    
                                     <View style={{flexDirection:'row',margin:3,marginStart:10}}>
@@ -283,8 +281,11 @@ export default class index extends Component {
 
                               <View style={{flexDirection:'row',justifyContent:"space-between",margin:1,marginRight:30,width:"90%",}}>
                                     <View style={Styles.continueBtn}>
-                                      <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{time_slot:singleIncompleteDate.course_time,reserve_date:singleIncompleteDate.course_date,transactinId:singleIncompleteDate.id,
-                                              booktype:singleIncompleteDate.booking_type
+                                      <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{
+                                        time_slot:singleIncompleteDate.course_time,
+                                        reserve_date:singleIncompleteDate.course_date,
+                                        transactinId:singleIncompleteDate.id,
+                                        booktype:singleIncompleteDate.booking_type
                                       })}}>
                                       <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
                                       </TouchableOpacity>

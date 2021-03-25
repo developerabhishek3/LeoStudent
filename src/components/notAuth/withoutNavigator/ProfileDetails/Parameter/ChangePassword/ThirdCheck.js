@@ -20,9 +20,38 @@ class FirstCheck extends Component {
       }
           
 
-    componentDidMount(){
-        this.Show_Custom_Alert4()
+
+
+    componentDidMount = async () => {
+      this.Show_Custom_Alert4()
+      BackHandler.addEventListener('hardwareBackPress', () =>
+      this.handleBackButton(this.props.navigation),
+    );
     }
+          
+    componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', () =>
+        this.handleBackButton(this.props.navigation),
+      );
+    }
+    
+    
+    handleBackButton = (nav) => {
+      if (!nav.isFocused()) {
+        BackHandler.removeEventListener('hardwareBackPress', () =>
+          this.handleBackButton(this.props.navigation),
+        );
+        return false;
+      } else {
+        nav.goBack();
+        return true;
+      }
+    };
+
+
+
+
+
 
 
     Show_Custom_Alert4(visible) {
