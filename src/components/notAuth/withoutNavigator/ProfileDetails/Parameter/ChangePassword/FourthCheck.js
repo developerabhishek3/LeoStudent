@@ -1,5 +1,5 @@
 import React,{Fragment,Component} from 'react'
-import {View,Text,TouchableOpacity,Image,Modal} from 'react-native';
+import {View,Text,TouchableOpacity,Image,Modal,BackHandler} from 'react-native';
 
 class FirstCheck extends Component {
 
@@ -20,10 +20,38 @@ class FirstCheck extends Component {
       }
           
 
-    componentDidMount(){
-        this.Show_Custom_Alert5()
-    }
 
+
+    componentDidMount = async () => {
+      this.Show_Custom_Alert5()
+      BackHandler.addEventListener('hardwareBackPress', () =>
+      this.handleBackButton(this.props.navigation),
+    );
+    }
+          
+    componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', () =>
+        this.handleBackButton(this.props.navigation),
+      );
+    }
+    
+    
+    handleBackButton = (nav) => {
+      if (!nav.isFocused()) {
+        BackHandler.removeEventListener('hardwareBackPress', () =>
+          this.handleBackButton(this.props.navigation),
+        );
+        return false;
+      } else {
+        nav.goBack();
+        return true;
+      }
+    };
+
+
+
+
+    
 
     Show_Custom_Alert5(visible) {
         this.setState({Alert_Visibility5: visible});

@@ -265,7 +265,14 @@ export default class index extends Component {
                   <Fragment>
                     {this.state.coach_type == `coach natif` ? (
                       <Fragment>
-                        {this.state.teacherDetailsLator.map((singleMap) => {                        
+                        {this.state.teacherDetailsLator.map((singleMap) => {   
+                          var date1 = singleMap.course_date
+
+                          var newdate = date1.split("-").reverse().join("/");
+                          // console.log("getting new date hreer -  - - - - - - - - -",newdate)
+
+
+
                             return (
                               singleMap.coach_type == `coach natif` ?
                               <View style={Styles.contentView}>
@@ -318,7 +325,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          {singleMap.course_date} -{' '}
+                                          {newdate} -{' '}
                                           {singleMap.course_time}
                                         </Text>
                                       </View>
@@ -391,6 +398,12 @@ export default class index extends Component {
                       <Fragment>
                         {this.state.teacherDetailsLator.map((singleMap) => {
                          
+                         var date1 = singleMap.course_date
+
+                         var newdate = date1.split("-").reverse().join("/");
+                        //  console.log("getting new date hreer -  - - - - - - - - -",newdate)
+
+
                             return (
                               singleMap.coach_type == `coach bilingue` ?
                               <View style={Styles.contentView}>
@@ -443,7 +456,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          {singleMap.course_date} -{' '}
+                                          {newdate} -{' '}
                                           {singleMap.course_time}
                                         </Text>
                                       </View>
@@ -514,6 +527,12 @@ export default class index extends Component {
                     ) : this.state.coach_type == `lex deux me vont` ? (
                       <Fragment>
                         {this.state.teacherDetailsLator.map((singleMap) => {
+
+                            
+                          var date1 = singleMap.course_date
+
+                          var newdate = date1.split("-").reverse().join("/");
+                          // console.log("getting new date hreer -  - - - - - - - - -",newdate)
                           if(singleMap.coach_type == `lex deux me vont`){
                             return (
                               singleMap.coach_type == `lex deux me vont` ?
@@ -567,7 +586,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          {singleMap.course_date} -{' '}
+                                          {newdate} -{' '}
                                           {singleMap.course_time}
                                         </Text>
                                       </View>
@@ -642,6 +661,10 @@ export default class index extends Component {
 
 <Fragment>
                         {this.state.teacherDetailsLator.map((singleMap) => {
+                              var date1 = singleMap.course_date
+                              var newdate = date1.split("-").reverse().join("/");
+                              // console.log("getting new date hreer -  - - - - - - - - -",newdate)
+
                           return (
                             <View style={Styles.contentView}>
                               <TouchableOpacity
@@ -690,7 +713,7 @@ export default class index extends Component {
                                         style={Styles.bookStyle}
                                       />
                                       <Text style={Styles.contentTextStyle}>
-                                        {singleMap.course_date} -{' '}
+                                        {newdate} -{' '}
                                         {singleMap.course_time}
                                       </Text>
                                     </View>
@@ -787,6 +810,10 @@ export default class index extends Component {
                       {this.state.coach_type == `coach natif` ? (
                         <Fragment>
                           {this.state.teacherDetailsBookNow.map((singleMap) => {
+
+                                  var date1 = singleMap.course_date
+                                  var newdate = date1.split("-").reverse().join("/");
+                                  // console.log("getting new date hreer -  - - - - - - - - -",newdate)
                             // console.log("getting type  1============",singleMap.coach_type)
                             if(singleMap.coach_type == `coach natif`) {
                               return (
@@ -840,7 +867,7 @@ export default class index extends Component {
                                             style={Styles.bookStyle}
                                           />
                                           <Text style={Styles.contentTextStyle}>
-                                            {singleMap.course_date} -{' '}
+                                            {newdate} -{' '}
                                             {singleMap.course_time}
                                           </Text>
                                         </View>
@@ -913,6 +940,9 @@ export default class index extends Component {
                       ) : this.state.coach_type == `coach bilingue` ? (
                         <Fragment>
                           {this.state.teacherDetailsBookNow.map((singleMap) => {
+                             var date1 = singleMap.course_date
+                             var newdate = date1.split("-").reverse().join("/");
+                            //  console.log("getting new date hreer -  - - - - - - - - -",newdate)
                               // console.log("getting type 2============",singleMap.coach_type)
                            
                               return (
@@ -966,7 +996,7 @@ export default class index extends Component {
                                             style={Styles.bookStyle}
                                           />
                                           <Text style={Styles.contentTextStyle}>
-                                            {singleMap.course_date} -{' '}
+                                            {newdate} -{' '}
                                             {singleMap.course_time}
                                           </Text>
                                         </View>
@@ -1036,6 +1066,10 @@ export default class index extends Component {
                       ) : this.state.coach_type == `lex deux me vont` ? (
                         <Fragment>
                           {this.state.teacherDetailsBookNow.map((singleMap) => {
+
+                          var date1 = singleMap.course_date
+                          var newdate = date1.split("-").reverse().join("/");
+                          // console.log("getting new date hreer -  - - - - - - - - -",newdate)
                               // console.log("getting type 3============",singleMap.coach_type)
                               {                                
                                 return (
@@ -1090,7 +1124,7 @@ export default class index extends Component {
                                               style={Styles.bookStyle}
                                             />
                                             <Text style={Styles.contentTextStyle}>
-                                              {singleMap.course_date} -{' '}
+                                              {newdate} -{' '}
                                               {singleMap.course_time}
                                             </Text>
                                           </View>
@@ -1163,6 +1197,9 @@ export default class index extends Component {
                       ) :                     
                         <Fragment>
                           {this.state.teacherDetailsBookNow.map((singleMap) => {
+                             var date1 = singleMap.course_date
+                             var newdate = date1.split("-").reverse().join("/");
+                            //  console.log("getting new date hreer -  - - - - - - - - -",newdate)
                               // console.log("getting type ============",singleMap.coach_type)
                             return (
                               <View style={Styles.contentView}>
@@ -1215,7 +1252,7 @@ export default class index extends Component {
                                           style={Styles.bookStyle}
                                         />
                                         <Text style={Styles.contentTextStyle}>
-                                          {singleMap.course_date} -{' '}
+                                          {newdate} -{' '}
                                           {singleMap.course_time}
                                         </Text>
                                       </View>

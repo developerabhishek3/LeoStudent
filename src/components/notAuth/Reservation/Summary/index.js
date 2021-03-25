@@ -324,7 +324,7 @@ export default class index extends Component {
             <Text style={{margin:10,fontSize:16,fontWeight:"700",color:"gray"}}>J'ai un bon cadeau !</Text>
 
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("promocode")}} style={{backgroundColor:"#b41565",alignSelf:"flex-end",margin:10,borderRadius:10}}>
-            <Text style={{alignSelf:'flex-end',margin:3,color:"#ffffff",marginStart:20,marginEnd:20,margin:10}}>Utilser</Text>
+            <Text style={{alignSelf:'flex-end',margin:3,color:"#ffffff",marginStart:20,marginEnd:20,margin:10}}>Utiliser</Text>
             </TouchableOpacity>
             </View>
 
@@ -354,23 +354,15 @@ export default class index extends Component {
                         {/* <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row'}}>
                         <Image style={{height:12,width:12,marginTop:13,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
                           <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text>
-                            
-
-                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{afterAmount}</Text>
-                         
+                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{afterAmount}</Text>                        
                         </TouchableOpacity> */}
                         </View>                         
-                        :
-
-                        
+                        :                        
                         <View style={{flexDirection:'row',justifyContent:"space-between",margin:10,marginStart:15,marginEnd:15}}>
                         <Text style={{margin:10,fontSize:16,width:"90%",alignSelf:'center',fontWeight:"700",color:"gray"}}>Votre choix de bon cadeau a bien été enregistré</Text>
-
                         {/* <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,flexDirection:'row',marginStart:20,marginEnd:20}}>
                         <Image style={{height:12,width:12,marginTop:14,marginRight:-10}} source={require("../../../../assets/icon/euro-currency-symbol-1.png")} />
-                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text>
-                            
-
+                          <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{realamout}</Text>                            
                           <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{  0  }</Text>                         
                         </TouchableOpacity> */}
                         </View>     
