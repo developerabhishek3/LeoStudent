@@ -148,8 +148,8 @@ export default class index extends Component {
               </View>
 
               <View style={Styles.subHeader}>
-                <Text style={Styles.txtStyle1}>Entrez votre adresse électronique, nous</Text>
-                <Text style={Styles.txtStyle1}>vous enverrons un lien pour réinitialiser</Text>
+                <Text style={Styles.txtStyle1}>Entrez votre adresse email, nous vous</Text>
+                <Text style={Styles.txtStyle1}>enverrons un code pour réinitialiser</Text>
                 <Text style={Styles.txtStyle1}>votre mot de passe.</Text>
               </View>
 
@@ -158,7 +158,7 @@ export default class index extends Component {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder=" Email"
-
+                      
                     onChangeText={(email) => this.setState({ email })}
               />
                 </View>
