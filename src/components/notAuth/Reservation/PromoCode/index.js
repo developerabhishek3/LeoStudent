@@ -171,7 +171,7 @@ callAlertFunction(){
                       singleMap.use_counter != 0 ?
                       <TouchableOpacity style={{borderColor:'#d57da9',opacity:0.6,borderWidth:1,backgroundColor:"#d57da9",borderRadius:3,marginTop:10,}}                     
                     >
-                    <Text style={{color:'#ffffff',margin:10,fontWeight:'700',fontSize:13,marginStart:20,marginEnd:20,borderRadius:10}}>Deja Utilise</Text>
+                    <Text style={{color:'#ffffff',margin:10,fontWeight:'700',fontSize:13,marginStart:20,marginEnd:20,borderRadius:10}}>Déjà utilisé</Text>
                     </TouchableOpacity>
                       :
                       <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,backgroundColor:"#b41565",borderRadius:7,marginTop:10,}}

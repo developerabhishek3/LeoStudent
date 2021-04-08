@@ -67,7 +67,7 @@ export default StyleSheet.create({
   },
   txtStyle1: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
     marginStart: 10,
     alignSelf: 'flex-start',
     color: 'gray',

@@ -155,9 +155,9 @@ export default class index extends Component {
               </View>
 
               <View style={Styles.subHeader}>
-                <Text style={Styles.txtStyle1}>Entrez votre adresse électronique, nous</Text>
-                <Text style={Styles.txtStyle1}>vous enverrons un lien pour réinitialiser</Text>
-                <Text style={Styles.txtStyle1}>votre mot de passe.</Text>
+                <Text style={Styles.txtStyle1}>Entrez le code reçu par email pour réinitialiser votre mot de passe</Text>
+                {/* <Text style={Styles.txtStyle1}>vous enverrons un lien pour réinitialiser</Text>
+                <Text style={Styles.txtStyle1}>votre mot de passe.</Text> */}
               </View>
 
               <View style={Styles.textInputView}>

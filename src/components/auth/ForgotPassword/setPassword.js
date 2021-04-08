@@ -167,9 +167,7 @@ export default class index extends Component {
               </View>
 
               <View style={Styles.subHeader}>
-                <Text style={Styles.txtStyle1}>Entrez votre nouveau mot de passe, nous</Text>
-                <Text style={Styles.txtStyle1}>vous enverrons un lien pour réinitialiser</Text>
-                <Text style={Styles.txtStyle1}>votre mot de passe.</Text>
+                <Text style={Styles.txtStyle1}>Entrez votre nouveau mot de passe</Text>              
               </View>
 
               <View style={Styles.textInputView}>
@@ -195,7 +193,7 @@ export default class index extends Component {
                   <TextInput
                     style={Styles.textInputField}
                     value={this.state.confirm_password}
-                    placeholder="Mot de passe de confirmation !"
+                    placeholder="Confirmation du nouveau mot de passe"
                     onChangeText={(confirm_password) => this.setState({ confirm_password })}
               />
                 </View>
