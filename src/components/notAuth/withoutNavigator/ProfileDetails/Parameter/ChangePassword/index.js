@@ -92,11 +92,12 @@ export default class index extends Component {
     const LogoutResponse = await LogoutFunction();
     
     if(LogoutResponse.result === true) {
-        // console.log("getting logout response---------------",LogoutResponse.response)
+        console.log("getting response on logout function---------------",LogoutResponse.response)
+        this.Show_Custom_Alert1()
         await AsyncStorage.setItem('userLoggedIn','false')
         let keys = ['token'];
         AsyncStorage.multiRemove(keys)
-        this.Show_Custom_Alert1()
+      
         // this.props.navigation.navigate("login")            
         // Alert.alert("Message","Déconnexion réussie!")
     }
@@ -186,7 +187,7 @@ export default class index extends Component {
       // }
       if (ChangePasswordResponse.response.status === true) {
           // this.props.navigation.navigate("home")
-          console.log("getting response >>>>>>>>>>>>>>>>",ChangePasswordResponse.response)
+          console.log("getting response on change password API >>>>>>>>>>>>>>>>",ChangePasswordResponse.response)
         // await AsyncStorage.setItem("userLoggedIn", "true");
         // await AsyncStorage.setItem("userLoggedInData", JSON.stringify(ChangePasswordResponse.response));
 

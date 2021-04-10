@@ -150,10 +150,9 @@ export default class index extends Component {
 
   reservation_requestFunction = async () => {
 
-    // console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
-
+    console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
     let transactinId = this.props.navigation.getParam("transactinId")
-    console.log("getting transaction id ---------",transactinId)
+
 
 
     // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
@@ -207,13 +206,14 @@ export default class index extends Component {
 
   componentDidMount = async () => {
 
-
+    let transactinId = this.props.navigation.getParam("transactinId")
+    console.log("getting transaction id on the did mount---------",transactinId)
 
     // console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
       // let teacher_id = this.props.navigation.getParam("teacher_id")
       // this.fetchget_waiting_time()
       
-      console.log("i am on the book reservation ===============>>>>>>>>>>>>>>>>>>")
+      // console.log("i am on the book reservation ===============>>>>>>>>>>>>>>>>>>")
 
     let time_slot = this.props.navigation.getParam("time_slot")
     let reserve_date = this.props.navigation.getParam("reserve_date")
@@ -331,7 +331,7 @@ getTimeDurationFunction(){
 
 const {TeacherDetails} = this.state;
 
-console.log("getting result -             -  - -  -",TeacherDetails)
+// console.log("getting result -             -  - -  -",TeacherDetails)
 
 
 

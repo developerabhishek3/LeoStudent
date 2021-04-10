@@ -676,6 +676,7 @@ export default class index extends Component {
                                       teacher_id: singleMap.teacher_id,
                                       time_slot,
                                       reserve_date,
+                                      transactinId:transactinId
                                     },
                                   );
                                 }}>
@@ -828,6 +829,7 @@ export default class index extends Component {
                                           teacher_id: singleMap.teacher_id,
                                           time_slot,
                                           reserve_date,
+                                          transactinId:transactinId
                                         },
                                       );
                                     }}>
@@ -957,6 +959,7 @@ export default class index extends Component {
                                           teacher_id: singleMap.teacher_id,
                                           time_slot,
                                           reserve_date,
+                                          transactinId:transactinId
                                         },
                                       );
                                     }}>
@@ -1085,6 +1088,7 @@ export default class index extends Component {
                                             teacher_id: singleMap.teacher_id,
                                             time_slot,
                                             reserve_date,
+                                            transactinId:transactinId
                                           },
                                         );
                                       }}>

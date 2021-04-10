@@ -52,14 +52,11 @@ export default class index extends Component {
     console.log("getting level id on home=========",level_id)
 
 
-
-
     this.getnewesletterInfoData()
-
-    setInterval(() => {
-      this.count_dataFunction()
-    }, 3000);
-    
+      setTimeout(() => {
+        this.count_dataFunction()
+      }, 3000);
+   
 
     this.home_teacher_slideFunction()
 
@@ -196,7 +193,17 @@ const { newsletter } = this.state;
               <Text style={{fontSize:20,fontWeight:"700",margin:15,marginStart:10,marginEnd:40,color:"#FFFFFF"}}>START</Text>
           </TouchableOpacity>
          </View>
-              {
+
+
+                 {
+                   this.state.countData.length > 0 ?
+
+                  <Fragment>
+
+
+
+
+{
                 this.state.countData.map((singleCountData)=>{   
                   
                   // console.log("single count data - - - - - - ",singleCountData)
@@ -281,6 +288,23 @@ const { newsletter } = this.state;
                   )
                 })
               }
+
+
+
+                  </Fragment>
+                   :<View>
+                     <Text></Text>
+                    </View>
+                 }
+
+
+
+
+
+
+
+
+
               </ScrollView>
               : null
             }
