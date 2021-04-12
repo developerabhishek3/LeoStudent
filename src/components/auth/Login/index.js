@@ -190,8 +190,7 @@ export default class index extends Component {
 
 
                     <View>
-                        <TextInput    
-                                               
+                        <TextInput                                                   
                           style={Styles.textInputField}
                           value={this.state.email}
                           onChangeText={(email) => this.setState({ email })}
@@ -243,11 +242,6 @@ export default class index extends Component {
                     <Text style={Styles.forgotPwd}>Mot de passe oublié?</Text>
                     </TouchableOpacity>
  
-
-                    {/* <TouchableOpacity onPress={()=>{this.props.navigation.navigate("questionresult")}}>
-                    <Text style={Styles.forgotPwd}>question result</Text>
-                    </TouchableOpacity> */}
-
                     </View> 
 
                     <View style={Styles.continueBtn}>

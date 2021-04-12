@@ -103,24 +103,7 @@ export default class index extends Component {
 
                 <View style={Styles.radiobtnMainView}>
                 
-                </View>
-
-                
-
-
-
-
-               
-
-
-
-
-
-
-
-
-
-
+                </View>          
               <View style={{marginTop:60}}>
                 <View style={Styles.continueBtn}>
                   <TouchableOpacity

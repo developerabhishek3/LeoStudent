@@ -209,8 +209,7 @@ const { newsletter } = this.state;
                   // console.log("single count data - - - - - - ",singleCountData)
                   return(
                     <Fragment>
-
-                    {/* <View style={{margin:10,flexDirection:'row',width:'95%',flexWrap:'wrap',alignContent:'center',flexDirection:"row"}}> */}
+                 
                     <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',margin:12}}>
                     <ImageBackground                 
                       resizeMode='cover' 
@@ -296,14 +295,6 @@ const { newsletter } = this.state;
                      <Text></Text>
                     </View>
                  }
-
-
-
-
-
-
-
-
 
               </ScrollView>
               : null

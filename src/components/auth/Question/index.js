@@ -200,12 +200,7 @@ export default class index extends Component {
   // else if (q_6_ans.length === 0) {
   //   this.myAlert('Message', 'Veuillez choisir une réponse! 6!');
   // } 
-    else {
-    //   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //   if (!email.match(mailformat)) {
-    //     this.myAlert('Message', 'Invalid Email-Id');
-    //     return false;
-    //   }
+    else {  
       this.add_update_academic_infoFunction();
     }
   };
@@ -275,18 +270,6 @@ export default class index extends Component {
                   />
                 </View>
 
-{/* 
-                <View style={{borderWidth:1,borderColor:'#DDDDDD',flexWrap:'wrap',width:'90%',borderRadius:10,alignSelf:'center',margin:10,flexDirection:'column'}}>                
-                <View style={{flexDirection:'column',}}>
-                  <Text style={{flexDirection:'column',flexWrap:'wrap',alignSelf:'flex-start',margin:10,color:"gray"}}>Quelles sont vos attentes? Quel est votre objectif 
-                en anglais?</Text>
-                <TextInput 
-                numberOfLines={3}
-                onChangeText={(q_3_ans)=>this.setState({q_3_ans })}
-                style={Styles.textInputField}
-                />
-                </View>
-            </View> */}
 
 
 
@@ -372,12 +355,7 @@ export default class index extends Component {
 
 
 
-{/*                         
-                <View style={Styles.subHeader}>
-                  <Text style={Styles.txtStyle1}>
-                  Avez-vous déjà enseigné l'anglais ?
-                  </Text>
-                </View> */}
+
 
 
                 {/* <View style={Styles.radiobtnMainView}>
@@ -406,37 +384,7 @@ export default class index extends Component {
                   }
                 </View> */}
 
-                {/* <View style={Styles.subHeader}>
-                  <Text style={Styles.txtStyle1}>
-                  Pouvez-vous parler français ?
-                  </Text>
-                </View>
-
-                <View style={Styles.radiobtnMainView}>
-                {
-                    this.state.data4.map((singleMAp,key)=>{
-                      return(
-                        <View style={{borderWidth:0,width:"25%",margin:2,marginStart:10}}> 
-                           
-                                  {
-                                      this.state.q_6_ans == singleMAp.value ? 
-                                      <TouchableOpacity  onPress={()=>{this.setState({q_6_ans:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center'}}>
-                                          <Image source={require("../../../assets/icon/8.png")} style={{height:20,width:20,margin:3}} />
-                                          <Text style={{color:"lightgreen"}}>{singleMAp.value}</Text>
-                                      </TouchableOpacity>
-  
-                                      :
-                                      <TouchableOpacity onPress={()=>{this.setState({q_6_ans:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center'}}>
-                                          <Image source={require("../../../assets/icon/4.png")} style={{height:20,width:20,margin:3}} />
-                                          <Text style={{color:"gray"}}>{singleMAp.value}</Text>
-                                      </TouchableOpacity>
-                                  }
-                                 
-                        </View>
-                      )
-                    })
-                  }
-                </View> */}
+              
 
 
                 <View style={Styles.continueBtn}>
