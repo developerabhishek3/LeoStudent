@@ -141,24 +141,6 @@ export default class index extends Component {
   }
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', () =>
       this.handleBackButton(this.props.navigation),
@@ -216,18 +198,7 @@ const {TeacherDetails} = this.state;
         </View>
         <Spinner visible={this.state.isSpinner} 
         />
-        {/* <View style={Styles.subhaderView}>
-          <View style={{flexDirection: 'column'}}>
-            <Text style={Styles.subheadingTxt1}>Historique</Text>
-            <View style={{borderColor: '#FF1493', borderWidth: 1, width: 100}} />
-          </View>
-          <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("currentreservation")}}>
-            <Text style={Styles.subheadingTxt}>Actual</Text>
-            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
-            </TouchableOpacity>
-          </View>
-        </View> */}
+    
 
         <View style={Styles.mainContainer}>
           <ScrollView>
@@ -341,46 +312,6 @@ const {TeacherDetails} = this.state;
             
 
 
-
-{/* <CountDown
-          until={this.state.totalDuration}
-          //duration of countdown in seconds
-          timetoShow={('H', 'M', 'S')}
-          //formate to show
-          onFinish={() => alert('finished')}
-          //on Finish call
-          onPress={() => alert('hello')}
-          //on Press call
-          size={20}
-        /> */}
-                  {/* {
-                    singleTeacherDetails.reservation_status == `Accepted` ?
-
-                    <View style={Styles.continueBtn}>
-                        <TouchableOpacity 
-                        // onPress={()=>{this.Show_Custom_Alert()}}
-                        >
-                        <Text style={Styles.continueBtnTxt}>Appeler le client pour démarrer le coaching</Text>
-                        </TouchableOpacity>
-                    </View>
-                    :
-                    <View>
-                      {
-                        this.state.isButtonEnable  == true ?
-
-                        <View style={Styles.continueBtn}>
-                        
-                        <TouchableOpacity 
-                        // onPress={()=>{this.props.navigation.navigate("chat2")}}
-                            onPress={()=>{this.reservation_requestFunction()}}
-                        >
-                        <Text style={Styles.continueBtnTxt}>Envoyez la demande au coach</Text>
-                        </TouchableOpacity>
-                        </View>
-                        :null
-                      }                    
-                      </View>                
-                  } */}
                     </Fragment>
                 )
               })

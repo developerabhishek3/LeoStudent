@@ -323,33 +323,7 @@ handleBackButton = (nav) => {
                     }}
                 />
 
-                {/*                   
-                      <DatePicker
-                        style={{width: SCREEN_WIDTH*0.70,}}
-                        date={this.state.birth_date}
-                        placeholder="Date of Birth"                    
-                        format="DD-MM-YYYY"                   
-                        maxDate={this.state.date}
-                          confirmBtnText="Confirm"
-                          cancelBtnText="Cancel"
-                          // iconSource={calenderIcon}
-                          
-                          customStyles={{
-                            dateIcon: {
-                              left: -25,
-                              height:24,width:24
-                            },
-                            dateInput: {
-                              marginLeft: -60,
-                              borderColor: 'red',
-                              borderWidth: 0,
-                              marginRight: 90,
-                            },          
-                          }}
-                          onDateChange={(birth_date) => {
-                            this.setState({birth_date});
-                          }}
-                        /> */}
+               
                 </View>
                 {/* <View>
                   <TextInput

@@ -361,55 +361,9 @@ this.setState({reserve_date: d});
 
 
 
-
-
-
-
-
-// set_date = (day) => {
-
-
-// const d = moment(day.dateString).format('YYYY-MM-DD');
-// // this.setState({reserve_date: d});
-
-
-
-// if (this.state.markedDates_blue[d]) {
-
-
-//   let color = 'rgba(255,170,0,1)'
-
-
-//   const markedDates_blue = {
-
-//   ...this.state.markedDates_blue,
-  
-//   [d]: {
-//   ...this.state.markedDates_blue[d],
-//   selected:true,
-//   selectedColor: color
-//   }
-//   }
-//   this.setState({ markedDates: markedDates_blue })  
-//   }
-//   // console.log("select markd date here ---------",this.state.markedDates)   
-
-// };
-
-
-
-
-
-
-
-
-
   render() {
     const {durationAmount, dateArray} = this.state;
 
-    // console.log('getting day -- -', this.state.day);
-
-    // console.log("getting exact time ==============",this.state.exacttime_new)
     
 
     return (
@@ -461,8 +415,7 @@ this.setState({reserve_date: d});
                         }}>
                         <TouchableOpacity
                           onPress={() => {
-                            // let amount_en = singleMAp.amount_en;
-                            // let   timeDuration = singleMAp.time_duration;
+                            
                             this.setState({
                               // time_duration: key,
                               time_duration: singleMAp.time_duration,
