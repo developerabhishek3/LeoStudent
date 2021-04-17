@@ -69,7 +69,7 @@ export default class index extends Component {
             questionBody.push({ "question_id": question.ques_id, "option_id": question.selectedAns.option_id });
         }
       });
-      // console.log("POST_QUESTION_BODY - ", {test_data: JSON.stringify(questionBody)});
+      console.log("POST_QUESTION_BODY - ", {test_data: JSON.stringify(questionBody)});
 
       const post_questionaireResponse = await post_questionaireFunction({test_data: questionBody});
       if (post_questionaireResponse.result == true) {
