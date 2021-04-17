@@ -18,19 +18,14 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 import Spinner from 'react-native-loading-spinner-overlay';
 import logo from '../../../../../assets/icon/96.png';
 import back from '../../../../../assets/icon/20.png';
-// import rightIcon from '../../../../../assets/icon/33.png';
-// import calenderIcon from '../../../../assets/icon/10.png';
+
 import moment from 'moment';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 
 import Styles from './indexCss';
 
-import {RadioButton} from 'react-native-paper';
 import  { getAllPromoCodes } from '../../../../../Api/afterAuth';
 
-import Collapsible from 'react-native-collapsible';
-import HTML from 'react-native-render-html';
-import { Fragment } from 'react';
 
 let today = '';
 export default class index extends Component {
@@ -115,6 +110,8 @@ callAlertFunction(){
 
     const {allPromocide} = this.state;
 
+    console.log("inside the render ---------------",allPromocide)
+
     let promocodeType = this.props.navigation.getParam("promocodeType")
     console.log("getting inisde the render method ???????????????",promocodeType)
 
@@ -132,7 +129,7 @@ callAlertFunction(){
             }}>
           <Image source={back} style={Styles.headertxtInputImg1} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Gestion des codes promo</Text>
+          <Text style={Styles.headerTxt}>Mes bons cadeaux</Text>
           <View style={{flexDirection: 'row'}}>            
             <Image source={logo} style={Styles.headertxtInputImg} />
           </View>
@@ -149,7 +146,6 @@ callAlertFunction(){
             {
               allPromocide .length > 0 ? 
 
-        
 
               allPromocide.map((singleMap,index)=>{
 
@@ -161,56 +157,48 @@ callAlertFunction(){
                       <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>70.00</Text>
                   </View> */}
                   <Text style={{color:'#000000',fontSize:16,fontWeight:'700',margin:2,marginStart:20,marginEnd:4,margin:4}}>{singleMap.title}</Text>
-                  <Text style={{color:'gray',fontSize:12,fontWeight:'700',margin:0,marginStart:20,marginEnd:4}}>{singleMap.description}</Text>
-                  <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:7,marginTop:4,marginStart:16,marginEnd:16}}>
-                    <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,justifyContent:'center',alignItems:'center',borderRadius:6}}>
+                  {/* <Text style={{color:'gray',fontSize:12,fontWeight:'700',margin:0,marginStart:20,marginEnd:4}}>{singleMap.description}</Text> */}
+                  <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:7,marginTop:4,marginStart:16,marginEnd:16,alignSelf:'flex-end'}}>
+                    {/* <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,justifyContent:'center',alignItems:'center',borderRadius:6}}>
                       <Text style={{color:"#b41565",margin:4,fontSize:10,fontWeight:'700'}}>{singleMap.code}</Text>
-                    </TouchableOpacity>
-
-                    {/* {
+                    </TouchableOpacity> */}
+                  
+                    {
                       singleMap.use_counter != 0 ?
-                      <TouchableOpacity style={{borderColor:'#b41565',opacity:0.6,borderWidth:1,backgroundColor:"#b41565",borderRadius:3,marginTop:10,}}                     
+                      <TouchableOpacity style={{borderColor:'#d57da9',opacity:0.6,borderWidth:1,backgroundColor:"#d57da9",borderRadius:3,marginTop:10,}}                     
                     >
-                    <Text style={{color:'#ffffff',margin:4,fontWeight:'700',fontSize:13,marginStart:7,marginEnd:7,borderRadius:10}}>Applique</Text>
+                    <Text style={{color:'#ffffff',margin:10,fontWeight:'700',fontSize:13,marginStart:20,marginEnd:20,borderRadius:10}}>Déjà utilisé</Text>
                     </TouchableOpacity>
                       :
-                      <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,backgroundColor:"#b41565",borderRadius:3,marginTop:10,}}
-                      onPress={()=>{
-                        this.props.navigation.navigate("summary",{
-                          singleMap:singleMap
-                        })
-                      }}
+                      <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,backgroundColor:"#b41565",borderRadius:7,marginTop:10,}}
+                      // onPress={()=>{
+                      //   this.props.navigation.navigate("summary",{
+                      //     singleMap:singleMap
+                      //   })
+                      // }}
                     >
-                    <Text style={{color:'#ffffff',margin:4,fontWeight:'700',fontSize:13,marginStart:7,marginEnd:7,borderRadius:10}}>Utiliser code</Text>
+                    <Text style={{color:'#ffffff',margin:10,fontWeight:'700',fontSize:13,marginStart:30,marginEnd:30,borderRadius:10,}}>Utiliser</Text>
                     </TouchableOpacity>
-                    } */}
+                    }
 
                   </View>
-                  <TouchableOpacity onPress={() => this.isCollapsedSelected(key,this.state.collapsed[key])} style={{marginBottom:10}}>
+                  {/* <TouchableOpacity onPress={() => this.isCollapsedSelected(key,this.state.collapsed[key])} style={{marginBottom:10}}>
 
                     <Text style={{fontSize:14,fontWeight:'700',color:"#b41565",marginStart:10,margin:3,marginStart:18}}>Terms and condition</Text>
                   <Collapsible  collapsed={this.state.collapsed[key]} align="center" style={{borderWidth:0}}>
                     <View style={{borderColor:'orange',borderWidth:0,marginStart:20,}}>
-                      {/* <Text style={{margin:3,textAlign: 'left',paddingStart:15}}>{singleMap.terms_condition}</Text> */}
+                     
                       <HTML html={singleMap.terms_condition} containerStyle={{alignItems:'flex-start',}}  />
                       </View>
                     </Collapsible>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
           </View>
                 )
               })
-              
-              :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-              <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>Record non trouvé!</Text>
-            </View>
+              :null
             }
-     
-{/* 
-            <View style={{width:'94%',borderWidth:0,borderRadius:10,elevation:3,shadowColor:"#FFFFFFF",shadowOffset:3,shadowOpacity:1,alignSelf:'center'}}>                    
-                    <Text style={{color:'#000000',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{allPromocide.title}</Text>                   
-            </View> */}
 
-           
+
 
 
 
@@ -218,9 +206,7 @@ callAlertFunction(){
           
 
             <View style={Styles.continueBtn}>
-              {/* <TouchableOpacity>
-                <Text style={Styles.continueBtnTxt}>Continuer</Text>
-              </TouchableOpacity> */}
+         
             </View>
           </ScrollView> 
 
@@ -237,12 +223,3 @@ callAlertFunction(){
     );
   }
 }
-
-// 13.Demande de coaching (request)
-// Informations sur le coaching d'anglais
-// 30 minutes, 27.05.2020, 17h00 à 21h00
-//
-//
-// 00:37
-//
-// Décliner

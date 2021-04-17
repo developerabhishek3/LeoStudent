@@ -95,9 +95,9 @@ export default StyleSheet.create({
   },
 
   continueBtn: {
-    backgroundColor: '#b41565',
+    backgroundColor: '#FF1493',
     margin: 3,
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 20,
     borderRadius: 5,
     justifyContent: 'flex-end',

@@ -202,12 +202,7 @@ callAlertFunction(){
               :null
             }
 
-{/* 
-            <View style={{width:'94%',borderWidth:0,borderRadius:10,elevation:3,shadowColor:"#FFFFFFF",shadowOffset:3,shadowOpacity:1,alignSelf:'center'}}>                    
-                    <Text style={{color:'#000000',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{allPromocide.title}</Text>                   
-            </View> */}
 
-           
 
 
 
@@ -215,9 +210,7 @@ callAlertFunction(){
           
 
             <View style={Styles.continueBtn}>
-              {/* <TouchableOpacity>
-                <Text style={Styles.continueBtnTxt}>Continuer</Text>
-              </TouchableOpacity> */}
+         
             </View>
           </ScrollView> 
 
@@ -234,12 +227,3 @@ callAlertFunction(){
     );
   }
 }
-
-// 13.Demande de coaching (request)
-// Informations sur le coaching d'anglais
-// 30 minutes, 27.05.2020, 17h00 à 21h00
-//
-//
-// 00:37
-//
-// Décliner

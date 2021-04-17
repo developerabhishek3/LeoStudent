@@ -571,100 +571,115 @@ this.setState({reserve_date: d});
           {
             this.state.isBodyLoaded  == true ?            
             <ScrollView>
-              {
-                durationAmount.length > 0?
 
-                <View>
-                {durationAmount.map((singleMAp, key) => {
-                  // console.log("getting id here--",singleMAp.id)
-  
-                  return (
-                    <View>
-                      {this.state.time_duration == singleMAp.time_duration ? (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          }}>
-                          <TouchableOpacity
-                            onPress={() => {
-                              // let amount_en = singleMAp.amount_en;
-                              // let   timeDuration = singleMAp.time_duration;
-                              this.setState({
-                                // time_duration: key,
-                                time_duration: singleMAp.time_duration,
-                                amount_en: singleMAp.amount_en,
-                                timeDuration: singleMAp.time_duration,
-                              });
-                            }}
-                            style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Image
-                              source={require('../../../../assets/icon/9.png')}
-                              style={{height: 20, width: 20, margin: 3}}
-                            />
-                            <Text style={{color: '#b41565'}}>
-                              {' '}
-                              {singleMAp.time_duration}
-                            </Text>
-                          </TouchableOpacity>
-                          <View  style={{flexDirection:'row',borderWidth:0}}>
-                          <Image
-                              source={require('../../../../assets/icon/euro-currency-symbol-1.png')}
-                              style={{height: 16, width: 16, margin: 1}}
-                            />
-                          <Text style={{color: '#b41565'}}>
-                            {singleMAp.amount_en}
-                          </Text>
+
+            {
+                ChangeDateTime == undefined  ?
+
+
+               <View>
+               {
+                 durationAmount.length > 0?
+ 
+                 <View>
+                 {durationAmount.map((singleMAp, key) => {
+                   // console.log("getting id here--",singleMAp.id)
+    
+                   return (
+                     <View>
+                       {this.state.time_duration == singleMAp.time_duration ? (
+                         <View
+                           style={{
+                             flexDirection: 'row',
+                             justifyContent: 'space-between',
+                           }}>
+                           <TouchableOpacity
+                             onPress={() => {
+                               // let amount_en = singleMAp.amount_en;
+                               // let   timeDuration = singleMAp.time_duration;
+                               this.setState({
+                                 // time_duration: key,
+                                 time_duration: singleMAp.time_duration,
+                                 amount_en: singleMAp.amount_en,
+                                 timeDuration: singleMAp.time_duration,
+                               });
+                             }}
+                             style={{flexDirection: 'row', alignItems: 'center'}}>
+                             <Image
+                               source={require('../../../../assets/icon/9.png')}
+                               style={{height: 20, width: 20, margin: 3}}
+                             />
+                             <Text style={{color: '#b41565'}}>
+                               {' '}
+                               {singleMAp.time_duration}
+                             </Text>
+                           </TouchableOpacity>
+                           <View  style={{flexDirection:'row',borderWidth:0}}>
+                           <Image
+                               source={require('../../../../assets/icon/euro-currency-symbol-1.png')}
+                               style={{height: 16, width: 16, margin: 1}}
+                             />
+                           <Text style={{color: '#b41565'}}>
+                             {singleMAp.amount_en}
+                           </Text>
+                          
+                             </View>
+                         </View>
+                       ) : (
+                         <View
+                           style={{
+                             flexDirection: 'row',
+                             justifyContent: 'space-between',
+                           }}>
+                           <TouchableOpacity
+                             onPress={() => {
+                               this.setState({
+                               // time_duration: key,
+                               time_duration: singleMAp.time_duration,
+                                 amount_en: singleMAp.amount_en,
+                                 timeDuration: singleMAp.time_duration,
+                               });
+                             }}
+                             style={{flexDirection: 'row', alignItems: 'center'}}>
+                             <Image
+                               source={require('../../../../assets/icon/4.png')}
+                               style={{height: 20, width: 20, margin: 3}}
+                             />
+                             <Text style={{color: 'gray'}}>
+                               {' '}
+                               {singleMAp.time_duration}
+                             </Text>
+                           </TouchableOpacity>
+                           <View  style={{flexDirection:'row',borderWidth:0}}>
+                           <Image
+                               source={require('../../../../assets/icon/currency.png')}
+                               style={{height: 16, width: 16, margin: 1}}
+                             />
+                           <Text style={{color: 'gray'}}>
+                             {singleMAp.amount_en}
+                           </Text>
                          
-                            </View>
-                        </View>
-                      ) : (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          }}>
-                          <TouchableOpacity
-                            onPress={() => {
-                              this.setState({
-                              // time_duration: key,
-                              time_duration: singleMAp.time_duration,
-                                amount_en: singleMAp.amount_en,
-                                timeDuration: singleMAp.time_duration,
-                              });
-                            }}
-                            style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Image
-                              source={require('../../../../assets/icon/4.png')}
-                              style={{height: 20, width: 20, margin: 3}}
-                            />
-                            <Text style={{color: 'gray'}}>
-                              {' '}
-                              {singleMAp.time_duration}
-                            </Text>
-                          </TouchableOpacity>
-                          <View  style={{flexDirection:'row',borderWidth:0}}>
-                          <Image
-                              source={require('../../../../assets/icon/currency.png')}
-                              style={{height: 16, width: 16, margin: 1}}
-                            />
-                          <Text style={{color: 'gray'}}>
-                            {singleMAp.amount_en}
-                          </Text>
-                        
-                          </View>
-                        </View>
-                      )}
-                    </View>
-                  );
-                })}
-              </View>
-                :
+                           </View>
+                         </View>
+                       )}
+                     </View>
+                   );
+                 })}
+               </View>
+                 :
+ 
+                 <View style={{alignItems:"center",justifyContent:'center'}}>
+                   <Text style={{fontSize:16,fontWeight:'700'}}>Durée non trouvée</Text>
+                 </View>
+               }
+               </View>
 
-                <View style={{alignItems:"center",justifyContent:'center'}}>
-                  <Text style={{fontSize:16,fontWeight:'700'}}>Durée non trouvée</Text>
-                </View>
-              }
+
+               :
+
+               null
+            }
+            
 
         
 
