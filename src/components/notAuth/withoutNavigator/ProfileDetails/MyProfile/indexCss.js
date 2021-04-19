@@ -74,15 +74,39 @@ export default StyleSheet.create({
     margin:7,
     width:'48%',borderWidth:0
   },
+  nameStyleView1:{
+    margin:7,borderWidth:0,  
+  },
   nameHeading:{
     fontSize:10,color:'#b41565',
     fontWeight:'700',
     padding:3
   },
+  nameHeading1:{
+    fontSize:10,color:'#b41565',
+    fontWeight:'700',
+
+    borderWidth:0,
+    padding:3,margin:0,marginStart:12
+  },
+  nameHeading2:{
+    fontSize:10,color:'#b41565',
+    fontWeight:'700',
+
+    borderWidth:1,
+    padding:3,margin:0,marginStart:15
+  },
   nameHeadingTxt:{
     fontSize:13,color:'gray',
     fontWeight:'700',
     padding:2,
+    
+  },
+  nameHeadingTxt1:{
+    fontSize:12,color:'gray',
+    fontWeight:'700',
+    padding:2,
+    marginStart:12
     
   },
   addressView:{

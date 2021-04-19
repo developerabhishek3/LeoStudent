@@ -85,6 +85,8 @@ import Stripe from '../components/notAuth/Reservation/PaymentOption/stripe';
 
 import SavedCard from '../components/notAuth/Reservation/SavedCard';
 
+import AllSavedCards from '../components/notAuth/withoutNavigator/ProfileDetails/AllSavedCards'
+
 
 import AcceptRequest from '../components/notification/Accept';
 import RejectRequest from '../components/notification/Reject';
@@ -104,6 +106,7 @@ import FourthCheck from '../components/notAuth/withoutNavigator/ProfileDetails/P
 import FirstValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/FirstValidationCheck';
 import SecondValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/SecondValidationCheck';
 import ThirdValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/ThirdValidationCheck';
+import AddCardDetails from '../components/notAuth/withoutNavigator/ProfileDetails/AddCardDetails';
 
 const AppNavigator = createStackNavigator(
   {
@@ -121,6 +124,18 @@ const AppNavigator = createStackNavigator(
     },
     calenderscreen: {
       screen: CalenderScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    allsavedcards: {
+      screen: AllSavedCards,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    addcarddetails: {
+      screen: AddCardDetails,
       navigationOptions: {
         headerShown: false,
       },

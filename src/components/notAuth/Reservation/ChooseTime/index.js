@@ -412,11 +412,11 @@ validateFunction() {
 
 validateFunction1() {
   const { amount_en,reserve_date,reserve_time,timeDuration } = this.state;
-  if(!timeDuration){
-    // Alert.alert("Message","Veuillez choisir la durée!")
-    this.props.navigation.navigate("firstvalidationcheck")
-  }
-  else if(!reserve_date){
+  // if(!timeDuration){
+  //   // Alert.alert("Message","Veuillez choisir la durée!")
+  //   this.props.navigation.navigate("firstvalidationcheck")
+  // }  
+  if(!reserve_date){
     // Alert.alert("Message","Veuillez choisir la date!")
     this.props.navigation.navigate("secondvalidationcheck")
   }

@@ -19,7 +19,7 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.checkPermission();
-    this.createNotificationListeners(); //add this line
+    // this.createNotificationListeners(); //add this line
   }
   componentWillUnmount() {
     this.notificationListener();
@@ -41,13 +41,13 @@ class App extends React.Component {
     const user_id = await AsyncStorage.getItem('user_id');
     const UserId = JSON.parse(user_id)
     this.notificationListener = firebase.notifications().onNotification((notification) => {
-      console.log("getting notification value here-------------",notification.data)
+      console.log("getting notification value on the listener-------------",notification.data)
       if(notification._data.reciever_id == UserId ){
         const { title, body } = notification;
         this.showAlert(title, body);
       }    
       });      
-      this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+      this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {        
       console.log("getting notification open value here-------------",notificationOpen.notification.data)
       if(notificationOpen._data.reciever_id == UserId ){
         const { title, body } = notificationOpen.notification;
@@ -57,8 +57,9 @@ class App extends React.Component {
       
       const notificationOpen = await firebase.notifications().getInitialNotification();
       if (notificationOpen) {
-      const { title, body } = notificationOpen.notification;
-     this.showAlert(title, body);
+        console.log("in the notification open  - - -  - - - - - -",notificationOpen.notification.title)
+            const { title, body } = notificationOpen.notification;
+          this.showAlert(title, body);
       }
       
       this.messageListener = firebase.messaging().onMessage((message) => {

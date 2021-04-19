@@ -26,7 +26,7 @@ import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {WebView} from 'react-native-webview';
 import Styles from './indexCss';
 
-
+import Spinner from 'react-native-loading-spinner-overlay';
 import {saved_cards} from '../../../../Api/afterAuth'
 let today = '';
 let cartId = 0;
@@ -46,9 +46,14 @@ export default class index extends Component {
       date_slot:"",
       
       time_slot:"",
+      cartId:0,
+      exp_month:"",
+      exp_year:"",
       SavedCardCheck:false,
       cardCheck:false,
       isButtonEnable:false,
+      isBodyLoaded:false,
+      isSpinner:true,
       SavedCardData:[]
     };
   }
@@ -60,10 +65,8 @@ export default class index extends Component {
 
   saved_cardsData = async () => {
     const saved_cardsResponse = await saved_cards();
-    if (saved_cardsResponse.result == true) {
-      // console.log("getting herer---------------",saved_cardsResponse.response)
-      if(saved_cardsResponse.response.status == true){
-        // console.log("gettig beffore stare==========",saved_cardsResponse.response)
+    if (saved_cardsResponse.result == true) {      
+      if(saved_cardsResponse.response.status == true){       
         var SavedCardData = saved_cardsResponse.response.cards;
         // console.log("getting SavedCardData data----------",SavedCardData)
         this.setState({SavedCardData,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
@@ -143,34 +146,24 @@ export default class index extends Component {
     }
   };
 
-  paypalFunction() {
-    let amount_en = this.props.navigation.getParam('amount_en');
-    let reserve_time = this.props.navigation.getParam('reserve_time');
-    let timeDuration = this.props.navigation.getParam('timeDuration');
-    let reserve_date = this.props.navigation.getParam('reserve_date');
-    let promocodeId = this.props.navigation.getParam('promocodeId');
+  // paypalFunction() {
+  //   let amount_en = this.props.navigation.getParam('amount_en');
+  //   let reserve_time = this.props.navigation.getParam('reserve_time');
+  //   let timeDuration = this.props.navigation.getParam('timeDuration');
+  //   let reserve_date = this.props.navigation.getParam('reserve_date');
+  //   let promocodeId = this.props.navigation.getParam('promocodeId');
 
-    let amount = this.props.navigation.getParam('amount');
-    let exacttime = this.props.navigation.getParam('exacttime');
+  //   let amount = this.props.navigation.getParam('amount');
+  //   let exacttime = this.props.navigation.getParam('exacttime');
 
-    this.setState({paypalCheck:true})
+  //   this.setState({paypalCheck:true})
 
-    console.log("i am abhishek ------",timeDuration)
+  //   console.log("i am abhishek ------",timeDuration)
 
-    this.setState({checked2: !this.state.checked2});
+  //   this.setState({checked2: !this.state.checked2});
 
-    // this.props.navigation.navigate('paypal', {
-    //   amount_en: amount_en,
-    //   reserve_time: reserve_time,
-    //   timeDuration: timeDuration,
-    //   reserve_date: reserve_date,
-    //   promocodeId: promocodeId,
-    //   amount:amount,
-    //   exacttime:exacttime,
-    //   time_slot:this.state.time_slot
 
-    // });
-  }
+  // }
 
 
 
@@ -180,6 +173,9 @@ export default class index extends Component {
   savedCardFunction(cartId,exp_year,exp_month){
     console.log("insdie saved cart function cartId- - - - - - - -  -",cartId)
     this.setState({cartId,exp_month,exp_year})
+
+
+    console.log("card id in the state value - -  - --  --  --  -",this.state.cartId)
  
 
 
@@ -202,7 +198,7 @@ export default class index extends Component {
     let user_id = this.props.navigation.getParam("user_id")
 
 
-    // console.log("getting checked key inside rednder -  - - - - - ",this.state.checked)
+    console.log("getting card id  inside rednder -  -- - - - ",this.state.cartId)
 
     // console.log("inside did mount found time slot --------",this.state.time_slot)
     // console.log("inside did mount found time slot --------","amount_en :" + amount_en,"reserve_time : "+reserve_time,"reserve_date"+reserve_date,"time_slot"+time_slot,"promocodeId"+promocodeId)
@@ -223,98 +219,108 @@ export default class index extends Component {
             <Image source={logo} style={Styles.headertxtInputImg} />
           </View>
         </View>
-
+        <Spinner visible={this.state.isSpinner} />    
         <View style={Styles.mainContentView}>
-          <ScrollView>
-            {/* <View
-              style={{
-                width: '90%',
-                borderWidth: 1,
-                borderColor:"#DDDDDD",
-                borderRadius: 10,
-                elevation: 0,
-                shadowColor: '#FFFFFFF',
-                shadowOffset: 3,
-                shadowOpacity: 1,
-                alignSelf: 'center',
-                margin: 30,
-                height: 40,
-                justifyContent: 'center',
-              }}>
-              <View style={{flexDirection: 'row', margin: 3, marginStart: 10,alignItems:'center',justifyContent:'space-between'}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: 6,
-                  }}>
-                  <Image
-                    style={{height: 26, width: 26, margin: 3}}
-                    source={require('../../../../assets/icon/card.png')}
-                  />
-                  <Text
+            {
+              this.state.isBodyLoaded == true ?
+
+
+
+              <ScrollView>
+              {/* <View
+                style={{
+                  width: '90%',
+                  borderWidth: 1,
+                  borderColor:"#DDDDDD",
+                  borderRadius: 10,
+                  elevation: 0,
+                  shadowColor: '#FFFFFFF',
+                  shadowOffset: 3,
+                  shadowOpacity: 1,
+                  alignSelf: 'center',
+                  margin: 30,
+                  height: 40,
+                  justifyContent: 'center',
+                }}>
+                <View style={{flexDirection: 'row', margin: 3, marginStart: 10,alignItems:'center',justifyContent:'space-between'}}>
+                  <View
                     style={{
-                      color: 'gray',
-                      fontSize: 14,
-                      fontWeight: '700',
-                      margin: 7,
-                      marginStart: 0,
-                      marginEnd: 4,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      margin: 6,
                     }}>
-                    Carte de paiement
-                  </Text>
+                    <Image
+                      style={{height: 26, width: 26, margin: 3}}
+                      source={require('../../../../assets/icon/card.png')}
+                    />
+                    <Text
+                      style={{
+                        color: 'gray',
+                        fontSize: 14,
+                        fontWeight: '700',
+                        margin: 7,
+                        marginStart: 0,
+                        marginEnd: 4,
+                      }}>
+                      Carte de paiement
+                    </Text>
+                  </View>
+                  <View style={{marginEnd: -10}}>
+                    <CheckBox
+                       checked={this.state.checked1}
+                      
+                       // onPress={() =>
+                       //   this.setState({checked1: !this.state.checked1,checked2:false})
+                       // }
+                       onPress={()=>{this.cardFunction()}}
+                      checkedIcon={
+                        <Image
+                          source={require('../../../../assets/icon/9.png')}
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderWidth: 0,
+                          }}
+                        />
+                      }
+                      uncheckedIcon={
+                        <Image
+                          source={require('../../../../assets/icon/4.png')}
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderWidth: 0,
+                          }}
+                        />
+                      }
+                    />
+                  </View>
                 </View>
-                <View style={{marginEnd: -10}}>
-                  <CheckBox
-                     checked={this.state.checked1}
-                    
-                     // onPress={() =>
-                     //   this.setState({checked1: !this.state.checked1,checked2:false})
-                     // }
-                     onPress={()=>{this.cardFunction()}}
-                    checkedIcon={
-                      <Image
-                        source={require('../../../../assets/icon/9.png')}
-                        style={{
-                          width: 24,
-                          height: 24,
-                          borderWidth: 0,
-                        }}
-                      />
-                    }
-                    uncheckedIcon={
-                      <Image
-                        source={require('../../../../assets/icon/4.png')}
-                        style={{
-                          width: 24,
-                          height: 24,
-                          borderWidth: 0,
-                        }}
-                      />
-                    }
-                  />
-                </View>
-              </View>
-            </View> */}
-
-              <View style={{marginTop:10,marginBottom:10,margin:7}}>
-
+              </View> */}
+  
+  
+              {
+                this.state.SavedCardData.length > 0 ?
+  
+  
+                <View style={{marginTop:10,marginBottom:10,margin:7}}>
+  
                 {
                   this.state.SavedCardData.map((singleMap,key)=>{
                     let cartId = singleMap.id;
                     let exp_year  = singleMap.exp_year;
                     let exp_month = singleMap.exp_month
                     return(
-                      <View>
+                      <View style={{width:"100%"}} >
                          {
                             this.state.checked == key ? 
-
-
+  
+  
                             <TouchableOpacity 
                                   onPress={()=>{this.savedCardFunction(cartId,exp_year,exp_month); this.setState({checked:key,level_id:singleMap.id})}}
                                   style={{flexDirection:"row",borderColor:"#DDDDDD",borderWidth:1,borderRadius:7,margin:10}}  
                             >
-                          <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+                          <View style={{flexDirection:"row",width:"80%",alignItems:"center"}}>
                             
                                <Image
                                        source={require('../../../../assets/icon/card.png')}
@@ -325,10 +331,10 @@ export default class index extends Component {
                                           margin:9
                                         }} 
                                       />   
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:16}}>XXXX XXXX XXXX {singleMap.last4}</Text>
+                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14}}>xxxx xxxx xxxx {singleMap.last4}</Text>
                                   </View>
                                 
-                                  <View>
+                                  <View style={{width:"20%"}}>
                                   <Image
                                         source={require('../../../../assets/icon/9.png')}
                                         style={{
@@ -340,15 +346,15 @@ export default class index extends Component {
                                       /> 
                                       </View>                             
                                         </TouchableOpacity>
-
+  
                             :
-
-
+  
+  
                             <TouchableOpacity 
                             onPress={()=>{this.savedCardFunction(cartId,exp_year,exp_month); this.setState({checked:key,level_id:singleMap.id})}}
                             style={{flexDirection:"row",borderColor:"#DDDDDD",borderWidth:1,borderRadius:7,margin:10}}  
                             >
-                               <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+                               <View style={{flexDirection:"row",width:"80%",alignItems:"center"}}>
                               <Image
                                       source={require('../../../../assets/icon/card.png')}
                                         style={{
@@ -358,9 +364,9 @@ export default class index extends Component {
                                           margin:9
                                         }} 
                                       />   
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:16}}>XXXX XXXX XXXX {singleMap.last4}</Text>
+                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14}}>xxxx xxxx xxxx {singleMap.last4}</Text>
                                   </View>
-                                  <View>
+                                  <View style={{width:"20%",alignItems:"center"}}>
                                   <Image
                                         source={require('../../../../assets/icon/4.png')}
                                         style={{
@@ -373,53 +379,74 @@ export default class index extends Component {
                                       </View>                           
                                         </TouchableOpacity>
                                       }
-
+  
                                     </View>
                                   )
                                 })
-
+  
                         }
+  
+  
+              </View>
+  
+  
+  
+                :<View>
+                  <Text></Text>
+                  </View>
+              }
+  
+              
+  
+  
+  
+  
+  
+  
+              
+          <View style={Styles.continueBtn}>
+                {
+                this.state.cartId > 0 ?
+  
+                  <TouchableOpacity
+                  onPress={() => {
+                   
+                      this.props.navigation.navigate('stripe', {
+                        cartId:this.state.cartId,
+                        amount_en: amount_en,
+                        reserve_time: reserve_time,
+                        timeDuration: timeDuration,
+                        reserve_date: reserve_date,
+                        promocodeId: promocodeId,
+                        amount:amount,
+                        exacttime:exacttime,
+                        time_slot:time_slot,
+                        booktype:booktype,
+                        user_id:user_id          
+                      })
+                                       
+                  }}                
+                >
+                  <Text style={Styles.continueBtnTxt}>Continuer</Text>
+                </TouchableOpacity>
+  
+                  : null
+                }
+                
+              </View>
+            </ScrollView>
 
 
+
+              :<View>
+                <Text></Text>
               </View>
 
 
+            }
 
 
-
-
-
-            
-        <View style={Styles.continueBtn}>
-              {
-              this.state.cartId >= 0 ?
-
-                <TouchableOpacity
-                onPress={() => {
-                 
-                    this.props.navigation.navigate('stripe', {
-                      amount_en: amount_en,
-                      reserve_time: reserve_time,
-                      timeDuration: timeDuration,
-                      reserve_date: reserve_date,
-                      promocodeId: promocodeId,
-                      amount:amount,
-                      exacttime:exacttime,
-                      time_slot:time_slot,
-                      booktype:booktype,
-                      user_id:user_id          
-                    })
-                                     
-                }}                
-              >
-                <Text style={Styles.continueBtnTxt}>Continuer</Text>
-              </TouchableOpacity>
-
-                : null
-              }
-              
-            </View>
-          </ScrollView>
+         
         </View>
       </View>
     );

@@ -1,5 +1,5 @@
 import React,{Fragment,Component} from 'react'
-import {View,Text,TouchableOpacity,Image,Modal} from 'react-native';
+import {View,Text,TouchableOpacity,Image,Modal,BackHandler} from 'react-native';
 
 class FirstCheck extends Component {
 
