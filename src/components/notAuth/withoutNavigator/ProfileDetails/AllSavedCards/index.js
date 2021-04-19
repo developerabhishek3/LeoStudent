@@ -18,17 +18,16 @@ import {CheckBox, Overlay, Button} from 'react-native-elements';
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-import logo from '../../../../assets/icon/96.png';
-import back from '../../../../assets/icon/20.png';
-import rightIcon from '../../../../assets/icon/33.png';
-import calenderIcon from '../../../../assets/icon/10.png';
+import logo from '../../../../../assets/icon/96.png';
+import back from '../../../../../assets/icon/20.png';
+
 import moment from 'moment';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {WebView} from 'react-native-webview';
 import Styles from './indexCss';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-
-import {saved_cards} from '../../../../Api/afterAuth'
+import {saved_cards,delete_saved_card} from '../../../../../Api/afterAuth'
 let today = '';
 
 //  https://www.spyk.fr/payment/transaction?user_id=4&course_date=2020-11-24&course_time=05:00-05:30&course_duration=30minutes&course_amount=40&promocode_id=4&type=paypal
@@ -49,7 +48,10 @@ export default class index extends Component {
       SavedCardCheck:false,
       cardCheck:false,
       isButtonEnable:false,
-      SavedCardData:[]
+      isBodyLoaded:false,
+      isSpinner:true,
+      SavedCardData:[],
+      card_id:0,
     };
   }
 
@@ -108,16 +110,19 @@ export default class index extends Component {
 
     let time_slot = `${reserve_time}-${exacttime} `
 
-    console.log("timeslot ===========",time_slot)
+
 
     this.setState({date_slot:reserve_date,time_slot})
 
     // console.log("getting firts ---------",exacttime,reserve_time)
     // console.log("getting 2 ------",reserve_date)
 
-    setTimeout(() => {
-        this.saved_cardsData()
-    }, 700);
+
+
+    setInterval(() => {
+      this.saved_cardsData()
+    }, 1000);
+    
     
 
     BackHandler.addEventListener('hardwareBackPress', () =>
@@ -143,34 +148,43 @@ export default class index extends Component {
     }
   };
 
-  paypalFunction() {
-    let amount_en = this.props.navigation.getParam('amount_en');
-    let reserve_time = this.props.navigation.getParam('reserve_time');
-    let timeDuration = this.props.navigation.getParam('timeDuration');
-    let reserve_date = this.props.navigation.getParam('reserve_date');
-    let promocodeId = this.props.navigation.getParam('promocodeId');
+  // paypalFunction() {
+  //   let amount_en = this.props.navigation.getParam('amount_en');
+  //   let reserve_time = this.props.navigation.getParam('reserve_time');
+  //   let timeDuration = this.props.navigation.getParam('timeDuration');
+  //   let reserve_date = this.props.navigation.getParam('reserve_date');
+  //   let promocodeId = this.props.navigation.getParam('promocodeId');
 
-    let amount = this.props.navigation.getParam('amount');
-    let exacttime = this.props.navigation.getParam('exacttime');
+  //   let amount = this.props.navigation.getParam('amount');
+  //   let exacttime = this.props.navigation.getParam('exacttime');
 
-    this.setState({paypalCheck:true})
+  //   this.setState({paypalCheck:true})
 
-    console.log("i am abhishek ------",timeDuration)
+  //   console.log("i am abhishek ------",timeDuration)
 
-    this.setState({checked2: !this.state.checked2});
+  //   this.setState({checked2: !this.state.checked2});
+  // }
 
-    // this.props.navigation.navigate('paypal', {
-    //   amount_en: amount_en,
-    //   reserve_time: reserve_time,
-    //   timeDuration: timeDuration,
-    //   reserve_date: reserve_date,
-    //   promocodeId: promocodeId,
-    //   amount:amount,
-    //   exacttime:exacttime,
-    //   time_slot:this.state.time_slot
 
-    // });
-  }
+  Fetchdelete_saved_card = async (card_id) => {    
+    // console.log("inside the deltet card API Funciton - -  - - - -  - -",card_id)
+        
+    const delete_saved_cardResponse = await delete_saved_card({
+      card_id,
+    });
+    if (delete_saved_cardResponse.result === true) {
+      this.saved_cardsData();
+      console.log(
+        'getting result here ----------------->>>>>>>>>>>>>>>>>>>-',
+        delete_saved_cardResponse.response,
+      );
+    } else {
+      this.myAlert('Error', delete_saved_cardResponse.error);
+      console.log('getting error here-------------');
+    }
+    return;
+  };
+
 
 
 
@@ -188,19 +202,17 @@ export default class index extends Component {
 
   }
   render() {
-    let amount_en = this.props.navigation.getParam('amount_en');
-    let reserve_time = this.props.navigation.getParam('reserve_time');  
-    let reserve_date = this.props.navigation.getParam('reserve_date');
-    let promocodeId = this.props.navigation.getParam('promocodeId');
-    let amount = this.props.navigation.getParam('amount');
-    let exacttime = this.props.navigation.getParam('exacttime');      
-    let time_slot =  this.props.navigation.getParam('time_slot')
-    let timeDuration =  this.props.navigation.getParam('timeDuration')      
-    let booktype = this.props.navigation.getParam("booktype")
-    let user_id = this.props.navigation.getParam("user_id")
+    // let amount_en = this.props.navigation.getParam('amount_en');
+    // let reserve_time = this.props.navigation.getParam('reserve_time');  
+    // let reserve_date = this.props.navigation.getParam('reserve_date');
+    // let promocodeId = this.props.navigation.getParam('promocodeId');
+    // let amount = this.props.navigation.getParam('amount');
+    // let exacttime = this.props.navigation.getParam('exacttime');      
+    // let time_slot =  this.props.navigation.getParam('time_slot')
+    // let timeDuration =  this.props.navigation.getParam('timeDuration')      
+    // let booktype = this.props.navigation.getParam("booktype")
+    // let user_id = this.props.navigation.getParam("user_id")
 
-
-    console.log("getting checked key inside rednder -  - - - - - ",this.state.checked)
 
     // console.log("inside did mount found time slot --------",this.state.time_slot)
     // console.log("inside did mount found time slot --------","amount_en :" + amount_en,"reserve_time : "+reserve_time,"reserve_date"+reserve_date,"time_slot"+time_slot,"promocodeId"+promocodeId)
@@ -222,318 +234,150 @@ export default class index extends Component {
           </View>
         </View>
 
+        <Spinner visible={this.state.isSpinner} />    
         <View style={Styles.mainContentView}>
-          <ScrollView>
-            {/* <View
-              style={{
-                width: '90%',
-                borderWidth: 1,
-                borderColor:"#DDDDDD",
-                borderRadius: 10,
-                elevation: 0,
-                shadowColor: '#FFFFFFF',
-                shadowOffset: 3,
-                shadowOpacity: 1,
-                alignSelf: 'center',
-                margin: 30,
-                height: 40,
-                justifyContent: 'center',
-              }}>
-              <View style={{flexDirection: 'row', margin: 3, marginStart: 10,alignItems:'center',justifyContent:'space-between'}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: 6,
-                  }}>
-                  <Image
-                    style={{height: 26, width: 26, margin: 3}}
-                    source={require('../../../../assets/icon/card.png')}
-                  />
-                  <Text
-                    style={{
-                      color: 'gray',
-                      fontSize: 14,
-                      fontWeight: '700',
-                      margin: 7,
-                      marginStart: 0,
-                      marginEnd: 4,
-                    }}>
-                    Carte de paiement
-                  </Text>
-                </View>
-                <View style={{marginEnd: -10}}>
-                  <CheckBox
-                     checked={this.state.checked1}
-                    
-                     // onPress={() =>
-                     //   this.setState({checked1: !this.state.checked1,checked2:false})
-                     // }
-                     onPress={()=>{this.cardFunction()}}
-                    checkedIcon={
-                      <Image
-                        source={require('../../../../assets/icon/9.png')}
-                        style={{
-                          width: 24,
-                          height: 24,
-                          borderWidth: 0,
-                        }}
-                      />
-                    }
-                    uncheckedIcon={
-                      <Image
-                        source={require('../../../../assets/icon/4.png')}
-                        style={{
-                          width: 24,
-                          height: 24,
-                          borderWidth: 0,
-                        }}
-                      />
-                    }
-                  />
-                </View>
-              </View>
-            </View> */}
-
-              <View style={{marginTop:10,marginBottom:10,margin:7}}>
-
-                {
-                  this.state.SavedCardData.map((singleMap,key)=>{
-                    return(
-                      <View>
-                         {
-                            this.state.checked == key ? 
-
-
-                            <TouchableOpacity 
-                          onPress={()=>{this.setState({checked:key,level_id:singleMap.id})}}
-                            style={{flexDirection:"row",justifyContent:"space-between",borderColor:"#DDDDDD",borderWidth:1,borderRadius:7,margin:10}}  
-                            >
-                             
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:10,fontSize:16}}>XXXX XXXX XXXX {singleMap.last4}</Text>
-                                  <Image
-                                        source={require('../../../../assets/icon/9.png')}
-                                        style={{
-                                          width: 24,
-                                          height: 24,
-                                          borderWidth: 1,
-                                          margin:9
-                                        }}
-                                      />                              
-                                        </TouchableOpacity>
-
-                            :
-
-
-                            <TouchableOpacity 
-                          onPress={()=>{this.setState({checked:key,level_id:singleMap.id})}}
-                            style={{flexDirection:"row",justifyContent:"space-between",borderColor:"#DDDDDD",borderWidth:1,borderRadius:7,margin:10}}  
-                            >
-                             
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:10,fontSize:16}}>XXXX XXXX XXXX {singleMap.last4}</Text>
-                                  <Image
-                                        source={require('../../../../assets/icon/4.png')}
-                                        style={{
-                                          width: 24,
-                                          height: 24,
-                                          borderWidth: 1,
-                                          margin:9
-                                        }}
-                                      />                              
-                                        </TouchableOpacity>
-                                      }
-
-                                    </View>
-                                  )
-                                })
-
-                        }
-
-
-              </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* 
-            <View
-              style={{
-                width: '94%',
-                borderWidth: 1,
-                borderColor:"#DDDDDD",
-                borderRadius: 10,
-                elevation: 0,
-                shadowColor: '#FFFFFFF',
-                shadowOffset: 3,
-                shadowOpacity: 1,
-                alignSelf: 'center',
-                margin: 20,
-                height: 40,
-                justifyContent: 'center',
-              }}>
-              <View style={{flexDirection: 'row', margin: 3, marginStart: 10,alignItems:'center',justifyContent:'space-between'}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems:'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Image
-                    style={{height: 16, width: 16, margin: 3}}
-                    source={require('../../../../assets/icon/card-2.png')}
-                  />
-                  <Text
-                    style={{
-                      color: 'gray',
-                      fontSize: 14,
-                      fontWeight: '700',
-                      margin: 2,
-                      marginStart: 10,
-                      marginEnd: 4,
-                    }}>
-                    Paypal
-                  </Text>
-                </View>
-                <View style={{margin: 10,alignSelf:'flex-end'}}>
-                  <CheckBox
-                    checked={this.state.checked2}
-                    onPress={() =>
-                      // this.setState({checked2: !this.state.checked2})
-                      this.paypalFunction()
-                    }
-                    checkedIcon={
-                      <Image
-                        source={require('../../../../assets/icon/9.png')}
-                        style={{
-                          width: 24,
-                          height: 24,
-                          borderWidth: 0,
-                        }}
-                      />
-                    }
-                    uncheckedIcon={
-                      <Image
-                        source={require('../../../../assets/icon/4.png')}
-                        style={{
-                          width: 24,
-                          height: 24,
-                          borderWidth: 0,
-                        }}
-                      />
-                    }
-                  />
-                </View>
-              </View>
-            </View> */}
-
-            {/* <View style={Styles.continueBtn}>
-              <TouchableOpacity
-                onPress={() => {
-                  {
-                    this.state.paypalCheck == true ?
-                    this.props.navigation.navigate('paypal', {
-                      amount_en: amount_en,
-                      reserve_time: reserve_time,
-                      timeDuration: timeDuration,
-                      reserve_date: reserve_date,
-                      promocodeId: promocodeId,
-                      amount:amount,
-                      exacttime:exacttime,
-                      time_slot:this.state.time_slot,
-                      booktype:booktype              
-                    })
-                    :
-                    this.props.navigation.navigate("stripe",{
-                      amount_en: amount_en,
-                      reserve_time: reserve_time,
-                      timeDuration: timeDuration,
-                      reserve_date: reserve_date,
-                      promocodeId: promocodeId,
-                      amount:amount,
-                      exacttime:exacttime,
-                      time_slot:this.state.time_slot,
-                      booktype:booktype
-                    })
-
-                  }
-                  
-                }}               
-              >
-                <Text style={Styles.continueBtnTxt}>Continuer</Text>
-              </TouchableOpacity>
-            </View> */}
-
-            
-<View style={Styles.continueBtn}>
+            {
+              this.state.isBodyLoaded == true ?
+              <ScrollView>        
               {
-              this.state.SavedCardCheck == true  ?
-
-                <TouchableOpacity
-                onPress={() => {
+                this.state.SavedCardData.length > 0 ?
+  
+                
+                <View style={{marginTop:10,marginBottom:10,margin:7}}>
+  
                   {
-                    this.state.paypalCheck == true ?
-                    this.props.navigation.navigate('stripe', {
-                      amount_en: amount_en,
-                      reserve_time: reserve_time,
-                      timeDuration: timeDuration,
-                      reserve_date: reserve_date,
-                      promocodeId: promocodeId,
-                      amount:amount,
-                      exacttime:exacttime,
-                      time_slot:time_slot,
-                      booktype:booktype,
-                      user_id:user_id          
-                    })
-                    :
-                    this.props.navigation.navigate("stripe",{
-                      amount_en: amount_en,
-                      reserve_time: reserve_time,
-                      timeDuration: timeDuration,
-                      reserve_date: reserve_date,
-                      promocodeId: promocodeId,
-                      amount:amount,
-                      exacttime:exacttime,
-                      time_slot:time_slot,
-                      booktype:booktype,
-                      user_id:user_id   
-                    })                  
-                  }
-                  
-                }}                
-              >
-                <Text style={Styles.continueBtnTxt}>Continuer</Text>
-              </TouchableOpacity>
-
-                : null
+                    this.state.SavedCardData.map((singleMap,key)=>{
+                      // console.log("getting cart id here - -  - - - - - ",singleMap.id)
+                      let card_id = singleMap.id
+                      return(
+                        <View  style={{width:"90%", flexDirection:"row",justifyContent:"center",alignItems:"center",borderColor:"#DDDDDD",borderWidth:1,borderRadius:7,margin:10,}}>
+                          
+                              {/* <TouchableOpacity 
+                                    onPress={()=>{this.setState({checked:key,level_id:singleMap.id})}}
+                              style={{flexDirection:"row",justifyContent:"space-between",borderColor:"#DDDDDD",borderWidth:1,borderRadius:7,margin:10}}  
+                              >      
+                               */}
+                                <View style={{flexDirection:"row",width:"80%",alignItems:"center"}}>
+                                 <Image
+                                         source={require('../../../../../assets/icon/card.png')}
+                                          style={{
+                                            width: 24,
+                                            height: 24,
+                                            borderWidth: 1,
+                                            margin:9
+                                          }} 
+                                        />   
+                                    <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:13}}>xxxx xxxx xxxx {singleMap.last4}</Text>
+                                    </View>
+                                  
+                                    <TouchableOpacity 
+                                      onPress={()=>{                                      
+                                      this.Fetchdelete_saved_card(card_id)    }}
+                                    style={{width:"20%",alignSelf:"flex-end",justifyContent:"flex-end",}}>
+                                    <Image
+                                          source={require('../../../../../assets/icon/31.png')}
+                                          style={{
+                                            width: 27,
+                                            height: 27,
+                                            borderWidth: 1,
+                                            margin:9,
+                                            alignSelf:"flex-end"
+                                          }}
+                                        />                              
+                                          </TouchableOpacity>  
+                                          </View>                      
+                                    
+                                    )
+                                  })
+  
+                          }
+  
+  
+                </View>
+  
+  
+  
+                :
+                <View>
+                  <Text></Text>
+                </View>
+  
+  
+  
               }
+  
+  
+  
+  
+  
+  
+              {/* <View style={Styles.continueBtn}>
+                <TouchableOpacity
+                  onPress={() => {
+                    {
+                      this.state.paypalCheck == true ?
+                      this.props.navigation.navigate('paypal', {
+                        amount_en: amount_en,
+                        reserve_time: reserve_time,
+                        timeDuration: timeDuration,
+                        reserve_date: reserve_date,
+                        promocodeId: promocodeId,
+                        amount:amount,
+                        exacttime:exacttime,
+                        time_slot:this.state.time_slot,
+                        booktype:booktype              
+                      })
+                      :
+                      this.props.navigation.navigate("stripe",{
+                        amount_en: amount_en,
+                        reserve_time: reserve_time,
+                        timeDuration: timeDuration,
+                        reserve_date: reserve_date,
+                        promocodeId: promocodeId,
+                        amount:amount,
+                        exacttime:exacttime,
+                        time_slot:this.state.time_slot,
+                        booktype:booktype
+                      })
+  
+                    }
+                    
+                  }}               
+                >
+                  <Text style={Styles.continueBtnTxt}>Continuer</Text>
+                </TouchableOpacity>
+              </View> */}
+  
               
-            </View>
-          </ScrollView>
+            <View style={Styles.continueBtn}>     
+  
+                  <TouchableOpacity
+                  onPress={()=>{this.props.navigation.navigate("addcarddetails")}}            
+                >
+                  <Text style={Styles.continueBtnTxt}> + Ajouter une carte</Text>
+                </TouchableOpacity>              
+              </View>
+            </ScrollView>
+  
+  
+
+
+
+              :
+
+              <View>
+                <Text></Text>
+              </View>
+
+
+
+            }
+
+
+        
+
+
+
         </View>
       </View>
     );

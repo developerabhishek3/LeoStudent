@@ -31,6 +31,8 @@ constructor(props){
 
     diploma:"",
     interest:"",
+    aboutYouYourInterest:"",
+    YourEnglishNeeds:""
   }
 }
 
@@ -102,11 +104,11 @@ handleBackButton = (nav) => {
      var diploma = get_academic_infoResponse.response.academic_info.q_1
      var interest = get_academic_infoResponse.response.academic_info.q_2
      var q_3_ans = get_academic_infoResponse.response.academic_info.q_3
-     var q_4_ans = get_academic_infoResponse.response.academic_info.q_4
-     var q_5_ans = get_academic_infoResponse.response.academic_info.q_5
+     var aboutYouYourInterest = get_academic_infoResponse.response.academic_info.q_4
+     var YourEnglishNeeds = get_academic_infoResponse.response.academic_info.q_5
 
       console.log("getting get academic detail data----------",get_academic_infoResponse.response.academic_info)
-      this.setState({diploma,interest})
+      this.setState({diploma,interest,aboutYouYourInterest,YourEnglishNeeds})
     }
    
     else{
@@ -145,15 +147,10 @@ handleBackButton = (nav) => {
 
     // const userMap = Object.assign(profileData)
     return (
-      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <Spinner visible={this.state.isSpinner}/>
+      <View style={{flex:1,}}>
         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
-        {/* {
-          isBodyLoaded == true ?  */}
-          <Fragment>
-        <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
-        <View style={Styles.header}>
-        <TouchableOpacity
+        <ImageBackground source={require("../../../../../assets/icon/bg1.png")} resizeMode="cover" style={{height:200,width:"100%",flexDirection:"row",justifyContent:"space-between"}}> 
+<TouchableOpacity
             onPress={() => {
               this.props.navigation.goBack();
             }}>
@@ -168,13 +165,10 @@ handleBackButton = (nav) => {
            <Image source={Edit} style={Styles.headertxtInputImg2} />
           </TouchableOpacity>
           </View>
-        </View>
 
-        {
-          isBodyLoaded == true ? 
-        <Fragment>
+        </ImageBackground>
 
-          <View style={{marginTop:30}}> 
+        <View style={{marginTop:-50}}> 
           {
             this.state.profile_url == "" ?
 
@@ -184,9 +178,14 @@ handleBackButton = (nav) => {
               uri: `https://www.spyk.fr/${profileData.profile_url}`,
             }}  style={Styles.peopleStyle} />
           }        
-          </View>          
+          </View>    
+
+
+        <Spinner visible={this.state.isSpinner}/>                          
+       
+        {
+          isBodyLoaded == true ? 
           <ScrollView>
-            
 
           <View style={{flex:2,borderWidth:0,width:'99%',alignSelf:'center',marginTop:6,marginBottom:15}}>
 
@@ -257,52 +256,35 @@ handleBackButton = (nav) => {
               </View>
             </View>
 
+            <View style={Styles.nameStyleView1}>
+           
+
+            <Text style={Styles.nameHeading1}>Vos besoins en anglais</Text>
+            <Text style={Styles.nameHeadingTxt1}>{this.state.YourEnglishNeeds}</Text>
 
 
+         
+</View>
 
-            {/* <View style={Styles.maincontentContaine}>
-            <View style={Styles.nameStyleView}>
-              <Text style={Styles.nameHeading}></Text>
+<View style={Styles.nameStyleView1}>
+           
 
-              <Text style={Styles.nameHeadingTxt}>{} </Text>
+          
 
-            </View>
+            <Text style={Styles.nameHeading1}>A propos de vous. Vos centres d'intérêt</Text>
+           <Text style={Styles.nameHeadingTxt1}>{this.state.aboutYouYourInterest}</Text>  
 
-            <View style={Styles.nameStyleView}>
-              <Text style={Styles.nameHeading}>Vos compétences linguistiques</Text>
-
-              <Text style={Styles.nameHeadingTxt}>anglais professionnel</Text>
-
-            </View>
-            </View> */}
-
-
-
-            {/* <View style={Styles.addressView}>
-                <Text style={Styles.nameHeading}>Address</Text>
-    <Text style={Styles.nameHeadingTxt}>{profileData.address}</Text>
-
-            </View> */}
-
-
-{/* 
-            <View style={Styles.addressView}>
-                <Text style={Styles.nameHeading}>Objectif</Text>
-                <Text style={Styles.nameHeadingTxt}>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century .</Text>
-                <Text style={Styles.nameHeadingTxt}>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century .</Text>
-
-            </View> */}
+ 
+</View>
 
 
           </View>
-          </ScrollView>  
-          </Fragment>  
-          
+       
+          </ScrollView>
           :null}
-        </ImageBackground>      
-
-
-            </Fragment>     
+             
+        
+           
       </View>
     )
   }

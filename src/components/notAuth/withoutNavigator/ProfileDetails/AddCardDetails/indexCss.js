@@ -4,9 +4,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 export default StyleSheet.create({
   container: {
     height: SCREEN_HEIGHT,
-    width: SCREEN_WIDTH,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: SCREEN_WIDTH,   
     backgroundColor: '#F6F2EF',
   },
   header: {
@@ -22,13 +20,11 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   headerTxt: {
-    fontSize: 19,
+    fontSize: 16,
     fontWeight: '700',
     textAlign: 'left',
     color: '#FFFFFF',
     margin: 10,
-    marginStart: 30,
-    fontFamily: 'Montserrat-Regular',
   },
   mainContentView: {
     flex: 2,
@@ -99,9 +95,7 @@ export default StyleSheet.create({
     margin: 3,
     marginTop: 20,
     marginBottom: 20,
-    borderRadius: 5,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    borderRadius: 5, 
     alignSelf: 'center',
   },
   continueBtnTxt: {
@@ -110,7 +104,7 @@ export default StyleSheet.create({
     marginEnd:30,
     color: '#FFFFFF',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 13,
     alignSelf: 'center',
   },
 });

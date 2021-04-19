@@ -118,10 +118,13 @@ render() {
                        <Text style={Styles.headerTxt}>Connectez-vous avec un coach</Text>
                        <Text style={Styles.headerTxt}>d'anglais pour un call in English</Text>
                      </View>                     
-                   </View>                                  
+                   </View> 
+
+                    <View style={{marginTop: 30, marginBottom: 0}}>                                
                    <Text style={Styles.txtStyle2}>
                    GO ! Faites un call de 30 min ou 1h avec un coach d’anglais SPYK 
                    </Text>
+                   </View>
                    {/* <Text style={Styles.txtStyle2}>
                    coach d'anglais SPYK !
                    </Text>              */}

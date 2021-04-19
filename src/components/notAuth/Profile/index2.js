@@ -164,23 +164,29 @@ export default class index extends Component {
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
-        <Spinner visible={this.state.isSpinner}/>
-        <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
-        <View style={Styles.header}>
+            <ImageBackground source={require("../../../assets/icon/bg1.png")} resizeMode="cover" style={{height:200,width:"100%",flexDirection:"row",justifyContent:"space-between"}}> 
           <TouchableOpacity onPress={()=>{this.props.navigation.navigate("home")}}>
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Profil</Text>
+          <Text style={Styles.headerTxt}>  Profil</Text>
           <Image source={logo} style={Styles.headertxtInputImg1} />
-        </View>
+        </ImageBackground>
+        <Spinner visible={this.state.isSpinner}/>
+        {/* <ImageBackground source={bgImg} resizeMode="cover" > */}
+        <View style={{flex:2,width:"100%"}}>
+       
+    
 
-            <View>
+         
+          
+
+            
             {
             this.state.isBodyLoaded == true ?
 
         <Fragment>
 
-          <View style={{marginTop:15}}> 
+          <View style={{marginTop:-50}}> 
           {
             this.state.profile_url == "" ?
 
@@ -195,9 +201,8 @@ export default class index extends Component {
           </View>
           {/* <Text style={{fontSize:13,color:'gray',fontWeight:'700',alignSelf:'center'}}>Votre client</Text> */}
           <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#000000",marginTop:10}}>{profileData.first_name} {profileData.last_name}</Text>          
-          <ScrollView>
-
-            <View style={{flex:2,margin:10}}> 
+        
+            <ScrollView style={{margin:10}}> 
         
                 <TouchableOpacity 
                   onPress={()=>{this.props.navigation.navigate("myprofile",{profile_url:this.state.profile_url})}}
@@ -212,14 +217,7 @@ export default class index extends Component {
             
                 
 
-                {/* <TouchableOpacity 
-                  // onPress={()=>{this.props.navigation.navigate('notification')}}
-                >
-                <View style={{flexDirection:'row',margin:0}}>
-                    <Image source={require("../../../assets/ProfileIcon/23.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Paiement</Text>
-                </View>
-                </TouchableOpacity> */}
+              
 
 
                 <TouchableOpacity 
@@ -243,6 +241,15 @@ export default class index extends Component {
                 <View style={{flexDirection:'row',margin:0}}>
                 <Image source={require("../../../assets/icon/gift1.png")} style={{height:24,width:24,margin:10}}  />
                     <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Bon cadeau</Text>
+                </View>
+                </TouchableOpacity>
+
+                  <TouchableOpacity 
+                  onPress={()=>{this.props.navigation.navigate('allsavedcards')}}
+                >
+                <View style={{flexDirection:'row',margin:0}}>
+                    <Image source={require("../../../assets/ProfileIcon/23.png")} style={{height:24,width:24,margin:10}}  />
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Mode de paiement</Text>
                 </View>
                 </TouchableOpacity>
 
@@ -274,18 +281,18 @@ export default class index extends Component {
 
 
 
-            </View>
+            </ScrollView>
 
     <Text style={{alignSelf:'center',fontSize:14,fontWeight:'700',margin:10,color:"#b41565"}}>Version de l'application : {packageContent.version}</Text>
 
 
-          </ScrollView>  
+        
 
           </Fragment> 
             : null            
           }
-
-          </View>
+          
+       
          
 
 
@@ -450,7 +457,7 @@ export default class index extends Component {
 
 
 
-        </ImageBackground>
+        </View>
           <BottomNavigator
             currentRoute={'profile2'}
             navigation={this.props.navigation}

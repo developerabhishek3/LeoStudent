@@ -95,13 +95,11 @@ export default StyleSheet.create({
   },
 
   continueBtn: {
-    backgroundColor: '#FF1493',
+    backgroundColor: '#b41565',
     margin: 3,
     marginTop: 20,
     marginBottom: 20,
     borderRadius: 5,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
     alignSelf: 'center',
   },
   continueBtnTxt: {
@@ -110,7 +108,7 @@ export default StyleSheet.create({
     marginEnd:30,
     color: '#FFFFFF',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 13,
     alignSelf: 'center',
   },
 });

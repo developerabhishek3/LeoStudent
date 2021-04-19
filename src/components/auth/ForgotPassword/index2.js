@@ -174,7 +174,7 @@ export default class index extends Component {
                 <View>
                   <TextInput
                     style={Styles.textInputField}
-                    placeholder=" code"
+                    placeholder=" Code"
                     onChangeText={(vcode) => this.setState({ vcode })}
               />
                 </View>

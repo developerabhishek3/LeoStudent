@@ -152,6 +152,7 @@ export default class index extends Component {
 
     console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
     let transactinId = this.props.navigation.getParam("transactinId")
+    console.log("inside reservation request teacher id and transaction id = =  = = =",this.state.teacher_id,transactinId)
 
 
 

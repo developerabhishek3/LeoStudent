@@ -41,6 +41,11 @@ class Webview_Paypal extends React.Component {
     async  componentDidMount() {
 
      let user_id = this.props.navigation.getParam("user_id")
+
+     let card_id  = this.props.navigation.getParam("cartId")
+     console.log("inside did mount - -  - - - - -",card_id)
+
+     this.setState({card_id})
       
 
         let amount_en = this.props.navigation.getParam("amount_en")
@@ -185,7 +190,7 @@ class Webview_Paypal extends React.Component {
         let time_slot = this.props.navigation.getParam("time_slot")
 
 
-        console.log("gettint reserve time ----------------",reserve_time)
+        console.log("gettint card id on stripe ----------------",this.state.card_id)
 
         console.log("getting time sloe==================",time_slot)
     
