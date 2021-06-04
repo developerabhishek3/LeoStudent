@@ -227,40 +227,48 @@ export default class index extends Component {
 
   check_reservation_by_datetime_slotFunction = async () => {
     // console.log("gettin after contnue funtion =====================",this.state.reserve_date,          this.state.exacttime)
-   
-    let time_slot_new = `${this.state.reserve_time}-${this.state.exacttime} `
+    this.setState({ isSpinner: true }, async () => {
 
-    // console.log("timeslot ===========",time_slot_new)
-    const {
-      date_slot,
-      time_slot
-    } = this.state;
-    const check_reservation_by_datetime_slotResponse = await check_reservation_by_datetime_slot({
-      date_slot:this.state.reserve_date,
-      time_slot:time_slot_new
-    });
-    if (check_reservation_by_datetime_slotResponse.result === true) {
-      if(check_reservation_by_datetime_slotResponse.response.status === true){
-        console.log("getting response ------------------------",check_reservation_by_datetime_slotResponse.response)
-        // this.paypalFunction()
-        this.props.navigation.navigate('summary', {
-          amount_en: this.state.amount_en,
-          reserve_time:this.state.reserve_time,
-          timeDuration: this.state.timeDuration,
-          reserve_date: this.state.reserve_date,
-          booktype:"now"
-        });
+
+      let time_slot_new = `${this.state.reserve_time}-${this.state.exacttime} `
+
+      // console.log("timeslot ===========",time_slot_new)
+      const {
+        date_slot,
+        time_slot
+      } = this.state;
+      const check_reservation_by_datetime_slotResponse = await check_reservation_by_datetime_slot({
+        date_slot:this.state.reserve_date,
+        time_slot:time_slot_new
+      });
+      if (check_reservation_by_datetime_slotResponse.result === true) {
+        if(check_reservation_by_datetime_slotResponse.response.status === true){
+          console.log("getting response ------------------------",check_reservation_by_datetime_slotResponse.response)
+          // this.paypalFunction()          
+          this.props.navigation.navigate('summary', {
+            amount_en: this.state.amount_en,
+            reserve_time:this.state.reserve_time,
+            timeDuration: this.state.timeDuration,
+            reserve_date: this.state.reserve_date,
+            booktype:"now"
+          });
+          this.setState({ isSpinner: false })
+        }
+      else {
+        this.setState({ isSpinner: false })
+              Alert.alert("Message", check_reservation_by_datetime_slotResponse.response.message)
       }
-    else {
-            Alert.alert("Message", check_reservation_by_datetime_slotResponse.response.message)
-    }
-      // console.log("getting result here --------", )     
-        // await AsyncStorage.setItem("token", JSON.stringify(check_reservation_by_datetime_slotResponse.response.token));            
-    } else {
-      this.myAlert('Error', check_reservation_by_datetime_slotResponse.error);
-      // console.log('getting error here-------------');
-    }
-    return;
+        // console.log("getting result here --------", )     
+          // await AsyncStorage.setItem("token", JSON.stringify(check_reservation_by_datetime_slotResponse.response.token));            
+      } else {
+        this.setState({ isSpinner: false })
+        // this.myAlert('Error', check_reservation_by_datetime_slotResponse.error);
+        // console.log('getting error here-------------');
+      }
+      return;
+
+     })
+   
   };
 
 

@@ -18,7 +18,9 @@ export default class index extends Component {
     this.state = {      
         supportData:[],
         isSpinner:true,
-        isBodyLoaded:false
+        isBodyLoaded:false,
+        email:"",
+        contact:""
     };
   }
 
@@ -35,9 +37,11 @@ export default class index extends Component {
       const GetSupportResponse = await supportFunction();
       if (GetSupportResponse.result == true) {
         var supportData = GetSupportResponse.response.contact_info;
+        var email = GetSupportResponse.response.contact_info.contact_email;
+        var contact  = GetSupportResponse.response.contact_info.contact_no
         console.log("getting supportData data----------",supportData)
       }
-      this.setState({supportData,isBodyLoaded: true,isSpinner: false});
+      this.setState({supportData,email,contact,isBodyLoaded: true,isSpinner: false});
       // console.log("getting country response----------------",countryData.country_list)
     };
   
@@ -81,7 +85,8 @@ export default class index extends Component {
    
   render() {
 
-    const {supportData} =  this.state;
+    const {supportData,contact,email} =  this.state;
+    console.log("inside render --------",supportData,email,contact)
 
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -136,7 +141,7 @@ export default class index extends Component {
                 <TouchableOpacity style={{flexDirection:'column',margin:15,justifyContent:'center',alignSelf:"center"}}
                 
                 onPress={()=>{
-                  Linking.openURL(`tel:${9999999999}`)
+                  Linking.openURL(`tel:${contact}`)
                 }}
                 >
                     <Image source={require("../../../../../assets/icon/call1.png")} style={{height:60,width:60,margin:1,alignSelf:'center'}} />
@@ -145,7 +150,7 @@ export default class index extends Component {
   
   
                 <TouchableOpacity style={{flexDirection:'column',margin:15,justifyContent:'center',alignSelf:'center'}}
-                  onPress={() => Linking.openURL('mailto:supprtleo@gmail.com?subject=SendMail&body=Description') }
+                    onPress={() => Linking.openURL(`mailto:${email}?subject=SendMail&body=Description`) }
                   title="support@example.com"
                 >
                 <Image source={require("../../../../../assets/icon/mssg1.png")} style={{height:60,width:60,margin:1,alignSelf:"center"}} />

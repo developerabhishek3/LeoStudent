@@ -331,7 +331,7 @@ export default class index extends Component {
                                           margin:9
                                         }} 
                                       />   
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14}}>xxxx xxxx xxxx {singleMap.last4}</Text>
+                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14,color:"#000000"}}>xxxx xxxx xxxx {singleMap.last4}</Text>
                                   </View>
                                 
                                   <View style={{width:"20%"}}>

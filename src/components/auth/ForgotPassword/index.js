@@ -8,7 +8,8 @@ import {
   ScrollView,
   Alert,
   StatusBar,
-  BackHandler
+  BackHandler,
+  Modal
 } from 'react-native';
 import Styles from './indexCss';
 import bgImg from '../../../assets/bgImages/3.png';
@@ -27,8 +28,9 @@ export default class index extends Component {
       email: '',
       password: '',
       fcm_token: '',
-
-
+      alertValue:"",
+      Model_Visibility: false,
+      Alert_Visibility: false,
       token: '',
 
       userLoggedInData: {},
@@ -81,20 +83,35 @@ export default class index extends Component {
   };
 
   validateUser = () => {
+    let alertValue;
     const { email,  } = this.state;
 
     if (email.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
+
+      alertValue = "Veuillez entrer votre adresse électronique!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     }
      else {
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Email-Id invalide!');
+        alertValue = "Email-Id invalide!"
+        this.setState({alertValue})
+        this.Show_Custom_Alert()
+        // this.myAlert('Message', 'Email-Id invalide!');
         return false;
       }
       this.userForgotPasswordRe1Function();
     }
   };
+  Show_Custom_Alert(visible,) {
+    this.setState({Alert_Visibility: visible});
+  }
+  Hide_Custom_Alert() {
+    this.setState({Alert_Visibility: false}); 
+    // this.props.navigation.navigate("login")    
+  }
 
 
   componentDidMount = async () => {
@@ -158,6 +175,7 @@ export default class index extends Component {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder=" Email"
+                    placeholderTextColor="gray"
                       
                     onChangeText={(email) => this.setState({ email })}
               />
@@ -187,6 +205,101 @@ export default class index extends Component {
               </View> */}
             </View>
           </ScrollView>
+
+
+
+          
+          <Modal
+            visible={this.state.Alert_Visibility}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal>
         </ImageBackground>
       </View>
     );

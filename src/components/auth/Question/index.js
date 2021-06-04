@@ -9,7 +9,8 @@ import {
   StatusBar,
   TextInput,
   Alert,
-  BackHandler
+  BackHandler,
+  Modal
 } from 'react-native';
 import Styles from './indexCss';
 import bgImg from '../../../assets/bgImages/3.png';
@@ -18,7 +19,7 @@ import facebook from '../../../assets/icon/fb.png';
 import {RadioButton} from 'react-native-paper';
 
 import {add_update_academic_info} from '../../../Api/afterAuth'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 export default class index extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,10 @@ export default class index extends Component {
       value: 'angleG',
       value: 'angleP',
       value: 'lesD',
+      Model_Visibility: false,
+      Alert_Visibility: false,
 
+      alertValue:"",
 
       value:"Oui",       
       value:"Non",
@@ -175,6 +179,7 @@ export default class index extends Component {
   };
 
   validateUser = () => {
+    let alertValue;
     const {  q_1_ans,
       q_2_ans,
       q_3_ans,
@@ -183,19 +188,34 @@ export default class index extends Component {
        } = this.state;
 
     if (q_1_ans.length === 0) {
-      this.myAlert('Message', 'Veuillez choisir une réponse!');
+      alertValue = "Veuillez choisir une réponse!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+
+
+      // this.myAlert('Message', 'Veuillez choisir une réponse!');
     } 
     else if (q_2_ans.length === 0) {
-        this.myAlert('Message', 'Veuillez saisir la réponse!');
+      alertValue = "Veuillez saisir la réponse!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+
+        // this.myAlert('Message', 'Veuillez saisir la réponse!');
     }
     // else if (q_3_ans.length === 0) {
     //     this.myAlert('Message', 'Veuillez saisir la réponse!');
     // } 
     else if (q_4_ans.length === 0) {
-      this.myAlert('Message', 'Veuillez saisir la réponse!');
+      alertValue = "Veuillez saisir la réponse!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez saisir la réponse!');
   } 
   else if (q_5_ans.length === 0) {
-    this.myAlert('Message', 'Veuillez choisir une réponse!');
+    alertValue = "Veuillez choisir une réponse!"
+    this.setState({alertValue})
+    this.Show_Custom_Alert()
+    // this.myAlert('Message', 'Veuillez choisir une réponse!');
   } 
   // else if (q_6_ans.length === 0) {
   //   this.myAlert('Message', 'Veuillez choisir une réponse! 6!');
@@ -209,6 +229,13 @@ export default class index extends Component {
 
 
 
+  Show_Custom_Alert(visible,) {
+    this.setState({Alert_Visibility: visible});
+  }
+  Hide_Custom_Alert() {
+    this.setState({Alert_Visibility: false}); 
+    // this.props.navigation.navigate("login")    
+  }
 
 
   
@@ -221,6 +248,7 @@ export default class index extends Component {
           resizeMethod="resize"
           resizeMode="stretch"
           style={Styles.bgImgStyle}>
+              <KeyboardAwareScrollView enableOnAndroid={true} extraHeight={60} extraScrollHeight={60} showsVerticalScrollIndicator={false}>
           <ScrollView>
             <View style={{borderWidth: 0, marginBottom: 20, marginTop: 20}}>
               <View style={Styles.headerView}>
@@ -265,6 +293,7 @@ export default class index extends Component {
                 <View style={{borderWidth:1,borderColor:"#DDDDDD",width:"90%",height:40,alignSelf:'center',margin:7,borderRadius:10}}>
                   <TextInput 
                       placeholder="Profession"
+                      placeholderTextColor="gray"
                       style={{paddingStart:15}}
                       onChangeText={(q_2_ans)=>this.setState({q_2_ans })}
                   />
@@ -400,6 +429,103 @@ export default class index extends Component {
               </View>
             </View>
           </ScrollView>
+
+          </KeyboardAwareScrollView>             
+
+
+
+          
+          <Modal
+            visible={this.state.Alert_Visibility}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> 
         </ImageBackground>
       </View>
     );

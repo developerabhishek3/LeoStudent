@@ -217,7 +217,8 @@ export default class index extends Component {
     // console.log("inside did mount found time slot --------",this.state.time_slot)
     // console.log("inside did mount found time slot --------","amount_en :" + amount_en,"reserve_time : "+reserve_time,"reserve_date"+reserve_date,"time_slot"+time_slot,"promocodeId"+promocodeId)
     // console.log("inside did mount found time slot --------","amount :" + amount,"exacttime : "+exacttime,  "booktype"+booktype,"user_id"+user_id)
-
+    let email = this.props.navigation.getParam("email")
+    console.log("getting inisde the render method ???????????????",email)
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
@@ -267,7 +268,7 @@ export default class index extends Component {
                                             margin:9
                                           }} 
                                         />   
-                                    <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:13}}>xxxx xxxx xxxx {singleMap.last4}</Text>
+                                    <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:13,color:"#000000"}}>xxxx xxxx xxxx {singleMap.last4}</Text>
                                     </View>
                                   
                                     <TouchableOpacity 
@@ -352,7 +353,7 @@ export default class index extends Component {
             <View style={Styles.continueBtn}>     
   
                   <TouchableOpacity
-                  onPress={()=>{this.props.navigation.navigate("addcarddetails")}}            
+                  onPress={()=>{this.props.navigation.navigate("addcarddetails",{email:email})}}            
                 >
                   <Text style={Styles.continueBtnTxt}> + Ajouter une carte</Text>
                 </TouchableOpacity>              

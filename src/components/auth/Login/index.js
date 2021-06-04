@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View,Text, ImageBackground,Image,TouchableOpacity,ScrollView, StatusBar,Alert,BackHandler } from 'react-native'
+import { View,Text, ImageBackground,Image,TouchableOpacity,ScrollView,Modal, StatusBar,Alert,BackHandler } from 'react-native'
 import Styles from './indexCss'
 import bgImg from '../../../assets/bgImages/3.png'
 import logo from '../../../assets/icon/96.png'
@@ -22,7 +22,10 @@ export default class index extends Component {
           userLoggedInData: {},    
           username: '',  
           showPassword: true,  
-          userDetais: []
+          userDetais: [],
+          Model_Visibility: false,
+          Alert_Visibility: false,
+          alertValue:"",
         };
         this.toggleSwitch = this.toggleSwitch.bind(this);
       }
@@ -32,8 +35,7 @@ export default class index extends Component {
         this.setState({ showPassword: !this.state.showPassword });
       }
     
-
-
+    
 
       userLoginFunction = async () => {
         console.log("getting inside the function uuid --------",this.state.fcm_token)
@@ -111,16 +113,28 @@ export default class index extends Component {
       };
     
       validateUser = () => {
+        console.log("inside the validate function - - - -  - -")
+        let alertValue;
         const { email, password } = this.state;
     
         if (email.length === 0) {
-          this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
+          // this.myAlert('Message', '');
+          alertValue = "Veuillez entrer votre adresse électronique!"
+          this.setState({alertValue})
+          this.Show_Custom_Alert()
         } else if (password.length === 0) {
-          this.myAlert('Message', 'veuillez entrer votre mot de passe!');
+          alertValue = "Veuillez entrer votre mot de passe!"
+          this.setState({alertValue})
+          this.Show_Custom_Alert()
+          // this.myAlert('Message', '');
         } else {
           const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           if (!email.match(mailformat)) {
-            this.myAlert('Message', 'Email-Id invalide!');
+            alertValue = "Email-Id invalide!"
+            this.setState({alertValue})
+            this.Show_Custom_Alert()
+            // this.myAlert('Message', 'Email-Id invalide!');
+
             return false;
           }
           this.userLoginFunction();
@@ -158,6 +172,13 @@ export default class index extends Component {
         }
       };
   
+        Show_Custom_Alert(visible,) {
+          this.setState({Alert_Visibility: visible});
+        }
+        Hide_Custom_Alert() {
+          this.setState({Alert_Visibility: false}); 
+          // this.props.navigation.navigate("login")    
+        }
 
 
 
@@ -195,7 +216,8 @@ export default class index extends Component {
                           value={this.state.email}
                           onChangeText={(email) => this.setState({ email })}
                           placeholder="Adresse email"
-                          // placeholderStyle={{ fontFamily: "Ariel", borderColor: 'red' }}
+                          placeholderTextColor="gray"
+                          placeholderStyle={{ fontWeight:"700",}}
                         />
                     </View>
 
@@ -220,7 +242,8 @@ export default class index extends Component {
                         secureTextEntry={this.state.showPassword && this.state.password.length > 0 ? true:false}
                         // style={{fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Italic',  borderColor: '#DDDDDD',color:"gray",borderWidth:1,borderRadius:10,margin:10,paddingStart:10}}
                         placeholder="Mot de passe"
-                        
+                        placeholderTextColor="gray"
+                        placeholderStyle={{ fontWeight:"700", }}
                         style={{paddingStart:10,fontFamily: this.state.password ? 'OpenSans-Regular' : 'OpenSans-Regular', borderWidth:0,width:"85%",color:"gray"}}
                         value={this.state.password}     
                         onChangeText={(password) => this.setState({ password })}           
@@ -264,10 +287,105 @@ export default class index extends Component {
 
 
                     </View>
-                    </ScrollView>   
+                    </ScrollView>                    
+         
+             
                     </KeyboardAwareScrollView>             
-                    </ImageBackground>
 
+
+                    <Modal
+            visible={this.state.Alert_Visibility}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> 
+
+                    </ImageBackground>
             </View>
         )
     }

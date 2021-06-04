@@ -40,11 +40,13 @@ export default class index extends Component {
       value: 'first',
       Model_Visibility: false,
       Alert_Visibility: false,
+      Alert_Visibility2: false,
       IncompleteReservation:[],
       isBodyLoaded: false,
       isSpinner: true,  
       toal_amount:"",
-      isCurrenetComponentRefreshing:false
+      isCurrenetComponentRefreshing:false,
+      currentDate: new Date().toDateString(),
     };
   }
 
@@ -87,10 +89,10 @@ export default class index extends Component {
 
 
   componentDidMount = async () => {
-  
+    // console.log("getting curret date and time - -  - -",(this.state.currentDate).toLocaleDateString())
     setInterval(() => {
       this.incomplete_reservationData()
-    }, 3000);
+    }, 600);
       
    
     
@@ -131,14 +133,24 @@ export default class index extends Component {
     this.setState({Alert_Visibility: false});
     
   }
+  Show_Custom_Alert2(visible) {
+    this.setState({Alert_Visibility2: visible});
+  }
+  Hide_Custom_Alert2() {
+    this.setState({Alert_Visibility2: false});
+    
+  }
   Hide_Custom_Alert1() {
     this.setState({Alert_Visibility: false});
     this.props.navigation.navigate('clientinfo')
   }
   render() {
 
+  let currentDate =   moment(this.state.currentDate).format('DD/MM/YYYY') 
+  // console.log("getting current date inside render - - - - - -  -",currentDate)
+  let newCurrentDate = new Date(currentDate).getTime()
 
-    // console.log("getting incomplete data =============",this.state.IncompleteReservation)
+    // console.log("getting inside render =============",newCurrentDate)
 
 
 
@@ -201,10 +213,13 @@ export default class index extends Component {
                 <Fragment>
                   {
                         this.state.IncompleteReservation.map((singleIncompleteDate,index)=>{  
-                          // console.log("getting all pending details - - - - - - - ",singleIncompleteDate)               
+                          // console.log("getting all pending details - - - - - - - ",singleIncompleteDate.course_date)               
                           // const yourDate = new Date(singleIncompleteDate.course_date)         
                           // console.log("gettin all respose for checking reservation id - - - - -  - - - --  -",singleIncompleteDate)            
-                          let NewDate = moment(singleIncompleteDate.course_date).format('DD/MM/YYYY')                       
+                          let NewDate = moment(singleIncompleteDate.course_date).format('DD/MM/YYYY') 
+                          // console.log("new date insdie map function - -  - -",NewDate)
+                          let CheckDate = new Date(NewDate).getTime()
+                          // console.log("getting check date -  - - for getTiem",CheckDate,"current date for get time= = = = =  == = ",newCurrentDate)                      
                           // console.log("getting all date s  - -  - - - - - - - -",NewDate)
                           // let exactDate = NewDate[index+1]
                           // console.log('getting exact date -  - - - - - - - - - - -',exactDate)
@@ -280,7 +295,9 @@ export default class index extends Component {
 
 
                               <View style={{flexDirection:'row',justifyContent:"space-between",margin:1,marginRight:30,width:"90%",}}>
-                                    <View style={Styles.continueBtn}>
+                                    {
+                                      CheckDate >= newCurrentDate ?
+                                      <View style={Styles.continueBtn}>
                                       <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{
                                         time_slot:singleIncompleteDate.course_time,
                                         reserve_date:singleIncompleteDate.course_date,
@@ -290,13 +307,21 @@ export default class index extends Component {
                                       <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
                                       </TouchableOpacity>
                                     </View>
+                                   : <View style={Styles.continueBtn}>
+                                    <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}}>
+                                    <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
+                                    </TouchableOpacity>
+                                  </View> 
 
+                                     } 
+                                    
 
                                     <View style={Styles.continueBtn}>
                                       <TouchableOpacity onPress={                                        
-                                        ()=>{this.props.navigation.navigate("choosetime",{
+                                        ()=>{this.props.navigation.navigate("modifyreservation",{
                                         changeTimeDate:"changeTimeDate",
-                                        reservation_id:singleIncompleteDate.id
+                                        reservation_id:singleIncompleteDate.id,
+                                        course_duration:singleIncompleteDate.course_duration
 
                                       })}}>
                                       <Text style={Styles.continueBtnTxt1}>Modifier ma réservation</Text>
@@ -315,7 +340,7 @@ export default class index extends Component {
                       }
               </Fragment>
               :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-              <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>chargement...</Text>
+              <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}></Text>
             </View>
             }
             
@@ -439,6 +464,95 @@ export default class index extends Component {
               </View>
             </View>
           </Modal>
+
+
+
+
+
+
+
+          <Modal
+            visible={this.state.Alert_Visibility2}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert2(!this.state.Alert_Visibility2);
+            }}>
+            <View
+              style={{
+                // backgroundColor:'#FFF',
+                backgroundColor: 'rgba(85, 65, 225,50)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={cross}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  
+                </View>  
+                 <View style={{alignSelf:'center',justifyContent:'center',alignItems: 'center'}}>
+                  <Text style={{margin:10,fontSize:16,fontWeight:'700',color:"gray",textAlign:'center'}}>Votre date et/ou heure de réservation est antérieure à la date actuelle. Modifiez votre réservation pour trouver un coach !</Text>
+                 </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignItems:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => this.Hide_Custom_Alert2()}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 10,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',                        
+                      }}>
+                     Ok
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal>
+
 
 
 

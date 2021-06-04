@@ -121,19 +121,22 @@ export default class index extends Component {
 
               <View>
                   <TextInput 
-                    style={{borderWidth:1,borderColor:"gray",borderRadius:7,width:"94%",alignSelf:'center',height:44,margin:10}}
+                    style={{borderWidth:1,borderColor:"gray",borderRadius:7,width:"94%",alignSelf:'center',height:44,margin:10,color:"gray"}}
+                    placeholderTextColor="gray"
                     placeholder="Votre email"
                   />
 
 
                 <TextInput 
-                    style={{borderWidth:1,borderColor:"gray",borderRadius:7,width:"94%",alignSelf:'center',height:44,margin:10}}
+                    style={{borderWidth:1,borderColor:"gray",borderRadius:7,width:"94%",alignSelf:'center',height:44,margin:10,color:"gray"}}
+                    placeholderTextColor="gray"
                     placeholder="Nom sur la carte"
                   />
 
                   
                 <TextInput 
-                    style={{borderWidth:1,borderColor:"gray",borderRadius:7,width:"94%",alignSelf:'center',height:44,margin:10}}
+                    style={{borderWidth:1,borderColor:"gray",borderRadius:7,width:"94%",alignSelf:'center',height:44,margin:10,color:"gray"}}
+                    placeholderTextColor="gray"
                     placeholder="Numéro de la carte bancaire"
                   />
             </View>
@@ -141,16 +144,19 @@ export default class index extends Component {
             <View style={{flexDirection:"row",margin:3,alignSelf:'center',width:'95%'}}>
                 <TextInput 
                     style={{borderColor:"gray",borderWidth:1,height:44,borderRadius:10,width:'32%',margin:2}}
-                    placeholder="Mois d'expiration"                    
+                    placeholder="Mois d'expiration"  
+                    placeholderTextColor="gray"                  
                 />
 
                 <TextInput 
                     style={{borderColor:"gray",borderWidth:1,height:44,borderRadius:10,width:'32%',margin:2}}
                     placeholder="Année d'expiration"
+                    placeholderTextColor="gray"
                 />
                 <TextInput 
                     style={{borderColor:"gray",borderWidth:1,height:44,borderRadius:10,width:"32%",margin:2}}
                     placeholder="CVV"
+                    placeholderTextColor="gray"
                 />
             </View>
 
@@ -183,7 +189,7 @@ export default class index extends Component {
                   }
                 />
 
-                <Text style={{fontSize:14,fontWeight:'600',margin:1,width:'80%',marginTop:10}}>Enregistrer cette carte pour mes 
+                <Text style={{fontSize:14,fontWeight:'600',margin:1,width:'80%',marginTop:10,color:"#000000"}}>Enregistrer cette carte pour mes 
 prochains coachings
 Régler avec cette carte</Text>
 </View>

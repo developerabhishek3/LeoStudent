@@ -32,6 +32,7 @@ export default class index extends Component {
         super(props)
         this.state={
           value: 'first',
+          email:"",
           Model_Visibility: false,
           Alert_Visibility: false,
           profileData:[],
@@ -71,20 +72,27 @@ export default class index extends Component {
         }
       };
     
-      userLogoutFunction = async () => {
-        const LogoutResponse = await LogoutFunction();
+      userLogoutFunction() {
+
+        this.setState({ isSpinner: true }, async () => { 
+
+          const LogoutResponse = await LogoutFunction();
         
-        if(LogoutResponse.result === true) {
-            // console.log("getting logout response---------------",LogoutResponse.response)
-            await AsyncStorage.setItem('userLoggedIn','false')
-            let keys = ['token'];
-            AsyncStorage.multiRemove(keys)
-            this.props.navigation.navigate("login")            
-            Alert.alert("Message","Déconnexion réussie!")
-        }
-        else{
-            // console.log("getting error on logout -------------",LogoutResponse.error)
-        }        
+          if(LogoutResponse.result == true) {
+              // console.log("getting logout response---------------",LogoutResponse.response)
+              await AsyncStorage.setItem('userLoggedIn','false')
+              let keys = ['token'];
+              AsyncStorage.multiRemove(keys)
+              this.props.navigation.navigate("login")  
+              this.setState({isSpinner: false})          
+              // Alert.alert("Message","Déconnexion réussie!")
+          }
+          else{
+              this.setState({isSpinner: false})          
+              // console.log("getting error on logout -------------",LogoutResponse.error)
+          }    
+
+        })          
         // console.log("getting country response----------------",countryData.country_list)
       };
     
@@ -97,9 +105,10 @@ export default class index extends Component {
         const GetProfileDetails = await StudentProfile();
         if (GetProfileDetails.result == true) {
           var profileData = GetProfileDetails.response.my_profile;
-          var profile_url = GetProfileDetails.response.my_profile.profile_url
+          var profile_url = GetProfileDetails.response.my_profile.profile_url;
+          var email = GetProfileDetails.response.my_profile.email
           // console.log("getting GetProfileDetails data----------",profileData)
-          this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url});
+          this.setState({ isBodyLoaded: true,isSpinner: false,profileData,profile_url,email});
         }
        
         else{
@@ -202,14 +211,14 @@ export default class index extends Component {
           {/* <Text style={{fontSize:13,color:'gray',fontWeight:'700',alignSelf:'center'}}>Votre client</Text> */}
           <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#000000",marginTop:10}}>{profileData.first_name} {profileData.last_name}</Text>          
         
-            <ScrollView style={{margin:10}}> 
+            <ScrollView keyboardShouldPersistTaps="always" style={{margin:10}}> 
         
                 <TouchableOpacity 
                   onPress={()=>{this.props.navigation.navigate("myprofile",{profile_url:this.state.profile_url})}}
                 >
                   <View style={{flexDirection:'row',margin:0}}>
                       <Image source={profileIcon} style={{height:24,width:24,margin:10}}  />
-                      <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Mon profil</Text>
+                      <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Mon profil</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -225,7 +234,7 @@ export default class index extends Component {
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={require("../../../assets/ProfileIcon/notification.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Notifications</Text>{
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Notifications</Text>{
                       this.state.notificationCountValue != 0 ?
                       <Badge status="error" value={this.state.notificationCountValue} badgeStyle={{margin:-20,marginTop:4,marginStart:-15,righ:-30,width:27,height:27,borderRadius:30}}></Badge>
                       :null
@@ -240,16 +249,16 @@ export default class index extends Component {
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                 <Image source={require("../../../assets/icon/gift1.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Bon cadeau</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Bon cadeau</Text>
                 </View>
                 </TouchableOpacity>
 
                   <TouchableOpacity 
-                  onPress={()=>{this.props.navigation.navigate('allsavedcards')}}
+                  onPress={()=>{this.props.navigation.navigate('allsavedcards',{email:this.state.email})}}
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={require("../../../assets/ProfileIcon/23.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Mode de paiement</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Mode de paiement</Text>
                 </View>
                 </TouchableOpacity>
 
@@ -258,7 +267,7 @@ export default class index extends Component {
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={settingIcon} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Paramètres</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Paramètres</Text>
                 </View>
                 </TouchableOpacity>
 
@@ -267,14 +276,14 @@ export default class index extends Component {
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={supporIcon} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Support</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Support</Text>
                 </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={()=>{this.Show_Custom_Alert()}}>
                 <View style={{flexDirection:'row',margin:0}}>
                     <Image source={logoutIcon} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15}}>Déconnexion</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Déconnexion</Text>
                 </View>
                 </TouchableOpacity>
 
@@ -466,13 +475,3 @@ export default class index extends Component {
     )
   }
 }
-
-
-
-// 22.Mon compte
-// John Smith
-// Mon profil
-// Mes revenus
-// 
-// 
-// Déconnexion

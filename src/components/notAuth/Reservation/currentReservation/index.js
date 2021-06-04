@@ -268,10 +268,10 @@ export default class index extends Component {
                             }}>
                           {singleCurrrentMap.teacher_name}
                           </Text>
-                          <View style={{flexDirection: 'row'}}>
+                          {/* <View style={{flexDirection: 'row'}}>
                             <Image source={books} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>Nombre de coaching faits: {singleCurrrentMap.teacher_course_session_done}</Text>
-                          </View>
+                          </View> */}
 
                           <View style={{flexDirection: 'row'}}>
                             <Image source={watch} style={Styles.bookStyle} />
@@ -288,12 +288,24 @@ export default class index extends Component {
                                     <Stars
                                       default={singleCurrrentMap.teacher_rating}
                                       count={5}
+                                      disabled={true}
                                       half={true}
                                       starSize={20}
                                       fullStar={<Image source={require("../../../../assets/icon/111.png")} style={{height:15,width:15,margin:3}} />}
                                       emptyStar={<Image source={require("../../../../assets/icon/112.png")} style={{height:15,width:15,margin:3}} />}
                                       halfStar={<Image source={require("../../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
                                     />
+                                  </View>
+
+                                  {
+                                   singleCurrrentMap.teacher_rating == null || singleCurrrentMap.teacher_rating == undefined || singleCurrrentMap.teacher_rating == ""  ?
+                                   <Text style={Styles.contentTextStyle}>
+                                  0 avis
+                                  </Text>
+                                  : <Text style={Styles.contentTextStyle}>
+                                  { singleCurrrentMap.teacher_rating} avis
+                                  </Text>
+                                 }
                                   </View>
                             <View style={Styles.continueBtn}>
                               {/* <TouchableOpacity onPress={()=>{this.Show_Custom_Alert()}}> */}
@@ -311,7 +323,7 @@ export default class index extends Component {
                               <Text style={Styles.continueBtnTxt}>Annuler mon coaching</Text>
                               </TouchableOpacity>
                             </View>
-                          </View>
+                      
                         </View>
                       </View>
                       </TouchableOpacity>
@@ -337,7 +349,7 @@ export default class index extends Component {
             
             :
             <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-              <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>chargement...</Text>
+              <Text style={{textAlign:'center',fontWeight:'700',fontSize:18,color:"#000000"}}></Text>
             </View>
 
           }
@@ -382,7 +394,7 @@ export default class index extends Component {
               <View
                 style={{
                   width: '80%',
-                  height: 245,
+                  height: 275,
                   backgroundColor: '#ffffff',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -414,14 +426,20 @@ export default class index extends Component {
                       color: '#000000',
                       textAlign: 'center',                      
                     }}>
-                    Annuler un coaching accepté
+                   Règles d'annulation
                   </Text>
-                </View>  
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Etes-vous sûr de vouloir annuler le cours</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
+                </View> 
+                  <View style={{width:"80%",alignSelf:'center',alignItems: 'center',justifyContent: 'center'}}>                
+                    <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center',textAlign:'center'}}>Vous pouvez annuler votre réservation sans frais jusqu'à 120 minutes avant le début du coaching sauf pour un coaching immédiat qui sera facturé dès lors qu’il a été accepté par le coach.</Text>
+                  </View>
+
+                  <View style={{width:"80%",alignSelf:'center',alignItems: 'center',justifyContent: 'center',margin:7}}>                
+                    <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center',textAlign:'center'}}>Etes-vous sûr(e) de vouloir annuler votre coaching ?</Text>
+                  </View>
+                  {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
                   <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text>
+                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text> */}
 
                 <View
                   style={{

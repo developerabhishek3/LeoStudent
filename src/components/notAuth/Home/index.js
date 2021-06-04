@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { View,Text,ScrollView, StatusBar,Image,TouchableOpacity,Modal,Dimensions,TextInput, ImageBackground, Alert,BackHandler,Linking} from 'react-native'
+import { View,Text,ScrollView, StatusBar,Image,TouchableOpacity,Modal,Dimensions,TextInput,  RefreshControl, ImageBackground, Alert,BackHandler,Linking} from 'react-native'
 import BottomNavigator from '../../../router/BottomNavigator'
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -21,9 +21,14 @@ export default class index extends Component {
       value: 'first',
       Model_Visibility: false,
       Alert_Visibility: false,
+      Model_Visibility1: false,
+      Alert_Visibility1: false,
       newsletter:[],
       countData:[],
       teacherSlideData:[],
+      backHandlerTitle:"",
+      alertValue:"",
+      isCurrenetComponentRefreshing:false,
 
 
 
@@ -31,6 +36,14 @@ export default class index extends Component {
       isSpinner: true,  
     }
 
+  }
+
+  Show_Custom_Alert1(visible,) {
+    this.setState({Alert_Visibility1: visible});
+  }
+  Hide_Custom_Alert1() {
+    this.setState({Alert_Visibility1: false}); 
+    // this.props.navigation.navigate("login")    
   }
 
   Show_Custom_Alert(visible) {
@@ -53,9 +66,13 @@ export default class index extends Component {
 
 
     this.getnewesletterInfoData()
-      setTimeout(() => {
-        this.count_dataFunction()
-      }, 3000);
+
+    setTimeout(() => {
+        // setInterval(() => {
+          this.count_dataFunction()
+        // }, 6000);
+    }, 2000);
+      
    
 
     this.home_teacher_slideFunction()
@@ -71,7 +88,7 @@ export default class index extends Component {
         var newsletter = getnewesletterInfoResponse.response.newsletter_info;
         // console.log("getting newsletter data----------",newsletter)
       }
-      this.setState({newsletter,isBodyLoaded:true,isSpinner:false});
+      this.setState({newsletter,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
       // console.log("getting country response----------------",countryData.country_list)
     };
 
@@ -81,9 +98,9 @@ export default class index extends Component {
       const count_dataResponse = await count_data();
       if (count_dataResponse.result == true) {       
       var  countData = count_dataResponse.response.count_data;
-      // console.log("gettng count data here - - - - - - - - - - - ",countData)
+      console.log("gettng count data here - - - - - - - - - - - ",countData)
       }
-      this.setState({countData,isBodyLoaded:true,isSpinner:false});
+      this.setState({countData,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
       // console.log("getting country response----------------",countryData.country_list)
     };
 
@@ -116,35 +133,43 @@ export default class index extends Component {
     
 
 
+
+
+
     componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', () =>
         this.handleBackButton(this.props.navigation),
-      );
-      
+      );      
     }
+
+
     handleBackButton = (nav) => {
       if (!nav.isFocused()) {
         console.log('getting inside the if conditin--------------');
         return true;
       } else {
         console.log('getting inside the else conditin---------------');
-        Alert.alert(
-          'Quitter Spyk',
-          'Voulez-vous vraiment quitter Spyk ?',
-          [
-            {
-              text: 'Annuler',
-              style: 'cancel',
-            },
-            {
-              text: 'Quitter Spyk',
-              onPress: () => BackHandler.exitApp(),
-            },
-          ],
-          {
-            cancelable: false,
-          },
-        );
+        let backHandlerTitle = "Quitter Spyk"
+        let alertValue = "Voulez-vous vraiment quitter Spyk ?"
+        this.setState({alertValue,backHandlerTitle})
+        this.Show_Custom_Alert1()
+        // Alert.alert(
+        //   'Quitter Spyk',
+        //   'Voulez-vous vraiment quitter Spyk ?',
+        //   [
+        //     {
+        //       text: 'Annuler',
+        //       style: 'cancel',
+        //     },
+        //     {
+        //       text: 'Quitter Spyk',
+        //       onPress: () => BackHandler.exitApp(),
+        //     },
+        //   ],
+        //   {
+        //     cancelable: false,
+        //   },
+        // );
         return true;
       }
     };
@@ -173,10 +198,16 @@ const { newsletter } = this.state;
             <View style={{flex:2,marginTop:-10,borderWidth:0,borderColor:"red",width:'100%'}}>           
             {
               this.state.isBodyLoaded == true ?              
-              <ScrollView>
-              
+              // <ScrollView      >
+                <ScrollView 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+                      <RefreshControl refreshing={this.state.isCurrenetComponentRefreshing} onRefresh={()=>{  this.setState({ isCurrenetComponentRefreshing: true }); setTimeout(()=>{
+                        this.count_dataFunction();
+                      },1000)  }} />
+                    }>
 
-          <Text style={{fontWeight:'700',margin:7,fontSize:20,alignSelf:'center',marginTop:0}}>Démarrer mon coaching d'anglais</Text>
+          <Text style={{fontWeight:'700',margin:7,fontSize:20,alignSelf:'center',marginTop:0,color:"gray"}}>Démarrer mon coaching d'anglais</Text>
 
 {/* dynamicity from here.................. */}
      <ImageBackground  source={{
@@ -205,6 +236,12 @@ const { newsletter } = this.state;
 
 {
                 this.state.countData.map((singleCountData)=>{   
+
+
+                  let Newlevel = singleCountData.init_level
+                  let levelUpdate = Newlevel.substr(7)
+                  // console.log(Newlevel.substr(7))
+                  console.log("getting level inside map - - -  - - -",levelUpdate)
                   
                   // console.log("single count data - - - - - - ",singleCountData)
                   return(
@@ -274,12 +311,17 @@ const { newsletter } = this.state;
                       source={require("../../../assets/icon/red.png")}
                       style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
                     >                                           
-                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"55%",textAlign:'center'}}>Niveau initial</Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
-                          <Image source={require("../../../assets/icon/cap.png")} style={{height:45,width:45,margin:4,marginTop:-2}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3,marginTop:-6}}>{singleCountData.init_level}</Text>
-                        </View>
+                        <View style={{justifyContent:'space-around',alignItems:'center',flexDirection:"row"}}>
+                      
+                          <View style={{alignItems:'center'}}>
+                            <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',textAlign:'center',fontSize:14}}>Niveau initial</Text>
+                            <Text style={{color:"#FFFFFF",fontWeight:'700',fontSize:14,marginStart:3,marginTop:-6}}>{levelUpdate}</Text>
+                          </View>
+                                          
+                          <View  style={{alignItems:"center",}}>
+                            <Image source={require("../../../assets/icon/cap.png")} style={{height:40,width:40,margin:10}} />
+                          </View>
+
                         </View>
                     </ImageBackground>
                     </View>
@@ -287,9 +329,6 @@ const { newsletter } = this.state;
                   )
                 })
               }
-
-
-
                   </Fragment>
                    :<View>
                      <Text></Text>
@@ -300,7 +339,7 @@ const { newsletter } = this.state;
               : null
             }
             </View>                  
-                <Modal
+                {/* <Modal
                 visible={this.state.Alert_Visibility}
                 animationType={'fade'}
                 transparent={true}
@@ -395,7 +434,7 @@ const { newsletter } = this.state;
                             marginEnd: 20,
                             fontWeight: '700',
                             textAlign: 'center',
-                            fontFamily: 'Montserrat-Regular',
+                          
                           }}>
                           Continuer
                         </Text>
@@ -406,6 +445,154 @@ const { newsletter } = this.state;
                   </View>
                 </View>
               </Modal>
+
+ */}
+
+
+
+
+
+
+
+
+
+
+
+
+              
+              <Modal
+            visible={this.state.Alert_Visibility1}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert1(!this.state.Alert_Visibility1);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 6,                      
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.backHandlerTitle}
+                  </Text>
+
+
+
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,    
+                      marginTop:-6,                  
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'space-around',
+                    alignItems: 'center',                    
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert1();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,                
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 20,
+                        marginEnd: 20,
+                        margin:9,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                         Annuler
+                    </Text>
+                  </TouchableOpacity>                
+
+
+
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      BackHandler.exitApp()
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 20,
+                        marginEnd: 20,
+                        margin:9,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                        Quitter Spyk
+                    </Text>
+                  </TouchableOpacity> 
+                </View>
+              </View>
+            </View>
+          </Modal> 
 
 
           <BottomNavigator

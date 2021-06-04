@@ -52,7 +52,10 @@ export default class index extends Component {
       device_token:'',
       countryData: [],
       Model_Visibility: false,
-      Alert_Visibility: false,  
+      Alert_Visibility: false, 
+      Model_Visibility1: false,
+      Alert_Visibility1: false,  
+      alertValue:"",
       checked1:false, 
       showPassword: true,
       showPassword2:true     
@@ -62,6 +65,13 @@ export default class index extends Component {
   }
 
 
+  Show_Custom_Alert1(visible,) {
+    this.setState({Alert_Visibility1: visible});
+  }
+  Hide_Custom_Alert1() {
+    this.setState({Alert_Visibility1: false}); 
+    // this.props.navigation.navigate("login")    
+  }
 
 
 componentDidMount = async () => {
@@ -84,7 +94,7 @@ handleBackButton = (nav) => {
     );
     return false;
   } else {
-    nav.goBack();
+    nav.navigate("login");
     return true;
   }
 };
@@ -164,6 +174,7 @@ handleBackButton = (nav) => {
 
 
   validateUser = () => {
+    let alertValue;
     const {      
       first_name,
       last_name,
@@ -178,12 +189,21 @@ handleBackButton = (nav) => {
       country,        
     } = this.state;
      if (first_name.length === 0) {
-      this.myAlert('Message', 'Veuillez saisir votre prénom!');
+      alertValue = "Veuillez saisir votre prénom!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', '');
     } else if (last_name.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre nom de famille!');
+      alertValue = "Veuillez entrer votre nom de famille!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', '');
     }
     else if (birth_date.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
+      alertValue = "Veuillez entrer votre date de naissance!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
     }
     // else if (address.length === 0) {
     //   this.myAlert('Message', 'Veuillez entrer votre adresse!');
@@ -192,24 +212,45 @@ handleBackButton = (nav) => {
     //   this.myAlert('Message', 'Veuillez entrer votre code postal!');
     // }
     else if (city.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre ville!');
+      alertValue = "Veuillez entrer votre ville!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez entrer votre ville!');
     } else if (country.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre pays!');
+      alertValue = "Veuillez entrer votre pays!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez entrer votre pays!');
     } 
      else if (telephone_no.length === 0) {
-      this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
+      alertValue = "Veuillez saisir votre numéro de téléphone!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
     } 
     else if (email.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
+      alertValue = "Veuillez entrer votre adresse électronique!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     }   
     else if (password.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre mot de passe!');
+      alertValue = "Veuillez entrer votre mot de passe!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez entrer votre mot de passe!');
     }
     else if (confirm_password.length === 0 ) {
-      this.myAlert('Message', 'Veuillez entrer votre mot de passe de confirmation!');
+      alertValue = "Veuillez entrer votre mot de passe de confirmation!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez entrer votre mot de passe de confirmation!');
     }
     else if( password != confirm_password){
-      this.myAlert("Message","Le mot de passe et le mot de passe de confirmation ne correspondent pas!")
+      alertValue = "Le mot de passe et le mot de passe de confirmation ne correspondent pas!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert("Message","Le mot de passe et le mot de passe de confirmation ne correspondent pas!")
     }
   
     else {
@@ -218,7 +259,10 @@ handleBackButton = (nav) => {
       // }
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Courriel non valide!');
+        alertValue = "Email-Id invalide!"
+        this.setState({alertValue})
+        this.Show_Custom_Alert1()
+        // this.myAlert('Message', 'Courriel non valide!');
         return false;
       }  
 
@@ -292,6 +336,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Nom"
+                    placeholderTextColor="gray"
                     value={this.state.first_name}
                     onChangeText={(first_name) => this.setState({first_name})}
               />
@@ -301,6 +346,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Prénom"
+                    placeholderTextColor="gray"
                     value={this.state.last_name}
                     onChangeText={(last_name) => this.setState({last_name})}
                   />
@@ -315,7 +361,7 @@ handleBackButton = (nav) => {
                 <Text style={{fontWeight:"600",color:"gray",margin:3}}>Date de naissance</Text>
             <DatePicker                    
                     mode="date"    
-                    maximumDate={this.state.date}                                                        
+                    // maximumDate={this.state.date}                                                        
                     date={this.state.date}
                     locale={'fr'}                    
                     onDateChange={(birth_date) => {
@@ -344,6 +390,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Ville"
+                    placeholderTextColor="gray"
                     value={this.state.city}
                     onChangeText={(city) => this.setState({city})}  
                   />
@@ -425,6 +472,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     keyboardType="phone-pad"
+                    placeholderTextColor="gray"
                     value={this.state.telephone_no}
                     placeholder="Numéro de téléphone"
                     onChangeText={(telephone_no) => this.setState({telephone_no})}
@@ -434,6 +482,7 @@ handleBackButton = (nav) => {
                   <TextInput
                     style={Styles.textInputField}
                     placeholder="Email"
+                    placeholderTextColor="gray"
                     value={this.state.email}
                     onChangeText={(email) => this.setState({email})}
                   />
@@ -450,6 +499,7 @@ handleBackButton = (nav) => {
                     // secureTextEntry={this.state.showPassword}
                     secureTextEntry={this.state.showPassword && this.state.password.length > 0 ? true:false}
                     placeholder="Mot de passe"
+                    placeholderTextColor="gray"
                     onChangeText={(password) => this.setState({password})}
                   />
                    <TouchableOpacity  
@@ -475,6 +525,7 @@ handleBackButton = (nav) => {
                           secureTextEntry={this.state.showPassword2 && this.state.confirm_password.length > 0 ? true:false}
                           // secureTextEntry={ this.state.showPassword2}
                           placeholder="Confirmation Mot de passe"
+                          placeholderTextColor="gray"
                           onChangeText={(confirm_password) => this.setState({confirm_password})}
                         />
                         <TouchableOpacity  
@@ -536,11 +587,10 @@ handleBackButton = (nav) => {
               }}>
               <View
                 style={{
-                  // backgroundColor: 'rgba(0,0,0,0.5)',
                   backfaceVisibility: 'hidden',
                   flex: 1,
                   right: 20,
-                  left: 0,
+                  left: 10,
 
                   // left: Dimensions.get('window').width*1.60,
                   top: 350,
@@ -608,7 +658,97 @@ handleBackButton = (nav) => {
 
 
 
-
+            <Modal
+            visible={this.state.Alert_Visibility1}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert1(!this.state.Alert_Visibility1);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert1();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> 
 
 
 

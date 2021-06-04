@@ -27,10 +27,10 @@ export default StyleSheet.create({
     margin: 10,
   },
   headertxtInputImg: {
-    height: 16,
-    width: 16,
+    height: 21,
+    width: 21,
     margin: 7,
-    marginStart: 10,
+    marginStart: 20,
   },
   headertxtInputImg1: {
     height: 45,

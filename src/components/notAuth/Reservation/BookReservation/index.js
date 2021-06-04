@@ -108,7 +108,7 @@ export default class index extends Component {
         // console.log("getting response here================",teacher_info_for_reservationResponse.response)
         var TeacherDetails =
           teacher_info_for_reservationResponse.response.teacher_data;
-        // console.log("getting TeacherDetails data----------",TeacherDetails)
+        // console.log("getting TeacherDetails inside method data----------",TeacherDetails)
         this.setState({TeacherDetails,isBodyLoaded:true,isSpinner:false});
       }
       else{
@@ -330,9 +330,9 @@ getTimeDurationFunction(){
   }
   render() {
 
-const {TeacherDetails} = this.state;
+      const {TeacherDetails} = this.state;
 
-// console.log("getting result -             -  - -  -",TeacherDetails)
+      // console.log("getting result -             -  - -  -",TeacherDetails)
 
 
 
@@ -408,6 +408,9 @@ const {TeacherDetails} = this.state;
                   this.state.TeacherDetails .length > 0  ?
                                      
               TeacherDetails.map((singleTeacherDetails)=>{
+                var date1 = singleTeacherDetails.course_date
+
+                var newdate = date1.split("-").reverse().join("/");
                 return(
                     <Fragment>
 <View style={Styles.contentView}>
@@ -433,18 +436,22 @@ const {TeacherDetails} = this.state;
                       :null
                     }                 
                   </View>
-                  <View style={{flexDirection: 'row'}}>
+                  {/* <View style={{flexDirection: 'row'}}>
                     <Image source={books} style={Styles.bookStyle} />
                     <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : {singleTeacherDetails.teacher_course_session_done} </Text>
-                  </View>
+                  </View> */}
 
                   <View style={{flexDirection: 'row'}}>
                     <Image source={watch} style={Styles.bookStyle} />
                     <Text style={Styles.contentTextStyle}>
-                    {singleTeacherDetails.course_date}  - {singleTeacherDetails.course_time}
+                    {newdate}  - {singleTeacherDetails.course_time}
                     </Text>
                   </View>
-
+                  <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
                   <View style={{alignItems:'flex-start',margin:3,marginStart:7}}>
                       <Stars
                         default={singleTeacherDetails.teacher_rating}
@@ -455,6 +462,18 @@ const {TeacherDetails} = this.state;
                         emptyStar={<Image source={require("../../../../assets/icon/112.png")} style={{height:15,width:15,margin:3}} />}
                         halfStar={<Image source={require("../../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
                       />
+                    </View>
+                    {
+                                   singleTeacherDetails.teacher_rating == null || singleTeacherDetails.teacher_rating == undefined || singleTeacherDetails.teacher_rating == ""  ?
+                                   <Text style={Styles.contentTextStyle}>
+                                  0 avis
+                                  </Text>
+                                  : <Text style={Styles.contentTextStyle}>
+                                  { singleTeacherDetails.teacher_rating} avis
+                                  </Text>
+                                 } 
+
+
                     </View>
                 </View>                
               </View>
@@ -487,7 +506,7 @@ const {TeacherDetails} = this.state;
 
 
 
-
+{/* 
             <View style={Styles.contentView}>
               <View style={{flexDirection: 'row'}}>
               
@@ -500,7 +519,7 @@ const {TeacherDetails} = this.state;
                   </View>
                 </View>                
               </View>
-            </View>
+            </View> */}
 
 
 
@@ -558,15 +577,15 @@ const {TeacherDetails} = this.state;
           //on Press call
           size={20}
         /> */}
-                  {
+                  {/* {
                     singleTeacherDetails.reservation_status == `Accepted` ?
 
                     <View style={Styles.continueBtn}>
                         <TouchableOpacity 
-                        onPress={()=>{this.Show_Custom_Alert()}}
-                        // onPress={()=>{
-                        //   Linking.openURL(`tel:${9999999999}`)
-                        // }}
+                        // onPress={()=>{this.Show_Custom_Alert()}}
+                        onPress={()=>{
+                          Linking.openURL(`tel:${singleTeacherDetails.teacher_phone_number}`)
+                        }}
 
                         >
                         <View style={{flexDirection:'row'}}>
@@ -575,7 +594,7 @@ const {TeacherDetails} = this.state;
                         </View>
                         </TouchableOpacity>
                     </View>
-                    :
+                    : */}
                     <View>
                       {
                         this.state.isButtonEnable  == true ?
@@ -592,13 +611,13 @@ const {TeacherDetails} = this.state;
                         :null
                       }                    
                       </View>                
-                  }
+                  {/* } */}
                     </Fragment>
                 )
               })
 
                   :<View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-                    <Text style={{fontSize:18,textAlign:'center',fontWeight:'700'}}>chargement...</Text>
+                    <Text style={{fontSize:18,textAlign:'center',fontWeight:'700',color:"gray"}}></Text>
                   </View>
                 }
               </Fragment>

@@ -80,7 +80,8 @@ export default StyleSheet.create({
   nameHeading:{
     fontSize:10,color:'#b41565',
     fontWeight:'700',
-    padding:3
+    padding:3,
+    
   },
   nameHeading1:{
     fontSize:10,color:'#b41565',

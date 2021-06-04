@@ -54,6 +54,7 @@ export default StyleSheet.create({
     fontSize:16,
     fontWeight:'700',
     margin:10,
+    color:"gray"
 
 
   },
