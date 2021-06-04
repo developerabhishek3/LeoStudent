@@ -265,7 +265,7 @@ export default class index extends Component {
 
 
     // let NewDate = moment(reserve_date).format('DD/MM/YYYY')                       
-    // console.log("On the Summary page checking reserve_date+++++++++++++++++++++++",reserve_date)
+    console.log("On the Summary page checking reserve_date+++++++++++++++++++++++",reserve_date)
 
 
     // console.log("getting promocode  -",typeof this.state.promocode)
@@ -332,7 +332,6 @@ export default class index extends Component {
               this.state.promocode != "" ?
 
                <View style={{alignItems:"flex-end", justifyContent:"flex-end",margin:10,marginStart:15,marginEnd:15}}>
-             
 
                <TouchableOpacity style={{margin:10,borderColor:"#b41565",borderWidth:1,}}>
             <Text style={{margin:10,color:"#b41565",borderWidth:0,}}>{this.state.promocode}</Text>

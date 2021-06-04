@@ -44,6 +44,7 @@ import EditProfile from '../components/notAuth/withoutNavigator/ProfileDetails/M
 
 import CurrentReservation from '../components/notAuth/Reservation/currentReservation';
 import ChooseTime from '../components/notAuth/Reservation/ChooseTime';
+import ModifyReservation from '../components/notAuth/Reservation/ModifyReservation';
 import Summary from '../components/notAuth/Reservation/Summary';
 import PromoCode from '../components/notAuth/Reservation/PromoCode';
 import PaymentOption from '../components/notAuth/Reservation/PaymentOption';
@@ -96,10 +97,10 @@ import questionResult from '../components/auth/questionResult';
 
 import CancelReservation from '../components/notAuth/Reservation/currentReservation/CancelReservation';
 
-import FirstCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/FirstChceck';
-import SecondCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/SecondCheck';
-import ThirdCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/ThirdCheck';
-import FourthCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/FourthCheck';
+// import FirstCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/FirstChceck';
+// import SecondCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/SecondCheck';
+// import ThirdCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/ThirdCheck';
+// import FourthCheck from '../components/notAuth/withoutNavigator/ProfileDetails/Parameter/ChangePassword/FourthCheck';
 
 
 
@@ -140,30 +141,30 @@ const AppNavigator = createStackNavigator(
         headerShown: false,
       },
     },
-    firstcheck: {
-      screen: FirstCheck,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    secondcheck: {
-      screen: SecondCheck,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    thirdcheck: {
-      screen: ThirdCheck,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    fourthcheck: {
-      screen: FourthCheck,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
+    // firstcheck: {
+    //   screen: FirstCheck,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // secondcheck: {
+    //   screen: SecondCheck,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // thirdcheck: {
+    //   screen: ThirdCheck,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // fourthcheck: {
+    //   screen: FourthCheck,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
 
     firstvalidationcheck: {
       screen: FirstValidationCheck,
@@ -326,6 +327,13 @@ const AppNavigator = createStackNavigator(
     
     choosetime: {
       screen: ChooseTime,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+
+    modifyreservation: {
+      screen: ModifyReservation,
       navigationOptions: {
         headerShown: false,
       },

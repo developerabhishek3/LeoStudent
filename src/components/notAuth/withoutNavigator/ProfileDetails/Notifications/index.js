@@ -144,7 +144,7 @@ export default class index extends Component {
                         </Fragment>
 
                   :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-                  <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>Aucune notification reçue</Text>
+                  <Text style={{fontSize:18,fontWeight:'700',textAlign:'center',color:"gray"}}>Aucune notification reçue</Text>
                 </View>
               }
        
@@ -155,8 +155,8 @@ export default class index extends Component {
           </ScrollView>
                             :
 
-                            <View style={{alignItems:'center',justifyContent:'center'}}>
-                            <Text style={{textAlign:'center',textAlignVertical:'center',fontSize:18,fontWeight:'700',marginTop:160}}>chargement...</Text>
+                            <View style={{alignItems:'center',justifyContent:'center',}}>
+                            <Text style={{textAlign:'center',textAlignVertical:'center',color:"gray",fontSize:18,fontWeight:'700',marginTop:160}}>chargement...</Text>
                         </View>
           }
           

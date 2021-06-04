@@ -46,12 +46,12 @@ export default StyleSheet.create({
     fontSize: 17,
     fontWeight: '700',
     margin: 7,
-    color:"gray"
   },
   calenderStyle: {
     marginTop: 10,
     marginBottom:10,
     width: '96%',
+    height:300,
     alignSelf: 'center',
     // borderRadius: 12,
     marginBottom: 20,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View,Text,ScrollView, ImageBackground,Image,TextInput,TouchableOpacity,BackHandler, Alert,StatusBar} from 'react-native'
+import { View,Text,ScrollView, ImageBackground,Modal,Image,TextInput,TouchableOpacity,BackHandler, Alert,StatusBar} from 'react-native'
 import BottomNavigator from '../../../router/BottomNavigator'
 import Styles from './indexCss'
 import bgImg from '../../../assets/bgImages/6.png'
@@ -23,11 +23,21 @@ export default class index extends Component {
       TeacherRating:[],
       isBodyLoaded:false,
       isSpinner:true,
+      alertValue:"",
+      Model_Visibility: false,
+      Alert_Visibility: false,
     }
   }
 
 
 
+  Show_Custom_Alert(visible,) {
+    this.setState({Alert_Visibility: visible});
+  }
+  Hide_Custom_Alert() {
+    this.setState({Alert_Visibility: false}); 
+    // this.props.navigation.navigate("login")    
+  }
   rating_to_teacherFunction = async () => {
     // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
     const {teacher_id,rating,comment} = this.state;
@@ -120,10 +130,14 @@ export default class index extends Component {
 
 
 validateFunction(){
-
+  let alertValue;
   const {rating,comment} = this.state;
   if(!rating){
-    Alert.alert("Message","Please give some rating to teacher!")
+
+    alertValue = "S'il vous plaît, donnez une note à l'enseignant!"
+    this.setState({alertValue})
+    this.Show_Custom_Alert()
+    // Alert.alert("Message","Please give some rating to teacher!")
   }  
   else{
     this.rating_to_teacherFunction() 
@@ -153,19 +167,28 @@ validateFunction(){
 
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-          <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
-        <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}>
-        <View style={Styles.header}>
+      <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
+        {/* <ImageBackground source={bgImg} resizeMode="cover" style={{flex:2,borderWidth:0,width:'100%'}}> */}
+        {/* <View style={Styles.header}>
           <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}>
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
           <Text style={Styles.headerTxt}>Notez votre coach</Text>
           <Image source={logo} style={Styles.headertxtInputImg1} />
-        </View>
+        </View> */}
+          <ImageBackground source={require("../../../assets/icon/bg1.png")} resizeMode="cover" style={{height:200,width:"100%",flexDirection:"row",justifyContent:"space-between"}}> 
+          <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}>
+          <Image source={back} style={Styles.headertxtInputImg} />
+          </TouchableOpacity>
+          <Text style={Styles.headerTxt}>Notez votre coach</Text>
+          <Image source={logo} style={Styles.headertxtInputImg1} />
+        </ImageBackground>
         <Spinner visible={this.state.isSpinner} 
         />
+        <View style={{flex:2,width:"100%"}}>
+       
 
-          <View style={{marginTop:-15}}> 
+        <View style={{marginTop:-50}}> 
             <Image   source={{
                               uri: `https://www.spyk.fr/${teacher_profile_url}`,
                             }}  style={Styles.peopleStyle} />            
@@ -179,19 +202,19 @@ validateFunction(){
   this.state.isBodyLoaded == true ?
 
 
-  <ScrollView>
+  <ScrollView keyboardShouldPersistTaps="always">
 
         <View style={{flexDirection:'row',justifyContent:'space-around',marginTop:30}}>
 
             <View style={{flexDirection:'column'}}>
-              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Durée du coaching</Text>
-              <Text style={{fontSize:16,fontWeight:'700'}}>{course_date}</Text>
+              <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Date du coaching</Text>
+              <Text style={{fontSize:16,fontWeight:'700',color:'gray'}}>{course_date}</Text>
             </View>
 
 
             <View style={{flexDirection:'column'}}>
               <Text style={{fontSize:14,fontWeight:'700',color:'gray'}}>Horaire du coaching</Text>
-    <Text style={{fontSize:16,fontWeight:'700'}}>{course_time}</Text>
+    <Text style={{fontSize:16,fontWeight:'700',color:'gray'}}>{course_time}</Text>
             </View>
 
         </View>
@@ -227,16 +250,18 @@ validateFunction(){
 
         <View>
           {/* <Text style={{fontSize:14,fontWeight:'700',color:'gray',alignSelf:'center',margin:1}}>Hardley</Text> */}
-          <Text style={{fontSize:16,fontWeight:'700',color:'#000000',alignSelf:'center',margin:1}}>Comments'est déroulé votre coaching ?</Text>
+          <Text style={{fontSize:16,fontWeight:'700',color:'gray',alignSelf:'center',margin:1}}>Comment s'est déroulé votre coaching ?</Text>
         </View>
 
 
           <View>
           <TextInput
             numberOfLines={4}
+            multiline={true}
             onChangeText={(comment) => this.setState({ comment })}
             placeholder="Commentaire supplémentaire"
-            style={{textAlign:'left',textAlignVertical:'top',width:'90%',alignSelf:'center',margin:10,paddingVertical:3,backfaceVisibility:'hidden',backgroundColor:'#FFFFFF',elevation:3,borderRadius:7,}}
+            placeholderTextColor="gray"
+            style={{textAlign:'left',textAlignVertical:'top',width:'90%',alignSelf:'center',margin:10,padding:10,paddingVertical:3,backfaceVisibility:'hidden',backgroundColor:'#FFFFFF',elevation:3,borderRadius:7,}}
           />
           </View>
 
@@ -263,7 +288,7 @@ validateFunction(){
 
           
           :<View style={{alignItems:'center',justifyContent:'center',marginTop:200}}>
-          <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}>chargement...</Text>
+          <Text style={{fontSize:18,fontWeight:'700',textAlign:'center'}}></Text>
         </View>
 
 }
@@ -271,7 +296,102 @@ validateFunction(){
         
 
           
-        </ImageBackground>
+     
+
+        
+                
+        <Modal
+            visible={this.state.Alert_Visibility}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal>
+          </View>
           {/* <BottomNavigator
             currentRoute={'profile'}
             navigation={this.props.navigation}

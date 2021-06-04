@@ -99,7 +99,7 @@ export default class index extends Component {
     let reserve_time = this.props.navigation.getParam('reserve_time');
   
     let reserve_date = this.props.navigation.getParam('reserve_date')
-
+    console.log("reserve_date ===========",reserve_date)
     let exacttime = this.props.navigation.getParam('exacttime');
 
 

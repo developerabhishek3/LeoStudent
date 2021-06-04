@@ -168,7 +168,7 @@ handleBackButton = (nav) => {
 
         </ImageBackground>
 
-        <View style={{marginTop:-50}}> 
+        <View style={{marginTop:-60}}> 
           {
             this.state.profile_url == "" ?
 

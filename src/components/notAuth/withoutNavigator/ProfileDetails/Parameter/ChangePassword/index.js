@@ -13,6 +13,10 @@ import lockIcon from '../../../../../../assets/icon/32.png';
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
+
+
+import Spinner from 'react-native-loading-spinner-overlay';
+
 import {ChangePassword,LogoutFunction} from '../../../../../../Api/afterAuth';
 import AsyncStorage from '@react-native-community/async-storage';
 export default class index extends Component {
@@ -36,6 +40,7 @@ export default class index extends Component {
       showPassword1: true,
       showPassword2:true,
       showPassword3:true,   
+      isSpinner:false,
 
     }  
     this.toggleSwitch1 = this.toggleSwitch1.bind(this);
@@ -88,22 +93,33 @@ export default class index extends Component {
 
 
 
-  userLogoutFunction = async () => {
-    const LogoutResponse = await LogoutFunction();
+  
+  userLogoutFunction(){
+
+    this.setState({ isSpinner: true }, async () => {
+
+      const LogoutResponse = await LogoutFunction();
     
-    if(LogoutResponse.result === true) {
-        console.log("getting response on logout function---------------",LogoutResponse.response)
-        this.Show_Custom_Alert1()
-        await AsyncStorage.setItem('userLoggedIn','false')
-        let keys = ['token'];
-        AsyncStorage.multiRemove(keys)
+      if(LogoutResponse.result === true) {
+          console.log("getting response on logout function---------------",LogoutResponse.response)
+          // this.Show_Custom_Alert1()
+          await AsyncStorage.setItem('userLoggedIn','false')
+          let keys = ['token'];
+          AsyncStorage.multiRemove(keys)
+          this.props.navigation.navigate("login")  
+          this.setState({isSpinner: false})  
+          // this.props.navigation.navigate("login")            
+          // Alert.alert("Message","Déconnexion réussie!")
+      }
+      else{
+        this.setState({isSpinner: false})  
+          // console.log("getting error on logout -------------",LogoutResponse.error)
+      }  
+
       
-        // this.props.navigation.navigate("login")            
-        // Alert.alert("Message","Déconnexion réussie!")
-    }
-    else{
-        // console.log("getting error on logout -------------",LogoutResponse.error)
-    }        
+     })
+
+         
     // console.log("getting country response----------------",countryData.country_list)
   };
 
@@ -117,7 +133,8 @@ export default class index extends Component {
   }
   Hide_Custom_Alert1() {
     this.setState({Alert_Visibility1: false}); 
-    this.props.navigation.navigate("login")    
+    this.userLogoutFunction()
+   
   }
 
 
@@ -175,7 +192,7 @@ export default class index extends Component {
       new_password,
       confirm_new_password
     });
-    if (ChangePasswordResponse.result === true) {
+    if (ChangePasswordResponse.result == true) {
       console.log("getting result here --------", ChangePasswordResponse.response)
 
 
@@ -185,7 +202,7 @@ export default class index extends Component {
       // else{
       //   Alert.alert("Message",ChangePasswordResponse.response.message)
       // }
-      if (ChangePasswordResponse.response.status === true) {
+      if (ChangePasswordResponse.response.status == true) {
           // this.props.navigation.navigate("home")
           console.log("getting response on change password API >>>>>>>>>>>>>>>>",ChangePasswordResponse.response)
         // await AsyncStorage.setItem("userLoggedIn", "true");
@@ -194,7 +211,8 @@ export default class index extends Component {
         // await AsyncStorage.setItem("token", JSON.stringify(ChangePasswordResponse.response.token));
         // await AsyncStorage.setItem("user_id", JSON.stringify(ChangePasswordResponse.response.user_id));
 
-        // this.props.navigation.navigate("Home")
+        // this.props.navigation.navigate("login")
+        // this.Show_Custom_Alert1()
         this.userLogoutFunction()
           
       }
@@ -224,18 +242,34 @@ export default class index extends Component {
   validateUser = () => {
     const { old_password,new_password, confirm_new_password } = this.state;
     if (old_password.length === 0) {
+
+      let alertValue = "Veuillez entrer votre ancien mot de passe"
+      console.log("alert value here - - - - - - - - - ",alertValue)
+      this.setState({alertValue})
+      this.Show_Custom_Alert5()
       // this.myAlert('Message', 'Veuillez entrer votre ancien_mot de passe');
-      this.props.navigation.navigate("firstcheck")
+      // this.props.navigation.navigate("firstcheck")
     } else if (new_password.length === 0) {
-      this.props.navigation.navigate("secondcheck")
+      let alertValue = "Veuillez entrer votre nouveau mot de passe"
+      console.log("alert value here - - - - - - - - - ",alertValue)
+      this.setState({alertValue})
+      this.Show_Custom_Alert5()
+      // this.props.navigation.navigate("secondcheck")
       // this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe');   
     }
     else if (confirm_new_password.length === 0) {
-      this.props.navigation.navigate("thirdcheck")     
+
+      let alertValue = "Veuillez entrer votre nouveau mot de passe de confirmation"
+      this.setState({alertValue})
+      this.Show_Custom_Alert5()
+      // this.props.navigation.navigate("thirdcheck")     
       // this.myAlert('Message', 'Veuillez entrer votre nouveau mot de passe de confirmation');
     } 
     else if (new_password != confirm_new_password) {
-      this.props.navigation.navigate("fourthcheck")     
+      let alertValue = "Le nouveau mot de passe et la confirmation du nouveau mot de passe ne correspondent pas ! "
+      this.setState({alertValue})
+      this.Show_Custom_Alert5()
+      // this.props.navigation.navigate("fourthcheck")     
     }
     else {     
       this.ChangePasswordFunction();
@@ -273,8 +307,10 @@ export default class index extends Component {
           {/* <Image source={logo} style={Styles.headertxtInputImg1} /> */}
         </View>
 
+        <Spinner visible={this.state.isSpinner}/>   
+
         <ImageBackground source={bgImg} resizeMode="stretch" style={{flex:2,borderWidth:0,width:'100%'}}>                 
-          <ScrollView>
+          <ScrollView keyboardShouldPersistTaps="always">
             <View style={{margin:10}}>
 
 
@@ -285,11 +321,12 @@ export default class index extends Component {
                   margin: 10,
                   paddingStart: 10,}}>
                   <TextInput
-                     style={{borderWidth:0,width:"80%"}}
+                     style={{borderWidth:0,width:"80%",color:"gray"}}
                      value={this.state.old_password}
                 onChangeText={(old_password) => this.setState({ old_password })}
                     secureTextEntry={this.state.showPassword1 && this.state.old_password.length > 0 ? true:false}
-                    placeholder="Ancien mot de passe"           
+                    placeholder="Ancien mot de passe" 
+                    placeholderTextColor="gray"          
                   />
                    <TouchableOpacity  
                       onPress={this.toggleSwitch1}            
@@ -304,9 +341,6 @@ export default class index extends Component {
                  </TouchableOpacity>
                       </View>
 
-
-
-
                       <View style={{flexDirection:'row', borderWidth: 1,
                   borderColor: '#DDDDDD',
                   borderRadius: 10,
@@ -314,11 +348,12 @@ export default class index extends Component {
                   margin: 10,
                   paddingStart: 10,}}>
                   <TextInput
-                     style={{borderWidth:0,width:"80%"}}
+                   style={{borderWidth:0,width:"80%",color:"gray"}}
                      value={this.state.new_password}
-              onChangeText={(new_password) => this.setState({ new_password })}
+                    onChangeText={(new_password) => this.setState({ new_password })}
                     secureTextEntry={this.state.showPassword2 && this.state.new_password.length > 0 ? true:false}
-                    placeholder="Nouveau mot de passe"          
+                    placeholder="Nouveau mot de passe" 
+                    placeholderTextColor="gray"                   
                   />
                    <TouchableOpacity  
                       onPress={this.toggleSwitch2}            
@@ -333,31 +368,31 @@ export default class index extends Component {
                  </TouchableOpacity>
                       </View>
 
-
                       <View style={{flexDirection:'row', borderWidth: 1,
-                  borderColor: '#DDDDDD',
-                  borderRadius: 10,
-                  justifyContent:'space-between',
-                  margin: 10,
-                  paddingStart: 10,}}>
-                  <TextInput
-                     style={{borderWidth:0,width:"80%"}}
-                     value={this.state.confirm_new_password}
-                     onChangeText={(confirm_new_password) => this.setState({ confirm_new_password })}
-                    secureTextEntry={this.state.showPassword3 && this.state.confirm_new_password.length > 0 ? true:false}
-                    placeholder="Confirmer le mot de passe" 
-                  />
-                   <TouchableOpacity  
-                      onPress={this.toggleSwitch3}            
-                      value={!this.state.showPassword3}>
-                        {
-                          this.state.showPassword3 == true ?
-                          <Image source={require("../../../../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
-                        
-                          :
-                          <Image source={require("../../../../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
-                        }                 
-                 </TouchableOpacity>
+                        borderColor: '#DDDDDD',
+                        borderRadius: 10,
+                        justifyContent:'space-between',
+                        margin: 10,
+                        paddingStart: 10,}}>
+                        <TextInput
+                        style={{borderWidth:0,width:"80%",color:"gray"}}
+                          value={this.state.confirm_new_password}
+                          onChangeText={(confirm_new_password) => this.setState({ confirm_new_password })}
+                          secureTextEntry={this.state.showPassword3 && this.state.confirm_new_password.length > 0 ? true:false}
+                          placeholder="Confirmer le mot de passe" 
+                          placeholderTextColor="gray"          
+                        />
+                        <TouchableOpacity  
+                            onPress={this.toggleSwitch3}            
+                            value={!this.state.showPassword3}>
+                              {
+                                this.state.showPassword3 == true ?
+                                <Image source={require("../../../../../../assets/icon/invisible-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                              
+                                :
+                                <Image source={require("../../../../../../assets/icon/eyeopen-1.png")} style={{width: 30, height: 30,marginTop:10,margin:6}} />
+                              }                 
+                      </TouchableOpacity>
                       </View>
 
 
@@ -432,11 +467,10 @@ export default class index extends Component {
                   </View>
                   <Text
                     style={{
-                      fontSize: 20,
+                      fontSize:18 ,
                       alignSelf: 'center',
                       fontWeight: '700',
-                      margin: 6,
-                      marginTop: -10,
+                      margin: 20,                      
                       color: 'gray',
                       textAlign: 'center',                      
                     }}>
@@ -507,314 +541,6 @@ export default class index extends Component {
 
 
 
-
-
-
-
-
-
-
-
-          {/* for 1st validation condition............ */}
-
-
-{/* 
-          <Modal
-            visible={this.state.Alert_Visibility2}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert2(!this.state.Alert_Visibility2);
-            }}>
-            <View
-              style={{
-                // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(85,65,225,0.900)',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: 221,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image
-                      source={require("../../../../../../assets/icon/17.png")}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 10,
-                      marginTop: 10,
-                      color: 'gray',
-                      textAlign: 'center',                      
-                    }}>
-                  Veuillez entrer votre ancien mot de passe
-                  </Text>
-                </View>  
-              
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',                    
-                    borderRadius: 6,
-                    justifyContent:'center',
-                    alignSelf:'center',
-                    margin: 5,
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => {                  
-                      this.Hide_Custom_Alert2();
-                    }}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 20,                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 13,
-                        marginStart: 50,
-                        marginEnd: 50,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                          OK
-                    </Text>
-                  </TouchableOpacity>                
-                </View>
-              </View>
-            </View>
-          </Modal> */}
-
-
-
-
-
-          {/* FOR THE 2ND VALIDATION CONDITION......... */}
-
-
-
-
-{/*           
-          <Modal
-            visible={this.state.Alert_Visibility3}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert3(!this.state.Alert_Visibility3);
-            }}>
-            <View
-              style={{
-                backgroundColor: 'rgba(85,65,225,0.900)',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: 221,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image
-                      source={require("../../../../../../assets/icon/17.png")}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 10,
-                      marginTop: 10,
-                      color: 'gray',
-                      textAlign: 'center',                      
-                    }}>
-                 Veuillez entrer votre nouveau mot de passe
-                  </Text>
-                </View>  
-              
-
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',                    
-                    borderRadius: 6,
-                    justifyContent:'center',
-                    alignSelf:'center',
-                    margin: 5,
-                  }}>
-                  <TouchableOpacity
-                
-                    onPress={() => {                      
-                      this.Hide_Custom_Alert3();
-                    }}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 20,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 13,
-                        marginStart: 50,
-                        marginEnd: 50,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                          OK
-                    </Text>
-                  </TouchableOpacity>                
-                </View>
-              </View>
-            </View>
-          </Modal> */}
-
-
-
-
-{/* 
-
-   
-          <Modal
-            visible={this.state.Alert_Visibility4}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert4(!this.state.Alert_Visibility4);
-            }}>
-            <View
-              style={{
-                backgroundColor: 'rgba(85,65,225,0.900)',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: 221,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image
-                      source={require("../../../../../../assets/icon/17.png")}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 10,
-                      marginTop: 10,
-                      color: 'gray',
-                      textAlign: 'center',                      
-                    }}>
-                     Veuillez entrer votre nouveau mot de passe de confirmation
-                  </Text>
-                </View>                 
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',                    
-                    borderRadius: 6,
-                    justifyContent:'center',
-                    alignSelf:'center',
-                    margin: 5,
-                  }}>
-                  <TouchableOpacity                 
-                    onPress={() => {                      
-                      this.Hide_Custom_Alert4();
-                    }}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 20,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 13,
-                        marginStart: 50,
-                        marginEnd: 50,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                          OK
-                    </Text>
-                  </TouchableOpacity>                
-                </View>
-              </View>
-            </View>
-          </Modal> */}
-
-
-
-
           <Modal
             visible={this.state.Alert_Visibility5}
             animationType={'fade'}
@@ -856,7 +582,7 @@ export default class index extends Component {
                   </View>
                   <Text
                     style={{
-                      fontSize: 20,
+                      fontSize: 16,
                       alignSelf: 'center',
                       fontWeight: '700',
                       margin: 10,

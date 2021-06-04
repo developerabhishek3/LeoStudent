@@ -238,7 +238,7 @@ console.log("insiderender =",this.state.historyData)
 
 
             this.state.historyData.map((singleHistoryMap)=>{
-              // console.log("kkkkkkkkkkkkkkkkkkkkkkkk",singleHistoryMap)
+              console.log("kkkkkkkkkkkkkkkkkkkkkkkk",singleHistoryMap.teacher_rating)
 
               let date1   = singleHistoryMap.course_date
               var newdate = date1.split("-").reverse().join("/");
@@ -246,13 +246,7 @@ console.log("insiderender =",this.state.historyData)
 
               return(
                 <Fragment>
-   <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
-  teacher_id:singleHistoryMap.teacher_id,
-  course_date:singleHistoryMap.course_date,
-  course_time:singleHistoryMap.course_time,
-  teacher_name:singleHistoryMap.teacher_name,
-  teacher_profile_url:singleHistoryMap.teacher_profile_url
-   })}}>
+   {/* <TouchableOpacity > */}
             <View style={{flexDirection: 'row',borderWidth:1,margin:4,borderColor:"#DDDDDD",borderRadius:7}}>
            
               <Image 
@@ -271,10 +265,10 @@ console.log("insiderender =",this.state.historyData)
                   }}>
                 {singleHistoryMap.teacher_name}
                 </Text>
-                <View style={{flexDirection: 'row'}}>
+                {/* <View style={{flexDirection: 'row'}}>
                   <Image source={books} style={Styles.bookStyle} />
                 <Text style={Styles.contentTextStyle}>Nimber de coaching faits: {singleHistoryMap.teacher_course_session_done}</Text>
-                </View>
+                </View> */}
 
                 <View style={{flexDirection: 'row'}}>
                   <Image source={watch} style={Styles.bookStyle} />
@@ -286,12 +280,13 @@ console.log("insiderender =",this.state.historyData)
                 <View
                   style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    justifyContent: 'space-evenly',
                   }}>
                    <View style={{alignItems:'center'}}>
                                     <Stars
                                       default={singleHistoryMap.teacher_rating}
                                       count={5}
+                                      disabled={true}
                                       half={true}
                                       starSize={20}
                                       fullStar={<Image source={require("../../../../assets/icon/111.png")} style={{height:15,width:15,margin:3}} />}
@@ -299,16 +294,38 @@ console.log("insiderender =",this.state.historyData)
                                       halfStar={<Image source={require("../../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
                                     />
                                   </View>
-                  {/* <View style={Styles.continueBtn}>
-                    <TouchableOpacity onPress={()=>{this.Show_Custom_Alert()}}>
-                    <Text style={Styles.continueBtnTxt}>Annuler main coaching</Text>
-                    </TouchableOpacity>
-                  </View> */}
+                                 {
+                                   singleHistoryMap.teacher_rating == null || singleHistoryMap.teacher_rating == undefined || singleHistoryMap.teacher_rating == ""  ?
+                                   <Text style={Styles.contentTextStyle}>
+                                  0 avis
+                                  </Text>
+                                  : <Text style={Styles.contentTextStyle}>
+                                  { singleHistoryMap.teacher_rating} avis
+                                  </Text>
+                                 } 
                 </View>
+                {
+                  singleHistoryMap.teacher_rating == null || singleHistoryMap.teacher_rating == undefined || singleHistoryMap.teacher_rating == "" || singleHistoryMap.teacher_rating == 0 ?
+
+                  <View style={Styles.continueBtn}>
+                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
+                        teacher_id:singleHistoryMap.teacher_id,
+                        course_date:singleHistoryMap.course_date,
+                        course_time:singleHistoryMap.course_time,
+                        teacher_name:singleHistoryMap.teacher_name,
+                        teacher_profile_url:singleHistoryMap.teacher_profile_url
+                        })}}>
+                    <Text style={Styles.continueBtnTxt}>Evaluer mon coach</Text>
+                    </TouchableOpacity>
+                  </View>
+                  :null
+                }
+                
               </View>
+              
             
             </View>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
               </Fragment>
               )
             })
@@ -345,7 +362,7 @@ console.log("insiderender =",this.state.historyData)
         :
 
         <View style={{justifyContent:'center',alignItems:'center',marginTop:200}}>
-        <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}>chargement...</Text>
+        <Text style={{textAlign:'center',fontWeight:'700',fontSize:18}}></Text>
       </View>
       }
 

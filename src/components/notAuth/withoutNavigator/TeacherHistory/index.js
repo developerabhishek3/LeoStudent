@@ -187,7 +187,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
             }}>
           <Image source={back} style={Styles.headertxtInputImg} />
           </TouchableOpacity>
-          <Text style={Styles.headerTxt}>Votre enseignment</Text>
+          <Text style={Styles.headerTxt}>Votre coaching</Text>
 
              
           <Image source={logo} style={Styles.headertxtInputImg1} />
@@ -207,7 +207,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                   
               TeacherDetails.map((singleTeacherDetails)=>{
 
-               console.log("getting singe teacher history  - - - - - - - - - ",singleTeacherDetails)
+               console.log("getting singe teacher history  - - - - - - - - - ",singleTeacherDetails.teacher_skill)
 
                let date1   = singleTeacherDetails.course_date
                var newdate = date1.split("-").reverse().join("/");
@@ -244,10 +244,10 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                       :null
                     }                 
                   </View>
-                  <View style={{flexDirection: 'row'}}>
+                  {/* <View style={{flexDirection: 'row'}}>
                     <Image source={books} style={Styles.bookStyle} />
                     <Text style={Styles.contentTextStyle}>Nombre d'évaluations  : {singleTeacherDetails.evaluations_no}</Text>
-                  </View>
+                  </View> */}
 
                   <View style={{flexDirection: 'row'}}>
                     <Image source={watch} style={Styles.bookStyle} />
@@ -256,16 +256,32 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                     </Text>
                   </View>
 
+                  <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
                   <View style={{alignItems:'flex-start',margin:3,marginStart:7}}>
                       <Stars
                         default={singleTeacherDetails.teacher_rating}
                         count={5}
+                        disabled={true}
                         half={true}
                         starSize={16}
                         fullStar={<Image source={require("../../../../assets/icon/111.png")} style={{height:15,width:15,margin:3}} />}
                         emptyStar={<Image source={require("../../../../assets/icon/112.png")} style={{height:15,width:15,margin:3}} />}
                         halfStar={<Image source={require("../../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
                       />
+                    </View>
+                    {
+                                   singleTeacherDetails.teacher_rating == null || singleTeacherDetails.teacher_rating == undefined || singleTeacherDetails.teacher_rating == ""  ?
+                                   <Text style={Styles.contentTextStyle}>
+                                  0 avis
+                                  </Text>
+                                  : <Text style={Styles.contentTextStyle}>
+                                  { singleTeacherDetails.teacher_rating} avis
+                                  </Text>
+                                 } 
                     </View>
 
 
@@ -284,27 +300,27 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
               <View style={{flexDirection: 'row'}}>
                 {/* <Image source={People} style={Styles.peopleStyle} /> */}
                 <View style={{flexDirection: 'column'}}>                
-                  <View style={{flexDirection: 'row',margin:4}}>
+                  {/* <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Expererience en annies: </Text>
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.Experience}</Text>
-                  </View>
+                  </View> */}
 
                   <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Compétences : </Text>
-                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_language_skill}</Text>
+                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_skill}</Text>
                   </View>
 
-                  <View style={{flexDirection: 'row',margin:4}}>
+                  {/* <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Education : </Text>
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_skill}</Text>
-                  </View>  
+                  </View>   */}
 
 
 
-                    <View style={{flexDirection: 'row',margin:4}}>
+                    {/* <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Age : </Text>
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.age}</Text>
-                  </View>               
+                  </View>                */}
                 </View>   
                 
                              
@@ -317,16 +333,22 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
             <View style={Styles.contentView}>
               <View style={{flexDirection: 'row'}}>
                 {/* <Image source={People} style={Styles.peopleStyle} /> */}
-                <View style={{flexDirection: 'column'}}>                
+                <View style={{flexDirection: 'column'}}>   
+                <View style={{flexDirection: 'row',margin:4}}>
+                  <Text style={Styles.contentTextStyle1}>Niveau de français : </Text>
+                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.teacher_french_level}</Text>
+                  </View>
+
+
                   <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Paiement par: </Text>
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.payment_by}</Text>
                   </View>
 
-                  <View style={{flexDirection: 'row',margin:4}}>
+                  {/* <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Charge : </Text>
                 <Text style={Styles.contentTextStyle}>{singleTeacherDetails.charge_amount}</Text>
-                  </View>
+                  </View> */}
 
                   <View style={{flexDirection: 'row',margin:4}}>
                   <Text style={Styles.contentTextStyle1}>Deduction de maintenant : </Text>
@@ -344,6 +366,36 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                              
               </View>
             </View>
+
+
+
+
+            <View style={Styles.contentView}>
+              <View style={{flexDirection: 'row'}}>
+                {/* <Image source={People} style={Styles.peopleStyle} /> */}
+                <View style={{flexDirection: 'column'}}>   
+                <View style={{flexDirection: 'row',margin:4}}>
+                  <Text style={Styles.contentTextStyle1}>Durée du cours : </Text>
+                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.course_time}</Text>
+                  </View>
+
+                  <View style={{flexDirection: 'row',margin:4}}>
+                  <Text style={Styles.contentTextStyle1}>Date du cours : </Text>
+                <Text style={Styles.contentTextStyle}>{newdate}</Text>
+                  </View>
+
+                  
+                  <View style={{flexDirection: 'row',margin:4}}>
+                  <Text style={Styles.contentTextStyle1}>Charge : </Text>
+                <Text style={Styles.contentTextStyle}>{singleTeacherDetails.charge_amount} €</Text>
+                  </View>
+
+                           
+                </View>   
+                
+                             
+              </View>
+            </View>
             
                  
                     {/* <View style={Styles.continueBtn}>
@@ -352,12 +404,15 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                         </TouchableOpacity>
                     </View> */}
 
-                    { 
+                    {/* { 
                         ratingflag == true ?
                         <View style={Styles.continueBtn}>
                         <TouchableOpacity 
                         style={{flexDirection:'row',margin:3}}
-                        onPress={()=>{Linking.openURL(`tel:${9999999999}`)}}
+                        // onPress={()=>{Linking.openURL(`tel:${9999999999}`)}}
+                        onPress={()=>{
+                          Linking.openURL(`tel:${singleTeacherDetails.teacher_phone_number}`)
+                        }}
                         >
                         <Image source={require("../../../../assets/icon/call.png")} style={{height:20,width:20,margin:7}} />
                         <Text style={Styles.continueBtnTxt}>
@@ -367,24 +422,32 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                       </View>
                         :
                         <View style={Styles.continueBtn}>
-                      <TouchableOpacity 
-                      // onPress={()=>{this.props.navigation.navigate("profile",{
-                      //   teacher_id:singleTeacherDetails.teacher_id,
-                      //   teacher_profile_url:singleTeacherDetails.teacher_profile_url,
-                      //   course_date:singleTeacherDetails.course_date,
-                      //   course_time:singleTeacherDetails.course_time,
-                      //   teacher_name:singleTeacherDetails.teacher_name
-                      // })}}
+                      <TouchableOpacity                      
                       onPress={                                                  
                         ()=>{this.Show_Custom_Alert()}}
                       >
                       <Text style={Styles.continueBtnTxt}>
-                        Evalour le coach
+                      Evaluer mon coach
                       </Text>
                       </TouchableOpacity>
                   </View>
+                    } */}
 
 
+                    { 
+                        ratingflag != true ?
+                       
+                        <View style={Styles.continueBtn}>
+                      <TouchableOpacity                      
+                      onPress={                                                  
+                        ()=>{this.Show_Custom_Alert()}}
+                      >
+                      <Text style={Styles.continueBtnTxt}>
+                      Evaluer le coach
+                      </Text>
+                      </TouchableOpacity>
+                  </View>
+                  :null
                     }
 
                   
@@ -402,7 +465,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
               </Fragment>
               
               :<View style={{justifyContent:'center',alignItems:'center'}}>
-              <Text style={{fontSize:16,textAlign:'center',fontWeight:'700'}}>chargement...</Text>
+              <Text style={{fontSize:16,textAlign:'center',fontWeight:'700'}}></Text>
             </View>
             }
 
@@ -497,7 +560,7 @@ let ratingflag = this.props.navigation.getParam("ratingflag")
                         textAlign: 'center',
                         fontFamily: 'Montserrat-Regular',
                       }}>
-                  Evaluer mon coach
+                Evaluer mon coach
                     </Text>
                   </TouchableOpacity>
                   {/* <TouchableOpacity

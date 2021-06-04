@@ -34,10 +34,44 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 AntDesign.loadFont();
-
-
+import {notification_count} from '../Api/afterAuth'
+import { Avatar, Badge, Icon, withBadge } from 'react-native-elements'
 class BottomNavigator extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+     
     
+      isBodyLoaded:false,
+      isSpinner:true,
+      notificationCountValue:0,
+    
+    }    
+  }
+
+  
+  componentDidMount = async () => {   
+    setInterval(() => {
+      this.fetchNotificationCount()
+    }, 2000);          
+  }
+  fetchNotificationCount = async () => {
+    const notification_countResponse = await notification_count();
+    if (notification_countResponse.result == true) {
+      var notificationCountValue = notification_countResponse.response.notification_count;          
+      // console.log("getting notification_countResponse data----------",notificationCountValue)
+      this.setState({ isBodyLoaded: true,isSpinner: false,notificationCountValue,});
+    }
+   
+    else{
+      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+        Alert.alert("Message","Quelque chose a mal tourné, essayez encore !",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}]);
+    })
+    }   
+    // console.log("getting country response----------------",countryData.country_list)
+  };
     render(){
         let {currentRoute} = this.props;
         // console.log("current route name-",currentRoute)
@@ -122,6 +156,10 @@ class BottomNavigator extends Component{
                       });
                     }
                   }}>
+                    { this.state.notificationCountValue != 0 ?
+                      <Badge status="error" value={this.state.notificationCountValue} badgeStyle={{margin:-27,marginTop:-4,marginStart:21,righ:-30,width:27,height:27,borderRadius:30}}></Badge>
+                      :null
+                    }
                    {currentRoute == 'profile2' ? (
                      <Image source={SelectedProfie} style={styles.routesImageView} />
                     ) : (

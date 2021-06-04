@@ -77,7 +77,8 @@ export default StyleSheet.create({
   bookStyle: {height: 16, width: 16, margin: 3},
   contentTextStyle: {
     fontSize: 12,
-    margin: 3,
+    
+    margin: 6,
     color: 'gray',
     fontWeight: '700',
   },

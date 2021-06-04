@@ -31,11 +31,12 @@ export default StyleSheet.create({
         alignSelf:'center'
     },
     headerTxt:{
-        fontSize:24,
+        fontSize:22,
         fontWeight:'700',
         margin:1,
         marginStart:10,
-        alignSelf:'center',        
+        alignSelf:'center',
+        color:"gray"        
 
     },
     txtStyle:{
@@ -58,6 +59,7 @@ export default StyleSheet.create({
         marginStart:20,
         textAlign:"center",
         margin:2,
+        color: 'gray'
     },
     txtStyle3:{
         fontSize:15,

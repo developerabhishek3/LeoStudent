@@ -102,6 +102,7 @@ export default class index extends Component {
                       fontWeight: '700',
                       margin: 2,
                       marginTop: 10,
+                      color:"#000000"
                     }}>
                     Hardley Smith
                   </Text>

@@ -11,7 +11,8 @@ import {
   Button,
   Alert,
   Dimensions,
-  StatusBar
+  StatusBar,
+  Modal
 } from 'react-native';
 import Styles from './indexCss';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -66,7 +67,9 @@ export default class index extends Component {
       path:"",
       isBodyLoaded:false,
       isSpinner:true,
-
+      Model_Visibility: false,
+      Alert_Visibility: false,
+      alertValue:"",
       date: new Date(),
       profileData:[],      
       AcademicDetails:[],
@@ -85,12 +88,15 @@ export default class index extends Component {
           "value":"Bachelor"
           },
           {"id": "4",
-          "value":"Doctorat"
+          "value":"Master"
           },
           {"id": "5",
-          "value":"Sans diplôme"
+          "value":"Doctorat"
           },
           {"id": "6",
+          "value":"Sans diplôme"
+          },
+          {"id": "7",
           "value":"Autre"
           },      
       ],
@@ -166,7 +172,10 @@ export default class index extends Component {
             isSpinner:false
           }); 
       console.log("response:::::::" + JSON.stringify(resp.text()));
-      Alert.alert("Message","Mise à jour du profil réussie")
+      // Alert.alert("Message","Mise à jour du profil réussie")
+      let alertValue = "Mise à jour du profil réussie"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
       this.props.navigation.navigate("home")      
       if(resp.json().error === "false"){
       this.setState({
@@ -269,6 +278,8 @@ export default class index extends Component {
 
 
   validateUser = async () => {
+
+    let alertValue;
     const {      
       first_name,
       last_name,
@@ -287,12 +298,21 @@ export default class index extends Component {
       q_6_ans
     } = this.state;
      if (first_name.length === 0) {
-      this.myAlert('Message', 'Veuillez saisir votre prénom!');
+      alertValue = "Veuillez saisir votre prénom!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez saisir votre prénom!');
     } else if (last_name.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre nom de famille!');
+      alertValue = "Veuillez entrer votre nom de famille!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre nom de famille!');
     }
     else if (birth_date.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
+      alertValue = "Veuillez entrer votre date de naissance!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre date de naissance!');
     }
     // else if (address.length === 0) {
     //   this.myAlert('Message', 'Veuillez entrer votre adresse!');
@@ -301,36 +321,63 @@ export default class index extends Component {
     //   this.myAlert('Message', 'Veuillez entrer votre code postal!');
     // }
     else if (city.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre ville!');
+      alertValue = "Veuillez entrer votre ville!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre ville!');
     } else if (country.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre pays!');
+      alertValue = "Veuillez entrer votre pays!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre pays!');
     } 
      else if (telephone_no.length === 0) {
-      this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
+      alertValue = "Veuillez saisir votre numéro de téléphone!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
     } 
     else if (email.length === 0) {
-      this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
+      alertValue = "Veuillez entrer votre adresse électronique!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre adresse électronique!');
     }   
     else if (q_1_ans.length === 0) {
-      this.myAlert('Message', 'Veuillez choisir votre répondre à !');
+      alertValue = "Veuillez choisir votre répondre à!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez choisir votre répondre à !');
     }
     else if (q_2_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez entrer votre répondre à');
+      alertValue = "Veuillez entrer votre répondre à!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre répondre à');
     }
     // else if (q_3_ans.length === 0 ) {
     //   this.myAlert('Message', 'Veuillez entrer votre répondre à".');
     // }
     else if (q_4_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez entrer votre répondre à".');
+      alertValue = "Veuillez entrer votre répondre à!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez entrer votre répondre à".');
     }
     else if (q_5_ans.length === 0 ) {
-      this.myAlert('Message', 'Veuillez choisir votre répondre à !');
+      alertValue = "Veuillez entrer votre répondre à!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert()
+      // this.myAlert('Message', 'Veuillez choisir votre répondre à !');
     }
     else {
    
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (!email.match(mailformat)) {
-        this.myAlert('Message', 'Email-id invalide');
+        alertValue = "Email-id invalide!"
+        this.setState({alertValue})
+        this.Show_Custom_Alert()
+        // this.myAlert('Message', 'Email-id invalide');
         return false;
       }  
       this.uploadWholeData();
@@ -339,7 +386,13 @@ export default class index extends Component {
 
  
 
-
+  Show_Custom_Alert(visible,) {
+    this.setState({Alert_Visibility: visible});
+  }
+  Hide_Custom_Alert() {
+    this.setState({Alert_Visibility: false}); 
+    // this.props.navigation.navigate("login")    
+  }
 
 
 
@@ -555,6 +608,7 @@ export default class index extends Component {
                  alignItems: 'center',
                }}>
                <TextInput placeholder="  Nom" 
+               placeholderTextColor="gray"
                  onChangeText={(first_name) => this.setState({first_name})}
                style={Styles.txtInput} >{this.state.first_name}</TextInput>
     <TextInput placeholder="  Prénom" 
@@ -565,7 +619,7 @@ export default class index extends Component {
                      <DatePicker                    
                          mode="date"   
                          style={{width:SCREEN_WIDTH*0.80,marginStart:-10,backfaceVisibility:"visible", backgroundColor: '#F6F2EF',}}                          
-                         maximumDate={this.state.date}               
+                        //  maximumDate={this.state.date}               
                          date={birth_date}
                          locale={'fr'}                    
                          onDateChange={(birth_date) => {
@@ -578,18 +632,22 @@ export default class index extends Component {
              
              
                   <TextInput placeholder="  Ville" 
+                  placeholderTextColor="gray"
                  onChangeText={(city) => this.setState({city})}  
                style={Styles.txtInput} >{this.state.city}</TextInput>
             <TextInput placeholder="  Pays" 
+            placeholderTextColor="gray"
                 onChangeText={(country) => this.setState({country})} 
                style={Styles.txtInput} >{this.state.country}</TextInput>
                <TextInput
                  placeholder="  Numéro de téléphone"
+                 placeholderTextColor="gray"
                  style={Styles.txtInput}
                  keyboardType="phone-pad"
                  onChangeText={(telephone_no) => this.setState({telephone_no})}
                >{this.state.telephone_no}</TextInput>
                   <TextInput placeholder="  Email" 
+                  placeholderTextColor="gray"
                 onChangeText={(email) => this.setState({email})}              
                style={Styles.txtInput} >{this.state.email}</TextInput>
  
@@ -636,6 +694,7 @@ export default class index extends Component {
                    <TextInput
                     style={Styles.txtInput}
                      onChangeText={(q_2_ans) => this.setState({q_2_ans})}
+                     placeholderTextColor="gray"
                     placeholder="Profession">{this.state.q_2_ans}</TextInput> 
              
  
@@ -658,6 +717,7 @@ export default class index extends Component {
                  <TextInput
                      onChangeText={(q_4_ans) => this.setState({q_4_ans})}
                  // style={Styles.txtInput1}
+                  style={{color:"#000000"}}
                  >{this.state.q_4_ans}</TextInput>
                </View>
  
@@ -704,6 +764,103 @@ export default class index extends Component {
            </ScrollView>
            </KeyboardAwareScrollView>   
  
+
+
+
+
+           <Modal
+            visible={this.state.Alert_Visibility}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> 
+
+
  
            </Fragment> 
 
