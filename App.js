@@ -61,23 +61,22 @@ class App extends React.Component {
     const user_id = await AsyncStorage.getItem('user_id');
     const UserId = JSON.parse(user_id)
     this.notificationListener = firebase.notifications().onNotification((notification) => {
-      // const localNotification = new firebase.notifications.Notification({
-      //   sound: 'uber_2019',
-      //   show_in_foreground: true,
+      console.log("getting notification value on the listener-------------",notification.data)
 
-      // })
-      //   .setSound('uber_2019.wav')
-      //   .setNotificationId(notification.notificationId)
-      //   .setTitle(notification.title)
-      //   .setBody(notification.body)
-      //   .android.setChannelId('notificationchannel') // e.g. the id you chose above
-      //   .android.setSmallIcon('@mipmap/ic_launcher') // create this icon in Android Studio
-      //   .android.setColor('#000000') // you can set a color here
-      //   .android.setPriority(firebase.notifications.Android.Priority.High);
-      //   firebase.notifications()
-      //   .displayNotification(localNotification)
-      //   .catch(err => console.error(err));
-      // console.log("getting notification value on the listener-------------",notification.data)
+      
+     
+        // const localNotification = new firebase.notifications.Notification()           
+        //       .android.setSmallIcon('ic_launcher')
+        //     .android.setPriority(firebase.notifications.Android.Priority.High);
+
+        // firebase.notifications()
+        //     .displayNotification(localNotification)
+        //     .catch(err => console.error(err));
+
+        // if (JSON.parse(message.data.custom_notification).title === Constants.SECURITY_ALERT) {
+        //     this.props.navigation.navigate('SignOut');
+        // }
+  
       // if(notification._data.reciever_id == UserId ){
         const { title, body } = notification;
         this.setState({title, body})

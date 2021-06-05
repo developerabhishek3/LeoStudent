@@ -266,6 +266,9 @@ export default class index extends Component {
         {booktype == 'later' ? (
           <Fragment>
             {
+              this.state.teacherDetailsLator.length > 0 ?
+              <Fragment>
+                {
               this.state.coach_type == undefined || this.state.coach_type == null || this.state.coach_type == "" ?
               <Fragment>
                   {this.state.teacherDetailsLator.map((singleMap, key) => {
@@ -304,7 +307,8 @@ export default class index extends Component {
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
-                            {newdate} - {singleMap.course_time}
+                            {newdate}
+                             {/* - {singleMap.course_time} */}
                           </Text>
                         </View>
 
@@ -413,7 +417,8 @@ export default class index extends Component {
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
-                            {newdate} - {singleMap.course_time}
+                            {newdate} 
+                            {/* - {singleMap.course_time} */}
                           </Text>
                         </View>
     
@@ -493,14 +498,23 @@ export default class index extends Component {
 
             }
             
+              </Fragment>
+              :
+              <View>
+                <Text></Text>
+              </View>
+            }
+            
           </Fragment>
         ) : (
 //  from here to book now-----
 
 
           <Fragment>
-
-{
+            {
+              this.state.teacherDetailsBookNow.length > 0 ?
+              <Fragment>
+                {
               this.state.coach_type == undefined || this.state.coach_type == null || this.state.coach_type == "" ?
               <Fragment>
                   {this.state.teacherDetailsBookNow.map((singleMap, key) => {
@@ -539,7 +553,8 @@ export default class index extends Component {
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
-                            {newdate} - {singleMap.course_time}
+                            {newdate}
+                             {/* - {singleMap.course_time} */}
                           </Text>
                         </View>
 
@@ -648,7 +663,8 @@ export default class index extends Component {
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
-                            {newdate} - {singleMap.course_time}
+                            {newdate} 
+                            {/* - {singleMap.course_time} */}
                           </Text>
                         </View>
     
@@ -726,6 +742,13 @@ export default class index extends Component {
 
 
 
+            }
+
+              </Fragment>
+              :
+              <View>
+                <Text></Text>
+              </View>
             }
 
 
