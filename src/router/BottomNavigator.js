@@ -13,7 +13,7 @@ import {
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
 
 
 

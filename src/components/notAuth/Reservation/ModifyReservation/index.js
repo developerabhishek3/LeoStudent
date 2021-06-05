@@ -112,7 +112,7 @@ export default class index extends Component {
    
     setInterval(() => {
       this.checkCourse_duration()     
-    }, 2000);
+    }, 1000);
 
 
     let levelId = await AsyncStorage.getItem('level_id');
@@ -191,7 +191,7 @@ checkCourse_duration() {
     .format("HH:mm")
     setTimeout(() => {
       this.setState({course_duration})
-    }, 700);
+    }, 300);
    
 
     // console.log("gett   1111111---------",course_duration)
@@ -202,7 +202,7 @@ checkCourse_duration() {
     .format("HH:mm")
     setTimeout(() => {
       this.setState({course_duration})
-    }, 700);
+    }, 300);
 
     // console.log("gett   22222222---------",exacttime)
    }
@@ -263,7 +263,7 @@ modified_reservationFunction = async () => {
 })
 
 
-  }, 2000);
+  }, 1000);
 };
 
 

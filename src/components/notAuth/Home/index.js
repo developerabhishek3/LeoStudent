@@ -216,7 +216,7 @@ const { newsletter } = this.state;
                   style={{width:'98%',alignSelf:'center',height:180,justifyContent:'flex-end',alignItems:'center'}} >
      </ImageBackground>
          <View>
-          <TouchableOpacity style={{backgroundColor:"#b41565",margin:10,justifyContent:'center',alignSelf:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
+          <TouchableOpacity style={{backgroundColor:"#b41565",margin:13,justifyContent:'center',alignSelf:'center',alignItems:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
             // onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
             onPress={()=>{this.props.navigation.navigate("cancelreservation")}} 
           >
@@ -247,7 +247,7 @@ const { newsletter } = this.state;
                   return(
                     <Fragment>
                  
-                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',margin:12}}>
+                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',margin:10}}>
                     <ImageBackground                 
                       resizeMode='cover' 
                       source={require("../../../assets/icon/green.png")}
