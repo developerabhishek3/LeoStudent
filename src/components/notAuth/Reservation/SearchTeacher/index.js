@@ -9,6 +9,8 @@ import {
   Dimensions,
   BackHandler,
   StatusBar,
+  Alert,
+  RefreshControl
 } from 'react-native';
 import BottomNavigator from '../../../../router/BottomNavigator';
 import {Rating, AirbnbRating} from 'react-native-elements';
@@ -54,6 +56,7 @@ export default class index extends Component {
       course_date: 0,
       course_time: 0,
       booktype: '',
+      isCurrenetComponentRefreshing:false,
       coach_type: '',
     };
   }
@@ -86,11 +89,12 @@ export default class index extends Component {
         teacherDetailsBookNow,
         isSpinner: false,
         isBodyLoaded: true,
+        isCurrenetComponentRefreshing:false
       });
       // console.log("grettinh token value here===============",teacherDetailsBookNow)
       // await AsyncStorage.setItem("token", JSON.stringify(search_teacher_booking_nowResponse.response.token));
     } else {
-      this.myAlert('Error', search_teacher_booking_nowResponse.error);
+      Alert.alert('Error', search_teacher_booking_nowResponse.error);
       console.log('getting error here-------------');
     }
     return;
@@ -105,7 +109,7 @@ export default class index extends Component {
     // console.log("checkig state value hrere============== shatrughna sir",this.state.course_date,      this.state.course_time)
 
     console.log('gertign first value ============', this.state.course_date);
-    console.log('gertign first value m2 ============', this.state.course_time);
+    console.log('gertign first value m2 ============', newTime);
 
     const {course_date, course_time} = this.state;
     const search_teacher_booking_laterResponse = await search_teacher_booking_later(
@@ -125,6 +129,7 @@ export default class index extends Component {
         teacherDetailsLator,
         isSpinner: false,
         isBodyLoaded: true,
+        isCurrenetComponentRefreshing:false
       });
     } else {
       console.log('getting error here-------------');
@@ -203,7 +208,7 @@ export default class index extends Component {
     //  console.log("getting book type checking---------------",reserve_date)
     //  console.log("inside render methid +++",booktype)
 
-    // console.log("getting time slot and reserve_date inside render---------------",time_slot,         reserve_date)
+    console.log("getting time slot and reserve_date inside render---------------",time_slot,         reserve_date)
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -262,7 +267,14 @@ export default class index extends Component {
 
         <Spinner visible={this.state.isSpinner} />
         <View style={Styles.mainContainer}>
-        <ScrollView>
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+                      <RefreshControl refreshing={this.state.isCurrenetComponentRefreshing} onRefresh={()=>{  this.setState({ isCurrenetComponentRefreshing: true }); setTimeout(()=>{
+                        this.fetchsearch_teacher_booking_later();
+                        this.fetchsearch_teacher_booking_now();
+                      },1000)  }} />
+                    }>
         {booktype == 'later' ? (
           <Fragment>
             {
@@ -272,7 +284,7 @@ export default class index extends Component {
               this.state.coach_type == undefined || this.state.coach_type == null || this.state.coach_type == "" ?
               <Fragment>
                   {this.state.teacherDetailsLator.map((singleMap, key) => {
-                       console.log("checking inside the check condiotn coach tyle value not getting  and book type later- - - - - - - - - -",singleMap)
+                      //  console.log("checking inside the check condiotn coach tyle value not getting  and book type later- - - - - - - - - -",singleMap)
               var date1 = singleMap.course_date;
               var newdate = date1.split('-').reverse().join('/');
               return (
@@ -294,6 +306,8 @@ export default class index extends Component {
                         style={Styles.peopleStyle}
                       />
                       <View style={{flexDirection: 'column'}}>
+
+                      <View style={{flexDirection: 'row'}}>
                         <Text
                           style={{
                             fontSize: 14,
@@ -304,6 +318,14 @@ export default class index extends Component {
                           }}>
                           {singleMap.teacher_name}
                         </Text>
+                        
+                        {
+                      singleMap.online_offline == 1 ?
+                      <View style={{backgroundColor:"green",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                      : <View style={{backgroundColor:"red",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                    } 
+
+                    </View>
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
@@ -368,6 +390,9 @@ export default class index extends Component {
                           )}
                         </View>
                       </View>
+
+                    
+
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -384,7 +409,7 @@ export default class index extends Component {
               var date1 = singleMap.course_date;
               var newdate = date1.split('-').reverse().join('/');
               if(this.state.coach_type == singleMap.coach_type) {
-                console.log("checking inside the check condiotn coach tyle value getting and book type later- - - - - - - - - -",singleMap)
+                // console.log("checking inside the check condiotn coach tyle value getting and book type later- - - - - - - - - -",singleMap)
                 return (
                   <View style={Styles.contentView}>
                   <TouchableOpacity
@@ -404,6 +429,8 @@ export default class index extends Component {
                         style={Styles.peopleStyle}
                       />
                       <View style={{flexDirection: 'column'}}>
+
+                      <View style={{flexDirection: 'row'}}>
                         <Text
                           style={{
                             fontSize: 14,
@@ -414,6 +441,16 @@ export default class index extends Component {
                           }}>
                           {singleMap.teacher_name}
                         </Text>
+
+
+                        {
+                      singleMap.online_offline == 1 ?
+                      <View style={{backgroundColor:"green",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                      : <View style={{backgroundColor:"red",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                    } 
+                    </View>
+
+
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
@@ -478,6 +515,11 @@ export default class index extends Component {
                           )}
                         </View>
                       </View>
+
+
+
+                  
+
                     </View>
                   </TouchableOpacity>
                   </View>
@@ -518,7 +560,7 @@ export default class index extends Component {
               this.state.coach_type == undefined || this.state.coach_type == null || this.state.coach_type == "" ?
               <Fragment>
                   {this.state.teacherDetailsBookNow.map((singleMap, key) => {
-                       console.log("checking inside the check condiotn coach tyle value not getting and book type now - - - - - - - - - -",singleMap)
+                      //  console.log("checking inside the check condiotn coach tyle value not getting and book type now - - - - - - - - - -",singleMap)
               var date1 = singleMap.course_date;
               var newdate = date1.split('-').reverse().join('/');
               return (
@@ -540,6 +582,9 @@ export default class index extends Component {
                         style={Styles.peopleStyle}
                       />
                       <View style={{flexDirection: 'column'}}>
+
+
+                      <View style={{flexDirection: 'row'}}>                        
                         <Text
                           style={{
                             fontSize: 14,
@@ -549,7 +594,13 @@ export default class index extends Component {
                             color: '#000000',
                           }}>
                           {singleMap.teacher_name}
-                        </Text>
+                        </Text> 
+                      {
+                      singleMap.online_offline == 1 ?
+                      <View style={{backgroundColor:"green",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                      : <View style={{backgroundColor:"red",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                    } 
+                      </View>
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
@@ -619,18 +670,15 @@ export default class index extends Component {
                 </View>
               );
             })}
-
-
               </Fragment>
               :
-
 //  for second condition . . . .  . .
               <Fragment>
               {this.state.teacherDetailsBookNow.map((singleMap, key) => {
               var date1 = singleMap.course_date;
               var newdate = date1.split('-').reverse().join('/');
               if(this.state.coach_type == singleMap.coach_type) {
-                console.log("checking inside the check condiotn coach tyle value getting and book type now - - - - - - - - - -",singleMap)
+                // console.log("checking inside the check condiotn coach tyle value getting and book type now - - - - - - - - - -",singleMap)
                 return (
                   <View style={Styles.contentView}>
                   <TouchableOpacity
@@ -650,6 +698,7 @@ export default class index extends Component {
                         style={Styles.peopleStyle}
                       />
                       <View style={{flexDirection: 'column'}}>
+                      <View style={{flexDirection: 'row'}}>
                         <Text
                           style={{
                             fontSize: 14,
@@ -660,6 +709,14 @@ export default class index extends Component {
                           }}>
                           {singleMap.teacher_name}
                         </Text>
+                        {
+                      singleMap.online_offline == 1 ?
+                      <View style={{backgroundColor:"green",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                      : <View style={{backgroundColor:"red",width:12,height:12,borderRadius:10,borderWidth:0,margin:13}} />
+                    } 
+
+                      </View>
+
                         <View style={{flexDirection: 'row'}}>
                           <Image source={watch} style={Styles.bookStyle} />
                           <Text style={Styles.contentTextStyle}>
@@ -724,26 +781,23 @@ export default class index extends Component {
                           )}
                         </View>
                       </View>
+
+                      {/* {
+                      singleMap.online_offline == 1 ?
+                      <View style={{backgroundColor:"green",width:15,height:15,borderRadius:10,borderWidth:0,margin:13}} />
+                      : <View style={{backgroundColor:"red",width:15,height:15,borderRadius:10,borderWidth:0,margin:13}} />
+                    }  */}
+
+
                     </View>
                   </TouchableOpacity>
                   </View>
                   );
-              }
-              
+              }              
               })}
 
-
               </Fragment>
-
-
-
-
-
-
-
-
-            }
-
+                }
               </Fragment>
               :
               <View>

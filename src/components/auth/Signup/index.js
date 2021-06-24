@@ -111,6 +111,9 @@ handleBackButton = (nav) => {
 
   
   UserRegistrationFunction = async () => {
+
+    console.log("inside here all validatetion done....")
+    // return false;
     var ActualDate = new Date( this.state.birth_date)
     var birth_date =JSON.stringify(ActualDate)
     let birth_date_new =  birth_date.substr(1,10)
@@ -152,7 +155,10 @@ handleBackButton = (nav) => {
 
         await AsyncStorage.setItem("user_id", JSON.stringify(createUserResponse.response.user_id));
         // Alert.alert("Message",createUserResponse.response.message)
-        this.props.navigation.navigate('question')
+        this.props.navigation.navigate('question',{
+          email:email,
+          password:password
+        })
       }
       else{
         Alert.alert("Message",createUserResponse.response.message)
@@ -216,14 +222,20 @@ handleBackButton = (nav) => {
       this.setState({alertValue})
       this.Show_Custom_Alert1()
       // this.myAlert('Message', 'Veuillez entrer votre ville!');
-    } else if (country.length === 0) {
-      alertValue = "Veuillez entrer votre pays!"
-      this.setState({alertValue})
-      this.Show_Custom_Alert1()
-      // this.myAlert('Message', 'Veuillez entrer votre pays!');
-    } 
+    }
+    //  else if (country.length === 0) {
+    //   alertValue = "Veuillez entrer votre pays!"
+    //   this.setState({alertValue})
+    //   this.Show_Custom_Alert1()    
+    // } 
      else if (telephone_no.length === 0) {
       alertValue = "Veuillez saisir votre numéro de téléphone!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+      // this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
+    }  
+     else if (telephone_no.length < 10) {
+      alertValue = "Le numéro de téléphone doit être supérieur à 10 chiffres!"
       this.setState({alertValue})
       this.Show_Custom_Alert1()
       // this.myAlert('Message', 'Veuillez saisir votre numéro de téléphone!');
@@ -246,12 +258,20 @@ handleBackButton = (nav) => {
       this.Show_Custom_Alert1()
       // this.myAlert('Message', 'Veuillez entrer votre mot de passe de confirmation!');
     }
+    else if(password.length < 8){
+      alertValue = "Le mot de passe doit avoir plus de 8 caractères!"
+      this.setState({alertValue})
+      this.Show_Custom_Alert1()
+    }
     else if( password != confirm_password){
       alertValue = "Le mot de passe et le mot de passe de confirmation ne correspondent pas!"
       this.setState({alertValue})
       this.Show_Custom_Alert1()
       // this.myAlert("Message","Le mot de passe et le mot de passe de confirmation ne correspondent pas!")
     }
+
+    
+
   
     else {
       // if(password != confirm_password){
@@ -265,6 +285,14 @@ handleBackButton = (nav) => {
         // this.myAlert('Message', 'Courriel non valide!');
         return false;
       }  
+      const passwordformat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*?]{6,}$/g;
+      if(!password.match(passwordformat)){
+        alertValue = "Le mot de passe doit comporter un caractère spécial, une lettre minuscule et une lettre majuscule."
+        this.setState({alertValue})
+        this.Show_Custom_Alert1()
+
+        return false;
+      }
 
       this.UserRegistrationFunction();
     }
@@ -404,14 +432,8 @@ handleBackButton = (nav) => {
 
 
 
-                <View>
-                  {/* <TextInput
-                    style={Styles.textInputField}
-                    placeholder="  Pays"
-                    onChangeText={(country) => this.setState({country})}
-                  /> */}
-
-
+                {/* <View>
+                 
 
                   <TouchableOpacity
                     onPress={() => this.Show_Custom_AlertForTime()}>
@@ -466,7 +488,7 @@ handleBackButton = (nav) => {
                       />
                     </View>
                   </TouchableOpacity>
-                </View>
+                </View> */}
 
                 <View>
                   <TextInput

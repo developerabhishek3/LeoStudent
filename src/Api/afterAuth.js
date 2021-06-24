@@ -1836,3 +1836,130 @@ export async function saved_cards() {
   }
 }
 
+
+
+
+// export async function save_my_card() {
+//   const token = await AsyncStorage.getItem('token');
+//   const user_id = await AsyncStorage.getItem('user_id');
+
+//   const TokenValue = JSON.parse(token);
+//   const UserId = JSON.parse(user_id);
+
+//   // console.log(
+//   //   'ghetting incomplete transactoin tokena dn ujserId =========',
+//   //   TokenValue,
+//   //   UserId,
+//   // );
+
+//   try {
+//     const save_my_cardResponse = await Axios.get(
+//       `https://www.spyk.fr/api_student/save_my_card`,
+//       {
+//         headers: {
+//           ...commonHeader,
+//           'user-id': `${UserId}`,
+//           token: `${TokenValue}`,
+//         },
+//       },
+//     );
+//     if (save_my_cardResponse.status) {
+//       // console.log("getting response on the function--------",save_my_cardResponse.data)
+//       return {result: true, response: save_my_cardResponse.data};
+//     } else {
+//       return {result: false, error: save_my_cardResponse.data};
+//     }
+//   } catch (error) {
+//     return {result: false, error};
+//   }
+// }
+
+
+
+
+
+export async function save_my_card(body = {}) {
+  
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  console.log(
+    'getting token and user id on save_my_card -----------',
+    UserId,
+  );
+
+  try {
+    const save_my_cardResponse = await Axios.post(
+      'https://www.spyk.fr/api_student/save_my_card',
+      body,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (save_my_cardResponse.status) {
+      return {result: true, response: save_my_cardResponse.data};
+    } else {
+      return {
+        result: false,
+        response: save_my_cardResponse.data,
+      };
+    }
+  } catch (err) {
+    let error = new Error();
+    const {data, status} = err.response;
+    error.response = err.response;
+    if (status == 400 && data.error === 'invalid_grant') {
+      error.message = 'Invalid Credentials';
+    } else {
+      error.message = 'Request Failed';
+    }
+    throw error;
+  }
+}
+
+
+
+
+export async function pending_reservation_count() {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
+
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
+
+  // console.log(
+  //   'ghetting incomplete transactoin tokena dn ujserId =========',
+  //   TokenValue,
+  //   UserId,
+  // );
+
+  try {
+    const pending_reservation_countResponse = await Axios.get(
+      `https://www.spyk.fr/api_student/pending_reservation_count`,
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (pending_reservation_countResponse.status) {
+      // console.log("getting response on the function--------",pending_reservation_countResponse.data)
+      return {result: true, response: pending_reservation_countResponse.data};
+    } else {
+      return {result: false, error: pending_reservation_countResponse.data};
+    }
+  } catch (error) {
+    return {result: false, error};
+  }
+}
+
+

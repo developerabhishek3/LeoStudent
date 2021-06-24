@@ -94,9 +94,8 @@ export default class index extends Component {
 
   componentDidMount = async () => {
   
-    setInterval(() => {
+  
       this.incomplete_reservationData()
-    }, 3000);
       
    
     
@@ -156,11 +155,18 @@ export default class index extends Component {
         </View>
 
         <View style={Styles.subhaderView}>
-          <View style={{flexDirection: 'column'}}>
-            
-            <Text style={Styles.subheadingTxt1}>En attente </Text>
-            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
+
+
+
+
+          
+        <View style={{flexDirection: 'column'}}>
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("history")}}>
+            <Text style={Styles.subheadingTxt}> Historique</Text>
+            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
+            </TouchableOpacity>
           </View>
+       
 
 
           
@@ -171,12 +177,10 @@ export default class index extends Component {
             </TouchableOpacity>
           </View>
 
-
           <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("history")}}>
-            <Text style={Styles.subheadingTxt}> Historique</Text>
-            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
-            </TouchableOpacity>
+            
+            <Text style={Styles.subheadingTxt1}>En attente </Text>
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
           </View>
 
         </View>
@@ -436,7 +440,7 @@ export default class index extends Component {
 
 
         <BottomNavigator
-          currentRoute={'transaction'}
+          currentRoute={'currentreservation'}
           navigation={this.props.navigation}
         />
       </View>

@@ -34,7 +34,7 @@ export default class index extends Component {
           "description":"Conseillé pour les niveaux débutants et les niveaux intermédiaires qui veulent être plus en confiance et progresser tant sur l'oral que la grammaire"
           },
           {"id": "3",
-          "value":"Les deux me vont"
+          "value":"coach natif,coach bilingue"
           },              
       ],
 
@@ -113,11 +113,17 @@ export default class index extends Component {
                   {
                     this.state.data1.map((singleMAp,key)=>{
                       console.log("inside the filter singleMAp -  - -  -",singleMAp)
+                      let newValue = `coach natif,coach bilingue`
                       return(
-                        <View >                           
+                        <View>                           
                                   {
-                                      this.state.value == singleMAp.value ? 
-                                      <TouchableOpacity  onPress={()=>{this.setState({value:singleMAp.value})}} style={{flexDirection:'row',alignItems:'center',margin:6,flexWrap:"wrap",borderWidth:0,width:'90%'}}>
+                                      this.state.value == singleMAp.value ?  
+                                      // (singleMAp.value == "Les deux me vont") ? "coach natif,coach bilingue" : singleMAp.valuesingleMAp.value                                      
+                                      <TouchableOpacity  onPress={
+                                        ()=>{
+                                          (singleMAp.value == "Les deux me vont") ?  this.setState({value:newValue}) :  this.setState({value:singleMAp.value})
+                                         }} 
+                                          style={{flexDirection:'row',alignItems:'center',margin:6,flexWrap:"wrap",borderWidth:0,width:'90%'}}>
                                           <Image source={require("../../../../assets/icon/9.png")} style={{height:20,width:20,margin:3}} />
                                           <Text style={{color:"red"}}>{singleMAp.value}</Text>
                                           <Text style={{color:"red",fontSize:12,marginStart:20}}>{singleMAp.description}</Text>

@@ -111,7 +111,7 @@ render() {
                resizeMode="stretch"
                style={Styles.bgImgStyle}>
                <ScrollView>
-                 <View style={{borderWidth: 0, marginBottom: 20, marginTop: 0,width:"99%",alignSelf:'center',borderWidth:0}}>
+                 <View style={{borderWidth: 0, marginBottom: 20, marginTop: 0,width:"99%",alignSelf:'center',borderWidth:0,justifyContent: 'center',alignItems: 'center'}}>
                    <View style={Styles.headerView}>
                    <Image source={logo} style={Styles.headerLogo} />
                      <View style={{alignSelf:'center',marginBottom:10}}>
@@ -120,29 +120,10 @@ render() {
                      </View>                     
                    </View> 
 
-                    <View style={{marginTop: 30, marginBottom: 0}}>                                
-                   <Text style={Styles.txtStyle2}>
-                   GO ! Faites un call de 30 min ou 1h avec un coach d’anglais SPYK 
-                   </Text>
-                   </View>
-                   {/* <Text style={Styles.txtStyle2}>
-                   coach d'anglais SPYK !
-                   </Text>              */}
-     
-                   <View style={{marginTop: 10, marginBottom: 0}}>
-                     <Text style={Styles.txtStyle2}>
-                       
-                     Vous pouvez faire un call in English maintenant ou programmer un coaching d’anglais pour plus tard.
- 
-                     </Text>
-                     {/* <Text style={Styles.txtStyle2}>
-                     maintenant ou programmer un coaching
-                     </Text>
-     
-                     <Text style={Styles.txtStyle2}>
-                     d'anglais pour plus tard.
-                     </Text> */}
-                   </View>
+                   <View style={{alignSelf:'center',marginBottom:10,justifyContent: 'center',alignItems: 'center'}}>
+                   <Text style={Styles.txtStyle}>GO ! Faites un call de 30 min ou 1h avec un coach d’anglais SPYK </Text>
+                       <Text style={Styles.txtStyle}>Vous pouvez faire un call in English maintenant ou programmer un coaching d’anglais pour plus tard.</Text>
+                   </View>    
                    <View>
                      <Image source={logoIcon} style={{width:190,height:190,margin:10,alignSelf:'center'}} />
                    </View>                      

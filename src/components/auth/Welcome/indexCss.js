@@ -24,6 +24,9 @@ export default StyleSheet.create({
         },
     headerView:{                
         marginTop:10,
+        justifyContent:'center',
+        alignItems:"center",
+        alignSelf:"center"
     },
     headerLogo:{
         height:130,width:115,
@@ -34,7 +37,7 @@ export default StyleSheet.create({
         fontSize:22,
         fontWeight:'700',
         margin:1,
-        marginStart:10,
+        marginStart:0,
         alignSelf:'center',
         color:"gray"        
 
@@ -42,9 +45,10 @@ export default StyleSheet.create({
     txtStyle:{
         fontSize:15,
         fontWeight:'600',
-        marginStart:20,
+        marginStart:0,
+        textAlign:"center",alignSelf:'center',
         alignSelf:'flex-start',marginBottom:30,
-        margin:10
+        margin:10,marginStart:6
     },
     txtStyle1:{
         fontSize:15,
@@ -59,7 +63,8 @@ export default StyleSheet.create({
         marginStart:20,
         textAlign:"center",
         margin:2,
-        color: 'gray'
+        color: 'gray',
+        alignSelf: 'center',
     },
     txtStyle3:{
         fontSize:15,

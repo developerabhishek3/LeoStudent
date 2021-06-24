@@ -121,7 +121,7 @@ class questionResult extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-                onPress={()=>{this.props.navigation.navigate("login")}}
+                onPress={()=>{this.props.navigation.navigate("home")}}
               style={{
                 borderRadius: 7,
                 borderWidth: 0,

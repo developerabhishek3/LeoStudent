@@ -200,14 +200,14 @@ export default class index extends Component {
 
         <View style={Styles.subhaderView}>
 
-
         <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
-            <Text style={Styles.subheadingTxt}>En attente</Text>
-            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("history")}}>
+            <Text style={Styles.subheadingTxt}>Historique</Text>
+            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}} />
             </TouchableOpacity>
-          </View>
+          </View>    
 
+  
 
           <View style={{flexDirection: 'column'}}>
           <TouchableOpacity >
@@ -215,12 +215,15 @@ export default class index extends Component {
             <View style={{borderColor: '#b41565', borderWidth: 1, width: 146,marginStart:4}}/>
             </TouchableOpacity>
           </View>
-          <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("history")}}>
-            <Text style={Styles.subheadingTxt}>Historique</Text>
-            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}} />
+          
+
+                <View style={{flexDirection: 'column'}}>
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
+            <Text style={Styles.subheadingTxt}>En attente</Text>
+            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
-          </View>         
+          </View>
+     
         </View>
         <View style={Styles.mainContainer}>
           {
@@ -519,7 +522,7 @@ export default class index extends Component {
         </View>
 
         <BottomNavigator
-          currentRoute={'transaction'}
+          currentRoute={'currentreservation'}
           navigation={this.props.navigation}
         />
       </View>

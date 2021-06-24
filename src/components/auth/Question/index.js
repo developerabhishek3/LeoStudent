@@ -112,6 +112,14 @@ export default class index extends Component {
 
 
   componentDidMount = async () => {
+
+    let email =  this.props.navigation.getParam("email")
+    let password = this.props.navigation.getParam("password")
+
+    console.log("getting on the qustion screens - --- - - -  -,",email,password)
+
+
+
     // this.fetchLevelData()
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
@@ -139,7 +147,10 @@ export default class index extends Component {
 
 
   add_update_academic_infoFunction = async () => {
-    // console.log("getting inside the function uuid --------",this.state.fcm_token)
+
+    let email =  this.props.navigation.getParam("email")
+    let password = this.props.navigation.getParam("password")
+    console.log("getting inside the function uuid --------",this.state.fcm_token)
     const {
       q_1_ans,
       q_2_ans,
@@ -161,7 +172,10 @@ export default class index extends Component {
      
       if (add_update_academic_infoResponse.response.status === true) {           
           console.log("getting response >>>>>>>>>>>>>>>>",add_update_academic_infoResponse.response)      
-          this.props.navigation.navigate('levelchoice')
+          this.props.navigation.navigate('levelchoice',{
+            email:email,
+            password: password
+          })
           // Alert.alert("Message", add_update_academic_infoResponse.response.message)
       }
       else {

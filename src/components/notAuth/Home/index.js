@@ -206,7 +206,7 @@ const { newsletter } = this.state;
                         this.count_dataFunction();
                       },1000)  }} />
                     }>
-
+<View >
           <Text style={{fontWeight:'700',margin:7,fontSize:20,alignSelf:'center',marginTop:0,color:"gray"}}>Démarrer mon coaching d'anglais</Text>
 
 {/* dynamicity from here.................. */}
@@ -215,6 +215,7 @@ const { newsletter } = this.state;
                  }} 
                   style={{width:'98%',alignSelf:'center',height:180,justifyContent:'flex-end',alignItems:'center'}} >
      </ImageBackground>
+     </View>
          <View>
           <TouchableOpacity style={{backgroundColor:"#b41565",margin:13,justifyContent:'center',alignSelf:'center',alignItems:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
             // onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
@@ -230,62 +231,44 @@ const { newsletter } = this.state;
                    this.state.countData.length > 0 ?
 
                   <Fragment>
-
-
-
-
 {
-                this.state.countData.map((singleCountData)=>{   
-
-
+                this.state.countData.map((singleCountData,index)=>{   
                   let Newlevel = singleCountData.init_level
+                  console.log("getting level inside home - - - -",Newlevel)
                   let levelUpdate = Newlevel.substr(7)
                   // console.log(Newlevel.substr(7))
-                  console.log("getting level inside map - - -  - - -",levelUpdate)
-                  
+                  console.log("getting level inside map - - -  - - -",levelUpdate)                  
                   // console.log("single count data - - - - - - ",singleCountData)
                   return(
-                    <Fragment>
-                 
-                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',margin:10}}>
+                    <Fragment>                 
+                    <View key={index} style={{flexDirection:'row',borderWidth:0,borderColor:"red",alignItems:'center',justifyContent:'space-between',margin:10}}>
                     <ImageBackground                 
                       resizeMode='cover' 
                       source={require("../../../assets/icon/green.png")}
-                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
+                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80,justifyContent:'center',alignItems:'center'}}                      
                     >
                       <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Total des heures</Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:1,alignItems:'center',width:"60%",textAlign:'center',marginStart:-10}}>Total des heures</Text>
+                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center",marginStart:16,}}>
                           <Image source={require("../../../assets/icon/105.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.total_hours}</Text>
+                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:0}}>{singleCountData.total_hours}</Text>
                         </View>
                         </View>
-
-
-
-
-
-
                     </ImageBackground>
                     <ImageBackground 
                       resizeMode='cover' 
                       source={require("../../../assets/icon/skyblue.png")}
-                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}
-                      
+                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80,justifyContent: 'center',alignItems:'center'}}                      
                     >
 
 
 <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Nombre de coachings suivis</Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:1,alignItems:'center',width:"60%",textAlign:'center',marginStart:-10}}>Nombre de coachings suivis</Text>
+                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center",marginStart:10}}>
                           <Image source={require("../../../assets/icon/books.png")} style={{height:35,width:35,margin:4}} />
-                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.monitored_coaching}</Text>
+                  <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:0}}>{singleCountData.monitored_coaching}</Text>
                         </View>
                         </View>
-
-
-
-                     
 
                     </ImageBackground>
                     </View>
@@ -294,13 +277,13 @@ const { newsletter } = this.state;
                     <ImageBackground                  
                       resizeMode='cover' 
                       source={require("../../../assets/icon/orange.png")}
-                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
+                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80,justifyContent: 'center',alignItems:'center'}}                      
                     >                      
                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',width:"60%",textAlign:'center'}}>Bons cadeaux</Text>
-                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center"}}>
+                     <Text style={{color:"#FFFFFF",fontWeight:'700',margin:1,alignItems:'center',width:"50%",textAlign:'center',marginStart:-10}}>Bons cadeaux</Text>
+                        <View  style={{borderWidth:0,alignItems:"center",justifyContent:"center",marginStart:27}}>
                           <Image source={require("../../../assets/icon/gift.png")} style={{height:35,width:35,margin:4}} />
-                          <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:3}}>{singleCountData.promo_count}</Text>
+                          <Text style={{color:"#FFFFFF",fontWeight:'700',marginStart:0,}}>{singleCountData.promo_count}</Text>
                         </View>
                         </View>
 
@@ -309,17 +292,17 @@ const { newsletter } = this.state;
                     <ImageBackground                 
                       resizeMode='cover' 
                       source={require("../../../assets/icon/red.png")}
-                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80}}                      
+                      style={{alignSelf:'center',width:SCREEN_WIDTH/2.2,height:80,justifyContent: 'center',alignItems:'center'}}                      
                     >                                           
                         <View style={{justifyContent:'space-around',alignItems:'center',flexDirection:"row"}}>
                       
-                          <View style={{alignItems:'center'}}>
-                            <Text style={{color:"#FFFFFF",fontWeight:'700',margin:4,alignItems:'center',textAlign:'center',fontSize:14}}>Niveau initial</Text>
+                        <View  style={{alignItems:"center",justifyContent:'center',marginStart:10}}>
+                            <Text style={{color:"#FFFFFF",fontWeight:'700',margin:1,alignItems:'center',textAlign:'center',fontSize:14,marginStart:-1}}>Niveau initial</Text>
                             <Text style={{color:"#FFFFFF",fontWeight:'700',fontSize:14,marginStart:3,marginTop:-6}}>{levelUpdate}</Text>
                           </View>
                                           
-                          <View  style={{alignItems:"center",}}>
-                            <Image source={require("../../../assets/icon/cap.png")} style={{height:40,width:40,margin:10}} />
+                          <View  style={{alignItems:"center",justifyContent:'center',marginStart:10}}>
+                            <Image source={require("../../../assets/icon/cap.png")} style={{height:40,width:40,margin:10,marginStart:10}} />
                           </View>
 
                         </View>

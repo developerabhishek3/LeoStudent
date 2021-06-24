@@ -50,9 +50,7 @@ class CancelReservation extends Component{
       }
       Hide_Custom_Alert3() {
         this.setState({Alert_Visibility1: false});
-        this.props.navigation.navigate("booknowchoosetime")  
-        
-       
+        this.props.navigation.navigate("booknowchoosetime")         
       }
     
       Hide_Custom_Alert2() {
@@ -67,6 +65,14 @@ class CancelReservation extends Component{
         // this.props.navigation.navigate('choosetime')
       }
     
+
+
+      Hide_Custom_Alert4() {
+        this.setState({Alert_Visibility1: false}); 
+        this.props.navigation.navigate("currentreservation")  
+      }
+
+
     
       componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', () =>
@@ -106,9 +112,29 @@ class CancelReservation extends Component{
                 // backgroundColor:'#FFF',
                 backgroundColor: 'rgba(85,65,225,0.900)',
                 flex: 1,
+              
+              }}>
+
+                <TouchableOpacity onPress={() =>{this.Hide_Custom_Alert4()}} >
+                <Image
+                      source={require("../../../../assets/icon/20.png")}
+                      style={{height: 24, width: 24, margin: 20,borderWidth:0}}
+                    />
+
+                </TouchableOpacity>
+                 
+                
+                <View
+              style={{
+                // backgroundColor:'#FFF',
+                // backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
+
+
+
               <View
                 style={{
                   width: '80%',
@@ -119,6 +145,7 @@ class CancelReservation extends Component{
                   margin: 10,
                   borderRadius: 10,
                 }}>
+                   
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <View
                     style={{
@@ -201,6 +228,7 @@ class CancelReservation extends Component{
                     </Text>
                   </TouchableOpacity>
                 </View>
+              </View>
               </View>
             </View>
           </Modal>

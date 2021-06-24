@@ -220,7 +220,7 @@ class AddCardDetails extends Component {
 
                         <TextInput
                             style={{width:"90%",margin:10,alignSelf:"center",color:"gray",borderColor:"#DDDDDD",borderWidth:1,height:45,borderRadius:10,paddingStart:15,fontSize:13}}
-                            placeholder="Numéro da le carte bancaire"
+                            placeholder="Numéro de la carte bancaire"
                             placeholderTextColor="gray"
                             value={this.state.card_number}
                             onChangeText={(card_number) => this.setState({card_number})}

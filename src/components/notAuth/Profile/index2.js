@@ -249,7 +249,7 @@ export default class index extends Component {
                 >
                 <View style={{flexDirection:'row',margin:0}}>
                 <Image source={require("../../../assets/icon/gift1.png")} style={{height:24,width:24,margin:10}}  />
-                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Bon cadeau</Text>
+                    <Text style={{fontSize:14,fontWeight:'700',margin:15,color:"gray"}}>Bons cadeaux</Text>
                 </View>
                 </TouchableOpacity>
 

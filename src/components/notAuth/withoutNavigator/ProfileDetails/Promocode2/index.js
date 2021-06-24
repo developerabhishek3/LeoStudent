@@ -156,12 +156,13 @@ callAlertFunction(){
                       <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Charge</Text>
                       <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>70.00</Text>
                   </View> */}
-                  <Text style={{color:'#000000',fontSize:16,fontWeight:'700',margin:2,marginStart:20,marginEnd:4,margin:4}}>{singleMap.title}</Text>
-                  {/* <Text style={{color:'gray',fontSize:12,fontWeight:'700',margin:0,marginStart:20,marginEnd:4}}>{singleMap.description}</Text> */}
+                 <Text style={{color:'#000000',fontSize:16,fontWeight:'700',margin:2,marginStart:20,marginEnd:4,margin:4}}>{singleMap.title}</Text>
+                  <Text style={{color:'gray',fontSize:12,fontWeight:'700',margin:0,marginStart:20,marginEnd:4}}>amount : {singleMap.amount}</Text>
+                  <View style={{borderColor:'#b41565',borderWidth:1,marginStart:18,margin:10,alignSelf:'flex-start',borderRadius:6}}>
+                      <Text style={{color:"#b41565",margin:7,fontSize:10,fontWeight:'700'}}>{singleMap.code}</Text>
+                    </View>
                   <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:7,marginTop:4,marginStart:16,marginEnd:16,alignSelf:'flex-end'}}>
-                    {/* <TouchableOpacity style={{borderColor:'#b41565',borderWidth:1,justifyContent:'center',alignItems:'center',borderRadius:6}}>
-                      <Text style={{color:"#b41565",margin:4,fontSize:10,fontWeight:'700'}}>{singleMap.code}</Text>
-                    </TouchableOpacity> */}
+                   
                   
                     {
                       singleMap.use_counter != 0 ?
