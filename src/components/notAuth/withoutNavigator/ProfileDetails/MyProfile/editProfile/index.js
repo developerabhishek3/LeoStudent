@@ -69,7 +69,9 @@ export default class index extends Component {
       isSpinner:true,
       Model_Visibility: false,
       Alert_Visibility: false,
+      Alert_Visibility1: false,
       alertValue:"",
+      alertValue1:"",
       date: new Date(),
       profileData:[],      
       AcademicDetails:[],
@@ -173,10 +175,10 @@ export default class index extends Component {
           }); 
       console.log("response:::::::" + JSON.stringify(resp.text()));
       // Alert.alert("Message","Mise à jour du profil réussie")
-      let alertValue = "Mise à jour du profil réussie"
-      this.setState({alertValue})
-      this.Show_Custom_Alert()
-      this.props.navigation.navigate("home")      
+      let alertValue1 = "Mise à jour du profil réussie"
+      this.setState({alertValue1})
+      this.Show_Custom_Alert1()
+      // this.props.navigation.navigate("home")      
       if(resp.json().error === "false"){
       this.setState({
         isSpinner:false
@@ -325,12 +327,13 @@ export default class index extends Component {
       this.setState({alertValue})
       this.Show_Custom_Alert()
       // this.myAlert('Message', 'Veuillez entrer votre ville!');
-    } else if (country.length === 0) {
-      alertValue = "Veuillez entrer votre pays!"
-      this.setState({alertValue})
-      this.Show_Custom_Alert()
-      // this.myAlert('Message', 'Veuillez entrer votre pays!');
     } 
+    // else if (country.length === 0) {
+    //   alertValue = "Veuillez entrer votre pays!"
+    //   this.setState({alertValue})
+    //   this.Show_Custom_Alert()
+    //   // this.myAlert('Message', 'Veuillez entrer votre pays!');
+    // } 
      else if (telephone_no.length === 0) {
       alertValue = "Veuillez saisir votre numéro de téléphone!"
       this.setState({alertValue})
@@ -393,6 +396,13 @@ export default class index extends Component {
     this.setState({Alert_Visibility: false}); 
     // this.props.navigation.navigate("login")    
   }
+  Show_Custom_Alert1(visible,) {
+    this.setState({Alert_Visibility1: visible});
+  }
+  Hide_Custom_Alert1() {
+    this.setState({Alert_Visibility1: false}); 
+    this.props.navigation.navigate("home")    
+  }
 
 
 
@@ -412,7 +422,7 @@ export default class index extends Component {
     //     skipBackup: true
     //   }
     // };
-    ImagePicker.showImagePicker(options, response => {
+    ImagePicker.launchImageLibrary(options, response => {
       // console.log('Response = ', response);
 
       if (response.didCancel) {
@@ -607,11 +617,11 @@ export default class index extends Component {
                  marginBottom: 15,
                  alignItems: 'center',
                }}>
-               <TextInput placeholder="  Nom" 
+               <TextInput placeholder="Nom" 
                placeholderTextColor="gray"
                  onChangeText={(first_name) => this.setState({first_name})}
                style={Styles.txtInput} >{this.state.first_name}</TextInput>
-    <TextInput placeholder="  Prénom" 
+    <TextInput placeholder="Prénom" 
                  onChangeText={(last_name) => this.setState({last_name})}
                style={Styles.txtInput} >{this.state.last_name}</TextInput>
               <View   style={Styles.textInputField}>                              
@@ -631,22 +641,22 @@ export default class index extends Component {
                  </View>
              
              
-                  <TextInput placeholder="  Ville" 
+                  <TextInput placeholder="Ville" 
                   placeholderTextColor="gray"
                  onChangeText={(city) => this.setState({city})}  
                style={Styles.txtInput} >{this.state.city}</TextInput>
-            <TextInput placeholder="  Pays" 
+            {/* <TextInput placeholder="  Pays" 
             placeholderTextColor="gray"
                 onChangeText={(country) => this.setState({country})} 
-               style={Styles.txtInput} >{this.state.country}</TextInput>
+               style={Styles.txtInput} >{this.state.country}</TextInput> */}
                <TextInput
-                 placeholder="  Numéro de téléphone"
+                 placeholder="Numéro de téléphone"
                  placeholderTextColor="gray"
                  style={Styles.txtInput}
                  keyboardType="phone-pad"
                  onChangeText={(telephone_no) => this.setState({telephone_no})}
                >{this.state.telephone_no}</TextInput>
-                  <TextInput placeholder="  Email" 
+                  <TextInput placeholder="Email" 
                   placeholderTextColor="gray"
                 onChangeText={(email) => this.setState({email})}              
                style={Styles.txtInput} >{this.state.email}</TextInput>
@@ -833,6 +843,105 @@ export default class index extends Component {
                   <TouchableOpacity                 
                     onPress={() => {                      
                       this.Hide_Custom_Alert();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal> 
+
+
+
+
+
+
+
+
+          <Modal
+            visible={this.state.Alert_Visibility1}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert1(!this.state.Alert_Visibility1);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../../../../assets/icon/17.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                     {this.state.alertValue1}
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert1();
                     }}
                     style={{
                       backgroundColor: '#b41565',

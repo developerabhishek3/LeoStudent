@@ -42,6 +42,7 @@ export default class index extends Component {
       Alert_Visibility: false,
       checked1: false,
       checked2: false,
+      checked3:false,
 
       date_slot:"",
       
@@ -166,7 +167,37 @@ export default class index extends Component {
   // }
 
 
+  cardFunction(){
+    let amount_en = this.props.navigation.getParam('amount_en');
+    let reserve_time = this.props.navigation.getParam('reserve_time');  
+    let reserve_date = this.props.navigation.getParam('reserve_date');
+    let promocodeId = this.props.navigation.getParam('promocodeId');
+    let amount = this.props.navigation.getParam('amount');
+    let exacttime = this.props.navigation.getParam('exacttime');      
+    let time_slot =  this.props.navigation.getParam('time_slot')
+    let timeDuration =  this.props.navigation.getParam('timeDuration')      
+    let booktype = this.props.navigation.getParam("booktype")
+    let user_id = this.props.navigation.getParam("user_id")
 
+
+    this.setState({checked3:false,paypalCheck:false,cardCheck:true})
+    this.setState({checked1: !this.state.checked1});
+
+
+    this.props.navigation.navigate('stripe', {
+      // cartId:this.state.cartId,
+      amount_en: amount_en,
+      reserve_time: reserve_time,
+      timeDuration: timeDuration,
+      reserve_date: reserve_date,
+      promocodeId: promocodeId,
+      amount:amount,
+      exacttime:exacttime,
+      time_slot:time_slot,
+      booktype:booktype,
+      user_id:user_id          
+    })
+  }
 
 
 
@@ -227,76 +258,76 @@ export default class index extends Component {
 
 
               <ScrollView>
-              {/* <View
-                style={{
-                  width: '90%',
-                  borderWidth: 1,
-                  borderColor:"#DDDDDD",
-                  borderRadius: 10,
-                  elevation: 0,
-                  shadowColor: '#FFFFFFF',
-                  shadowOffset: 3,
-                  shadowOpacity: 1,
-                  alignSelf: 'center',
-                  margin: 30,
-                  height: 40,
-                  justifyContent: 'center',
-                }}>
-                <View style={{flexDirection: 'row', margin: 3, marginStart: 10,alignItems:'center',justifyContent:'space-between'}}>
-                  <View
+            <View
+              style={{
+                width: '90%',
+                borderWidth: 1,
+                borderColor:"#DDDDDD",
+                borderRadius: 10,
+                elevation: 0,
+                shadowColor: '#FFFFFFF',
+                shadowOffset: 3,
+                shadowOpacity: 1,
+                alignSelf: 'center',
+                margin: 20,
+                height: 40,
+                justifyContent: 'center',
+              }}>
+              <View style={{flexDirection: 'row', margin: 3, marginStart: 10,alignItems:'center',justifyContent:'space-between'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems:'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Image
+                    style={{height: 24, width: 24, margin: 3}}
+                    source={require('../../../../assets/icon/card.png')}
+                  />
+                  <Text
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      margin: 6,
+                      color: 'gray',
+                      fontSize: 14,
+                      fontWeight: '700',
+                      margin: 7,
+                      marginStart: 10,
+                      marginEnd: 10,
                     }}>
-                    <Image
-                      style={{height: 26, width: 26, margin: 3}}
-                      source={require('../../../../assets/icon/card.png')}
-                    />
-                    <Text
-                      style={{
-                        color: 'gray',
-                        fontSize: 14,
-                        fontWeight: '700',
-                        margin: 7,
-                        marginStart: 0,
-                        marginEnd: 4,
-                      }}>
-                      Carte de paiement
-                    </Text>
-                  </View>
-                  <View style={{marginEnd: -10}}>
-                    <CheckBox
-                       checked={this.state.checked1}
-                      
-                       // onPress={() =>
-                       //   this.setState({checked1: !this.state.checked1,checked2:false})
-                       // }
-                       onPress={()=>{this.cardFunction()}}
-                      checkedIcon={
-                        <Image
-                          source={require('../../../../assets/icon/9.png')}
-                          style={{
-                            width: 24,
-                            height: 24,
-                            borderWidth: 0,
-                          }}
-                        />
-                      }
-                      uncheckedIcon={
-                        <Image
-                          source={require('../../../../assets/icon/4.png')}
-                          style={{
-                            width: 24,
-                            height: 24,
-                            borderWidth: 0,
-                          }}
-                        />
-                      }
-                    />
-                  </View>
+                    Carte de paiement
+                  </Text>
                 </View>
-              </View> */}
+                <View style={{marginEnd: -13}}>
+                  <CheckBox
+                    checked={this.state.checked3}
+                    
+                    // onPress={() =>
+                    //   this.setState({checked1: !this.state.checked1,checked2:false})
+                    // }
+                    onPress={()=>{this.cardFunction()}}
+                    checkedIcon={
+                      <Image
+                        source={require('../../../../assets/icon/9.png')}
+                        style={{
+                          width: 24,
+                          height: 24,
+                          borderWidth: 0,
+                        }}
+                      />
+                    }
+                    uncheckedIcon={
+                      <Image
+                        source={require('../../../../assets/icon/4.png')}
+                        style={{
+                          width: 24,
+                          height: 24,
+                          borderWidth: 0,
+                        }}
+                      />
+                    }
+                  />
+                </View>
+              </View>
+            </View>
   
   
               {
@@ -331,7 +362,7 @@ export default class index extends Component {
                                           margin:9
                                         }} 
                                       />   
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14,color:"#000000"}}>xxxx xxxx xxxx {singleMap.last4}</Text>
+                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14,color:"gray"}}>xxxx xxxx xxxx {singleMap.last4}</Text>
                                   </View>
                                 
                                   <View style={{width:"20%"}}>
@@ -364,7 +395,7 @@ export default class index extends Component {
                                           margin:9
                                         }} 
                                       />   
-                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",paddingStart:0,fontSize:14}}>xxxx xxxx xxxx {singleMap.last4}</Text>
+                                  <Text style={{textAlign:"center",margin:9,fontWeight:"600",color:"gray",paddingStart:0,fontSize:14}}>xxxx xxxx xxxx {singleMap.last4}</Text>
                                   </View>
                                   <View style={{width:"20%",alignItems:"center"}}>
                                   <Image

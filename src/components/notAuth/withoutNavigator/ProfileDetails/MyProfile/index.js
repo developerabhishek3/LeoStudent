@@ -194,12 +194,12 @@ handleBackButton = (nav) => {
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Nom</Text>
 
-    <Text style={Styles.nameHeadingTxt}>{profileData.first_name} {profileData.last_name}</Text>
+    <Text style={Styles.nameHeadingTxt}>{profileData.first_name} </Text>
 
             </View>
 
             <View style={Styles.nameStyleView}>
-              <Text style={Styles.nameHeading}> Numéro de téléphone</Text>
+              <Text style={Styles.nameHeading}>Numéro de téléphone</Text>
 
     <Text style={Styles.nameHeadingTxt}> {profileData.phone}</Text>
 
@@ -219,7 +219,7 @@ handleBackButton = (nav) => {
 
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Date de naissance</Text>
-              <Text style={Styles.nameHeadingTxt}>{newdate}</Text>        
+              <Text style={Styles.nameHeadingTxt}> {newdate}</Text>        
               </View>
             </View>
 
@@ -229,30 +229,28 @@ handleBackButton = (nav) => {
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Ville</Text>
 
-            <Text style={Styles.nameHeadingTxt}>{profileData.city}</Text>
+            <Text style={Styles.nameHeadingTxt}> {profileData.city}</Text>
 
             </View>
 
             <View style={Styles.nameStyleView}>
-              <Text style={Styles.nameHeading}>Pays</Text>
-              <Text style={Styles.nameHeadingTxt}>{profileData.country}</Text>        
-              </View>
+              <Text style={Styles.nameHeading}>Diplôme</Text>
+
+            <Text style={Styles.nameHeadingTxt}> {this.state.diploma}</Text>
+
+            </View>
+
             </View>
 
 
 
 
             <View style={Styles.maincontentContaine}>
-            <View style={Styles.nameStyleView}>
-              <Text style={Styles.nameHeading}>Diplôme</Text>
-
-            <Text style={Styles.nameHeadingTxt}>{this.state.diploma}</Text>
-
-            </View>
+         
 
             <View style={Styles.nameStyleView}>
               <Text style={Styles.nameHeading}>Centres d'intérêts</Text>
-              <Text style={Styles.nameHeadingTxt}>{this.state.interest}</Text>        
+              <Text style={Styles.nameHeadingTxt}> {this.state.interest}</Text>        
               </View>
             </View>
 
@@ -260,7 +258,7 @@ handleBackButton = (nav) => {
            
 
             <Text style={Styles.nameHeading1}>Vos besoins en anglais</Text>
-            <Text style={Styles.nameHeadingTxt1}>{this.state.YourEnglishNeeds}</Text>
+            <Text style={Styles.nameHeadingTxt1}> {this.state.YourEnglishNeeds}</Text>
 
 
          
@@ -272,7 +270,7 @@ handleBackButton = (nav) => {
           
 
             <Text style={Styles.nameHeading1}>A propos de vous. Vos centres d'intérêt</Text>
-           <Text style={Styles.nameHeadingTxt1}>{this.state.aboutYouYourInterest}</Text>  
+           <Text style={Styles.nameHeadingTxt1}> {this.state.aboutYouYourInterest}</Text>  
 
  
 </View>

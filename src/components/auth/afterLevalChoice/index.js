@@ -53,7 +53,7 @@ export default class index extends Component {
     if (updateStudentLevelResponse.result === true) {
       // console.log("getting result here --------", updateStudentLevelResponse.response)     
         await AsyncStorage.setItem("level_id", JSON.stringify(level_id)); 
-        this.props.navigation.navigate('login')           
+        this.props.navigation.navigate('home')           
     } else {
       this.myAlert('Error', updateStudentLevelResponse.error);    
       console.log('getting error here-------------');

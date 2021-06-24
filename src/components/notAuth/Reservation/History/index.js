@@ -84,6 +84,10 @@ export default class index extends Component {
 
 
 
+  Hide_Custom_Alert4() {
+    this.setState({Alert_Visibility1: false}); 
+    this.props.navigation.navigate("history")  
+  }
 
 
 
@@ -185,14 +189,14 @@ console.log("insiderender =",this.state.historyData)
 
         <View style={Styles.subhaderView}>
          
-
-
-          <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
-            <Text style={Styles.subheadingTxt}>En attente</Text>
-            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
+        <View style={{flexDirection: 'column'}}>
+            <TouchableOpacity >
+            <Text style={Styles.subheadingTxt1}>Historique</Text>
+            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
             </TouchableOpacity>
           </View>
+
+        
 
 
           <View style={{flexDirection: 'column'}}>
@@ -203,11 +207,12 @@ console.log("insiderender =",this.state.historyData)
           </View>
 
           <View style={{flexDirection: 'column'}}>
-            <TouchableOpacity >
-            <Text style={Styles.subheadingTxt1}>Historique</Text>
-            <View style={{borderColor: '#b41565', borderWidth: 1, width: 100}} />
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate("transaction")}}>
+            <Text style={Styles.subheadingTxt}>En attente</Text>
+            <View style={{borderColor: 'gray', borderWidth: 1, width: 100}}/>
             </TouchableOpacity>
           </View>
+         
         </View>
 
         <View style={Styles.mainContainer}>
@@ -349,13 +354,6 @@ console.log("insiderender =",this.state.historyData)
 
         }
 
-
-
-
-
-
-
-
       
       </ScrollView>
 
@@ -379,156 +377,6 @@ console.log("insiderender =",this.state.historyData)
 
 
 
-          {/* <Modal
-            visible={this.state.Alert_Visibility}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert(!this.state.Alert_Visibility);
-            }}>
-            <View
-              style={{
-                // backgroundColor:'#FFF',
-                backgroundColor: 'rgba(0,0,230,0.700)',
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: SCREEN_HEIGHT / 2.7,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image
-                      source={cross}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 10,
-                      marginTop: -10,
-                      color: '#000000',
-                      textAlign: 'center',                      
-                    }}>
-                    Annuler un coaching accepté
-                  </Text>
-                </View>  
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Etes-vous sûr de vouloir annuler le cours</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text>
-
-
-
-
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',                    
-                    borderRadius: 6,
-                    justifyContent:'space-around',
-                    margin: 5,
-                  }}>
-                  <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert()}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 10,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 13,
-                        marginStart: 7,
-                        marginEnd: 7,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                    Annuler mon coaching
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.Hide_Custom_Alert1()}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 10,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 13,
-                        marginStart: 20,
-                        marginEnd: 20,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                    Retour
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <Modal
             visible={this.state.Alert_Visibility1}
             animationType={'fade'}
@@ -536,7 +384,23 @@ console.log("insiderender =",this.state.historyData)
             onRequestClose={() => {
               this.Show_Custom_Alert(!this.state.Alert_Visibility1);
             }}>
-            <View
+           <View
+              style={{
+                // backgroundColor:'#FFF',
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+              
+              }}>
+
+                <TouchableOpacity onPress={() =>{this.Hide_Custom_Alert4()}} >
+                <Image
+                      source={require("../../../../assets/icon/20.png")}
+                      style={{height: 24, width: 24, margin: 20,borderWidth:0}}
+                    />
+
+                </TouchableOpacity>
+
+<View
               style={{
                 // backgroundColor:'#FFF',
                 backgroundColor: 'rgba(85,65,225,0.900)',
@@ -639,6 +503,7 @@ console.log("insiderender =",this.state.historyData)
                 </View>
               </View>
             </View>
+            </View>
           </Modal>
 
 
@@ -653,7 +518,7 @@ console.log("insiderender =",this.state.historyData)
         </View>
 
         <BottomNavigator
-          currentRoute={'transaction'}
+          currentRoute={'currentreservation'}
           navigation={this.props.navigation}
         />
       </View>

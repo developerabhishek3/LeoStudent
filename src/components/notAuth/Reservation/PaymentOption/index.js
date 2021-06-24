@@ -352,7 +352,7 @@ export default class index extends Component {
               <Text style={{color:"red",fontSize:14,fontWeight:"700"}}>Saved Card</Text>
             </TouchableOpacity> */}
 
-          <TouchableOpacity onPress={()=>{
+          {/* <TouchableOpacity onPress={()=>{
              this.props.navigation.navigate("savedcard",{
               amount_en: amount_en,
               reserve_time: reserve_time,
@@ -367,7 +367,7 @@ export default class index extends Component {
             })
           }} style={{backgroundColor:"#b41565",alignSelf:"flex-end",margin:10,borderRadius:10}}>
               <Text style={{alignSelf:'flex-end',margin:3,color:"#ffffff",marginStart:20,marginEnd:20,margin:10,fontSize:10}}>Paiement par cartes enregistrées</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
             <View style={Styles.continueBtn}>
               {
@@ -390,7 +390,7 @@ export default class index extends Component {
                       user_id:user_id          
                     })
                     :
-                    this.props.navigation.navigate("stripe",{
+                    this.props.navigation.navigate("savedcard",{
                       amount_en: amount_en,
                       reserve_time: reserve_time,
                       timeDuration: timeDuration,

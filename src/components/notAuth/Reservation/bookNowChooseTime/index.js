@@ -411,7 +411,9 @@ currentDateFormat(){
                         <View
                           style={{
                             flexDirection: 'row',
+                            alignItems:'center',
                             justifyContent: 'space-between',
+                        
                           }}>
                           <TouchableOpacity
                             onPress={() => {
@@ -501,35 +503,28 @@ currentDateFormat(){
                 {this.state.reserve_date}
               </Text>
             </View> */}
-            <View>          
-              <View
+              
+              {/* <View
                 style={{
                   flexDirection: 'row',
                   backgroundColor: '#5495ED',
                   marginTop: 10,
                   width: '96%',
-                  alignSelf: 'center',
-                }}>
-                <ScrollView horizontal={true}>
+                  flex:1,
+                 justifyContent: 'center',
+                 alignItems: 'center',
+                 alignSelf:"center"
+
+                }}> */}   
+                <View style={{flexDirection: 'row',alignItems: 'center',alignSelf:"center", backgroundColor: '#5495ED',justifyContent: 'center',margin:20}} >         
                   {dateArray.map((singleTime, Index) => {
                     // console.log("getting time here--------------",singleTime)
                     let minutes = singleTime.getMinutes();
                     if(minutes == 0){
                       minutes = `00`;
                     }
-                    return (
-                      <View
-                        style={{flexDirection: 'row', margin: 3, height: 30}}>
-                        <TouchableOpacity
-                          // onPress={() => {
-                          //   let minutes = singleTime.getMinutes();
-                          //   if(minutes == 0){
-                          //     minutes = `00`;
-                          //   }
-                          //   this.setState({
-                          //     reserve_time: `${singleDate.getHours()}:${minutes}`,
-                          //   });
-                          // }}
+                    return (                     
+                        <TouchableOpacity                          
                           onPress={() => {
                            
                             this.setState({reserve_time: `${singleTime.getHours()}:${minutes}`});
@@ -539,16 +534,21 @@ currentDateFormat(){
                               style={{
                                 borderWidth: 0,
                                 backgroundColor: '#b41565',
-                                flexDirection: 'row',
-                                margin: 1,
-                                borderRadius: 7,
+                                flexDirection: 'row',                               
+                                borderRadius: 7,                               
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginStart: 7,
+                                marginEnd: 7,
                               }}>
                               <Text
                                 style={{
                                   fontWeight: 'bold',
-                                  margin: 4,
+                                  margin: 6,
+                                  
                                   color: '#FFFFFF',
                                   fontSize: 12,
+                                  alignSelf: 'center',
                                   fontFamily: 'OpenSans-Bold',
                                   textAlign: 'center',
                                 }}>{`${singleTime.getHours()}h${minutes}`}</Text>
@@ -561,25 +561,26 @@ currentDateFormat(){
                                 flexDirection: 'row',
                                 margin: 1,
                                 borderRadius: 7,
+                                marginStart: 7,
+                                marginEnd: 7,
                               }}>
                               <Text
                                 style={{
                                   fontWeight: 'bold',
-                                  margin: 4,
+                                  margin: 6,
                                   color: '#FFFFFF',
                                   fontSize: 12,
+                                  alignSelf: 'center',
                                   fontFamily: 'OpenSans-Bold',
                                   textAlign: 'center',
                                 }}>{`${singleTime.getHours()}h${minutes}`}</Text>
                             </View>
                           )}
-                        </TouchableOpacity>
-                      </View>
+                        </TouchableOpacity>             
                     );
-                  })}
-                </ScrollView>
+                  })}         
               </View>
-            </View>
+         
 
             {/* <View>
               <Text style={Styles.subheaderTxt}>

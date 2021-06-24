@@ -34,17 +34,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 AntDesign.loadFont();
-import {notification_count} from '../Api/afterAuth'
+import {notification_count,pending_reservation_count} from '../Api/afterAuth'
 import { Avatar, Badge, Icon, withBadge } from 'react-native-elements'
 class BottomNavigator extends Component{
   constructor(props){
     super(props)
     this.state={
-     
-    
       isBodyLoaded:false,
       isSpinner:true,
       notificationCountValue:0,
+      pendingReservationCountValue:0,
     
     }    
   }
@@ -53,6 +52,7 @@ class BottomNavigator extends Component{
   componentDidMount = async () => {   
     setInterval(() => {
       this.fetchNotificationCount()
+      this.fetchpending_reservation_count()
     }, 2000);          
   }
   fetchNotificationCount = async () => {
@@ -72,6 +72,32 @@ class BottomNavigator extends Component{
     }   
     // console.log("getting country response----------------",countryData.country_list)
   };
+
+
+
+
+
+
+
+  fetchpending_reservation_count = async () => {
+    const notification_countResponse = await pending_reservation_count()
+    if (notification_countResponse.result == true) {
+      var pendingReservationCountValue = notification_countResponse.response.pending_reservation_count;          
+      // console.log("getting notification_countResponse data----------",pendingReservationCountValue)
+      this.setState({ isBodyLoaded: true,isSpinner: false,pendingReservationCountValue,});
+    }
+   
+    else{
+      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+        Alert.alert("Message","Quelque chose a mal tourné, essayez encore !",[ { text: "Ok",onPress:()=>{
+            this.props.navigation.goBack();
+        }}]);
+    })
+    }   
+    // console.log("getting country response----------------",countryData.country_list)
+  };
+
+
     render(){
         let {currentRoute} = this.props;
         // console.log("current route name-",currentRoute)
@@ -104,18 +130,22 @@ class BottomNavigator extends Component{
                 <TouchableOpacity
                   style={{width: '25%',borderWidth:0}}
                   onPress={() => {
-                    if (currentRoute != 'transaction') {
-                      this.props.navigation.navigate('transaction', {
+                    if (currentRoute != 'currentreservation') {
+                      this.props.navigation.navigate('currentreservation', {
                         proceedView: undefined,
                       });
                     }
                   }}>
-                  {currentRoute == 'transaction' ? (
+                     { this.state.pendingReservationCountValue != 0 ?
+                      <Badge status="error" value={this.state.pendingReservationCountValue} badgeStyle={{margin:-27,marginTop:-4,marginStart:21,righ:-30,width:27,height:27,borderRadius:30}}></Badge>
+                      :null
+                    }
+                  {currentRoute == 'currentreservation' ? (
                     <Image source={SelectedReservation} style={styles.routesImageView} />
                   ) : (
                     <Image source={UnSelectedReservation} style={styles.routesImageView} />
                   )}  
-                  {currentRoute == 'transaction' ? (
+                  {currentRoute == 'currentreservation' ? (
                     <Text style={{color:'#b41565',margin:0,fontWeight:'700',textAlign:'center'}}>Réservation</Text>
                   ) : (
                     <Text style={{color:'gray',margin:0,textAlign:'center'}}>Réservation</Text>
