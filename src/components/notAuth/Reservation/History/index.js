@@ -78,7 +78,7 @@ export default class index extends Component {
 
   Hide_Custom_Alert1() {
     this.setState({Alert_Visibility: false});
-    // this.props.navigation.navigate('clientinfo')
+
   }
 
 
@@ -93,6 +93,13 @@ export default class index extends Component {
 
 
 
+  async componentDidMount() {
+    this.history_reservationFunction()      
+
+    BackHandler.addEventListener('hardwareBackPress', () =>
+    this.handleBackButton(this.props.navigation),
+  );
+  }
 
 
 
@@ -104,27 +111,14 @@ export default class index extends Component {
   history_reservationFunction = async () => {
     const history_reservationResponse = await history_reservation();
     if (history_reservationResponse.result == true) {   
-        
+        console.log("getting response result true - -  - - - - - - - - - - -",history_reservationResponse.response)
      var historyData = history_reservationResponse.response.history_transaction
       console.log("getting history Data = = =  = = =  =  =",historyData) 
       
     }
-    this.setState({historyData,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
+    this.setState({historyData})
+    this.setState({isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
   };
-
-
-
-  // count_dataFunction = async () => {
-  //   const count_dataResponse = await count_data();
-  //   if (count_dataResponse.result == true) {       
-  //     countData = count_dataResponse.response.count_data
-  //   }
-  //   this.setState({countData,isBodyLoaded:true,isSpinner:false});
-  //   // console.log("getting country response----------------",countryData.country_list)
-  // };
-
-
-
 
 
 
@@ -154,14 +148,6 @@ export default class index extends Component {
 
 
 
-  async componentDidMount() {
-
-    this.history_reservationFunction()
-
-    BackHandler.addEventListener('hardwareBackPress', () =>
-    this.handleBackButton(this.props.navigation),
-  );
-  }
 
 
 
@@ -172,7 +158,7 @@ export default class index extends Component {
 console.log("insiderender =",this.state.historyData)
 
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={Styles.container}>
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
         <View style={Styles.header}>
         <TouchableOpacity
@@ -251,7 +237,6 @@ console.log("insiderender =",this.state.historyData)
 
               return(
                 <Fragment>
-   {/* <TouchableOpacity > */}
             <View style={{flexDirection: 'row',borderWidth:1,margin:4,borderColor:"#DDDDDD",borderRadius:7}}>
            
               <Image 
@@ -270,10 +255,7 @@ console.log("insiderender =",this.state.historyData)
                   }}>
                 {singleHistoryMap.teacher_name}
                 </Text>
-                {/* <View style={{flexDirection: 'row'}}>
-                  <Image source={books} style={Styles.bookStyle} />
-                <Text style={Styles.contentTextStyle}>Nimber de coaching faits: {singleHistoryMap.teacher_course_session_done}</Text>
-                </View> */}
+               
 
                 <View style={{flexDirection: 'row'}}>
                   <Image source={watch} style={Styles.bookStyle} />
@@ -299,7 +281,7 @@ console.log("insiderender =",this.state.historyData)
                                       halfStar={<Image source={require("../../../../assets/icon/113.png")} style={{height:15,width:15,margin:3}} />}
                                     />
                                   </View>
-                                 {
+                                 {/* {
                                    singleHistoryMap.teacher_rating == null || singleHistoryMap.teacher_rating == undefined || singleHistoryMap.teacher_rating == ""  ?
                                    <Text style={Styles.contentTextStyle}>
                                   0 avis
@@ -307,13 +289,13 @@ console.log("insiderender =",this.state.historyData)
                                   : <Text style={Styles.contentTextStyle}>
                                   { singleHistoryMap.teacher_rating} avis
                                   </Text>
-                                 } 
+                                 }  */}
                 </View>
                 {
                   singleHistoryMap.teacher_rating == null || singleHistoryMap.teacher_rating == undefined || singleHistoryMap.teacher_rating == "" || singleHistoryMap.teacher_rating == 0 ?
 
                   <View style={Styles.continueBtn}>
-                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("teacherhistory",{
+                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("profile",{
                         teacher_id:singleHistoryMap.teacher_id,
                         course_date:singleHistoryMap.course_date,
                         course_time:singleHistoryMap.course_time,
@@ -526,10 +508,3 @@ console.log("insiderender =",this.state.historyData)
   }
 }
 
-
-// Etes-vous sûr de vouloir annuler le cours prévu avec votre étudiant?
-// 
-//
-// Termes et conditions
-// 
-// Retour

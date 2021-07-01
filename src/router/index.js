@@ -109,6 +109,8 @@ import SecondValidationCheck from '../components/notAuth/Reservation/ChooseTimeV
 import ThirdValidationCheck from '../components/notAuth/Reservation/ChooseTimeValidation/ThirdValidationCheck';
 import AddCardDetails from '../components/notAuth/withoutNavigator/ProfileDetails/AddCardDetails';
 
+import notificationView from '../components/notification/notificationView';
+
 const AppNavigator = createStackNavigator(
   {
     splash: {
@@ -131,6 +133,12 @@ const AppNavigator = createStackNavigator(
     },
     allsavedcards: {
       screen: AllSavedCards,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    notificationview: {
+      screen: notificationView,
       navigationOptions: {
         headerShown: false,
       },

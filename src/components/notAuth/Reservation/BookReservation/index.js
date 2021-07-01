@@ -148,7 +148,13 @@ export default class index extends Component {
 
 
 
-  reservation_requestFunction = async () => {
+  reservation_requestFunction() {
+
+
+    
+  this.setState({ isSpinner: true }, async () => {  
+
+
 
     console.log("treansion id on the Bookreservation++++++++++++++",this.props.navigation.getParam("transactinId"))
     let transactinId = this.props.navigation.getParam("transactinId")
@@ -169,7 +175,7 @@ export default class index extends Component {
         // Alert.alert("Message",reservation_requestResponse.response.message)
         var waiting_time = reservation_requestResponse.response.waiting_time
 
-        this.setState({waiting_time,waiting_time_key:true,isButtonEnable:false})
+        this.setState({waiting_time,waiting_time_key:true,isButtonEnable:false,isSpinner:false})
 
         this.teacher_info_for_reservationFunction()
         
@@ -185,12 +191,17 @@ export default class index extends Component {
      
     }
     else{
-      this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
+      this.setState({ isBodyLoaded: false,isSpinner: false, },()=>{
         Alert.alert("Message","Quelque chose a mal tourné, essayez encore!",[ { text: "Ok",onPress:()=>{
             this.props.navigation.goBack();
         }}]);
     })
     }
+
+
+
+    })
+
  
   };
 

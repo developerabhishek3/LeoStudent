@@ -209,7 +209,7 @@ export default class index extends Component {
             
           </View>
           {/* <Text style={{fontSize:13,color:'gray',fontWeight:'700',alignSelf:'center'}}>Votre client</Text> */}
-          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#000000",marginTop:10}}>{profileData.first_name} {profileData.last_name}</Text>          
+          <Text style={{alignSelf:'center',fontWeight:'700',fontSize:16,color:"#000000",marginTop:10}}>{profileData.first_name}</Text>          
         
             <ScrollView keyboardShouldPersistTaps="always" style={{margin:10}}> 
         

@@ -73,16 +73,16 @@ export default class index extends Component {
   }
 
   fetchsearch_teacher_booking_now = async () => {
-    console.log(
-      'getting inside the function level_id --------',
-      this.state.level_id,
-    );
+    // console.log(
+    //   'getting inside the function level_id --------',
+    //   this.state.level_id,
+    // );
     const search_teacher_booking_nowResponse = await search_teacher_booking_now();
     if (search_teacher_booking_nowResponse.result == true) {
-      console.log(
-        'getting result here for search book now --------',
-        search_teacher_booking_nowResponse.response,
-      );
+      // console.log(
+      //   'getting result here for search book now --------',
+      //   search_teacher_booking_nowResponse.response,
+      // );
       var teacherDetailsBookNow =
         search_teacher_booking_nowResponse.response.teacher_list;
       this.setState({
@@ -90,12 +90,10 @@ export default class index extends Component {
         isSpinner: false,
         isBodyLoaded: true,
         isCurrenetComponentRefreshing:false
-      });
-      // console.log("grettinh token value here===============",teacherDetailsBookNow)
-      // await AsyncStorage.setItem("token", JSON.stringify(search_teacher_booking_nowResponse.response.token));
+      });    
     } else {
       Alert.alert('Error', search_teacher_booking_nowResponse.error);
-      console.log('getting error here-------------');
+      // console.log('getting error here-------------');
     }
     return;
   };
@@ -108,8 +106,8 @@ export default class index extends Component {
 
     // console.log("checkig state value hrere============== shatrughna sir",this.state.course_date,      this.state.course_time)
 
-    console.log('gertign first value ============', this.state.course_date);
-    console.log('gertign first value m2 ============', newTime);
+    // console.log('gertign first value ============', this.state.course_date);
+    // console.log('gertign first value m2 ============', newTime);
 
     const {course_date, course_time} = this.state;
     const search_teacher_booking_laterResponse = await search_teacher_booking_later(
@@ -119,10 +117,10 @@ export default class index extends Component {
       },
     );
     if (search_teacher_booking_laterResponse.result == true) {
-      console.log(
-        'getting result here on book lator --------',
-        search_teacher_booking_laterResponse.response,
-      );
+      // console.log(
+      //   'getting result here on book lator --------',
+      //   search_teacher_booking_laterResponse.response,
+      // );
       var teacherDetailsLator =
         search_teacher_booking_laterResponse.response.teacher_list;
       this.setState({
@@ -138,10 +136,10 @@ export default class index extends Component {
   };
 
   componentDidMount = async () => {
-    console.log(
-      'treansion id on the search teacher++++++++++++++',
-      this.props.navigation.getParam('transactinId'),
-    );
+    // console.log(
+    //   'treansion id on the search teacher++++++++++++++',
+    //   this.props.navigation.getParam('transactinId'),
+    // );
 
     setInterval(() => {
       let coach_type = this.props.navigation.getParam('coach_type');
@@ -153,11 +151,11 @@ export default class index extends Component {
     let reserve_date = this.props.navigation.getParam('reserve_date');
     let booktype = this.props.navigation.getParam('booktype');
 
-    console.log(
-      'checking time slot and date herer----------------',
-      time_slot,
-      reserve_date,
-    );
+    // console.log(
+    //   'checking time slot and date herer----------------',
+    //   time_slot,
+    //   reserve_date,
+    // );
 
     setTimeout(() => {
       this.setState({
@@ -200,7 +198,7 @@ export default class index extends Component {
 
     let booktype = this.props.navigation.getParam('booktype');
 
-    console.log('checking book type hrere==================', booktype,this.state.coach_type);
+    // console.log('checking book type hrere==================', booktype,this.state.coach_type);
 
     let transactinId = this.props.navigation.getParam('transactinId');
     //  console.log("transactioj id ------------",transactinId)
@@ -208,7 +206,7 @@ export default class index extends Component {
     //  console.log("getting book type checking---------------",reserve_date)
     //  console.log("inside render methid +++",booktype)
 
-    console.log("getting time slot and reserve_date inside render---------------",time_slot,         reserve_date)
+    // console.log("getting time slot and reserve_date inside render---------------",time_slot,         reserve_date)
 
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -229,12 +227,7 @@ export default class index extends Component {
             />
           </TouchableOpacity>
           <Text style={Styles.headerTxt}> Choisir mon coach</Text>
-          {/* <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('filter');
-            }}>
-            <Image source={require("../../../../assets/icon/filter.png")} style={{height:24,width:24,margin:6}} />
-          </TouchableOpacity> */}
+          
           <Image source={logo} style={{height: 50, width: 36, marginEnd: 20}} />
         </View>
 
@@ -782,11 +775,7 @@ export default class index extends Component {
                         </View>
                       </View>
 
-                      {/* {
-                      singleMap.online_offline == 1 ?
-                      <View style={{backgroundColor:"green",width:15,height:15,borderRadius:10,borderWidth:0,margin:13}} />
-                      : <View style={{backgroundColor:"red",width:15,height:15,borderRadius:10,borderWidth:0,margin:13}} />
-                    }  */}
+                   
 
 
                     </View>
@@ -816,9 +805,3 @@ export default class index extends Component {
   }
 }
 
-// Etes-vous sûr de vouloir annuler le cours prévu avec votre étudiant?
-//
-//
-// Termes et conditions
-//
-// Retour

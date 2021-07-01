@@ -29,6 +29,9 @@ import { current_reservation, cancel_reservation } from '../../../../Api/afterAu
 import Stars from 'react-native-stars';
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
+
+
+
 export default class index extends Component {
   constructor(props) {
     super(props);
@@ -159,8 +162,7 @@ export default class index extends Component {
   async componentDidMount() {
 
     this.current_reservationFunction()
-
-    console.log("i am on the current reservation page ==============")
+  
 
     BackHandler.addEventListener('hardwareBackPress', () =>
     this.handleBackButton(this.props.navigation),
@@ -188,15 +190,6 @@ export default class index extends Component {
         </View>
         <Spinner visible={this.state.isSpinner} 
         />
-
-
-
-
-
-     
-
-
-
 
         <View style={Styles.subhaderView}>
 
@@ -271,10 +264,7 @@ export default class index extends Component {
                             }}>
                           {singleCurrrentMap.teacher_name}
                           </Text>
-                          {/* <View style={{flexDirection: 'row'}}>
-                            <Image source={books} style={Styles.bookStyle} />
-                          <Text style={Styles.contentTextStyle}>Nombre de coaching faits: {singleCurrrentMap.teacher_course_session_done}</Text>
-                          </View> */}
+                      
 
                           <View style={{flexDirection: 'row'}}>
                             <Image source={watch} style={Styles.bookStyle} />
@@ -310,8 +300,7 @@ export default class index extends Component {
                                   </Text>
                                  }
                                   </View>
-                            <View style={Styles.continueBtn}>
-                              {/* <TouchableOpacity onPress={()=>{this.Show_Custom_Alert()}}> */}
+                            <View style={Styles.continueBtn}>                            
                               <TouchableOpacity
                                 onPress={() => {
                                   let reservation_id =
@@ -357,12 +346,7 @@ export default class index extends Component {
 
           }
          
-          {/* <View style={{position:"absolute",left:SCREEN_WIDTH*0.7,right:20,bottom:20}}>
-            <TouchableOpacity onPress={()=>{this.Show_Custom_Alert2()}}>
-            <Image source={require("../../../../assets/icon/add.png")} style={{height:60,width:60,margin:10}} />
-            </TouchableOpacity>
-          </View> */}
-          
+         
           <View style={{position:"absolute",alignSelf:"flex-end",right:20,bottom:-36}}>
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate("cancelreservation")}} style={{backgroundColor:"#b41565",borderRadius:10,justifyContent:"center",flexDirection:"row"}}>
             <Image source={require("../../../../assets/icon/calendar3.png")} style={{height:27,width:27,margin:10}} />
@@ -439,11 +423,7 @@ export default class index extends Component {
                   <View style={{width:"80%",alignSelf:'center',alignItems: 'center',justifyContent: 'center',margin:7}}>                
                     <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center',textAlign:'center'}}>Etes-vous sûr(e) de vouloir annuler votre coaching ?</Text>
                   </View>
-                  {/* <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>prévu avec votre étudiant?</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}>Des pénalités peuvent s'appliquer.</Text>
-                  <Text style={{margin:2,fontSize:12,fontWeight:'700',color:"gray",alignSelf:'center'}}> Voir CGV.</Text>
-                  <Text style={{margin:2,fontSize:14,fontWeight:'700',color:"#b41565",alignSelf:'center'}}>Termes et conditions</Text> */}
-
+                
                 <View
                   style={{
                     flex: 1,
@@ -529,11 +509,3 @@ export default class index extends Component {
     );
   }
 }
-
-
-// Etes-vous sûr de vouloir annuler le cours prévu avec votre étudiant?
-// 
-//
-// Termes et conditions
-// 
-// Retour
