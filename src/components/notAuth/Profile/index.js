@@ -25,6 +25,7 @@ export default class index extends Component {
       isSpinner:true,
       alertValue:"",
       Model_Visibility: false,
+      Alert_Visibility1: false,
       Alert_Visibility: false,
     }
   }
@@ -38,6 +39,17 @@ export default class index extends Component {
     this.setState({Alert_Visibility: false}); 
     // this.props.navigation.navigate("login")    
   }
+
+  Show_Custom_Alert1(visible,) {
+    this.setState({Alert_Visibility1: visible});
+  }
+  Hide_Custom_Alert1() {
+    this.setState({Alert_Visibility1: false}); 
+    this.props.navigation.navigate("profile2")  
+  }
+
+
+
   rating_to_teacherFunction = async () => {
     // console.log("getting inside the function date_slot time_slot " + this.state.date_slot,this.state.time_slot)
     const {teacher_id,rating,comment} = this.state;
@@ -47,8 +59,9 @@ export default class index extends Component {
         rating,
         comment,
       });
-    if (rating_to_teacherResponse.result == true) {    
-      this.props.navigation.navigate("profile2") 
+    if (rating_to_teacherResponse.result == true) {  
+      this.Show_Custom_Alert1()  
+    
       console.log("getting TeacherDetails data----------",rating_to_teacherResponse.response)
     }
     // this.setState({TeacherDetails,isBodyLoaded:true,isSpinner:false});
@@ -159,9 +172,9 @@ validateFunction(){
   let course_time = this.props.navigation.getParam("course_time")
   let teacher_name = this.props.navigation.getParam("teacher_name")
 
-  console.log("inside the render methid=========",TeacherRating)
+  // console.log("inside the render methid=========",TeacherRating)
 
-  console.log("getting all param==============",teacher_profile_url,teacher_name,course_date,course_time)
+  // console.log("getting all param==============",teacher_profile_url,teacher_name,course_date,course_time)
 
 
 
@@ -270,7 +283,7 @@ validateFunction(){
           <View style={Styles.continueBtn}>
               <TouchableOpacity
               
-                // onPress={()=>{this.props.navigation.navigate("profile2")}}
+                // onPress={()=>{this.Show_Custom_Alert1()}}
                 onPress={()=>{this.validateFunction()}}
               >
                 <Text style={Styles.continueBtnTxt}>                  
@@ -391,6 +404,116 @@ validateFunction(){
               </View>
             </View>
           </Modal>
+
+
+
+
+
+
+
+
+
+
+
+        
+          <Modal
+            visible={this.state.Alert_Visibility1}
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => {
+              this.Show_Custom_Alert1(!this.state.Alert_Visibility1);
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(85,65,225,0.900)',
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  width: '80%',
+                  height: 221,
+                  backgroundColor: '#ffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: 10,
+                  borderRadius: 10,
+                }}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      height: 100,
+                      width: 100,
+                      borderRadius: 50,
+                      borderWidth: 0,
+                      marginTop: -50,
+                    }}>
+                    <Image
+                      source={require("../../../assets/icon/101.png")}
+                      style={{height: 80, width: 80, margin: 10}}
+                    />
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      alignSelf: 'center',
+                      fontWeight: '700',
+                      margin: 10,
+                      marginTop: 10,
+                      color: 'gray',
+                      textAlign: 'center',                      
+                    }}>
+                    Félicitations, à bientôt
+                  </Text>
+                </View>                 
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',                    
+                    borderRadius: 6,
+                    justifyContent:'center',
+                    alignSelf:'center',
+                    margin: 5,
+                  }}>
+                  <TouchableOpacity                 
+                    onPress={() => {                      
+                      this.Hide_Custom_Alert1();
+                    }}
+                    style={{
+                      backgroundColor: '#b41565',
+                      justifyContent: 'center',
+                      margin: 20,
+                   
+                      height: 35,
+                      borderRadius: 6,
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        fontSize: 13,
+                        marginStart: 50,
+                        marginEnd: 50,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        fontFamily: 'Montserrat-Regular',
+                      }}>
+                          OK
+                    </Text>
+                  </TouchableOpacity>                
+                </View>
+              </View>
+            </View>
+          </Modal>
+
+
+
+
+
+
+
+
           </View>
           {/* <BottomNavigator
             currentRoute={'profile'}

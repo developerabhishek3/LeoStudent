@@ -441,35 +441,41 @@ export async function StudentProfile() {
   }
 }
 
-// export async function loginToken() {
 
-//   // const token = await AsyncStorage.getItem('token');
-//   const user_id = await AsyncStorage.getItem('user_id');
+export async function history_reservation() {
+  const token = await AsyncStorage.getItem('token');
+  const user_id = await AsyncStorage.getItem('user_id');
 
-//   const UserId = JSON.parse(user_id)
+  const TokenValue = JSON.parse(token);
+  const UserId = JSON.parse(user_id);
 
-//   console.log("getting token and user id here inside the function-----------",UserId)
-
-//   try {
-//     const loginTokenResponse = await Axios.get(
-//       'https://www.thelyfe.fr/api/login_token',
-//       {
-//         headers: {...commonHeader, 'user-id' : `${UserId}`, 'token' :`${TokenValue}`}
-//       },
-//     );
-//     if (loginTokenResponse.status) {
-//       // console.log("getting response on the function--------",loginTokenResponse.data)
-//       return {result: true, response: loginTokenResponse.data};
-//     } else {
-//       // console.log("getting error on the function--------",loginTokenResponse.data)
-//       return {result: false, error: loginTokenResponse.data};
-//     }
-//   } catch (error) {
-//     return {result: false, error};
-//   }
-// }
-
-// forgot password API 1
+  console.log(
+    'getting token and user id here inside the function-----------',
+    UserId,
+  );
+ 
+  try {
+    const history_reservationResponse = await Axios.get(
+      'https://www.spyk.fr/api_student/history_reservation',
+      {
+        headers: {
+          ...commonHeader,
+          'user-id': `${UserId}`,
+          token: `${TokenValue}`,
+        },
+      },
+    );
+    if (history_reservationResponse.status) {
+      // console.log("getting response on the function--------",history_reservationResponse.data)
+      return {result: true, response: history_reservationResponse.data};
+    } else {
+      // console.log("getting error on the function--------",history_reservationResponse.data)
+      return {result: false, error: history_reservationResponse.data};
+    }
+  } catch (error) {
+    return {result: false, error};
+  }
+}
 
 export async function forgotPasswordReq1Function(body = {}) {
   const token = await AsyncStorage.getItem('token');
@@ -881,11 +887,11 @@ export async function incomplete_reservation() {
   const TokenValue = JSON.parse(token);
   const UserId = JSON.parse(user_id);
 
-  // console.log(
-  //   'ghetting incomplete transactoin tokena dn ujserId =========',
-  //   TokenValue,
-  //   UserId,
-  // );
+  console.log(
+    'ghetting incomplete transactoin tokena dn ujserId =========',
+    TokenValue,
+    UserId,
+  );
 
   try {
     const incomplete_reservationResponse = await Axios.get(
@@ -1047,44 +1053,6 @@ export async function single_chat_dataFunction(body = {}) {
   }
 }
 
-export async function history_reservation() {
-  const token = await AsyncStorage.getItem('token');
-  const user_id = await AsyncStorage.getItem('user_id');
-
-  const TokenValue = JSON.parse(token);
-  const UserId = JSON.parse(user_id);
-
-  console.log(
-    'getting token and user id here inside the function-----------',
-    UserId,
-  );
-  console.log(
-    'getting token and user id here inside the function-----------',
-    TokenValue,
-  );
-
-  try {
-    const history_reservationResponse = await Axios.get(
-      'https://www.spyk.fr/api_student/history_reservation',
-      {
-        headers: {
-          ...commonHeader,
-          'user-id': `${UserId}`,
-          token: `${TokenValue}`,
-        },
-      },
-    );
-    if (history_reservationResponse.status) {
-      // console.log("getting response on the function--------",history_reservationResponse.data)
-      return {result: true, response: history_reservationResponse.data};
-    } else {
-      // console.log("getting error on the function--------",history_reservationResponse.data)
-      return {result: false, error: history_reservationResponse.data};
-    }
-  } catch (error) {
-    return {result: false, error};
-  }
-}
 
 export async function current_reservation() {
   const token = await AsyncStorage.getItem('token');

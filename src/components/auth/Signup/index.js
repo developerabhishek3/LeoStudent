@@ -285,14 +285,14 @@ handleBackButton = (nav) => {
         // this.myAlert('Message', 'Courriel non valide!');
         return false;
       }  
-      const passwordformat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*?]{6,}$/g;
-      if(!password.match(passwordformat)){
-        alertValue = "Le mot de passe doit comporter un caractère spécial, une lettre minuscule et une lettre majuscule."
-        this.setState({alertValue})
-        this.Show_Custom_Alert1()
+      // const passwordformat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*?]{6,}$/g;
+      // if(!password.match(passwordformat)){
+      //   alertValue = "Le mot de passe doit comporter un caractère spécial, une lettre minuscule et une lettre majuscule."
+      //   this.setState({alertValue})
+      //   this.Show_Custom_Alert1()
 
-        return false;
-      }
+      //   return false;
+      // }
 
       this.UserRegistrationFunction();
     }

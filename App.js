@@ -7,7 +7,7 @@ import Appcontainer from './src/router/index';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-
+import { topLevelNavigate, setTopLevelNav } from './navigationService';
 
 class App extends React.Component {
 
@@ -32,6 +32,7 @@ class App extends React.Component {
     this.setState({Alert_Visibility: false}); 
     // this.props.navigation.navigate("login")    
   }
+
 
 
   async componentDidMount() {
@@ -61,51 +62,35 @@ class App extends React.Component {
     const user_id = await AsyncStorage.getItem('user_id');
     const UserId = JSON.parse(user_id)
     this.notificationListener = firebase.notifications().onNotification((notification) => {
-      console.log("getting notification value on the listener-------------",notification.data)
+      console.log("getting notification value on the listener-------------",notification.data)     
 
-      
-     
-        // const localNotification = new firebase.notifications.Notification()           
-        //       .android.setSmallIcon('ic_launcher')
-        //     .android.setPriority(firebase.notifications.Android.Priority.High);
+      const { title, body } = notification;
+      this.setState({title, body})
+      this.Show_Custom_Alert() 
 
-        // firebase.notifications()
-        //     .displayNotification(localNotification)
-        //     .catch(err => console.error(err));
-
-        // if (JSON.parse(message.data.custom_notification).title === Constants.SECURITY_ALERT) {
-        //     this.props.navigation.navigate('SignOut');
-        // }
-  
-      // if(notification._data.reciever_id == UserId ){
-        const { title, body } = notification;
-        this.setState({title, body})
-        this.Show_Custom_Alert()
-        // Alert.alert(title, body)
-        // this.showAlert(title, body);
-      // }    
       });      
       this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {        
       console.log("getting notification open value here-------------",notificationOpen.notification.data)
       // if(notificationOpen._data.reciever_id == UserId ){
-        const { title, body } = notificationOpen.notification;
-        this.setState({title, body})
-        this.Show_Custom_Alert()
+        let title = notificationOpen.notification.data.title;
+        let body = notificationOpen.notification.data.body;
+         this.setState({title, body})
+  this.Show_Custom_Alert()   
 
-        // this.showAlert(title, body);
-      // }        
       });
       
       const notificationOpen = await firebase.notifications().getInitialNotification();
       if (notificationOpen) {
-        console.log("in the notification open  - - -  - - - - - -",notificationOpen.notification.title)
-            const { title, body } = notificationOpen.notification;
-            this.setState({title, body})
-            this.Show_Custom_Alert()
+        console.log("in the notification open  - - -  - - - - - -",notificationOpen.notification.data)
 
-          // this.showAlert(title, body);
-      }
-      
+        // console.log("in the notification open  - - -  - - - - - -",notificationOpen.notification.data.title)
+            // const { title, body } = notificationOpen.notification;
+        let title = notificationOpen.notification.data.title;
+        let body = notificationOpen.notification.data.body;        
+
+        this.setState({title, body})
+        this.Show_Custom_Alert()   
+      }      
       this.messageListener = firebase.messaging().onMessage((message) => {
       console.log(JSON.stringify(message));
       });
@@ -143,114 +128,114 @@ class App extends React.Component {
   render() {
     return (
       <SafeAreaView style={{ flex:1}}>
-        <Appcontainer />
+      <Appcontainer />
 
-        
+      
 
-        <Modal
-            visible={this.state.Alert_Visibility}
-            animationType={'fade'}
-            transparent={true}
-            onRequestClose={() => {
-              this.Show_Custom_Alert(!this.state.Alert_Visibility);
+      <Modal
+          visible={this.state.Alert_Visibility}
+          animationType={'fade'}
+          transparent={true}
+          onRequestClose={() => {
+            this.Show_Custom_Alert(!this.state.Alert_Visibility);
+          }}>
+          <View
+            style={{
+              backgroundColor: 'rgba(85,65,225,0.900)',
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
             <View
               style={{
-                backgroundColor: 'rgba(85,65,225,0.900)',
-                flex: 1,
-                justifyContent: 'center',
+                width: '80%',
+                height: 245,
+                backgroundColor: '#ffffff',
                 alignItems: 'center',
+                justifyContent: 'center',
+                margin: 10,
+                borderRadius: 10,
               }}>
-              <View
-                style={{
-                  width: '80%',
-                  height: 245,
-                  backgroundColor: '#ffffff',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: 10,
-                  borderRadius: 10,
-                }}>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <View
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      height: 100,
-                      width: 100,
-                      borderRadius: 50,
-                      borderWidth: 0,
-                      marginTop: -50,
-                    }}>
-                    <Image                     
-                      source={require('./src/assets/icon/check21.png')}
-                      style={{height: 80, width: 80, margin: 10}}
-                    />
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 21,
-                      alignSelf: 'center',
-                      fontWeight: '700',
-                      margin: 1,           
-                      color: 'gray',
-                      textAlign: 'center',                      
-                    }}>
-                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
-                     {this.state.title}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      alignSelf: 'center',
-                      fontWeight: '700',                    
-                      marginTop: 7,
-                      color: 'gray',
-                      textAlign: 'center',                      
-                    }}>
-                     {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
-                     {this.state.body}
-                  </Text>
-                </View>                 
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <View
                   style={{
-                    flex: 1,
-                    flexDirection: 'row',                    
-                    borderRadius: 6,
-                    justifyContent:'center',
-                    alignSelf:'center',
-                    margin: 5,
+                    backgroundColor: '#FFFFFF',
+                    height: 100,
+                    width: 100,
+                    borderRadius: 50,
+                    borderWidth: 0,
+                    marginTop: -50,
                   }}>
-                  <TouchableOpacity                 
-                    onPress={() => {                      
-                      this.Hide_Custom_Alert();
-                    }}
-                    style={{
-                      backgroundColor: '#b41565',
-                      justifyContent: 'center',
-                      margin: 20,
-                   
-                      height: 35,
-                      borderRadius: 6,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#FFF',
-                        fontSize: 13,
-                        marginStart: 50,
-                        marginEnd: 50,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                        fontFamily: 'Montserrat-Regular',
-                      }}>
-                          OK
-                    </Text>
-                  </TouchableOpacity>                
+                  <Image                     
+                    source={require('./src/assets/icon/check21.png')}
+                    style={{height: 80, width: 80, margin: 10}}
+                  />
                 </View>
+                <Text
+                  style={{
+                    fontSize: 21,
+                    alignSelf: 'center',
+                    fontWeight: '700',
+                    margin: 1,           
+                    color: 'gray',
+                    textAlign: 'center',                      
+                  }}>
+                   {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                   {this.state.title}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    alignSelf: 'center',
+                    fontWeight: '700',                    
+                    marginTop: 7,
+                    color: 'gray',
+                    textAlign: 'center',                      
+                  }}>
+                   {/* Veuillez entrer votre nouveau mot de passe de confirmation */}
+                   {this.state.body}
+                </Text>
+              </View>                 
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',                    
+                  borderRadius: 6,
+                  justifyContent:'center',
+                  alignSelf:'center',
+                  margin: 5,
+                }}>
+                <TouchableOpacity                 
+                  onPress={() => {                      
+                    this.Hide_Custom_Alert();
+                  }}
+                  style={{
+                    backgroundColor: '#b41565',
+                    justifyContent: 'center',
+                    margin: 20,
+                 
+                    height: 35,
+                    borderRadius: 6,
+                  }}>
+                  <Text
+                    style={{
+                      color: '#FFF',
+                      fontSize: 13,
+                      marginStart: 50,
+                      marginEnd: 50,
+                      fontWeight: '700',
+                      textAlign: 'center',
+                      fontFamily: 'Montserrat-Regular',
+                    }}>
+                        OK
+                  </Text>
+                </TouchableOpacity>                
               </View>
             </View>
-          </Modal> 
+          </View>
+        </Modal> 
 
-      </SafeAreaView>
+    </SafeAreaView>
     );
   }
 }

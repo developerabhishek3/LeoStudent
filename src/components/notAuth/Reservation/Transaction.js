@@ -57,7 +57,17 @@ export default class index extends Component {
     
   }
 
-
+  componentDidMount = async () => {
+    
+    setInterval(() => {
+      this.incomplete_reservationData()  
+    }, 3000);
+    
+    
+    BackHandler.addEventListener('hardwareBackPress', () =>
+    this.handleBackButton(this.props.navigation),
+  );
+  }
 
 
 
@@ -69,7 +79,8 @@ export default class index extends Component {
         // console.log("gettig beffore stare==========",incomplete_reservationResponse.response)
         var IncompleteReservation = incomplete_reservationResponse.response.incomplete_transaction;
         // console.log("getting IncompleteReservation data----------",IncompleteReservation)
-        this.setState({IncompleteReservation,isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
+        this.setState({IncompleteReservation})
+        this.setState({isBodyLoaded:true,isSpinner:false,isCurrenetComponentRefreshing:false});
       }
       else{
         this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
@@ -78,31 +89,13 @@ export default class index extends Component {
           }}]);
       })
       }
-    }
-    // else{
-    //   this.setState({ isBodyLoaded: false,isSpinner: false },()=>{
-    //     Alert.alert("Message","Something Went Wrong Try Again!",[ { text: "Okay",onPress:()=>{
-    //         this.props.navigation.goBack();
-    //     }}]);
-    // })
-    // }  
-    // console.log("getting country response----------------",countryData.country_list)
+    }  
   };
 
 
 
 
-  componentDidMount = async () => {
-  
-  
-      this.incomplete_reservationData()
-      
-   
-    
-    BackHandler.addEventListener('hardwareBackPress', () =>
-    this.handleBackButton(this.props.navigation),
-  );
-  }
+
     
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', () =>
@@ -131,18 +124,16 @@ export default class index extends Component {
   render() {
 
     let currentDate =   moment(this.state.currentDate).format('DD/MM/YYYY') 
-    // console.log("getting current date inside render - - - - - -  -",currentDate)
     let newDate1 = moment(this.state.currentDate).format('YYYY-MM-DD')
     let newCurrentDate = new Date(newDate1).getTime()
-    // console.log("getting incomplete data =============",this.state.IncompleteReservation)
+
 
 
 
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={Styles.container}>
           <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5541E1" translucent = {false}/>
-           <Spinner visible={this.state.isSpinner} 
-        />
+        
         <View style={Styles.header}>
         <TouchableOpacity
             onPress={() => {
@@ -153,6 +144,8 @@ export default class index extends Component {
           <Text style={Styles.headerTxt}>Réservations</Text>
           <Image source={logo} style={Styles.headertxtInputImg1} />
         </View>
+
+           <Spinner visible={this.state.isSpinner} />
 
         <View style={Styles.subhaderView}>
 
@@ -202,17 +195,12 @@ export default class index extends Component {
                 <Fragment>
                   {
                         this.state.IncompleteReservation.map((singleIncompleteDate,index)=>{  
-                          // console.log("getting all pending details - - - - - - - ",singleIncompleteDate)               
-                          // const yourDate = new Date(singleIncompleteDate.course_date)         
-                          // console.log("gettin all respose for checking reservation id - - - - -  - - - --  -",singleIncompleteDate)            
+                                  
                           let NewDate = moment(singleIncompleteDate.course_date).format('DD/MM/YYYY') 
                           let newDate1 = moment(singleIncompleteDate.course_date).format('YYYY-MM-DD')
-                          // console.log("new date insdie map function - -  - -",NewDate)
+                     
                           let CheckDate = new Date(newDate1).getTime()                    
-                          // console.log("getting all date s  - -  - - - - - - - -",NewDate)
-                          // let exactDate = NewDate[index+1]
-                          // console.log('getting exact date -  - - - - - - - - - - -',exactDate)
-                          // console.log("getting reservation id =============",singleIncompleteDate.id)                         
+                                                 
                           return(
                             <Fragment>
                                   
@@ -237,8 +225,7 @@ export default class index extends Component {
                                     <View style={{flexDirection:'row',margin:3,marginStart:10,borderWidth:0}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
                                     <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Nom du code promo</Text>                                      
-                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_name} </Text>
-                                   {/* <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} /> */}
+                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.promocode_name} </Text>                               
                                  </View>
 
 
@@ -248,8 +235,7 @@ export default class index extends Component {
                                      
                                     <View style={{flexDirection:'row',margin:3,marginStart:10,borderWidth:0}}>
                                     <Image style={{height:16,width:16,margin:3}} source={require("../../../assets/icon/currency.png")} />
-                                    <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>
-                                    {/* <Image style={{height:12,width:12,marginTop:6,marginRight:-6}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} /> */}
+                                    <Text style={{color:'gray',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>Prix</Text>                                   
                                     <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}>{singleIncompleteDate.course_amount} </Text>
                                     <Image style={{height:12,width:12,marginTop:6,marginLeft:-3}} source={require("../../../assets/icon/euro-currency-symbol-1.png")} />
                                   </View>
@@ -262,7 +248,7 @@ export default class index extends Component {
                                   <Text style={{color:'#b41565',fontSize:14,fontWeight:'700',margin:2,marginStart:10,marginEnd:4}}> 
                                   
                                   {NewDate}
-                                {/* { singleIncompleteDate.course_date}    */}
+                              
                                   </Text>
                                     </View>
 
@@ -284,16 +270,7 @@ export default class index extends Component {
 
 
                               <View style={{flexDirection:'row',justifyContent:"space-between",margin:1,marginRight:30,width:"90%",}}>
-                                    {/* <View style={Styles.continueBtn}>
-                                      <TouchableOpacity onPress={()=>{this.props.navigation.navigate("searchteacher",{
-                                        time_slot:singleIncompleteDate.course_time,
-                                        reserve_date:singleIncompleteDate.course_date,
-                                        transactinId:singleIncompleteDate.id,
-                                        booktype:singleIncompleteDate.booking_type
-                                      })}}>
-                                      <Text style={Styles.continueBtnTxt}>Trouver un coach</Text>
-                                      </TouchableOpacity>
-                                    </View> */}
+                                  
                                       {
                                       CheckDate >= newCurrentDate ?
                                       <View style={Styles.continueBtn}>
@@ -447,11 +424,3 @@ export default class index extends Component {
     );
   }
 }
-
-
-// Etes-vous sûr de vouloir annuler le cours prévu avec votre étudiant?
-// 
-//
-// Termes et conditions
-// 
-// Retour

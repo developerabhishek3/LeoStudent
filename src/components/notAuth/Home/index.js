@@ -217,9 +217,9 @@ const { newsletter } = this.state;
      </ImageBackground>
      </View>
          <View>
-          <TouchableOpacity style={{backgroundColor:"#b41565",margin:13,justifyContent:'center',alignSelf:'center',alignItems:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}
-            // onPress={()=>{Linking.openURL('https://api.whatsapp.com/send?phone=+33612345678')}}
+          <TouchableOpacity style={{backgroundColor:"#b41565",margin:13,justifyContent:'center',alignSelf:'center',alignItems:"center",flexDirection:"row",justifyContent:"center",borderRadius:13}}           
             onPress={()=>{this.props.navigation.navigate("cancelreservation")}} 
+            // onPress={()=>{this.props.navigation.navigate("notificationview")}}
           >
               <Image source={require("../../../assets/icon/whatsapp.png")} style={{height:30,width:30,margin:10}} />
               <Text style={{fontSize:20,fontWeight:"700",margin:15,marginStart:10,marginEnd:40,color:"#FFFFFF"}}>START</Text>
